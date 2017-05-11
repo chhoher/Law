@@ -107,4 +107,20 @@ public class variableDaoImpl extends DaoUtil implements variableDao{
 			return null;
 		}
 	}
+	
+	public LSysVariable findVariablebyId(String variableId){
+		log.debug("findVariablebyId start");
+		LSysVariable query = null;
+		try{
+			String queryString = "from LSysVariable lsv where  variableId='" + variableId + "'";
+			log.debug("queryString = {}", queryString);
+			query = (LSysVariable) super.getHibernateTemplate().get(
+					"com.myjs.sys.variable.model.LSysVariable", variableId);
+			log.debug("findVariablebyId end");
+			return query;
+		}catch(Exception e){
+			log.error("findVariablebyId error msg =>", e);
+			return null;
+		}
+	}
 }

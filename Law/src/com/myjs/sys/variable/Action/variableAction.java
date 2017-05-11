@@ -77,7 +77,7 @@ public class variableAction extends AbstractAction {
 
 			Date now = new Date();
 			LSysVariable LSysVariable = new LSysVariable(null, null, iptaddvariableName, now,
-					"createUserId", now, "modifyUserId", "N");
+					"createUserId", now, "modifyUserId", "N", null);
 			boolean IsaddVariable = variableService.addVariable(LSysVariable);
 			String result = "";
 			if (IsaddVariable) {
@@ -118,7 +118,7 @@ public class variableAction extends AbstractAction {
 			Date variableModifydatetime = DateTimeFormat.getTime(deletevariablemodifyDatetime);
 
 			LSysVariable LSysVariable = new LSysVariable(deletevariableId, deletevariableType, deletevariableName, variableCreatedatetime,
-					deletevariablecreateUserId, variableModifydatetime, deletevariablemodifyUserId, deletevariableisDelete);
+					deletevariablecreateUserId, variableModifydatetime, deletevariablemodifyUserId, deletevariableisDelete, null);
 
 			boolean Isdelete = variableService.deleteVariable(LSysVariable);
 			String result = "";
@@ -187,7 +187,7 @@ public class variableAction extends AbstractAction {
 
 			Date now = new Date();
 			LSysVariable LSysVariable = new LSysVariable(null, selectedvariableId, iptaddvariablesubName, now,
-					"createUserId", now, "modifyUserId", "N");
+					"createUserId", now, "modifyUserId", "N", null);
 			boolean IsaddVariable = variableService.addVariable(LSysVariable);
 			String result = "";
 			if (IsaddVariable) {

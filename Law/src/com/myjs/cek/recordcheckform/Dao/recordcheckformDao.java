@@ -19,5 +19,5 @@ public interface recordcheckformDao {
 	public LCekRecordSigned findRecordSignedById(String SignedId);
 	public boolean saveRecordFile(LCekRecordFile transientInstance) ;
 	public List<LCekSignedCaseInfo> findCaseByproperties(String caseId, String debtorName, 
-			String debtorId, String docNo, String legalCaseId);
+			String debtorId, String docNo, String legalCaseId, boolean isCheck);
 }

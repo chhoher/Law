@@ -104,6 +104,7 @@ public class LCekSignedCaseInfo implements java.io.Serializable {
 	//add By Jia 2017-05-10 VO
 	private String name;
 	private String ID;
+	private String O_or_C;
 
 	public LCekSignedCaseInfo() {
 
@@ -907,6 +908,14 @@ public class LCekSignedCaseInfo implements java.io.Serializable {
 
 	public void setID(String iD) {
 		ID = iD;
+	}
+
+	public String getO_or_C() {
+		return O_or_C;
+	}
+
+	public void setO_or_C(String o_or_C) {
+		O_or_C = o_or_C;
 	}
 
 }

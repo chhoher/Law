@@ -26,6 +26,9 @@
 		<property name="docDao">
 			<ref bean="docDao" />
 		</property>
+		<property name="variableDao">
+			<ref bean="variableDao"/>
+		</property>
 		<property name="recordcheckformDao">
 			<ref bean="recordcheckformDao" />
 		</property>

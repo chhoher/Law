@@ -20,7 +20,15 @@ $(document).ready(function(){
                 { "data": "ID" },
                 { "data": "PriDebt_amount" },
                 { "data": "ctCase_d" },
-                { "data": "ctCase_d" },
+                { "data": "O_or_C",
+                	"render": function ( data, type, full, meta ) {
+						if(data == "O"){
+							return "庫存"
+						}else{
+							return "退案"
+						}
+                	}  
+                },
                 { "data": "Case_ID",
                 	"render": function ( data, type, full, meta ) {
                 		var todocSystem = "<button onclick=\"todocSystem("+data+")\">文管系統</button>";

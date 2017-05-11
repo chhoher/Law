@@ -10,4 +10,5 @@ public interface variableDao {
 	public boolean save(LSysVariable transientInstance) ;
 	public boolean delete(LSysVariable transientInstance);
 	public List<LSysVariable> findVariablesubbyproperties(String variableType);
+	public LSysVariable findVariablebyId(String variableId);
 }

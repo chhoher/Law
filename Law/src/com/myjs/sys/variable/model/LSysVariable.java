@@ -14,13 +14,14 @@ public class LSysVariable implements java.io.Serializable {
 	private Date modifyDatetime;
 	private String modifyUserId;
 	private String isDelete;
+	private String variableValue;
 
 	public LSysVariable() {
 
 	}
 
 	public LSysVariable(String variableId, String variableType, String variableName, Date createDatetime,
-			String createUserId, Date modifyDatetime, String modifyUserId, String isDelete) {
+			String createUserId, Date modifyDatetime, String modifyUserId, String isDelete, String variableValue) {
 		this.variableId = variableId;
 		this.variableType = variableType;
 		this.variableName = variableName;
@@ -29,6 +30,7 @@ public class LSysVariable implements java.io.Serializable {
 		this.modifyDatetime = modifyDatetime;
 		this.modifyUserId = modifyUserId;
 		this.isDelete = isDelete;
+		this.variableValue = variableValue;
 	}
 
 	public String getVariableId() {
@@ -93,6 +95,14 @@ public class LSysVariable implements java.io.Serializable {
 
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public String getVariableValue() {
+		return variableValue;
+	}
+
+	public void setVariableValue(String variableValue) {
+		this.variableValue = variableValue;
 	}
 
 }

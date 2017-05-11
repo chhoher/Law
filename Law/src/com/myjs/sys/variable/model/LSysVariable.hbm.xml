@@ -31,5 +31,8 @@
         <property name="isDelete" type="string">
             <column name="is_delete" length="1" not-null="true" />
         </property>
+        <property name="variableValue" type="string">
+            <column name="variable_value" length="50" />
+        </property>
     </class>
 </hibernate-mapping>

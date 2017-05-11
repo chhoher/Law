@@ -309,22 +309,27 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 	}
 	
 	public List<LCekSignedCaseInfo> findCaseByproperties(String caseId, String debtorName, 
-			String debtorId, String docNo, String legalCaseId){
+			String debtorId, String docNo, String legalCaseId, boolean isCheck){
 		log.debug("findCaseByproperties start");
 		try{	
+			boolean hasInputValue = false;
+			
 			StringBuffer queryString = new StringBuffer("SELECT TOP 1000 VSC.Bank_alias, VSC.Prod_Name,");
-			queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d");
+			queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d, VSC.O_or_C");
 			queryString.append(" FROM V_SMART_RELAINFO VSR");
 			queryString.append(" LEFT JOIN V_SMART_CASEINFO VSC ON VSR.Case_ID = VSC.Case_ID");
 			queryString.append(" WHERE VSR.Rela_kind = '本人'");
 			if(caseId != null && !caseId.equals("")){
-				queryString.append(" and VSC.Case_ID = '"+caseId+"'");
+				queryString.append(" AND VSC.Case_ID = '"+caseId+"'");
+				hasInputValue = true;
 			}
 			if(debtorName != null && !debtorName.equals("")){
-				queryString.append(" and VSR.Name like '%"+debtorName+"%'");
+				queryString.append(" AND VSR.Name like '%"+debtorName+"%'");
+				hasInputValue = true;
 			}
 			if(debtorId != null && !debtorId.equals("")){
-				queryString.append(" and VSR.ID = '"+debtorId+"'");
+				queryString.append(" AND VSR.ID = '"+debtorId+"'");
+				hasInputValue = true;
 			}
 			// TODO add By Jia 2017-05-11 下面兩項代號系統還沒有，還不行使用，之後記得加上去
 //			if(docNo != null && !docNo.equals("")){
@@ -333,6 +338,11 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 //			if(legalCaseId != null && !legalCaseId.equals("")){
 //				queryString.append(" and VSC.Case_ID = '"+legalCaseId+"'");
 //			}
+			if(isCheck){// 查核機制
+				queryString.append(" AND  VSC.O_or_C='O'");
+			}else if(!hasInputValue){
+				queryString.append(" AND  VSC.O_or_C='O'");
+			}
 			log.debug("queryString = {}", queryString);
 			
 			List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
@@ -347,6 +357,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 				LCekSignedCaseInfo.setID((String) map.get("ID"));
 				LCekSignedCaseInfo.setPriDebt_amount(((BigDecimal) map.get("PriDebt_amount")).intValue());
 				LCekSignedCaseInfo.setCtCase_d((Date) map.get("ctCase_d"));
+				LCekSignedCaseInfo.setO_or_C((String) map.get("O_or_C"));
 				MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
 			}
 			log.debug("findCaseByproperties end");

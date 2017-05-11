@@ -34,18 +34,50 @@
 		    		"bSort": false,
 		    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
 		    		"bJQueryUI":true,	
-		    		"ajax":  "pages/cek/column/columnAction!findColumn.action",
 		    		"columns": [
-		                { "data": "columnName" },
-		                { "data": "columnSize" },
-		                { "data": "columnType" },
-		                { "data": "columnType" },
-		                { "data": "columnType" },
-		                { "data": "columnType" },
-		                { "data": "columnType" }
+		                { "data": "Bank_alias" },
+		                { "data": "Case_ID" },
+		                { "data": "name" },
+		                { "data": "ID" },
+		                { "data": "PriDebt_amount" },
+		                { "data": "ctCase_d" },
+		                { "data": "O_or_C",
+		                	"render": function ( data, type, full, meta ) {
+								if(data == "O"){
+									return "庫存"
+								}else{
+									return "退案"
+								}
+		                	}   
+		                }
 		            ]
 		            };
 		    $("#caseInfoTable").dataTable(opt);
+		    
+		    var datatable = $("#caseInfoTable").dataTable();
+			datatable.fnClearTable();
+			var json = "";
+			$.ajax({
+				url : 'pages/doc/documents/docAction!loadCaseInfo.action',
+				data : {
+					'iptsearchcaseId' : 54313
+				},
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					json = response.data;
+					datatable.fnClearTable();
+					if (response.data != '') {
+						datatable.fnAddData(json);
+					}
+					datatable.fnDraw();
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
+		    
 		    
 		    //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 start
 		    $("#ckbaddDocAll").on( "click", function(){
