@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/2/22 ?U?? 04:13:23 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.myjs.sys.user.model.LSysDepart" table="LSYSDEPART">
+        <id name="departId" type="java.lang.String">
+            <column name="DEPARTID" />
+            <generator class="assigned" />
+        </id>
+        <property name="departPid" type="java.lang.String">
+            <column name="DEPARTPID" />
+        </property>
+        <property name="departCode" type="java.lang.String">
+            <column name="DEPARTCODE" />
+        </property>
+        <property name="departName" type="java.lang.String">
+            <column name="DEPARTNAME" />
+        </property>
+        <property name="departStatus" type="java.lang.String">
+            <column name="DEPARTSTATUS" />
+        </property>
+        <property name="createdate" type="java.util.Date">
+            <column name="CREATEDATE" />
+        </property>
+        <property name="modifydate" type="java.util.Date">
+            <column name="MODIFYDATE" />
+        </property>
+        <property name="modifyUserId" type="java.lang.String">
+            <column name="MODIFYUSERID" />
+        </property>
+        <set name="LSysUserDeparts" table="LSYSUSERDEPART" inverse="false" lazy="true">
+            <key>
+                <column name="DEPARTID" />
+            </key>
+            <one-to-many class="com.myjs.sys.user.model.LSysUserDepart" />
+        </set>
+    </class>
+</hibernate-mapping>

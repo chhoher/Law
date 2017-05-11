@@ -1,0 +1,12 @@
+package com.myjs.sys.user.service;
+
+import java.util.List;
+
+import com.myjs.sys.user.model.LSysUser;
+import com.myjs.sys.user.model.VEIPMemdb;
+
+public interface userService {
+
+	public List<LSysUser> findAll();
+	public List<VEIPMemdb> findAllMemdb();
+}

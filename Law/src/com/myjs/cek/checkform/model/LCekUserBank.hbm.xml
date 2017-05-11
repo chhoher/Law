@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.checkform.model.LCekUserBank" table="L_CEK_USER_BANK" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="userBankId" type="string">
+            <column name="user_bank_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="memno" type="string">
+            <column name="memno" length="6" />
+        </property>
+        <property name="memnm" type="string">
+            <column name="memnm" length="30" />
+        </property>
+        <property name="bankName" type="string">
+            <column name="bank_name" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>

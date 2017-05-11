@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+	<!-- DAO -->
+
+	<bean id="docDao"
+		class="com.myjs.doc.documents.Dao.docDaoImpl">
+		<description>The base dao implement java file</description>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+
+	
+	<!-- Services -->
+	<bean id="docService"
+		class="com.myjs.doc.documents.service.docServiceImpl">
+		<property name="docDao">
+			<ref bean="docDao" />
+		</property>
+		<property name="recordcheckformDao">
+			<ref bean="recordcheckformDao" />
+		</property>
+	</bean>
+
+	<!-- Action -->
+	<bean id="docAction"
+		class="com.myjs.doc.documents.Action.docAction">
+		<property name="docService">
+			<ref bean="docService" />
+		</property>
+	</bean>
+	
+	
+</beans>

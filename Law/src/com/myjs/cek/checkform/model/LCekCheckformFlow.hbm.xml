@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.checkform.model.LCekCheckformFlow" table="L_CEK_CHECKFORM_FLOW" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="checkformFlowId" type="string">
+            <column name="checkform_flow_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="LCekCheckform" class="com.myjs.cek.checkform.model.LCekCheckform" fetch="select">
+            <column name="checkform_id" length="50" not-null="true" />
+        </many-to-one>
+        <many-to-one name="LCekFlow" class="com.myjs.cek.checkform.model.LCekFlow" fetch="select">
+            <column name="flow_id" length="50" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,81 @@
+
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	outline: none;
+}
+
+a, img {
+	border: 0;
+}
+
+.selectbox {
+	width: 430px;
+	height: 200px;
+}
+
+.selectbox div {
+	float: left;
+}
+
+.selectbox .select-bar {
+	padding: 0 20px;
+}
+
+.selectbox .select-bar select {
+	width: 150px;
+	height: 200px;
+	border: 1px #A0A0A4 solid;
+	padding: 4px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+}
+
+.btn-bar {
+	
+}
+
+.btn-bar p {
+	margin-top: 16px;
+}
+
+.btn-bar p .btn {
+	width: 50px;
+	height: 30px;
+	cursor: pointer;
+	font-family: simsun;
+	font-size: 14px;
+}
+</style>
+<script type = "text/javascript" src = "commons/selectedBox.js"></script>
+	<div class="selectbox" id ="selectedBoxDiv">
+		<div class="select-bar">
+			<select multiple="multiple" id="selectedBox-selectLeft">
+			</select>
+		</div>
+
+		<div class="btn-bar">
+			<p>
+				<span id="selectedBoxadd"><input type="button" class="btn" value=">"
+					title="移動選擇項到右側" /></span>
+			</p>
+			<p>
+				<span id="selectedBoxadd_all"><input type="button" class="btn"
+					value=">>" title="全部移動到右側" /></span>
+			</p>
+			<p>
+				<span id="selectedBoxremove"><input type="button" class="btn" value="<"
+					title="移動選擇項到左側" /></span>
+			</p>
+			<p>
+				<span id="selectedBoxremove_all"><input type="button" class="btn"
+					value="<<" title="全部移動到左側" /></span>
+			</p>
+		</div>
+
+		<div class="select-bar">
+			<select multiple="multiple" id="selectedBox-selectRight"></select>
+		</div>
+	</div>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.recordcheckform.model.LCekRecordSigned" table="L_CEK_RECORD_SIGNED" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="signedId" type="string">
+            <column name="signed_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="caseId" type="int">
+            <column name="case_id" not-null="true" />
+        </property>
+        <property name="bankName" type="string">
+            <column name="bank_name" length="60" not-null="true" />
+        </property>
+        <property name="prodName" type="string">
+            <column name="prod_name" length="60" not-null="true" />
+        </property>
+        <property name="payer" type="string">
+            <column name="payer" length="30" not-null="true" />
+        </property>
+        <property name="payerRole" type="string">
+            <column name="payer_role" length="10" not-null="true" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="8" not-null="true" />
+        </property>
+        <property name="periods" type="int">
+            <column name="periods" not-null="true" />
+        </property>
+        <property name="paytimeStart" type="timestamp">
+            <column name="paytime_start" length="23" not-null="true" />
+        </property>
+        <property name="paytimeEnd" type="timestamp">
+            <column name="paytime_end" length="23" not-null="true" />
+        </property>
+        <property name="ammountP" type="int">
+            <column name="ammount_p" not-null="true" />
+        </property>
+        <property name="ammountSum" type="int">
+            <column name="ammount_sum" not-null="true" />
+        </property>
+        <property name="applyDate" type="timestamp">
+            <column name="apply_date" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status"/>
+        </property>
+        <property name="backMark" type="string">
+            <column name="back_mark"/>
+        </property>
+        <property name="applyUserId" type="string">
+            <column name="apply_user_id"/>
+        </property>
+        <property name="receivedUserId" type="string">
+            <column name="received_user_id"/>
+        </property>
+        <property name="applyDateTime" type="timestamp">
+            <column name="apply_datetime" length="23" not-null="true" />
+        </property>
+        <property name="applyUserName" type="string">
+            <column name="apply_user_name"/>
+        </property>
+        <property name="receivedUserName" type="string">
+            <column name="received_user_name"/>
+        </property>
+        <property name="ownerAgree" type="string">
+            <column name="owner_agree" length="1"/>
+        </property>
+        <property name="remark" type="string">
+            <column name="remark"/>
+        </property>
+    </class>
+</hibernate-mapping>

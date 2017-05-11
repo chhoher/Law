@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.checkform.model.LCekCheckformFile" table="L_CEK_CHECKFORM_FILE" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="checkformFileId" type="string">
+            <column name="checkform_file_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="checkformId" type="string">
+            <column name="checkform_id" length="50" not-null="true" />
+        </property>
+        <property name="fileId" type="string">
+            <column name="file_id" length="50" not-null="true" />
+        </property>
+        <property name="isDelete" type="string">
+            <column name="is_delete" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

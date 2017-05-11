@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xml>
+<Configuration monitorInterval="60">
+<Properties>
+    <Property name="log-path">logs</Property>
+    <Property name="archive">c:/LegalLog</Property>
+</Properties>
+ 
+<Appenders>
+    <Console name="Console-Appender" target="SYSTEM_OUT">
+        <PatternLayout>
+            <pattern>
+                [%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%c{2}.%M:%L] - %m%n
+            </pattern>>
+        </PatternLayout>
+    </Console>
+    <File name="File-Appender" fileName="c:/LegalLog/Legal.log" >
+        <PatternLayout>
+            <pattern>
+                [%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%c{2}.%M:%L] - %m%n
+            </pattern>
+        </PatternLayout>
+    </File>        
+</Appenders>
+ 
+<Loggers>
+			<logger name="com.myjs" level="DEBUG" >     
+	            <appender-ref ref="File-Appender" />
+        	</logger>
+        	<logger name="org.hibernate.SQL" level="DEBUG" >     
+	            <appender-ref ref="File-Appender" />
+        	</logger>
+           <Logger name="guru.springframework.blog.log4j2xml" level="error">
+               <AppenderRef ref="File-Appender" level="error"/>               
+           </Logger>
+           
+        <Root level="error">
+            <AppenderRef ref="Console-Appender"/>
+        </Root>
+    </Loggers>
+</Configuration>

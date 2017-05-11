@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/2/22 ?U?? 04:13:23 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.myjs.sys.user.model.VEIPMemdb" table="V_EIP_memdb">
+        <id name="memno" type="java.lang.String">
+            <column name="memno" />
+        </id>
+        <property name="userID" type="java.lang.String">
+        	<column name="userId"/>
+        </property>
+        <property name="memnm" type="java.lang.String">
+            <column name="memnm" />
+        </property>
+        <property name="membirth" type="java.lang.String">
+            <column name="membirth" />
+        </property>
+        <property name="memidno" type="java.lang.String">
+            <column name="memidno" />
+        </property>
+        <property name="memsex" type="java.lang.String">
+            <column name="memsex" />
+        </property>
+        <property name="memzon" type="java.lang.String">
+            <column name="memzon" />
+        </property>
+        <property name="mempos" type="java.lang.String">
+            <column name="mempos" />
+        </property>
+        <property name="posnm" type="java.lang.String">
+            <column name="posnm" />
+        </property>
+        <property name="memdep" type="java.lang.String">
+            <column name="memdep" />
+        </property>
+        <property name="mempwd" type="java.lang.String">
+            <column name="mempwd" />
+        </property>
+        <property name="sdate" type="java.lang.String">
+            <column name="sdate" />
+        </property>
+        <property name="edate" type="java.lang.String">
+            <column name="edate" />
+        </property>
+        <property name="memtmp" type="java.lang.String">
+            <column name="memtmp" />
+        </property>
+        <property name="lastdate" type="java.lang.String">
+            <column name="lastdate" />
+        </property>
+        <property name="lgtmp" type="java.lang.String">
+            <column name="lgtmp" />
+        </property>
+        <property name="thistime" type="java.lang.String">
+            <column name="thistime" />
+        </property>
+        <property name="agtno" type="java.lang.String">
+            <column name="agtno" />
+        </property>
+        <property name="holino" type="java.lang.String">
+            <column name="holino" />
+        </property>
+        <property name="memobj" type="java.lang.String">
+            <column name="memobj" />
+        </property>
+        <property name="memmail" type="java.lang.String">
+            <column name="memmail" />
+        </property>
+        <property name="memtel" type="java.lang.String">
+            <column name="memtel" />
+        </property>
+        <property name="telext" type="java.lang.String">
+            <column name="telext" />
+        </property>
+        <property name="memfax" type="java.lang.String">
+            <column name="memfax" />
+        </property>
+        <property name="memaddr" type="java.lang.String">
+            <column name="memaddr" />
+        </property>
+        <property name="memadm" type="java.lang.String">
+            <column name="memadm" />
+        </property>
+        <property name="subpos" type="java.lang.String">
+            <column name="subpos" />
+        </property>
+        <property name="paytp" type="java.lang.String">
+            <column name="paytp" />
+        </property>
+        <property name="memmob" type="java.lang.String">
+            <column name="memmob" />
+        </property>
+        <property name="memup" type="java.lang.String">
+            <column name="memup" />
+        </property>
+        <property name="up2003" type="java.lang.String">
+            <column name="up2003" />
+        </property>
+        <property name="memman" type="java.lang.String">
+            <column name="memman" />
+        </property>
+        <property name="memhldt" type="java.lang.String">
+            <column name="memhldt" />
+        </property>
+        <property name="admno1" type="java.lang.String">
+            <column name="admno1" />
+        </property>
+        <property name="admno2" type="java.lang.String">
+            <column name="admno2" />
+        </property>
+        <property name="admno3" type="java.lang.String">
+            <column name="admno3" />
+        </property>
+        <property name="SMSmob" type="java.lang.String">
+            <column name="SMSmob" />
+        </property>
+        <property name="SMSBirth" type="java.lang.String">
+            <column name="SMSBirth" />
+        </property>
+        <property name="retnew" type="java.lang.String">
+            <column name="retnew" />
+        </property>
+        <property name="mememno" type="java.lang.String">
+            <column name="mememno" />
+        </property>
+        <property name="holi_Notice" type="java.lang.String">
+            <column name="holi_Notice" />
+        </property>
+        <property name="Pro_period" type="java.lang.String">
+            <column name="Pro_period" />
+        </property>
+    </class>
+</hibernate-mapping>
