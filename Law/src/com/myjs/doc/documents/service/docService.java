@@ -5,6 +5,6 @@ import java.util.List;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 
 public interface docService {
-	public List<LCekSignedCaseInfo> findByProperty(String caseId, String customerName, String customerId, String docNo,
+	public List<LCekSignedCaseInfo> findByProperty(String caseId, String debtorName, String debtorId, String docNo,
 			String legalCaseId);
 }

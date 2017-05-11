@@ -308,8 +308,8 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		return flag;
 	}
 	
-	public List<LCekSignedCaseInfo> findCaseByproperties(String caseId, String customerName, 
-			String customerId, String docNo, String legalCaseId){
+	public List<LCekSignedCaseInfo> findCaseByproperties(String caseId, String debtorName, 
+			String debtorId, String docNo, String legalCaseId){
 		log.debug("findCaseByproperties start");
 		try{	
 			StringBuffer queryString = new StringBuffer("SELECT TOP 1000 VSC.Bank_alias, VSC.Prod_Name,");
@@ -318,10 +318,20 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			queryString.append(" LEFT JOIN V_SMART_CASEINFO VSC ON VSR.Case_ID = VSC.Case_ID");
 			queryString.append(" WHERE VSR.Rela_kind = '本人'");
 			if(caseId != null && !caseId.equals("")){
-				queryString.append(" and lcsci.Case_ID = '"+caseId+"'");
+				queryString.append(" and VSC.Case_ID = '"+caseId+"'");
 			}
-//			if(customerName != null && !customerName.equals("")){
-//				queryString.append(" and lcsci.columnType = '"+valuearr[1]+"'");
+			if(debtorName != null && !debtorName.equals("")){
+				queryString.append(" and VSR.Name like '%"+debtorName+"%'");
+			}
+			if(debtorId != null && !debtorId.equals("")){
+				queryString.append(" and VSR.ID = '"+debtorId+"'");
+			}
+			// TODO add By Jia 2017-05-11 下面兩項代號系統還沒有，還不行使用，之後記得加上去
+//			if(docNo != null && !docNo.equals("")){
+//				queryString.append(" and VSC.Case_ID = '"+docNo+"'");
+//			}
+//			if(legalCaseId != null && !legalCaseId.equals("")){
+//				queryString.append(" and VSC.Case_ID = '"+legalCaseId+"'");
 //			}
 			log.debug("queryString = {}", queryString);
 			

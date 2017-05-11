@@ -29,20 +29,19 @@ public class docAction extends AbstractAction {
 
 	public String loadCaseInfo() {
 		try {
-
 			log.debug("loadCaseInfo start");
-			String caseId = super.getRequest().getParameter("caseId"),
+			String caseId = super.getRequest().getParameter("iptsearchcaseId"),
 					userId = super.getRequest().getParameter("userId"),
-					customerName = super.getRequest().getParameter("customerName"),
-					customerId = super.getRequest().getParameter("customerId"),
-					docNo = super.getRequest().getParameter("docNo"),
-					legalCaseId = super.getRequest().getParameter("legalCaseId");
+					debtorName = super.getRequest().getParameter("iptsearchdebtorName"),
+					debtorId = super.getRequest().getParameter("iptsearchdebtorID"),
+					docNo = super.getRequest().getParameter("iptsearchdocNo"),
+					legalCaseId = super.getRequest().getParameter("iptsearchLawCaseId");
 			log.debug(
 					"caseId = {}, userId = {}, customerName = {}, customerId = {} ," + "docNo = {} , legalCaseId = {}",
-					caseId, userId, customerName, customerId, docNo, legalCaseId);
+					caseId, userId, debtorName, debtorId, docNo, legalCaseId);
 
-			List<LCekSignedCaseInfo> LCekSignedCaseInfoList = docService.findByProperty(caseId, customerName,
-					customerId, docNo, legalCaseId);
+			List<LCekSignedCaseInfo> LCekSignedCaseInfoList = docService.findByProperty(caseId, debtorName,
+					debtorId, docNo, legalCaseId);
 
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 			JsonObject jsonResponse = new JsonObject();

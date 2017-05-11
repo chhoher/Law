@@ -26,8 +26,8 @@ public class docServiceImpl implements docService{
 		this.docDao = docDao;
 	}
 
-	public List<LCekSignedCaseInfo> findByProperty(String caseId, String customerName, String customerId, String docNo,
+	public List<LCekSignedCaseInfo> findByProperty(String caseId, String debtorName, String debtorId, String docNo,
 			String legalCaseId){
-		return recordcheckformDao.findCaseByproperties(caseId, customerName, customerId, docNo, legalCaseId);
+		return recordcheckformDao.findCaseByproperties(caseId, debtorName, debtorId, docNo, legalCaseId);
 	}
 }
