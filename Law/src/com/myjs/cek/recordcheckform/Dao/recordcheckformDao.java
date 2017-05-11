@@ -18,6 +18,6 @@ public interface recordcheckformDao {
 	public boolean save(LCekRecordCheckform transientInstance) ;
 	public LCekRecordSigned findRecordSignedById(String SignedId);
 	public boolean saveRecordFile(LCekRecordFile transientInstance) ;
-	public List<LCekSignedCaseInfo> findCaseByproperties(String caseId, String customerName, 
-			String customerId, String docNo, String legalCaseId);
+	public List<LCekSignedCaseInfo> findCaseByproperties(String caseId, String debtorName, 
+			String debtorId, String docNo, String legalCaseId);
 }
