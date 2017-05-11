@@ -11,7 +11,6 @@ $(document).ready(function(){
     var opt={
     		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
-    		"ajax":  "pages/doc/documents/docAction!loadCaseInfo.action",
     		"columns": [
                 { "data": "Bank_alias" },
                 { "data": "Prod_Name" },

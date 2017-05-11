@@ -60,7 +60,7 @@
 			$.ajax({
 				url : 'pages/doc/documents/docAction!loadCaseInfo.action',
 				data : {
-					'iptsearchcaseId' : 54313
+					'iptsearchcaseId' : <%=request.getParameter("caseId")%>
 				},
 				type : "POST",
 				dataType : 'json',

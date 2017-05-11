@@ -56,11 +56,16 @@ var signedId;
 						$("#iptcaseProductName").val(json.Prod_Name);
 						$("#iptcaseRela option").remove();
 						relaArray = response.Reladata;
+						var relaDeb = "0";
 						var leftseloption = "";
 						$.each(relaArray,function(i){
 							leftseloption += '<option value="'+i+'">'+relaArray[i].Name+'</option>'; 
+							if(relaArray[i].Rela_kind == "本人"){
+								relaDeb = i;
+							}
 						});
 						$("#iptcaseRela").append(leftseloption);
+						$('#iptcaseRela option[value='+relaDeb+']').attr('selected', 'selected');
 						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Rela_kind);
 						$("#iptcaseType option").remove();
 						caseTypeArray = response.signedType;
@@ -85,7 +90,7 @@ var signedId;
 							leftseloption += '<option value="'+i+'">'+relaArray[i].Name+'</option>'; 
 							if(response.recordSigned.payer == relaArray[i].Name){
 								leftselectedVal = i;
-							}
+							}//$("#iptcaseRela>option:eq(5)").prop('selected', true);
 						});
 						$("#iptcaseRela").append(leftseloption);
 						$('#iptcaseRela option[value='+leftselectedVal+']').attr('selected', 'selected');

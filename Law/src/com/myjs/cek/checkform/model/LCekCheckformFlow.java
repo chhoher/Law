@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "L_CEK_CHECKFORM_FLOW", schema = "dbo", catalog = "Legal")
 public class LCekCheckformFlow implements java.io.Serializable {
 
+	private static final long serialVersionUID = -5216017420051234273L;
 	private String checkformFlowId;
 	private LCekCheckform LCekCheckform;
 	private LCekFlow LCekFlow;
