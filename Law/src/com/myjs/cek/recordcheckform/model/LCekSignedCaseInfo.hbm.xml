@@ -227,7 +227,7 @@
         <property name="SecondHand_type" type="string">
             <column name="SecondHand_type" length="500" />
         </property>
-        <property name="tnBadDebt_amt" type="int">
+        <property name="tnBadDebt_amt" type="string">
             <column name="tnBadDebt_amt"/>
         </property>
         <property name="otherDebt_amt" type="int">

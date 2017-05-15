@@ -3,26 +3,8 @@
 <!DOCTYPE html>
 <html>
 <meta http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
-<!-- Add By Jia 2017-05-09 新增flow的JS功能 -->
-<link rel="stylesheet" href="js/jquery-ui.css">
-<link rel="stylesheet" href="js/themes/default/style.min.css" />
-<script type="text/javascript" src="js/external/jquery/jquery.js"></script>
-<script src="js/jquery-ui.js"></script>
-<link href="js/jquery.dataTables.css" rel="stylesheet">
-<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="legaljs/cek/cekflow.js"></script>
-<!-- Add By Jia 2017-05-09 多檔上傳JS引用 -->
-<script src="js/vendor/jquery.ui.widget.js"></script>
-<script src="js/jquery.iframe-transport.js"></script>
-<script src="js/jquery.fileupload.js"></script>
-<style type="text/css">
-.bar {
-	height: 18px;
-	background: red;
-	text-align: center;
-	font-weight: bold;
-}
-</style>
+<!-- Add By Jia 2017-05-12 文管新增的JS功能 -->
+<script type="text/javascript" src="legaljs/doc/docaddDoc.js"></script>
 <head>
 <title>文管新增</title>
 </head>
@@ -248,7 +230,7 @@
 		    	}
 		    });
 		  //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 end
-		  
+		    var $slave = $("#subtabs").tabs();
 		});
 	</script>
 <div>
@@ -299,32 +281,123 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocentitlementForeclosure">
-	執行名義
-	hkljrtkljhfklxjhlkgh
+	執行名義 <img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+
+        <div id="subtabs">
+          <ul>
+            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+          </ul>
+          <div id="subtabs-1">
+            some data
+          </div>
+          <div id="subtabs-2">
+            some data
+          </div>
+  		</div>
+
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccourtDoc">
-	法院文
+	法院文<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+
+        <div id="subtabs">
+          <ul>
+            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+          </ul>
+          <div id="subtabs-1">
+            some data
+          </div>
+          <div id="subtabs-2">
+            some data
+          </div>
+  		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccashierCheck">
-	本票
+	本票<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+
+        <div id="subtabs">
+          <ul>
+            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+          </ul>
+          <div id="subtabs-1">
+            some data
+          </div>
+          <div id="subtabs-2">
+            some data
+          </div>
+  		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocdebts">
-	債讓
+	債讓<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+
+        <div id="subtabs">
+          <ul>
+            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+          </ul>
+          <div id="subtabs-1">
+            some data
+          </div>
+          <div id="subtabs-2">
+            some data
+          </div>
+  		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocclaimsDoc">
-	債權文件
+	債權文件<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+
+        <div id="subtabs">
+          <ul>
+            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+          </ul>
+          <div id="subtabs-1">
+            some data
+          </div>
+          <div id="subtabs-2">
+            some data
+          </div>
+  		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocfile">
-	卷宗
+	卷宗<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+
+        <div id="subtabs">
+          <ul>
+            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+          </ul>
+          <div id="subtabs-1">
+            some data
+          </div>
+          <div id="subtabs-2">
+            some data
+          </div>
+  		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocother">
-	其它
+	其它<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab(this)">
+
+        <div id="subtabs">
+          <ul>
+            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+          </ul>
+          <div id="subtabs-1">
+            some data
+          </div>
+          <div id="subtabs-2">
+            some data
+          </div>
+  		</div>
 	</div>
 	
 </div>

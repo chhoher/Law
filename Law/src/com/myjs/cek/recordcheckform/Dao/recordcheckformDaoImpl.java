@@ -167,18 +167,30 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 	
 	public LCekSignedCaseInfo findCaseByCaseId(String caseId){
 		log.debug("findCaseByCaseId start");
-		List<?> querylist = null;
+		List<Map<String, Object>> querylist = null;
 		try{
 			//LCekSignedCaseInfo 是View表，查詢SMART的TABLE，SMART案件的資料
-			String queryString = "from LCekSignedCaseInfo lcsci where  1=1";
+			StringBuffer queryString = new StringBuffer("SELECT Case_ID, Bank_ID, Bank_name, Prod_Name,");
+			queryString.append(" Bank_alias FROM V_SMART_CASEINFO lcsci where 1=1");
 			if(caseId != null && !caseId.equals("")){
-				queryString += " and lcsci.Case_ID = "+caseId;
+				queryString.append(" and lcsci.Case_ID = "+caseId);
 			}
 			log.debug("queryString = {}", queryString);
-			querylist = super.getHibernateTemplate().find(queryString);
+			querylist=this.jdbcTemplate.queryForList(queryString.toString());
+
+			List<LCekSignedCaseInfo> MapLCekSignedCaseInfo = new ArrayList<LCekSignedCaseInfo>();
+			for (Map<?, ?> map : querylist) {
+				LCekSignedCaseInfo LCekSignedCaseInfo = new LCekSignedCaseInfo();
+				LCekSignedCaseInfo.setCase_ID((int) map.get("Case_ID"));
+				LCekSignedCaseInfo.setBank_ID((String) map.get("Bank_ID"));
+				LCekSignedCaseInfo.setBank_name((String) map.get("Bank_name"));
+				LCekSignedCaseInfo.setProd_Name((String) map.get("Prod_Name"));
+				LCekSignedCaseInfo.setBank_alias((String) map.get("Bank_alias"));
+				MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
+			}
 			log.debug("findCaseByCaseId end");
 			if(querylist.size() > 0){
-				return (LCekSignedCaseInfo) querylist.get(0);
+				return (LCekSignedCaseInfo) MapLCekSignedCaseInfo.get(0);
 			}else{
 				return null;
 			}

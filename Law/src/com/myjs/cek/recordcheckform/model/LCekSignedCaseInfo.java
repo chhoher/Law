@@ -52,7 +52,7 @@ public class LCekSignedCaseInfo implements java.io.Serializable {
 	private Date LCost_d;
 	private String LCost_amount;
 	private Date LPay_d;
-	private int LPay_amount;
+	private String LPay_amount;
 	private String Pay_Notes;
 	private String CasePS;
 	private String A_Capital;
@@ -116,7 +116,7 @@ public class LCekSignedCaseInfo implements java.io.Serializable {
 			String PreAssigned_er, Date Record_dt, String Record_er, Date Update_dt, String Update_er, String Reason,
 			String ctCase_interest, Date ctCase_d, Date gvCCard_d, Date kiCCard_d, Date cpInterest_d, Date tnBadDebt_d,
 			Date tnPress_d, Date stInterest_d, String CanCost_amount, Date shPay_d, String DelayPay_months,
-			String PreLoanCash, String Bank_other, Date LCost_d, String LCost_amount, Date LPay_d, int LPay_amount,
+			String PreLoanCash, String Bank_other, Date LCost_d, String LCost_amount, Date LPay_d, String LPay_amount,
 			String Pay_Notes, String CasePS, String A_Capital, String A_CFInterest, String A_Interest, String A_BKInterest,
 			String A_Other, String A_Total, String A_SIF, String B_Capital, String B_CFInterest, String B_Interest, String B_BKInterest,
 			String B_Other, String B_Total, String B_SIF, Date ITDate, String Interest_Period, String Interest_kind,
@@ -510,11 +510,11 @@ public class LCekSignedCaseInfo implements java.io.Serializable {
 		LPay_d = lPay_d;
 	}
 
-	public int getLPay_amount() {
+	public String getLPay_amount() {
 		return LPay_amount;
 	}
 
-	public void setLPay_amount(int lPay_amount) {
+	public void setLPay_amount(String lPay_amount) {
 		LPay_amount = lPay_amount;
 	}
 
