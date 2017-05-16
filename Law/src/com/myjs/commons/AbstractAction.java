@@ -108,4 +108,17 @@ public class AbstractAction extends ActionSupport{
 	public static final String getpath(){
 		return getServletContext().getRealPath("/upload");
 	}
+	
+	/**
+	 * 輸入相對路徑如： pages/index.jsp
+	 * 返回絕對URL如： http://localhost:8080/Law/pages/index.jsp
+	 * @param relativePath
+	 * @return
+	 */
+	public static String getAbsolutePath(HttpServletRequest request,String relativePath) {
+			if (relativePath.startsWith("/"))
+				return getRootPath() + relativePath;
+			else
+				return getRootPath() + "/" + relativePath;
+		}
 }

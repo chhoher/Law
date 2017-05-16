@@ -2,37 +2,46 @@
  * Add By Jia 2017-05-11 docqueryCase.js 實作queryCase.jsp 
  */
 var subtabcount = 0;
+var activesubtabcount = 0;
 var subtabs = $("#subtabs").tabs();
 // 表格中的超連結function
 	// TODO TAB 先暫時這樣 連結到文管系統
 	function addsubtab(data) {
 		console.log(data);
 		subtabcount ++ ;
+		activesubtabcount ++;
 		//TODO add by Jia 2017-02-13 用menuid帶出頁面index (去找L_SYS_FUNCTION)
 		var tabTitle = "表單設定";
-		var tabHref = "1";
-		var tabId = "tabs-" + "1";
+		var tabId = "tabs-" + subtabcount;
 		
-		var tabTemplate = "<li><a href='/Law/pages/" + tabHref + "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
+		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 
+		var subtabContentHtml = "<table>"+
+           	 	"<tr>"+
+					"<td><label>共用案號</label></td>"+
+					"<td><input id='aa'></input></td>"+
+					"<td><label>業主調件日</label></td>"+
+					"<td><input id='aa' ></input></td>"+
+				"</tr>"+
+           	 "</table>";
+		
 		subtabs.find(".ui-tabs-nav").append(li);
+		subtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
 		subtabs.tabs("refresh");
-		subtabs.tabs({ active: tabcount	});
-		alert(data);
+		subtabs.tabs({ active: activesubtabcount});
 	}
 	
-	// TODO TAB 先暫時這樣 連結到文管新增
-	function toaddDoc(data) {
-		window.open("pages/doc/addDoc.jsp?caseId=" + data);
-	}
-	
-	// TODO Add By Jia 2017-05-11 目前還沒有做到法務 連結到申請法務
-	function toapplyLaw(data) {
-		alert(data);
-	}
+	// Close icon: removing the tab on click
+	subtabs.on("click", "span.ui-icon-close", function() {
+		var panelId = $(this).closest("li").remove().attr(
+				"aria-controls");
+		$("#" + panelId).remove();
+		activesubtabcount--;
+	});
 
+	
 $(function() {
 	
 	// ===== function start =====

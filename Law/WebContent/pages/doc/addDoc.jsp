@@ -286,16 +286,35 @@
         <div id="subtabs">
           <ul>
             <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
-            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
           <div id="subtabs-1">
-            some data
-          </div>
-          <div id="subtabs-2">
-            some data
+            <div>
+           	 <table>
+           	 	<tr>
+					<td><label>共用案號</label></td>
+					<td><input id="iptcentitlementShareCaseId"></input></td>
+				</tr>
+				<tr>
+					<td><label>業主調件日</label></td>
+					<td><input id="iptcentitlementBankDate" ></input></td>
+					<td><label>*收文日期</label></td>
+					<td><input id="iptcentitlementreceivedDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>*文件類別</label></td>
+					<td><input id="iptcentitlementBankDate" ></input></td>
+					<td><label>*文件項目</label></td>
+					<td><input id="iptcentitlementreceivedDate" ></input></td>
+					<td><label>*債權人</label></td>
+					<td><input id="iptcentitlementreceivedDate" ></input></td>
+					<td><label>原債權人</label></td>
+					<td><input id="iptcentitlementreceivedDate" ></input></td>
+				</tr>
+           	 </table>
+           	</div>
+            
           </div>
   		</div>
-
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccourtDoc">
