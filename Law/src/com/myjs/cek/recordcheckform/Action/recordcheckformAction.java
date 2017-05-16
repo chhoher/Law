@@ -224,10 +224,16 @@ public class recordcheckformAction extends AbstractAction {
 			
 			ArrayList<LCekRecordFile> LCekRecordFile = new ArrayList<LCekRecordFile>();
 			
-			String[] signedfileuploadNames = signedfileuploadName.split(",");
-			for(int i = 0; i < signedfileuploadNames.length ;i++){
-				LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, fileIds[0], signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
-				LCekRecordFile.add(addLCekRecordFile);
+			if(signedfileuploadName != null){
+				String[] signedfileuploadNames = signedfileuploadName.split(",");
+				for(int i = 0; i < signedfileuploadNames.length ;i++){
+					String file = "";
+					if(fileIds != null){
+						file = fileIds[0];
+					}
+					LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, file, signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
+					LCekRecordFile.add(addLCekRecordFile);
+				}
 			}
 			
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_01",
@@ -319,10 +325,17 @@ public class recordcheckformAction extends AbstractAction {
 					caseSumAmount, createdate, 2, savecaseBackmark, userId, null, createdate, null, null, saveownerAgree, saveRemark);
 
 			ArrayList<LCekRecordFile> LCekRecordFile = new ArrayList<LCekRecordFile>();
-			String[] signedfileuploadNames = signedfileuploadName.split(",");
-			for(int i = 0; i < signedfileuploadNames.length ;i++){
-				LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, fileIds[0], signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
-				LCekRecordFile.add(addLCekRecordFile);
+			
+			if(signedfileuploadName != null){
+				String[] signedfileuploadNames = signedfileuploadName.split(",");
+				for(int i = 0; i < signedfileuploadNames.length ;i++){
+					String file = "";
+					if(fileIds != null){
+						file = fileIds[0];
+					}
+					LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, file, signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
+					LCekRecordFile.add(addLCekRecordFile);
+				}
 			}
 			
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_02",
@@ -413,10 +426,17 @@ public class recordcheckformAction extends AbstractAction {
 					caseSumAmount, createdate, Integer.valueOf(type), savecaseBackmark, saveapplyUserId, null, createdate, null, null, saveownerAgree, saveRemark);
 
 			ArrayList<LCekRecordFile> LCekRecordFile = new ArrayList<LCekRecordFile>();
-			String[] signedfileuploadNames = signedfileuploadName.split(",");
-			for(int i = 0; i < signedfileuploadNames.length ;i++){
-				LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, fileIds[0], signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
-				LCekRecordFile.add(addLCekRecordFile);
+			
+			if(signedfileuploadName != null){
+				String[] signedfileuploadNames = signedfileuploadName.split(",");
+				for(int i = 0; i < signedfileuploadNames.length ;i++){
+					String file = "";
+					if(fileIds != null){
+						file = fileIds[0];
+					}
+					LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, file, signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
+					LCekRecordFile.add(addLCekRecordFile);
+				}
 			}
 			
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_03",
@@ -515,10 +535,17 @@ public class recordcheckformAction extends AbstractAction {
 					caseSumAmount, createdate, 3, savecaseBackmark, saveapplyUserId, null,createdate, null, null, saveownerAgree, saveRemark);
 
 			ArrayList<LCekRecordFile> LCekRecordFile = new ArrayList<LCekRecordFile>();
-			String[] signedfileuploadNames = signedfileuploadName.split(",");
-			for(int i = 0; i < signedfileuploadNames.length ;i++){
-				LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, fileIds[0], signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
-				LCekRecordFile.add(addLCekRecordFile);
+			
+			if(signedfileuploadName != null){
+				String[] signedfileuploadNames = signedfileuploadName.split(",");
+				for(int i = 0; i < signedfileuploadNames.length ;i++){
+					String file = "";
+					if(fileIds != null){
+						file = fileIds[0];
+					}
+					LCekRecordFile addLCekRecordFile = new LCekRecordFile(null, file, signedfileuploadNames[i].trim(), getpath() + "\\modify\\" + filepathdate, modifydate, userId, null);
+					LCekRecordFile.add(addLCekRecordFile);
+				}
 			}
 			
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_03",
