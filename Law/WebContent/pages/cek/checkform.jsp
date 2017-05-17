@@ -8,6 +8,13 @@
 <script type="text/javascript" src="../legaljs/cek/cekrecordcheckform.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
+	function paddingLeft(str,lenght){
+		if(str.length >= lenght)
+		return str;
+		else
+		return paddingLeft("0" +str,lenght);
+	}
+	
 	$( "#iptsearchrecordcheckformCreateDateS" ).datepicker();
     $( "#iptsearchrecordcheckformCreateDateS" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
     $( "#iptsearchrecordcheckformCreateDateE" ).datepicker();
@@ -17,7 +24,10 @@ $(document).ready(function(){
     		"bJQueryUI":true,	
     		"ajax":  "../pages/cek/recordcheckform/recordcheckformAction!findRecordCheckform.action",
     		"columns": [
-                { "data": "caseId" },
+                { "data": "caseId" ,
+                	"render": function ( data, type, full, meta ) {
+                		return paddingLeft(data,8);
+                }},
                 { "data": "applyDate" },
                 { "data": "bankName" },
                 { "data": "prodName" },

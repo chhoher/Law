@@ -50,7 +50,7 @@ var signedId;
 				success : function(response) {
 					json = response.data;
 					if(json != null){
-						$("#iptcaseId").val(json.Case_ID);
+						$("#iptcaseId").val(paddingLeft(json.Case_ID,8));
 						$("#iptcaseCreateDate").val(response.otherInfo.nowDate);
 						$("#iptcaseBankName").val(json.Bank_alias);
 						$("#iptcaseProductName").val(json.Prod_Name);
@@ -78,7 +78,7 @@ var signedId;
 					}
 					//當是已經存在DB的資料時
 					if(response.otherInfo.hasOldRecord){
-						$("#iptcaseId").val(response.recordSigned.caseId);
+						$("#iptcaseId").val(paddingLeft(response.recordSigned.caseId,8));
 						$("#iptcaseCreateDate").val(response.recordSigned.applyDate);
 						$("#iptcaseBankName").val(response.recordSigned.bankName);
 						$("#iptcaseProductName").val(response.recordSigned.prodName);
@@ -578,6 +578,14 @@ var signedId;
 						$("#signedfileupload").attr("disabled", false);
 					}
 				});
+		    
+		    	//將數字前面補0
+		    	function paddingLeft(str,lenght){
+		    		if(str.length >= lenght)
+		    			return str;
+		    		else
+		    			return paddingLeft("0" +str,lenght);
+		    	}
 	});
 </script>
 <body>

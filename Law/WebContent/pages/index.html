@@ -77,14 +77,10 @@
 							tabcount--;
 						});
 
-						tabs.on("keyup",
-										function(event) {
-											if (event.altKey
-													&& event.keyCode === $.ui.keyCode.BACKSPACE) {
-												var panelId = tabs.find(
-														".ui-tabs-active")
-														.remove()
-														.attr("aria-controls");
+						tabs.on("keyup",function(event) {
+							if (event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE) {
+												var panelId = tabs.find(".ui-tabs-active")
+														.remove()	.attr("aria-controls");
 												$("#" + panelId).remove();
 											}
 										});

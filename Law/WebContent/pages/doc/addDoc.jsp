@@ -283,11 +283,11 @@
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocentitlementForeclosure">
 	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
 
-        <div id="subtabs">
+        <div id="censubtabs">
           <ul>
-            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#censubtabs-0">執行名義</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
-          <div id="subtabs-1">
+          <div id="censubtabs-0">
             <div>
            	 <table>
            	 	<tr>
@@ -302,13 +302,33 @@
 				</tr>
 				<tr>
 					<td><label>*文件類別</label></td>
-					<td><input id="iptcentitlementBankDate" ></input></td>
+					<td><input id="iptcentitlementTypeOne" ></input></td>
 					<td><label>*文件項目</label></td>
-					<td><input id="iptcentitlementreceivedDate" ></input></td>
+					<td><input id="iptcentitlementTypeTwo" ></input></td>
 					<td><label>*債權人</label></td>
-					<td><input id="iptcentitlementreceivedDate" ></input></td>
+					<td><input id="iptcentitlementBankName" ></input></td>
 					<td><label>原債權人</label></td>
-					<td><input id="iptcentitlementreceivedDate" ></input></td>
+					<td><input id="iptcentitlementOldBankName" ></input></td>
+				</tr>
+					<td><label>*法院年字案股</label></td>
+					<td><input id="iptcentitlementCourtYearCourt" ></input></td>
+					<td><label>年度</label></td>
+					<td><input id="iptcentitlementCourtYearYear" ></input></td>
+					<td><label>字</label></td>
+					<td><input id="iptcentitlementCourtYearTxt" ></input></td>
+					<td><label>股別</label></td>
+					<td><input id="iptcentitlementCourtYearShare" ></input></td>
+					<td><label>案號</label></td>
+					<td><input id="iptcentitlementCourtYearCaseId" ></input></td>
+				<tr>
+					<td><label>*發文日期</label></td>
+					<td><input id="iptcentitlementSendDate" ></input></td>
+					<td><label>*最近執行日期</label></td>
+					<td><input id="iptcentitlementNewSendDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>備註</label></td>
+					<td><input id="iptcentitlementRemark" ></input></td>
 				</tr>
            	 </table>
            	</div>
@@ -386,7 +406,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocfile">
-	卷宗<img alt="新增執行名義" src="../../images/plus.png" onclick="addsubtab()">
+	卷宗<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
 
         <div id="subtabs">
           <ul>
@@ -403,7 +423,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocother">
-	其它<img alt="新增執行名義" src="../../images/plus.png" onclick="addsubtab(this)">
+	其它<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab(this)">
 
         <div id="subtabs">
           <ul>
