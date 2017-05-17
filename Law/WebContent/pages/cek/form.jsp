@@ -4,7 +4,7 @@
 <html>
 <body>
 <!-- Add By Jia 2017-03-07 新增checkform的JS功能 -->
-<script type = "text/javascript" src = "legaljs/cek/cekcheckform.js"></script>
+<script type = "text/javascript" src = "../legaljs/cek/cekcheckform.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){ 
@@ -14,9 +14,9 @@ $(document).ready(function(){
 	  } );
 	
     var opt={
-    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
-    		"ajax":  "pages/cek/checkformAction!findCekForm.action",
+    		"ajax":  "../pages/cek/checkformAction!findCekForm.action",
     		"columns": [
     			{ "data" : "checkformId","visible": false},
                 { "data" : "checkformCode" },

@@ -38,12 +38,12 @@ $(function() {
 		if (valid) {
 			var useruserID = "";
 			$.ajax({
-				url : 'pages/sys/login/loginAction!loginUserInfo.action',
+				url : '../pages/sys/login/loginAction!loginUserInfo.action',
 				type : "POST",
 				dataType : 'json',
 				success : function(response){
 					useruserID = response.data.userID;
-					window.open('pages/cek/signedform.jsp?caseId=' + iptsignedCaseNo.val() + '' +
+					window.open('../pages/cek/signedform.jsp?caseId=' + iptsignedCaseNo.val() + '' +
 							'&userId=' + useruserID + '&type=1');
 				},
 				error : function(xhr, ajaxOptions, thrownError){
@@ -61,7 +61,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/cek/recordcheckform/recordcheckformAction!findRecordCheckform.action',
+			url : '../pages/cek/recordcheckform/recordcheckformAction!findRecordCheckform.action',
 			data : {
 				'iptsearchrecordcheckformCreateDateS' : startdate,
 				'iptsearchrecordcheckformCreateDateE' : enddate,
@@ -89,7 +89,7 @@ $(function() {
 	function deleteCheckform(){
 		var datatable = $("#cekformTable").dataTable();
 		$.ajax({
-			url : 'pages/cek/checkformAction!deleteCekform.action',
+			url : '../pages/cek/checkformAction!deleteCekform.action',
 			data : {
 				'deleteformId' : datatable.fnGetData('.selected').checkformId,
 				'deleteformCode' : datatable.fnGetData('.selected').checkformCode,
@@ -176,28 +176,28 @@ $(function() {
 		var datatable = $("#recordcheckformTable").dataTable();
 		var useruserID = "";
 		$.ajax({
-			url : 'pages/sys/login/loginAction!loginUserInfo.action',
+			url : '../pages/sys/login/loginAction!loginUserInfo.action',
 			type : "POST",
 			dataType : 'json',
 			success : function(response){
 				useruserID = response.data.userID;
 				var signedType = 4;
 				if(response.data.memadm == "Y" && datatable.fnGetData('.selected').status == 2){
-					window.open('pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
+					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
 							'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 				}else if(response.data.memadm == "N" && datatable.fnGetData('.selected').status == 2){
-					window.open('pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
+					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
 						'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
 				}else if(datatable.fnGetData('.selected').status == 4){
 					if(datatable.fnGetData('.selected').receivedUserId == response.data.memno){
-						window.open('pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
+						window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
 								'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 					}else{
-						window.open('pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
+						window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
 								'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
 					}
 				}else{
-					window.open('pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
+					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
 							'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 				}
 			},

@@ -40,7 +40,7 @@ $(function() {
 		valid = valid && checkRegexp(tips, iptaddcolumnSize, /^\d+$/, "欄位大小必須為數字");
 		if (valid) {
 			$.ajax({
-				url : 'pages/cek/column/columnAction!addColumn.action',
+				url : '../pages/cek/column/columnAction!addColumn.action',
 				data : {
 					'iptaddcolumnName' : iptaddcolumnName.val(),
 					'iptaddcolumnSize' : iptaddcolumnSize.val(),
@@ -73,7 +73,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/cek/column/columnAction!findColumn.action',
+			url : '../pages/cek/column/columnAction!findColumn.action',
 			data : {
 				'iptsearchcolumnName' : name,
 				'iptsearchcolumnType' : type
@@ -99,7 +99,7 @@ $(function() {
 	function deleteColumn(){
 		var datatable = $("#columnTable").dataTable();
 		$.ajax({
-			url : 'pages/cek/column/columnAction!deleteColumn.action',
+			url : '../pages/cek/column/columnAction!deleteColumn.action',
 			data : {
 				'deletecolumnId' : datatable.fnGetData('.selected').columnId,
 				'deletecolumnName' : datatable.fnGetData('.selected').columnName,

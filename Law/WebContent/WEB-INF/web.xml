@@ -4,15 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" metadata-complete="true" version="3.0">
 	<display-name>Law</display-name>
+	
+	<!-- The Welcome File List -->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>/pages/welcome.jsp</welcome-file>
 	</welcome-file-list>
-
+		
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
@@ -45,10 +42,10 @@
 
 		<init-param>
 			<param-name>loginPages</param-name>
-			<param-value>/pages/login/login.jsp,/login!*.action</param-value>
+			<param-value>/pages/login/login.jsp,/login!*.action,/pages/cek/signedform.jsp</param-value>
 		</init-param>
 	    <init-param>
-			<param-name>forbiddenPages</param-name>
+			<param-name>forhiddenPages</param-name>
 			<param-value>/login!getTime.action</param-value>
 		</init-param>
 		<init-param>
@@ -64,6 +61,10 @@
 	 <filter-mapping>
     <filter-name>loginFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+	 <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     
 </web-app>

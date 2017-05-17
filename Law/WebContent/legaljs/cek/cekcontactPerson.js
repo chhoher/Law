@@ -36,7 +36,7 @@ $(function() {
 		allFields.removeClass("ui-state-error");
 		if (valid) {
 			$.ajax({
-				url : 'pages/cek/contactPerson/contactPersonAction!addContactPerson.action',
+				url : '../pages/cek/contactPerson/contactPersonAction!addContactPerson.action',
 				data : {
 					'iptsetcontactPersonMemnm' : iptsetcontactPerson.find('option:selected').text(),
 					'iptsetcontactPersonMemno' : iptsetcontactPerson.find('option:selected').val(),
@@ -69,7 +69,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/cek/contactPerson/contactPersonAction!findAllContactBank.action',
+			url : '../pages/cek/contactPerson/contactPersonAction!findAllContactBank.action',
 			data : {
 				'iptsearchcontactPersonNo' : contactPersonNo,
 				'iptsearchbankName' : bankName
@@ -123,7 +123,7 @@ $(function() {
 	$("#btnsetcontactPerson").button().on("click", function() {
 		
 		$.ajax({
-				url : 'pages/sys/userAction!findAllmemdb.action',
+				url : '../pages/sys/userAction!findAllmemdb.action',
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {

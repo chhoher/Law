@@ -4,7 +4,7 @@
 <html>
 <body>
 	<!-- Add By Jia 2017-03-07 新增file的JS功能 -->
-	<script type="text/javascript" src="legaljs/sys/sysfile.js"></script>
+	<script type="text/javascript" src="../legaljs/sys/sysfile.js"></script>
 	<style type="text/css">
 	
 
@@ -20,10 +20,10 @@
 		$(document).ready(	function() {
 			var opt = {
 				"oLanguage" : {
-					"sUrl" : "i18n/Chinese-traditional.json"
+					"sUrl" : "../i18n/Chinese-traditional.json"
 				},
 				"bJQueryUI" : true,
-				"ajax" : "pages/sys/file/fileAction!findFile.action",
+				"ajax" : "../pages/sys/file/fileAction!findFile.action",
 				"columns" : [ {
 					"data" : "fileName"
 				} ]
@@ -32,7 +32,7 @@
 			$("#fileTable").dataTable(opt);
 
 			$('#fileupload').fileupload({
-				url : 'pages/sys/file/fileAction!fileUpload.action', //上傳處理的action
+				url : '../pages/sys/file/fileAction!fileUpload.action', //上傳處理的action
 				dataType : 'json',
 				//將要上傳的資料顯示
 				add : function(e, data) {

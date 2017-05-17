@@ -10,7 +10,7 @@
 	
 	// TODO TAB 先暫時這樣 連結到文管新增
 	function toaddDoc(data) {
-		window.open("pages/doc/addDoc.jsp?caseId=" + data);
+		window.open("../pages/doc/addDoc.jsp?caseId=" + data);
 	}
 	
 	// TODO Add By Jia 2017-05-11 目前還沒有做到法務 連結到申請法務
@@ -28,7 +28,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/doc/documents/docAction!loadCaseInfo.action',
+			url : '../pages/doc/documents/docAction!loadCaseInfo.action',
 			data : {
 				'iptsearchdebtorName' : iptsearchdebtorName,
 				'iptsearchdebtorID' : iptsearchdebtorID,

@@ -42,7 +42,7 @@ $(function() {
 		valid = valid && checkLength(tips, iptaddflowName, "流程名稱", 5, 20);
 		if (valid) {
 			$.ajax({
-				url : 'pages/cek/flow/flowAction!addFlow.action',
+				url : '../pages/cek/flow/flowAction!addFlow.action',
 				data : {
 					'iptaddflowCode' : iptaddflowCode.val(),
 					'iptaddflowType' : iptaddflowType.val(),
@@ -75,7 +75,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/cek/flow/flowAction!findFlow.action',
+			url : '../pages/cek/flow/flowAction!findFlow.action',
 			data : {
 				'iptsearchflowCode' : code,
 				'iptsearchflowType' : type,
@@ -102,7 +102,7 @@ $(function() {
 	function deleteFlow(){
 		var datatable = $("#flowTable").dataTable();
 		$.ajax({
-			url : 'pages/cek/flow/flowAction!deleteFlow.action',
+			url : '../pages/cek/flow/flowAction!deleteFlow.action',
 			data : {
 				'deleteflowId' : datatable.fnGetData('.selected').flowId,
 				'deleteflowCode' : datatable.fnGetData('.selected').flowCode,
@@ -139,7 +139,7 @@ $(function() {
 		var datatable = $("#flowTable").dataTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/cek/flow/flowAction!findFlowSub.action',
+			url : '../pages/cek/flow/flowAction!findFlowSub.action',
 			data : {
 				'selectedflowId' : datatable.fnGetData('.selected').flowId
 			},

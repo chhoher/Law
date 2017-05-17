@@ -52,7 +52,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/doc/documents/docAction!loadCaseInfo.action',
+			url : '../pages/doc/documents/docAction!loadCaseInfo.action',
 			data : {
 				'iptsearchdebtorName' : iptsearchdebtorName,
 				'iptsearchdebtorID' : iptsearchdebtorID,

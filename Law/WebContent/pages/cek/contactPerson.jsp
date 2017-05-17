@@ -4,13 +4,13 @@
 <html>
 <body>
 <!-- Add By Jia 2017-05-05 新增對應窗口的JS功能 -->
-<script type="text/javascript" src="legaljs/cek/cekcontactPerson.js"></script>
+<script type="text/javascript" src="../legaljs/cek/cekcontactPerson.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
     var opt={
-    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
-    		"ajax":  "pages/cek/contactPerson/contactPersonAction!findAllContactBank.action",
+    		"ajax":  "../pages/cek/contactPerson/contactPersonAction!findAllContactBank.action",
     		"columns": [
                 { "data": "bankName" },
                 { "data": "memnm" }

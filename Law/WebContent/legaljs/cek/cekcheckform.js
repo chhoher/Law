@@ -48,7 +48,7 @@ $(function() {
 		valid = valid	&& checkRegexp(tips, iptcheckformCode,/^[a-z]([0-9a-z_\s])+$/i, "表單編號必須為 a-z 0-9");
 		if (valid) {
 			$.ajax({
-				url : 'pages/cek/checkformAction!addCekform.action',
+				url : '../pages/cek/checkformAction!addCekform.action',
 				data : {
 					'iptcheckformCode' : iptcheckformCode.val(),
 					'iptcheckformType' : iptcheckformType.val(),
@@ -81,7 +81,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/cek/checkformAction!findCekForm.action',
+			url : '../pages/cek/checkformAction!findCekForm.action',
 			data : {
 				'iptsearchformCode' : code,
 				'iptsearchformType' : type,
@@ -112,7 +112,7 @@ $(function() {
 		//console.log(oTable.fnGetData( datatable.fnGetPosition('.selected') ));
 		//datatable.fnDeleteRow('.selected');
 		$.ajax({
-			url : 'pages/cek/checkformAction!deleteCekform.action',
+			url : '../pages/cek/checkformAction!deleteCekform.action',
 			data : {
 				'deleteformId' : datatable.fnGetData('.selected').checkformId,
 				'deleteformCode' : datatable.fnGetData('.selected').checkformCode,
@@ -152,7 +152,7 @@ $(function() {
 		
 			// 讀取全部的欄位，包含有選和沒選
 			$.ajax({
-				url : 'pages/cek/checkformAction!findCheckformColumn.action',
+				url : '../pages/cek/checkformAction!findCheckformColumn.action',
 				data : {
 					'selectedformId' : datatable.fnGetData('.selected').checkformId
 				},
@@ -181,7 +181,7 @@ $(function() {
 		
 			// 讀取全部的欄位，包含有選和沒選
 			$.ajax({
-				url : 'pages/cek/checkformAction!findCheckformFile.action',
+				url : '../pages/cek/checkformAction!findCheckformFile.action',
 				data : {
 					'selectedformId' : datatable.fnGetData('.selected').checkformId
 				},
@@ -221,7 +221,7 @@ $(function() {
 		var leftstr = leftarr.join(','); // 將值轉換到leftstr
 		
 		$.ajax({
-				url : 'pages/cek/checkformAction!saveSelectedColumn.action',
+				url : '../pages/cek/checkformAction!saveSelectedColumn.action',
 				data : {
 					'saveColumns' : rightstr,
 					'saveCheckform' : datatable.fnGetData('.selected').checkformId,
@@ -264,7 +264,7 @@ $(function() {
 		var leftstr = leftarr.join(','); // 將值轉換到leftstr
 		
 		$.ajax({
-				url : 'pages/cek/checkformAction!saveSelectedFile.action',
+				url : '../pages/cek/checkformAction!saveSelectedFile.action',
 				data : {
 					'saveFiles' : rightstr,
 					'saveCheckform' : datatable.fnGetData('.selected').checkformId,
@@ -315,7 +315,7 @@ $(function() {
 	// add by Jia ===== 定義新增時彈跳的視窗 end =====
 	
 	// add by Jia ===== 定義新增欄位時彈跳的視窗 start =====
-	$("#divSelectedBox").load("commons/selectedBox.html"); 
+	$("#divSelectedBox").load("../commons/selectedBox.html"); 
 	var columndialog = $("#divSelectedBox").dialog({
 		autoOpen : false,
 		height : 350,
@@ -335,7 +335,7 @@ $(function() {
 	// add by Jia ===== 定義新增欄位時彈跳的視窗 end =====
 	
 	// add by Jia ===== 定義新增附件時彈跳的視窗 start =====
-	$("#divSelectedBox").load("commons/selectedBox.html"); 
+	$("#divSelectedBox").load("../commons/selectedBox.html"); 
 	var filesdialog = $("#divSelectedBox").dialog({
 		autoOpen : false,
 		height : 350,

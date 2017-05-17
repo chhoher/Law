@@ -39,7 +39,7 @@ $(function() {
 		valid = valid && checkLength(tips, iptaddfileName, "文件名稱", 3, 10);
 		if (valid) {
 			$.ajax({
-				url : 'pages/sys/file/fileAction!addFile.action',
+				url : '../pages/sys/file/fileAction!addFile.action',
 				data : {
 					'iptaddfileName' : iptaddfileName.val(),
 					'iptaddfileupload' : iptaddfileupload.val().split('/').pop().split('\\').pop(),
@@ -72,7 +72,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/sys/file/fileAction!findFile.action',
+			url : '../pages/sys/file/fileAction!findFile.action',
 			data : {
 				'iptsearchfileName' : name
 			},
@@ -97,7 +97,7 @@ $(function() {
 	function deleteFile(){
 		var datatable = $("#fileTable").dataTable();
 		$.ajax({
-			url : 'pages/sys/file/fileAction!deleteFile.action',
+			url : '../pages/sys/file/fileAction!deleteFile.action',
 			data : {
 				'deletefileId' : datatable.fnGetData('.selected').fileId,
 				'deletefileName' : datatable.fnGetData('.selected').fileName,

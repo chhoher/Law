@@ -4,13 +4,13 @@
 <html>
 <body>
 <!-- Add By Jia 2017-03-07 新增column的JS功能 -->
-<script type="text/javascript" src="legaljs/cek/cekcolumn.js"></script>
+<script type="text/javascript" src="../legaljs/cek/cekcolumn.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
     var opt={
-    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
-    		"ajax":  "pages/cek/column/columnAction!findColumn.action",
+    		"ajax":  "../pages/cek/column/columnAction!findColumn.action",
     		"columns": [
                 { "data": "columnName" },
                 { "data": "columnSize" },

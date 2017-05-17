@@ -54,7 +54,7 @@ $(function() {
 		valid = valid && checkLength(tips, iptaddvariableName, "資料名稱", 3, 20);
 		if (valid) {
 			$.ajax({
-				url : 'pages/sys/variable/variableAction!addVariable.action',
+				url : '../pages/sys/variable/variableAction!addVariable.action',
 				data : {
 					'iptaddvariableName' : iptaddvariableName.val()
 				},
@@ -85,7 +85,7 @@ $(function() {
 		datatable.fnClearTable();
 		var json = "";
 		$.ajax({
-			url : 'pages/sys/variable/variableAction!findVariable.action',
+			url : '../pages/sys/variable/variableAction!findVariable.action',
 			data : {
 				'iptsearchvariableName' : name
 			},
@@ -110,7 +110,7 @@ $(function() {
 	function deleteVariable(){
 		var datatable = $("#variableTable").dataTable();
 		$.ajax({
-			url : 'pages/sys/variable/variableAction!deleteVariable.action',
+			url : '../pages/sys/variable/variableAction!deleteVariable.action',
 			data : {
 				'deletevariableId' : datatable.fnGetData('.selected').variableId,
 				'deletevariableType' : datatable.fnGetData('.selected').variableType,
@@ -146,7 +146,7 @@ $(function() {
 		selectedVariableId = datatable.fnGetData('.selected').variableId;
 		var json = "";
 		$.ajax({
-			url : 'pages/sys/variable/variableAction!findVariableSub.action',
+			url : '../pages/sys/variable/variableAction!findVariableSub.action',
 			data : {
 				'selectedvariableId' : selectedVariableId
 			},
@@ -173,7 +173,7 @@ $(function() {
 		valid = valid && checkLength(tips, iptaddvariablesubName, "資料名稱", 3, 20);
 		if (valid) {
 			$.ajax({
-				url : 'pages/sys/variable/variableAction!addVariableSub.action',
+				url : '../pages/sys/variable/variableAction!addVariableSub.action',
 				data : {
 					'selectedvariableId' : selectedVariableId,
 					'iptaddvariablesubName' : iptaddvariablesubName.val()
@@ -204,7 +204,7 @@ $(function() {
 	function deleteVariablesub(){
 		var datatable = $("#variablesubTable").dataTable();
 		$.ajax({
-			url : 'pages/sys/variable/variableAction!deleteVariable.action',
+			url : '../pages/sys/variable/variableAction!deleteVariable.action',
 			data : {
 				'deletevariableId' : datatable.fnGetData('.selected').variableId,
 				'deletevariableType' : datatable.fnGetData('.selected').variableType,

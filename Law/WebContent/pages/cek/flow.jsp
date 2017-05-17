@@ -4,13 +4,13 @@
 <html>
 <body>
 <!-- Add By Jia 2017-03-07 新增flow的JS功能 -->
-<script type="text/javascript" src="legaljs/cek/cekflow.js"></script>
+<script type="text/javascript" src="../legaljs/cek/cekflow.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
     var opt={
-    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
-    		"ajax":  "pages/cek/flow/flowAction!findFlow.action",
+    		"ajax":  "../pages/cek/flow/flowAction!findFlow.action",
     		"columns": [
                 { "data": "flowCode" },
                 { "data": "flowType" },

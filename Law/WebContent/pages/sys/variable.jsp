@@ -4,13 +4,13 @@
 <html>
 <body>
 <!-- Add By Jia 2017-03-07 新增variable的JS功能 -->
-<script type="text/javascript" src="legaljs/sys/sysvariable.js"></script>
+<script type="text/javascript" src="../legaljs/sys/sysvariable.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
     var opt={
-    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
-    		"ajax":  "pages/sys/variable/variableAction!findVariable.action",
+    		"ajax":  "../pages/sys/variable/variableAction!findVariable.action",
     		"columns": [
                 { "data": "variableName" }
             ]

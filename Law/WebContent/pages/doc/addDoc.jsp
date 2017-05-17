@@ -4,7 +4,7 @@
 <html>
 <meta http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
 <!-- Add By Jia 2017-05-12 文管新增的JS功能 -->
-<script type="text/javascript" src="legaljs/doc/docaddDoc.js"></script>
+<script type="text/javascript" src="../legaljs/doc/docaddDoc.js"></script>
 <head>
 <title>文管新增</title>
 </head>
@@ -14,7 +14,7 @@
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
 		    		"bSort": false,
-		    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+		    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
 		    		"bJQueryUI":true,	
 		    		"columns": [
 		                { "data": "Bank_alias" },
@@ -40,7 +40,7 @@
 			datatable.fnClearTable();
 			var json = "";
 			$.ajax({
-				url : 'pages/doc/documents/docAction!loadCaseInfo.action',
+				url : '../pages/doc/documents/docAction!loadCaseInfo.action',
 				data : {
 					'iptsearchcaseId' : <%=request.getParameter("caseId")%>
 				},
@@ -281,7 +281,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocentitlementForeclosure">
-	執行名義 <img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
 
         <div id="subtabs">
           <ul>
@@ -318,7 +318,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccourtDoc">
-	法院文<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+	法院文<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
 
         <div id="subtabs">
           <ul>
@@ -335,7 +335,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccashierCheck">
-	本票<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+	本票<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
 
         <div id="subtabs">
           <ul>
@@ -352,7 +352,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocdebts">
-	債讓<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+	債讓<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
 
         <div id="subtabs">
           <ul>
@@ -369,7 +369,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocclaimsDoc">
-	債權文件<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+	債權文件<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
 
         <div id="subtabs">
           <ul>
@@ -386,7 +386,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocfile">
-	卷宗<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab()">
+	卷宗<img alt="新增執行名義" src="../../images/plus.png" onclick="addsubtab()">
 
         <div id="subtabs">
           <ul>
@@ -403,7 +403,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocother">
-	其它<img alt="新增執行名義" src="images/plus.png" onclick="addsubtab(this)">
+	其它<img alt="新增執行名義" src="../../images/plus.png" onclick="addsubtab(this)">
 
         <div id="subtabs">
           <ul>

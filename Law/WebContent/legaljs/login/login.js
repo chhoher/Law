@@ -19,7 +19,7 @@ function login(){
 			dataType : 'json',
 			success : function(response){
 				if (response.success == "success") {
-					document.location.href='../../index.html';
+					document.location.href='../index.html';
 				} else {
 					alert(response.msg);
 				}

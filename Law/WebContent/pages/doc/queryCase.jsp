@@ -5,11 +5,11 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
 <body>
 <!-- Add By Jia 2017-05-09 新增查詢案件的JS功能 -->
-<script type="text/javascript" src="legaljs/doc/docqueryCase.js"></script>
+<script type="text/javascript" src="../legaljs/doc/docqueryCase.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
     var opt={
-    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
     		"columns": [
                 { "data": "Bank_alias" },

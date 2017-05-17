@@ -5,7 +5,7 @@
 <html>
 <body>
 <!-- Add By Jia 2017-03-07 新增申請表單的JS功能 -->
-<script type="text/javascript" src="legaljs/cek/cekrecordcheckform.js"></script>
+<script type="text/javascript" src="../legaljs/cek/cekrecordcheckform.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
 	$( "#iptsearchrecordcheckformCreateDateS" ).datepicker();
@@ -13,9 +13,9 @@ $(document).ready(function(){
     $( "#iptsearchrecordcheckformCreateDateE" ).datepicker();
     $( "#iptsearchrecordcheckformCreateDateE" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
     var opt={
-    		"oLanguage":{"sUrl":"i18n/Chinese-traditional.json"},
+    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
-    		"ajax":  "pages/cek/recordcheckform/recordcheckformAction!findRecordCheckform.action",
+    		"ajax":  "../pages/cek/recordcheckform/recordcheckformAction!findRecordCheckform.action",
     		"columns": [
                 { "data": "caseId" },
                 { "data": "applyDate" },

@@ -16,7 +16,7 @@ public class LoginFilter extends OncePerRequestFilter {
 	private static final Logger log = LogManager.getLogger(LoginFilter.class);
 	private String[] loginPages;
 	private String rootPath;
-	private String[] forbiddenPages;
+	private String[] forhiddenPages;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -41,7 +41,6 @@ public class LoginFilter extends OncePerRequestFilter {
 			// 是否為默認可連接的(登錄頁面)
 			boolean isLoginPage = isSpecil(reqUrl);
 			boolean isRootPath = reqUrl.equalsIgnoreCase(this.rootPath);
-
 			if (isLoginPage || isRootPath) {
 				log.debug(" loginFilter pass.");
 				filterChain.doFilter(request, response);
@@ -60,9 +59,9 @@ public class LoginFilter extends OncePerRequestFilter {
 	 */
 	private boolean isSpecil(String reqUrl) {
 		// 禁止的url
-		for (int i = 0; i < forbiddenPages.length; i++) {
-			if (reqUrl.indexOf(forbiddenPages[i].trim()) > -1) {
-				log.debug(" fobidden specil is" + forbiddenPages[i]);
+		for (int i = 0; i < forhiddenPages.length; i++) {
+			if (reqUrl.indexOf(forhiddenPages[i].trim()) > -1) {
+				log.debug(" fobidden specil is" + forhiddenPages[i]);
 				return false;
 			}
 		}
@@ -131,28 +130,25 @@ public class LoginFilter extends OncePerRequestFilter {
 		log.debug(" loginFilter false");
 	}
 
-	public String[] getLoginPages() {
-		return loginPages;
-	}
-
-	public void setLoginPages(String[] loginPages) {
-		this.loginPages = loginPages;
-	}
-
-	public String getRootPath() {
-		return rootPath;
+	public void setLoginPages(String loginPages) {
+		if(loginPages!=null && loginPages.length()==0){
+			this.loginPages =new String[]{""};
+		}else{
+			this.loginPages = loginPages.split(",");
+		}
 	}
 
 	public void setRootPath(String rootPath) {
 		this.rootPath = rootPath;
 	}
 
-	public String[] getForbiddenPages() {
-		return forbiddenPages;
-	}
-
-	public void setForbiddenPages(String[] forbiddenPages) {
-		this.forbiddenPages = forbiddenPages;
+	public void setForhiddenPages(String forhiddenPages) {
+		if(forhiddenPages!=null && forhiddenPages.length()==0){
+			this.forhiddenPages =new String[]{""};
+		}else{
+			this.forhiddenPages = forhiddenPages.split(",");
+		}
+	
 	}
 
 }
