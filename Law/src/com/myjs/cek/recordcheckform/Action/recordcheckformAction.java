@@ -579,4 +579,26 @@ public class recordcheckformAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String selectedSigned(){
+		try{
+			log.debug("===== selectedFile info =====");
+			String caseId = super.getRequest().getParameter("selectedcaseId"),
+				type = super.getRequest().getParameter("type"),
+				userId = super.getRequest().getParameter("userId"),
+				signedId = super.getRequest().getParameter("signedId");
+			
+			log.debug("caseId = {} , type = {} , userId = {}", caseId, type, userId);
+			String MapFileList = recordcheckformService.findOtherFilesByCaseId(signedId, caseId, type, userId).toString();
+			log.debug("MapFileList = {}", MapFileList);
+			printToResponse(MapFileList);
+		}catch(Exception e){
+			log.error("selectedSigned error msg==>", e);
+		}
+		return NONE;
+	}
 }

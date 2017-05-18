@@ -17,4 +17,5 @@ public interface recordcheckformService {
 	public String saveSignedform(LCekRecordSigned LCekRecordSigned,LCekRecordCheckform LCekRecordCheckform, String type, List<LCekRecordFile> LCekRecordFile, String userId);
 	public LCekRecordSigned findRecordSignedById(String signedId);
 	public JsonObject downloadSignedFile(String fileTypeOne,String fileTypeTwo, String signedId);
+	public JsonObject findOtherFilesByCaseId(String signedId,String caseId,String type, String userId);
 }

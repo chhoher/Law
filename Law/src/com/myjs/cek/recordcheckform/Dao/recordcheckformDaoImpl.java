@@ -188,6 +188,26 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 				LCekSignedCaseInfo.setBank_alias((String) map.get("Bank_alias"));
 				MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
 			}
+			
+			//LCekSignedCaseInfo 是View表，查詢SMART的TABLE，SMART案件的資料
+			queryString = new StringBuffer("SELECT Case_ID, Bank_ID, Bank_name, Prod_Name,");
+			queryString.append(" Bank_alias FROM V_SMART_C_CASEINFO lcsci where 1=1");
+			if(caseId != null && !caseId.equals("")){
+				queryString.append(" and lcsci.Case_ID = "+caseId);
+			}
+			log.debug("queryString = {}", queryString);
+			querylist=this.jdbcTemplate.queryForList(queryString.toString());
+
+			MapLCekSignedCaseInfo = new ArrayList<LCekSignedCaseInfo>();
+			for (Map<?, ?> map : querylist) {
+				LCekSignedCaseInfo LCekSignedCaseInfo = new LCekSignedCaseInfo();
+				LCekSignedCaseInfo.setCase_ID((int) map.get("Case_ID"));
+				LCekSignedCaseInfo.setBank_ID((String) map.get("Bank_ID"));
+				LCekSignedCaseInfo.setBank_name((String) map.get("Bank_name"));
+				LCekSignedCaseInfo.setProd_Name((String) map.get("Prod_Name"));
+				LCekSignedCaseInfo.setBank_alias((String) map.get("Bank_alias"));
+				MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
+			}
 			log.debug("findCaseByCaseId end");
 			if(querylist.size() > 0){
 				return (LCekSignedCaseInfo) MapLCekSignedCaseInfo.get(0);
@@ -216,6 +236,28 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			querylist=this.jdbcTemplate.queryForList(queryString.toString());
 
 			List<LCekSignedRelaInfo> MapLCekSignedRelaInfo = new ArrayList<LCekSignedRelaInfo>();
+			for (Map<?, ?> map : querylist) {
+				LCekSignedRelaInfo LCekSignedRelaInfo = new LCekSignedRelaInfo();
+				LCekSignedRelaInfo.setRow_ID((Long) map.get("Row_ID"));
+				LCekSignedRelaInfo.setCase_ID((int) map.get("Case_ID"));
+				LCekSignedRelaInfo.setName((String) map.get("Name"));
+				LCekSignedRelaInfo.setID((String) map.get("ID"));
+				LCekSignedRelaInfo.setRela_kind((String) map.get("Rela_kind"));
+				MapLCekSignedRelaInfo.add(LCekSignedRelaInfo);
+			}
+			
+			//LCekSignedRelaInfo 是View表，查詢SMART的TABLE，SMART操作按F8跳出的相關人
+			queryString=new StringBuffer("select row_number() over(order by lcsri.Case_ID ASC) AS Row_ID,");
+			queryString.append(" lcsri.Case_ID,lcsri.Name,lcsri.ID,lcsri.Rela_kind");
+			queryString.append(" from V_SMART_C_RELAINFO lcsri where  1=1");
+			if(caseId != null && !caseId.equals("")){
+				queryString.append(" and lcsri.Case_ID = "+caseId);
+			}
+			log.debug("queryString = {}", queryString);
+			
+			querylist=this.jdbcTemplate.queryForList(queryString.toString());
+
+			MapLCekSignedRelaInfo = new ArrayList<LCekSignedRelaInfo>();
 			for (Map<?, ?> map : querylist) {
 				LCekSignedRelaInfo LCekSignedRelaInfo = new LCekSignedRelaInfo();
 				LCekSignedRelaInfo.setRow_ID((Long) map.get("Row_ID"));

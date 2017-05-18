@@ -41,22 +41,37 @@
 <script type="text/javascript" src="../js/json2.js"></script>
 
 <script>
+var tabcount = 0;
 	$(document).ready(function() {
 		if (typeof (JSON) == 'undefined') {
 		     //如果瀏覽器不支援JSON則載入json2.js
 		     $.getScript('js/json2.js');
 		}
 		
-						var tabcount = 0;
 						
 						var tabs = $("#tabs").tabs();
+						var tabArr= [];
+						
+						$("#tabs").tabs().on( "tabsbeforeload", function( event, ui ) {
+					        var key = ui.tab.find("a").text();
+					              if(tabArr[key+"_loaded"] != undefined){
+					            	  if(tabArr[key+"_loaded"] == 1){
+					                	ui.jqXHR.abort();
+					            	  }
+					              }
+					    } );
 
+					    $("#tabs").tabs().on("tabsload", function (event, ui) {
+					    	var key = ui.tab.find("a").text();
+					        tabArr[key+"_loaded"] = 1;
+					    });
+						
 						// Actual addTab function: adds new tab using the input from the form above
-						function addTab(menuid) {
+						function addTab(menuid,menname) {
 							
 							tabcount ++ ;
 							//TODO add by Jia 2017-02-13 用menuid帶出頁面index (去找L_SYS_FUNCTION)
-							var tabTitle = "表單設定";
+							var tabTitle = menname;
 							var tabHref = menuid;
 							var tabId = "tabs-" + menuid;
 							
@@ -64,6 +79,9 @@
 							
 							var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 
+							var key = menname;
+					        tabArr[key+"_loaded"] = 0;
+							
 							tabs.find(".ui-tabs-nav").append(li);
 							tabs.tabs("refresh");
 							tabs.tabs({ active: tabcount	});
@@ -104,7 +122,9 @@
 									//需實作點選打開子頁簽方式
 									var menuId = "test01";//TODO Add by Jia 2017-02-13 之後要用Ajax抓出來
 									menuId = data.instance.get_node(data.selected[0]).id;
-									addTab(menuId);
+									var menname = "test02";//TODO Add by Jia 2017-02-13 之後要用Ajax抓出來
+									menname = data.instance.get_node(data.selected[0]).text;
+									addTab(menuId,menname);
 								}
 							})
 							.jstree({
@@ -161,17 +181,9 @@
 				</li>-->
 			</ul>
 			<!-- 這裡可以做個首頁來放 -->
-			<!--  <div id="tabs-1">
-				<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a,
-					risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris.
-					Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem.
-					Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo.
-					Vivamus sed magna quis ligula eleifend adipiscing. Duis orci.
-					Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam
-					molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut
-					dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique
-					tempus lectus.</p>
-			</div>-->
+			<div id="tabs-1">
+				<p>首頁</p>
+			</div>
 			<!-- <div id ="aaaa">
 				<a href="/Law/pages/cek/form.jsp" target="_blank" >UCAMC</a>
 			</div> -->

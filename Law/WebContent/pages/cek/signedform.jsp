@@ -210,6 +210,45 @@ var signedId;
 				dialog.dialog("open");
 			});
 			
+			$("#btnselectedSmartFile").button().on("click",function(){
+				$.ajax({
+					url : 'pages/cek/recordcheckform/recordcheckformAction!selectedSigned.action',
+					data : {
+						'selectedcaseId' : $("#iptcaseId").val(),
+						'type' : '1',
+						'userId' : '<%=request.getParameter("userId")%>'
+					},
+					type : "POST",
+					dataType : 'json',
+					success : function(response) {
+						if (response.success) {
+							alert(response.msg);
+							<%
+							if(request.getParameter("signedId") == null){
+								%>
+								signedId = response.signedId;
+								<%
+							}else{
+								%>
+								signedId = '<%=request.getParameter("signedId") %>';
+								<%
+							}
+							%>
+						} else {
+							alert(response.msg);
+						}
+					},
+					error : function(xhr, ajaxOptions, thrownError) {
+						alert(xhr.status);
+						alert(thrownError);
+					}
+				});
+				
+
+				dialogother.dialog("open");
+				
+			});
+			
 			$("#btnsavetempSigned").button().on("click",function(){
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!saveSigned.action',
@@ -525,6 +564,13 @@ var signedId;
 		    		width : 500,
 		    		modal : true
 		    	});
+		    
+		    	var dialogother = $("#signedfileOther-dialog-form").dialog({
+		    		autoOpen : false,
+		    		height : 120,
+		    		width : 500,
+		    		modal : true
+		    	});
 		    // add by Jia ===== 定義新增時彈跳的視窗 end =====
 		    	
 		    	$('#signedfileupload').fileupload({
@@ -679,6 +725,9 @@ var signedId;
 						<td><button class="ui-button ui-widget ui-corner-all"	id="btnopenSignedFile">
 							<span class="ui-icon ui-icon-gear"></span>簽呈
 						</button></td>
+						<td><button class="ui-button ui-widget ui-corner-all"	id="btnselectedSmartFile">
+							<span class="ui-icon ui-icon-gear"></span>相關附件檔案
+						</button></td>
 					</tr>
 					<tr>
 						<td><label>業主審核</label>
@@ -704,13 +753,26 @@ var signedId;
 			</table>
 		</div>
 
-		<!-- 流程主畫面 end -->
+		<!-- 簽呈主畫面 end -->
 		<div id="signedfile-dialog-form" title="新增文件">
 				<div id="progress">
 					<input id="signedfileupload" name="upload" type="file" multiple ><input id="signedstart" value="上傳" type="button">
 	
 					<div class="bar" style="width: 0%;"></div>
 					<div class="item"></div>
+				</div>
+		</div>
+		
+		<!-- 簽呈相關文件 -->
+		<div id="signedfileOther-dialog-form" title="新增文件">
+				<div id="signedfileOther">
+					<table id="signedfileOtherTable"  class="ui-widget-content">
+					    <thead>
+				            <tr>
+				                <th>檔案名稱</th>
+				            </tr>
+				        </thead>
+				    </table>
 				</div>
 		</div>
 	</div>

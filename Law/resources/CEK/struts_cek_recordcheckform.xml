@@ -7,7 +7,7 @@
     <package name="recordcheckform" namespace="/pages/cek"  extends="struts-default">  
         <action name="recordcheckformAction!*"  method="{1}" class="recordcheckformAction"  >		
         
-        	<allowed-methods>findRecordCheckform,initSignedForm,saveSigned,submitSigned,downloadSignedFile,backSigned</allowed-methods>
+        	<allowed-methods>findRecordCheckform,initSignedForm,saveSigned,submitSigned,downloadSignedFile,backSigned,selectedSigned</allowed-methods>
         
         </action>
     </package>

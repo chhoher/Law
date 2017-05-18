@@ -320,4 +320,44 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		}
 		return jsonResponse;
 	}
+	
+	public JsonObject findOtherFilesByCaseId(String signedId,String caseId,String type, String userId){
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		JsonObject jsonResponse = new JsonObject();
+		try{
+			log.debug("===== findOtherFilesByCaseId =====");
+			if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
+				List<Map<String, Object>> fileList = fileDao.findfilePathBySignedId(signedId);
+				List<LSysFile> MapFileList = new ArrayList<LSysFile>();
+				for (Map<?, ?> map : fileList) {
+
+					LSysFile lcekfile = new LSysFile();
+					lcekfile.setFileId((String) map.get("record_file_id"));
+					lcekfile.setFileName((String) map.get("file_name"));
+					lcekfile.setFilePath((String) map.get("file_path"));
+
+					MapFileList.add(lcekfile);
+
+					jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
+				}
+			}else{
+				List<Map<String, Object>> fileList = fileDao.findfilePathByTypes(fileTypeOne, fileTypeTwo);
+				List<LSysFile> MapFileList = new ArrayList<LSysFile>();
+				for (Map<?, ?> map : fileList) {
+
+					LSysFile lcekfile = new LSysFile();
+					lcekfile.setFileId((String) map.get("file_id"));
+					lcekfile.setFileName((String) map.get("file_name"));
+					lcekfile.setFilePath((String) map.get("file_path"));
+
+					MapFileList.add(lcekfile);
+
+					jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
+				}
+			}
+		}catch(Exception e){
+			log.error("findOtherFilesByCaseId error msg ==>", e);
+		}
+		return jsonResponse;
+	}
 }
