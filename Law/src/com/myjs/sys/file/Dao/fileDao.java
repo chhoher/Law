@@ -12,4 +12,5 @@ public interface fileDao {
 	public boolean delete(LSysFile transientInstance);
 	public List<Map<String, Object>> findfilePathByTypes(String fileTypeOne, String fileTypeTwo);
 	public List<Map<String, Object>> findfilePathBySignedId(String signedId);
+	public List<Map<String, Object>> findSelectOtherFileBySignedId(String signedId);
 }

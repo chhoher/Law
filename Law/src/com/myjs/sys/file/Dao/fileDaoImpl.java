@@ -135,6 +135,20 @@ public class fileDaoImpl extends DaoUtil implements fileDao{
 			log.error("findfilePathByTypes error msg==>", e);
 		}
 		return fileList;
+	}
 	
+	public List<Map<String, Object>> findSelectOtherFileBySignedId(String signedId){
+
+		List<Map<String, Object>> fileList = null;
+		try{
+			StringBuffer queryString=new StringBuffer("SELECT signed_id, file_name, Isselected");
+			queryString.append(" FROM L_CEK_RECORD_OTHERFILE LCRO");
+			queryString.append(" WHERE LCRO.signed_id = '" + signedId + "'");
+			log.debug("findSelectOtherFileBySignedId queryString = {}",queryString);
+			fileList=this.jdbcTemplate.queryForList(queryString.toString());
+		}catch(Exception e){
+			log.error("findSelectOtherFileBySignedId error msg==>", e);
+		}
+		return fileList;
 	}
 }

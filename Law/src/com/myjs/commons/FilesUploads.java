@@ -18,6 +18,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.myjs.sys.file.model.LSysFile;
 
 import java.util.*;
  
@@ -264,28 +265,35 @@ public class FilesUploads {
 		
 		}
 	
-	public static String findAllFiles(){
-		File a = new File("C:\\");
+	public List<LSysFile> findAllFiles(String caseId){
+		File a = new File("\\\\sfsimg\\ImageFiles\\案件資料檔\\" + caseId);
 		String[] filenames;
 		String fullpath = a.getAbsolutePath();
 			      
+		List<LSysFile> filelist = new ArrayList<LSysFile>();
+		 
 		if(a.isDirectory()){
 			filenames=a.list();
 			for (int i = 0 ; i < filenames.length ; i++){         
 				File tempFile = new File(fullpath + "\\" + filenames[i]);
+				LSysFile tempsysFile = new LSysFile();
 				if(tempFile.isDirectory()){
-					System.out.println("目錄:" + filenames[i]);
+					//System.out.println("目錄:" + filenames[i]);
 				}else{
-			            System.out.println("檔案:" + filenames[i]);
+					tempsysFile.setV("0");
+					tempsysFile.setFileName(filenames[i]);
+					tempsysFile.setFilePath(fullpath + "\\" + filenames[i]);
+					filelist.add(tempsysFile);
+			            //System.out.println("檔案:" + filenames[i]);
 				}
 			}
 		}else{
 			        System.out.println("[" + a + "]不是目錄");
 		}
-		return "";
+		return filelist;
 	}
 	
 	public static void main(String[] args) {
-		findAllFiles();
+		//findAllFiles();
 	}
 }

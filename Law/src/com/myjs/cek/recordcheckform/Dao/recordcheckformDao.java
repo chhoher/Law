@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.myjs.cek.recordcheckform.model.LCekRecordCheckform;
 import com.myjs.cek.recordcheckform.model.LCekRecordFile;
+import com.myjs.cek.recordcheckform.model.LCekRecordOtherfile;
 import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
@@ -20,4 +21,5 @@ public interface recordcheckformDao {
 	public boolean saveRecordFile(LCekRecordFile transientInstance) ;
 	public List<LCekSignedCaseInfo> findCaseByproperties(String caseId, String debtorName, 
 			String debtorId, String docNo, String legalCaseId, boolean isCheck);
+	public boolean saveRecordOtherfile(LCekRecordOtherfile transientInstance);
 }

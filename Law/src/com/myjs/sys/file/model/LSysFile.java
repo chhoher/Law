@@ -19,6 +19,9 @@ public class LSysFile implements java.io.Serializable {
 	private String fileSigned;
 	private String vocheckformfileId;// 放Mapping的checkformfileId
 	private String voisdelete;// 放Mapping的Isdelete
+	
+	//add by Jia 2017-05-19 VO
+	private String v;
 
 	public LSysFile() {
 
@@ -150,6 +153,14 @@ public class LSysFile implements java.io.Serializable {
 
 	public void setVoisdelete(String voisdelete) {
 		this.voisdelete = voisdelete;
+	}
+
+	public String getV() {
+		return v;
+	}
+
+	public void setV(String v) {
+		this.v = v;
 	}
 
 	

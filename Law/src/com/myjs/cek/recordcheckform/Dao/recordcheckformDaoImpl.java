@@ -17,6 +17,7 @@ import org.springframework.orm.hibernate5.HibernateCallback;
 
 import com.myjs.cek.recordcheckform.model.LCekRecordCheckform;
 import com.myjs.cek.recordcheckform.model.LCekRecordFile;
+import com.myjs.cek.recordcheckform.model.LCekRecordOtherfile;
 import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
@@ -198,7 +199,6 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			log.debug("queryString = {}", queryString);
 			querylist=this.jdbcTemplate.queryForList(queryString.toString());
 
-			MapLCekSignedCaseInfo = new ArrayList<LCekSignedCaseInfo>();
 			for (Map<?, ?> map : querylist) {
 				LCekSignedCaseInfo LCekSignedCaseInfo = new LCekSignedCaseInfo();
 				LCekSignedCaseInfo.setCase_ID((int) map.get("Case_ID"));
@@ -209,7 +209,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 				MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
 			}
 			log.debug("findCaseByCaseId end");
-			if(querylist.size() > 0){
+			if(MapLCekSignedCaseInfo.size() > 0){
 				return (LCekSignedCaseInfo) MapLCekSignedCaseInfo.get(0);
 			}else{
 				return null;
@@ -257,7 +257,6 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			
 			querylist=this.jdbcTemplate.queryForList(queryString.toString());
 
-			MapLCekSignedRelaInfo = new ArrayList<LCekSignedRelaInfo>();
 			for (Map<?, ?> map : querylist) {
 				LCekSignedRelaInfo LCekSignedRelaInfo = new LCekSignedRelaInfo();
 				LCekSignedRelaInfo.setRow_ID((Long) map.get("Row_ID"));
@@ -421,5 +420,21 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			return null;
 		}
 
+	}
+	
+	public boolean saveRecordOtherfile(LCekRecordOtherfile transientInstance){
+		log.debug("saving LCekRecordOtherfile instance");
+		boolean flag = false;
+		try {
+			Serializable lizable=super.getHibernateTemplate().merge(transientInstance);
+			if(null!=lizable||!"".equals(lizable)){
+				flag=true;
+			}
+			log.debug("save successful");
+		} catch (RuntimeException re) {
+			log.error("save error =>", re);
+			throw re;
+		}
+		return flag;
 	}
 }

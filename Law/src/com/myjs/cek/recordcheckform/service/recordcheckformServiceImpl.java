@@ -17,9 +17,11 @@ import com.myjs.sys.file.model.LSysFile;
 import com.myjs.sys.user.model.VEIPMemdb;
 import com.myjs.cek.recordcheckform.model.LCekRecordCheckform;
 import com.myjs.cek.recordcheckform.model.LCekRecordFile;
+import com.myjs.cek.recordcheckform.model.LCekRecordOtherfile;
 import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
+import com.myjs.commons.FilesUploads;
 import com.myjs.commons.MailSenderInfo;
 import com.myjs.commons.MailUtil;
 
@@ -79,7 +81,8 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		return recordcheckformDao.findRelaByCaseId(caseId);
 	}
 	
-	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform, String type, List<LCekRecordFile> LCekRecordFile, String userId){
+	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform, 
+			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles){
 		//type = 1 表示暫存
 		if(type.equals("1")){ 
 			
@@ -108,6 +111,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 				recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
 			}
 			
+			for(int i = 0; i < saveselectOhterFiles.length; i++){
+				LCekRecordOtherfile  LCekRecordOtherfile = new LCekRecordOtherfile(LCekRecordSigned.getSignedId(), 
+						saveselectOhterFiles[i], "", "Y");
+				recordcheckformDao.saveRecordOtherfile(LCekRecordOtherfile);
+			}
 			
 		//type = 2 表示送出主管審核中
 		}else if(type.equals("2")){ 
@@ -140,6 +148,12 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 				LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
 				recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
 				fileNames[i] = LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName();
+			}
+			
+			for(int i = 0; i < saveselectOhterFiles.length; i++){
+				LCekRecordOtherfile  LCekRecordOtherfile = new LCekRecordOtherfile(LCekRecordSigned.getSignedId(), 
+						saveselectOhterFiles[i], "", "Y");
+				recordcheckformDao.saveRecordOtherfile(LCekRecordOtherfile);
 			}
 
 			//寄送Mail start
@@ -286,9 +300,9 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		JsonObject jsonResponse = new JsonObject();
 		try{
 			log.debug("===== downloadSignedFile =====");
+			List<LSysFile> MapFileList = new ArrayList<LSysFile>();
 			if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
 				List<Map<String, Object>> fileList = fileDao.findfilePathBySignedId(signedId);
-				List<LSysFile> MapFileList = new ArrayList<LSysFile>();
 				for (Map<?, ?> map : fileList) {
 
 					LSysFile lcekfile = new LSysFile();
@@ -298,11 +312,9 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 
 					MapFileList.add(lcekfile);
 
-					jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
 				}
 			}else{
 				List<Map<String, Object>> fileList = fileDao.findfilePathByTypes(fileTypeOne, fileTypeTwo);
-				List<LSysFile> MapFileList = new ArrayList<LSysFile>();
 				for (Map<?, ?> map : fileList) {
 
 					LSysFile lcekfile = new LSysFile();
@@ -312,9 +324,9 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 
 					MapFileList.add(lcekfile);
 
-					jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
 				}
 			}
+			jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
 		}catch(Exception e){
 			log.error("downloadSignedFile error msg ==>", e);
 		}
@@ -324,37 +336,36 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 	public JsonObject findOtherFilesByCaseId(String signedId,String caseId,String type, String userId){
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		JsonObject jsonResponse = new JsonObject();
+		List<LSysFile> MapFileList = new ArrayList<LSysFile>();
 		try{
 			log.debug("===== findOtherFilesByCaseId =====");
 			if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
-				List<Map<String, Object>> fileList = fileDao.findfilePathBySignedId(signedId);
-				List<LSysFile> MapFileList = new ArrayList<LSysFile>();
+				List<Map<String, Object>> fileList = fileDao.findSelectOtherFileBySignedId(signedId);
 				for (Map<?, ?> map : fileList) {
-
 					LSysFile lcekfile = new LSysFile();
-					lcekfile.setFileId((String) map.get("record_file_id"));
 					lcekfile.setFileName((String) map.get("file_name"));
 					lcekfile.setFilePath((String) map.get("file_path"));
-
+					lcekfile.setV(((String) map.get("Isselected")).equals("Y") ? "1":"0");
 					MapFileList.add(lcekfile);
-
-					jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
+				}
+				if(type.equals("1")){
+					FilesUploads fileupload = new FilesUploads();
+					List<LSysFile> MapFileListAll = new ArrayList<LSysFile>();
+					MapFileListAll = fileupload.findAllFiles(caseId);
+					for(int i = 0;i < MapFileList.size(); i++){
+						for(int j = 0;j < MapFileListAll.size(); j++){
+							if(MapFileListAll.get(j).getFileName().equals(MapFileList.get(i).getFileName())){
+								MapFileListAll.get(j).setV("1");
+							}
+						}
+					}
+					MapFileList = MapFileListAll;
 				}
 			}else{
-				List<Map<String, Object>> fileList = fileDao.findfilePathByTypes(fileTypeOne, fileTypeTwo);
-				List<LSysFile> MapFileList = new ArrayList<LSysFile>();
-				for (Map<?, ?> map : fileList) {
-
-					LSysFile lcekfile = new LSysFile();
-					lcekfile.setFileId((String) map.get("file_id"));
-					lcekfile.setFileName((String) map.get("file_name"));
-					lcekfile.setFilePath((String) map.get("file_path"));
-
-					MapFileList.add(lcekfile);
-
-					jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
-				}
+				FilesUploads fileupload = new FilesUploads();
+				MapFileList = fileupload.findAllFiles(caseId);
 			}
+			jsonResponse.add("data", gson.toJsonTree(MapFileList));
 		}catch(Exception e){
 			log.error("findOtherFilesByCaseId error msg ==>", e);
 		}

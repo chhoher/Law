@@ -25,7 +25,31 @@
 </style>
 <script type="text/javascript" charset="UTF-8">
 var signedId;
+var otherfilenum = 0;
 	$(document).ready(function() {
+		var opt={
+	    		"oLanguage":{"sUrl":"../../i18n/Chinese-traditional.json"},
+	    		"bJQueryUI":true,	
+	    		"columns": [
+	    			{ "data" :   "v",
+	                    "render" : function ( data, type, row ) {
+	                        if ( type === 'display' ) {
+	                            return '<input type="checkbox" value=' + row.fileName + ' class="editor-active">';
+	                        }
+	                        return data;
+	                    },
+	                    className: "dt-body-center"
+	                },
+	                { "data" : "fileName" }
+	            ],
+	            rowCallback: function ( row, data ) {
+	                // Set the checked state of the checkbox in the table
+	                $('input.editor-active', row).prop( 'checked', data.v == 1 );
+	            }
+	            };
+		
+	    $("#signedfileOtherTable").dataTable(opt);
+		
 		//alert('<%=request.getParameter("userId")%>');
 		$( function() {
 		    $( "#iptcasePayStartDate" ).datepicker();
@@ -211,45 +235,48 @@ var signedId;
 			});
 			
 			$("#btnselectedSmartFile").button().on("click",function(){
-				$.ajax({
-					url : 'pages/cek/recordcheckform/recordcheckformAction!selectedSigned.action',
-					data : {
-						'selectedcaseId' : $("#iptcaseId").val(),
-						'type' : '1',
-						'userId' : '<%=request.getParameter("userId")%>'
-					},
-					type : "POST",
-					dataType : 'json',
-					success : function(response) {
-						if (response.success) {
-							alert(response.msg);
-							<%
-							if(request.getParameter("signedId") == null){
-								%>
-								signedId = response.signedId;
-								<%
-							}else{
-								%>
-								signedId = '<%=request.getParameter("signedId") %>';
-								<%
-							}
-							%>
-						} else {
-							alert(response.msg);
-						}
-					},
-					error : function(xhr, ajaxOptions, thrownError) {
-						alert(xhr.status);
-						alert(thrownError);
-					}
-				});
-				
-
+				otherfilenum++;
 				dialogother.dialog("open");
 				
+				if(otherfilenum == 1){
+					
+				    var datatable = $("#signedfileOtherTable").dataTable();
+					datatable.fnClearTable();
+					var json = "";
+					$.ajax({
+						url : 'pages/cek/recordcheckform/recordcheckformAction!selectedSigned.action',
+						data : {
+							'selectedcaseId' : $("#iptcaseId").val(),
+							'type' : '<%=request.getParameter("type")%>',
+							'userId' : '<%=request.getParameter("userId")%>',
+							'signedId' : signedId
+						},
+						type : "POST",
+						dataType : 'json',
+						success : function(response) {
+							json = response.data;
+							datatable.fnClearTable();
+							if (response.data != '') {
+								datatable.fnAddData(json);
+							}
+							datatable.fnDraw();
+						},
+						error : function(xhr, ajaxOptions, thrownError) {
+							alert(xhr.status);
+							alert(thrownError);
+						}
+					});
+				}
 			});
 			
 			$("#btnsavetempSigned").button().on("click",function(){
+				
+				var saveselectOhterFiles = [];
+				var datatable = $("#signedfileOtherTable").dataTable();
+				$("input:checked", datatable.fnGetNodes()).each(function(){
+					saveselectOhterFiles.push($(this).val());
+				});
+				
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!saveSigned.action',
 					data : {
@@ -274,7 +301,8 @@ var signedId;
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
-						'saveRemark' : $("#iptcaseRemark").val()
+						'saveRemark' : $("#iptcaseRemark").val(),
+						'saveselectOhterFiles' : saveselectOhterFiles
 					},
 					type : "POST",
 					dataType : 'json',
@@ -304,6 +332,13 @@ var signedId;
 			});
 			
 			$("#btnsubmitSigned").button().on("click",function(){
+				
+				var saveselectOhterFiles = [];
+				var datatable = $("#signedfileOtherTable").dataTable();
+				$("input:checked", datatable.fnGetNodes()).each(function(){
+					saveselectOhterFiles.push($(this).val());
+				});
+				
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!submitSigned.action',
 					data : {
@@ -328,7 +363,8 @@ var signedId;
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
-						'saveRemark' : $("#iptcaseRemark").val()
+						'saveRemark' : $("#iptcaseRemark").val(),
+						'saveselectOhterFiles' : saveselectOhterFiles
 					},
 					type : "POST",
 					dataType : 'json',
@@ -567,7 +603,7 @@ var signedId;
 		    
 		    	var dialogother = $("#signedfileOther-dialog-form").dialog({
 		    		autoOpen : false,
-		    		height : 120,
+		    		height : 565,
 		    		width : 500,
 		    		modal : true
 		    	});
@@ -577,7 +613,7 @@ var signedId;
 					url : '../../pages/sys/file/fileAction!signedfileUpload.action', //上傳處理的action
 					dataType : 'json',
 					singleFileUploads:false,
-					maxNumberOfFiles: 6,
+					//maxNumberOfFiles: 6,
 					//將要上傳的資料顯示
 					add : function(e, data) {
 						$("#tpldiv").remove();
@@ -769,6 +805,7 @@ var signedId;
 					<table id="signedfileOtherTable"  class="ui-widget-content">
 					    <thead>
 				            <tr>
+				           	 	<th></th>
 				                <th>檔案名稱</th>
 				            </tr>
 				        </thead>
