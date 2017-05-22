@@ -26,4 +26,6 @@ public interface recordcheckformDao {
 			String debtorId, String docNo, String legalCaseId, boolean isCheck);
 	public boolean saveRecordOtherfile(LCekRecordOtherfile transientInstance);
 	public List<LCekRecordFile> findbysignedId(String signedId);
+	public boolean insertCaseNote(int caseId,String checkformId);
+	public List<LCekRecordOtherfile> findSelectedOtherFiles(String signedId);
 }

@@ -79,12 +79,12 @@ public class memdbDaoImpl extends DaoUtil implements memdbDao{
 			queryString.append(" WHERE LCUB.bank_name = '" + bankName + "'");
 			
 			log.debug("queryString = {}",queryString);
-			Map<String, Object> querylist=this.jdbcTemplate.queryForMap(queryString.toString());
+			List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
 
-			if(querylist.size() != 0){
-				query.setMemno((String) querylist.get("memno"));
-				query.setMemnm((String) querylist.get("memnm"));
-				query.setMemmail((String) querylist.get("memmail"));
+			for (Map<?, ?> map : querylist) {
+				query.setMemno((String) map.get("memno"));
+				query.setMemnm((String) map.get("memnm"));
+				query.setMemmail((String) map.get("memmail"));
 			}
 			return query;
 		}catch(Exception e){

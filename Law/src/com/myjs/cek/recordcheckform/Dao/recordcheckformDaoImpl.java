@@ -29,6 +29,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 	private static final Logger log = LogManager.getLogger(recordcheckformDaoImpl.class);
 	
 	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate SMARTjdbcTemplate;
 	
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -38,6 +39,14 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
+	public JdbcTemplate getSMARTjdbcTemplate() {
+		return SMARTjdbcTemplate;
+	}
+
+	public void setSMARTjdbcTemplate(JdbcTemplate sMARTjdbcTemplate) {
+		SMARTjdbcTemplate = sMARTjdbcTemplate;
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<LCekRecordCheckform> findAll() {
 		log.debug("finding all LCekRecordCheckform start");
@@ -513,5 +522,51 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			throw re;
 		}
 		return flag;
+	}
+	
+	public boolean insertCaseNote(int caseId,String notes) {
+		log.debug("updateRemoveColumns start");
+		boolean flag = false;
+		try{
+			StringBuffer queryString=new StringBuffer("INSERT INTO O_CaseNotes (");
+			queryString.append(" Case_ID,Record_class,Record_type,");
+			queryString.append(" Record_notes,Record_ip,Record_dt,Record_er,");
+			queryString.append(" Record_way,Record_notifier,Record_notify) VALUES");
+			queryString.append("(" + caseId + ",'Legal','NOTE','" + notes + "','LegalHost',");
+			queryString.append(" GETDATE(),'LegalSYS',NULL,NULL,NULL);");
+			this.SMARTjdbcTemplate.execute(queryString.toString());
+			log.debug("queryString = {}",queryString);
+			flag = true;
+		}catch(Exception e){
+			flag = false;
+			log.error("updateRemoveColumns error msg==>",e);
+		}
+		return flag;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<LCekRecordOtherfile> findSelectedOtherFiles(String signedId){
+		log.debug("findLCekRecordOtherfileById start");
+		try{
+	        Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
+	            public Object doInHibernate(Session session) throws HibernateException{
+	                Query<?> query = null;
+	                String hql = "from LCekRecordOtherfile lcrof where lcrof.signedId = '" + signedId + "'";
+	                query = session.createQuery(hql);
+	                if(query.list().size() > 0){
+	                	return query.list().get(0);
+	                }else
+	                {
+	                	return null;
+	                }
+	            }
+	        });
+			log.debug("findLCekRecordOtherfileById end");
+			// TODO
+	        return (List<LCekRecordOtherfile>)execute;
+		}catch(Exception e){
+			log.error("findLCekRecordOtherfileById error ==>",e);
+			return null;
+		}
 	}
 }

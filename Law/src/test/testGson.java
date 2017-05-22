@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.myjs.cek.checkform.model.LCekColumn;
+import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 
 public class testGson {
 	private static final Logger log = LogManager.getLogger(testGson.class);
@@ -29,7 +30,48 @@ public class testGson {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args){
+
+	      Connection con = null;  
+	      Statement stmt = null;  
+	      ResultSet rs = null;  
+	      log.debug("finding all LCekColumn start");
+	      try{
+				// Establish the connection.  
+		         Class.forName("net.sourceforge.jtds.jdbc.Driver");  
+		         con = DriverManager.getConnection("jdbc:jtds:sqlserver://jsam07:1433/SMART_TAISC","sa","ti2ce9");
+		         //con = DriverManager.getConnection(connectionUrl);  
+		         stmt = con.createStatement();  
+		         
+
+				StringBuffer queryString=new StringBuffer("select * from O_CaseNotes where Case_ID = 54313");
+		         
+		         rs = stmt.executeQuery(queryString.toString());  
+				
+		         List<LCekSignedCaseInfo> MapLCekSignedCaseInfo = new ArrayList<LCekSignedCaseInfo>();
+//		         List<LCekColumn> MapColumnListnotnull=new ArrayList<LCekColumn>();
+//		         List<LCekColumn> MapColumnListnull=new ArrayList<LCekColumn>();
+		 		
+		      // Iterate through the data in the result set and display it.  
+		         while (rs.next()) {  
+		        	 LCekSignedCaseInfo LCekSignedCaseInfo = new LCekSignedCaseInfo();
+		        	 LCekSignedCaseInfo.setCase_ID(rs.getInt("Case_ID"));
+		        	 MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
+		         }  
+
+		 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		 			JsonObject jsonResponse = new JsonObject();
+		 			jsonResponse.add("datanotnull", gson.toJsonTree(MapLCekSignedCaseInfo));
+		 			
+		 			System.out.println(jsonResponse);
+			}catch(Exception e){
+				log.error("finding all LCekColumn error msg=>",e);
+			}
+	    
+//		;
+	}
+	
+	public static void main2(String[] args) {
 		// Create a variable for the connection string.  
 	      //String connectionUrl = "jdbc:sqlserver://jsam07:1433;databaseName=SMART_TAISC;user=sa;password=ti2ce9";  
 	  //TEST20170510 1837

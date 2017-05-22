@@ -12,7 +12,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:DB_jdbc.properties</value>
-				<!--  <value>classpath:ldap.properties</value>-->
+				<value>classpath:DB_SMART_jdbc.properties</value>
 			</list>
 		</property>
 	</bean>

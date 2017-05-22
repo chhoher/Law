@@ -106,8 +106,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			
 			LCekRecordSignedStep LCekRecordSignedStep = new LCekRecordSignedStep();
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
-			LCekRecordSignedStep.setNumStepPay(stepPay);
-			recordcheckformDao.save(LCekRecordSignedStep);
+			
+			if(stepPay != null){
+				LCekRecordSignedStep.setNumStepPay(stepPay);
+				recordcheckformDao.save(LCekRecordSignedStep);
+			}
 			
 			LCekRecordCheckform.setMappingtableId(LCekRecordSigned.getSignedId());
 			LCekRecordCheckform.setReceivedUserId(LCekRecordSigned.getApplyUserId());
@@ -153,8 +156,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			
 			LCekRecordSignedStep LCekRecordSignedStep = new LCekRecordSignedStep();
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
-			LCekRecordSignedStep.setNumStepPay(stepPay);
-			recordcheckformDao.save(LCekRecordSignedStep);
+			
+			if(stepPay != null){
+				LCekRecordSignedStep.setNumStepPay(stepPay);
+				recordcheckformDao.save(LCekRecordSignedStep);
+			}
 			
 			LCekRecordCheckform.setMappingtableId(LCekRecordSigned.getSignedId());
 			LCekRecordCheckform.setModifyUserId(LCekRecordSigned.getApplyUserId());
@@ -187,6 +193,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 							file.getName(), saveselectOhterFiles[i], "Y");
 					recordcheckformDao.saveRecordOtherfile(LCekRecordOtherfile);
 					fileNames.add(saveselectOhterFiles[i]);
+				}
+			}else{
+				List<LCekRecordOtherfile> LCekRecordOtherfileList = recordcheckformDao.findSelectedOtherFiles(LCekRecordSigned.getSignedId());
+				for(LCekRecordOtherfile map:LCekRecordOtherfileList){
+					fileNames.add(map.getFilePath());
 				}
 			}
 			
@@ -223,8 +234,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			
 			LCekRecordSignedStep LCekRecordSignedStep = new LCekRecordSignedStep();
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
-			LCekRecordSignedStep.setNumStepPay(stepPay);
-			recordcheckformDao.save(LCekRecordSignedStep);
+			
+			if(stepPay != null){
+				LCekRecordSignedStep.setNumStepPay(stepPay);
+				recordcheckformDao.save(LCekRecordSignedStep);
+			}
 			
 			LCekRecordCheckform.setMappingtableId(LCekRecordSigned.getSignedId());
 			
@@ -254,6 +268,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					recordcheckformDao.saveRecordOtherfile(LCekRecordOtherfile);
 					fileNames.add(saveselectOhterFiles[i]);
 				}
+			}else{
+				List<LCekRecordOtherfile> LCekRecordOtherfileList = recordcheckformDao.findSelectedOtherFiles(LCekRecordSigned.getSignedId());
+				for(LCekRecordOtherfile map:LCekRecordOtherfileList){
+					fileNames.add(map.getFilePath());
+				}
 			}
 			
 			//寄送Mail start
@@ -264,6 +283,8 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
 		
+			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈由" + adminUser.getMemnm() + "退回 =====退回原因:" + LCekRecordSigned.getBackMark() + "=====");
+			
 		//type = 4 表示主管審核，業主審核中
 		}else if(type.equals("4")){ 
 
@@ -290,8 +311,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			
 			LCekRecordSignedStep LCekRecordSignedStep = new LCekRecordSignedStep();
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
-			LCekRecordSignedStep.setNumStepPay(stepPay);
-			recordcheckformDao.save(LCekRecordSignedStep);
+			
+			if(stepPay != null){
+				LCekRecordSignedStep.setNumStepPay(stepPay);
+				recordcheckformDao.save(LCekRecordSignedStep);
+			}
 			
 			LCekRecordCheckform.setMappingtableId(LCekRecordSigned.getSignedId());
 			
@@ -321,6 +345,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					recordcheckformDao.saveRecordOtherfile(LCekRecordOtherfile);
 					fileNames.add(saveselectOhterFiles[i]);
 				}
+			}else{
+				List<LCekRecordOtherfile> LCekRecordOtherfileList = recordcheckformDao.findSelectedOtherFiles(LCekRecordSigned.getSignedId());
+				for(LCekRecordOtherfile map:LCekRecordOtherfileList){
+					fileNames.add(map.getFilePath());
+				}
 			}
 			
 			//寄送Mail start
@@ -330,7 +359,9 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					"簽呈信件", "核准簽呈 鏈接地址：<a href=http://localhost:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + contactPerson.getUserID() + "&type=4&caseId="+ LCekRecordSigned.getCaseId() +">"+"核准簽呈", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
-		
+
+			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈由" + adminUser.getMemnm() + "審核通過，已轉由" + contactPerson.getMemnm() + "處理中");
+			
 		//type = 5 表示結案，看業主審核結果為何，更改備註，以及業主同意不同意。
 		}else if(type.equals("5")){ 
 
@@ -356,8 +387,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			
 			LCekRecordSignedStep LCekRecordSignedStep = new LCekRecordSignedStep();
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
-			LCekRecordSignedStep.setNumStepPay(stepPay);
-			recordcheckformDao.save(LCekRecordSignedStep);
+			
+			if(stepPay != null){
+				LCekRecordSignedStep.setNumStepPay(stepPay);
+				recordcheckformDao.save(LCekRecordSignedStep);
+			}
 			
 			VEIPMemdb adminUser = memdbDao.findbyMemno(applyUser.getAdmno1());// 申請人的主管
 
@@ -387,6 +421,11 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					recordcheckformDao.saveRecordOtherfile(LCekRecordOtherfile);
 					fileNames.add(saveselectOhterFiles[i]);
 				}
+			}else{
+				List<LCekRecordOtherfile> LCekRecordOtherfileList = recordcheckformDao.findSelectedOtherFiles(LCekRecordSigned.getSignedId());
+				for(LCekRecordOtherfile map:LCekRecordOtherfileList){
+					fileNames.add(map.getFilePath());
+				}
 			}
 			
 			//寄送Mail start
@@ -400,6 +439,8 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
 		
+			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈已知會" + LCekRecordSigned.getBankName() + " =====" + LCekRecordSigned.getRemark() + "減免=====");
+			
 		}
 		return "";
 	}

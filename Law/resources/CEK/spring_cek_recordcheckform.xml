@@ -19,6 +19,9 @@
 		<property name="jdbcTemplate">
 			<ref bean="jdbcTemplate" />
 		</property>
+		<property name="SMARTjdbcTemplate">
+			<ref bean="SMARTjdbcTemplate" />
+		</property>
 	</bean>
 
 	<!-- Services -->
