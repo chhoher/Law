@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.myjs.cek.recordcheckform.model.LCekRecordCheckform;
 import com.myjs.cek.recordcheckform.model.LCekRecordFile;
 import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
+import com.myjs.cek.recordcheckform.model.LCekRecordSignedStep;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.cek.recordcheckform.service.recordcheckformService;
@@ -114,9 +115,11 @@ public class recordcheckformAction extends AbstractAction {
 
 			//宣告LCekRecordSigned(存在該DB的案件資訊)
 			LCekRecordSigned LCekRecordSigned = null ;
+			LCekRecordSignedStep LCekRecordSignedStep = null ;
 			boolean hasOldRecord = false;//當true表示有儲存過案件
 			if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
 				LCekRecordSigned = recordcheckformService.findRecordSignedById(signedId);
+				LCekRecordSignedStep = recordcheckformService.findRecordSignedStepById(signedId);
 				if(LCekRecordSigned != null){
 					hasOldRecord = true;
 				}
@@ -140,6 +143,7 @@ public class recordcheckformAction extends AbstractAction {
 			json.addProperty("nowDate", DateTimeFormat.getNowDate());
 			json.addProperty("hasOldRecord", hasOldRecord);
 			jsonResponse.add("recordSigned", gson.toJsonTree(LCekRecordSigned));
+			jsonResponse.add("recordSignedStep", gson.toJsonTree(LCekRecordSignedStep));
 			jsonResponse.add("otherInfo", json);
 			
 			String responseLCekSignedCaseInfo = jsonResponse.toString();
@@ -182,7 +186,8 @@ public class recordcheckformAction extends AbstractAction {
 					filepathdate = super.getRequest().getParameter("filepathdate"),
 					signedfileuploadName = super.getRequest().getParameter("signedfileuploadName");
 			String[] fileIds = super.getRequest().getParameterValues("fileIds[]"),
-					saveselectOhterFiles = super.getRequest().getParameterValues("saveselectOhterFiles[]");
+					saveselectOhterFiles = super.getRequest().getParameterValues("saveselectOhterFiles[]"),
+					stepPay = super.getRequest().getParameterValues("stepPay[]");
 					
 			String saveownerAgree = "";
 			if(saveownerAgree1 != null && !saveownerAgree1.equals("")){
@@ -240,7 +245,7 @@ public class recordcheckformAction extends AbstractAction {
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_01",
 					1, userId, modifydate, LCekRecordSigned.getSignedId(), null);
 			
-			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, saveselectOhterFiles);
+			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, saveselectOhterFiles, stepPay);
 			JsonObject json = new JsonObject();
 			json.addProperty("success", "success");
 			json.addProperty("msg", "簽呈已暫存");
@@ -286,7 +291,8 @@ public class recordcheckformAction extends AbstractAction {
 					filepathdate = super.getRequest().getParameter("filepathdate"),
 					signedfileuploadName = super.getRequest().getParameter("signedfileuploadName");
 				String[] fileIds = super.getRequest().getParameterValues("fileIds[]"),
-						saveselectOhterFiles = super.getRequest().getParameterValues("saveselectOhterFiles[]");
+						saveselectOhterFiles = super.getRequest().getParameterValues("saveselectOhterFiles[]"),
+						stepPay = super.getRequest().getParameterValues("stepPay[]");
 					
 				String saveownerAgree = "";
 				if(saveownerAgree1 != null && !saveownerAgree1.equals("")){
@@ -343,7 +349,7 @@ public class recordcheckformAction extends AbstractAction {
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_02",
 					2, userId, modifydate, LCekRecordSigned.getSignedId(), null);
 			
-			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, saveselectOhterFiles);
+			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, saveselectOhterFiles, stepPay);
 			
 			String result = JsonUtil.ajaxResultSuccess("簽呈已送出").toString();
 			log.debug("saveSigned end {}", result);
@@ -386,7 +392,8 @@ public class recordcheckformAction extends AbstractAction {
 					saveRemark = super.getRequest().getParameter("saveRemark"),
 					filepathdate = super.getRequest().getParameter("filepathdate"),
 					signedfileuploadName = super.getRequest().getParameter("signedfileuploadName");
-			String[] fileIds = super.getRequest().getParameterValues("fileIds[]");
+			String[] fileIds = super.getRequest().getParameterValues("fileIds[]"),
+					stepPay = super.getRequest().getParameterValues("stepPay[]");
 			
 			String saveownerAgree = "";
 			if(saveownerAgree1 != null && !saveownerAgree1.equals("")){
@@ -444,7 +451,7 @@ public class recordcheckformAction extends AbstractAction {
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_03",
 					Integer.valueOf(type), userId, modifydate, LCekRecordSigned.getSignedId(), null);
 			
-			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, null);
+			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, null, stepPay);
 			
 			String result = JsonUtil.ajaxResultSuccess("簽呈已退回").toString();
 			if(type.equals("4")){
@@ -495,7 +502,8 @@ public class recordcheckformAction extends AbstractAction {
 					saveRemark = super.getRequest().getParameter("saveRemark"),
 					filepathdate = super.getRequest().getParameter("filepathdate"),
 					signedfileuploadName = super.getRequest().getParameter("signedfileuploadName");
-			String[] fileIds = super.getRequest().getParameterValues("fileIds[]");
+			String[] fileIds = super.getRequest().getParameterValues("fileIds[]"),
+					stepPay = super.getRequest().getParameterValues("stepPay[]");
 					
 			String saveownerAgree = "";
 			if(saveownerAgree1 != null && !saveownerAgree1.equals("")){
@@ -553,7 +561,7 @@ public class recordcheckformAction extends AbstractAction {
 			LCekRecordCheckform LCekRecordCheckform = new LCekRecordCheckform(null, "8aa2e72a5b23004b015b234c17ee0009", "flowsub_03",
 					Integer.valueOf(type), userId, modifydate, LCekRecordSigned.getSignedId(), null);
 			
-			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, null);
+			recordcheckformService.saveSignedform(LCekRecordSigned, LCekRecordCheckform, type, LCekRecordFile, userId, null, stepPay);
 			
 			String result = JsonUtil.ajaxResultSuccess("簽呈已退回").toString();
 			log.debug("sendSignedForm end {}", result);

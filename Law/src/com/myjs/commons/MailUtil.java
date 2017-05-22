@@ -1,5 +1,6 @@
 package com.myjs.commons;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
@@ -81,7 +82,7 @@ public class MailUtil {
 	 * @param mailInfo
 	 *            待發送的郵件信息
 	 */
-	public boolean sendHtmlMail(MailSenderInfo mailInfo, String[] filePathList) {
+	public boolean sendHtmlMail(MailSenderInfo mailInfo, ArrayList<String> filePathList) {
 		Properties pro = mailInfo.getProperties();
 		// 根據郵件會話屬性和密碼驗證器構造一個發送郵件的session
 		Session sendMailSession = Session.getInstance(pro);
@@ -105,10 +106,10 @@ public class MailUtil {
 			Multipart multPart = new MimeMultipart();
 			// 創建一個包含HTML內容的MimeBodyPart
 			
-			for(int i = 0; i < filePathList.length; i ++){
+			for(int i = 0; i < filePathList.size(); i ++){
 				BodyPart htmlfile = new MimeBodyPart();
 				FileDataSource fds; 
-				fds = new FileDataSource(filePathList[i]);
+				fds = new FileDataSource(filePathList.get(i));
 				// 設置HTML內容
 				htmlfile.setDataHandler(new DataHandler(fds));
 				htmlfile.setFileName(MimeUtility.encodeText(fds.getName(),"utf-8","B"));

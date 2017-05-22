@@ -19,6 +19,7 @@ import com.myjs.cek.recordcheckform.model.LCekRecordCheckform;
 import com.myjs.cek.recordcheckform.model.LCekRecordFile;
 import com.myjs.cek.recordcheckform.model.LCekRecordOtherfile;
 import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
+import com.myjs.cek.recordcheckform.model.LCekRecordSignedStep;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.DaoUtil;
@@ -127,6 +128,42 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			return MapLCekRecordCheckform;
 		}catch(Exception e){
 			log.error("finding all LCekColumn error msg=>",e);
+			return null;
+		}
+		
+	}
+	
+	public List<LCekRecordFile> findbysignedId(String signedId) {
+		log.debug("findbysignedId start");
+		try{
+			StringBuffer queryString=new StringBuffer("SELECT * FROM L_CEK_RECORD_FILE");
+			queryString.append(" WHERE record_checkform_id in (");
+			queryString.append(" SELECT record_checkform_id");
+			queryString.append(" FROM (");
+			queryString.append(" SELECT *,ROW_NUMBER() OVER (ORDER BY modify_datetime DESC) AS Rank");
+			queryString.append(" FROM L_CEK_RECORD_CHECKFORM");
+			queryString.append(" WHERE mappingtable_id = '" + signedId + "') t");
+			queryString.append(" WHERE rank<>1 )");
+			
+			log.debug("queryString = {}",queryString);
+			List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
+
+			List<LCekRecordFile> MapLCekRecordFile = new ArrayList<LCekRecordFile>();
+			for (Map<?, ?> map : querylist) {
+				LCekRecordFile LCekRecordFile = new LCekRecordFile();
+				LCekRecordFile.setRecordFileId((String) map.get("record_file_id"));
+				LCekRecordFile.setFileId((String) map.get("file_id"));
+				LCekRecordFile.setFileName((String) map.get("file_name"));
+				LCekRecordFile.setFilePath((String) map.get("file_path"));
+				LCekRecordFile.setModifyDatetime((Date) map.get("modify_datetime"));
+				LCekRecordFile.setModifyUserId((String) map.get("modify_user_id"));
+				LCekRecordFile.setRecordCheckformId((String) map.get("record_file_id"));
+				MapLCekRecordFile.add(LCekRecordFile);
+			}
+			log.debug("findbysignedId end");
+			return MapLCekRecordFile;
+		}catch(Exception e){
+			log.error("finding findbysignedId error msg=>",e);
 			return null;
 		}
 		
@@ -321,6 +358,22 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		return flag;
 	}
 	
+	public boolean save(LCekRecordSignedStep transientInstance) {
+		log.debug("saving LCekRecordSignedStep instance");
+		boolean flag = false;
+		try {
+			Serializable lizable=super.getHibernateTemplate().save(transientInstance);
+			if(null!=lizable||!"".equals(lizable)){
+				flag=true;
+			}
+			log.debug("save successful");
+		} catch (RuntimeException re) {
+			log.error("save error =>", re);
+			throw re;
+		}
+		return flag;
+	}
+	
 	public LCekRecordSigned findRecordSignedById(String SignedId){
 		log.debug("findRecordSignedById start");
 		try{
@@ -339,6 +392,30 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 	        });
 			log.debug("findRecordSignedById end");
 	        return (LCekRecordSigned)execute;
+		}catch(Exception e){
+			log.error("findRecordSignedById error ==>",e);
+			return null;
+		}
+	}
+	
+	public LCekRecordSignedStep findRecordSignedStepById(String SignedId){
+		log.debug("findRecordSignedStepById start");
+		try{
+	        Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
+	            public Object doInHibernate(Session session) throws HibernateException{
+	                Query<?> query = null;
+	                String hql = "from LCekRecordSignedStep lcrss where lcrss.signedId = '" + SignedId + "'";
+	                query = session.createQuery(hql);
+	                if(query.list().size() > 0){
+	                	return query.list().get(0);
+	                }else
+	                {
+	                	return null;
+	                }
+	            }
+	        });
+			log.debug("findRecordSignedById end");
+	        return (LCekRecordSignedStep)execute;
 		}catch(Exception e){
 			log.error("findRecordSignedById error ==>",e);
 			return null;

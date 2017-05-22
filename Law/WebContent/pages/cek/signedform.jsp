@@ -34,7 +34,7 @@ var otherfilenum = 0;
 	    			{ "data" :   "v",
 	                    "render" : function ( data, type, row ) {
 	                        if ( type === 'display' ) {
-	                            return '<input type="checkbox" value=' + row.fileName + ' class="editor-active">';
+	                            return '<input type="checkbox" value=' + row.filePath + ' class="editor-active">';
 	                        }
 	                        return data;
 	                    },
@@ -56,9 +56,14 @@ var otherfilenum = 0;
 		    $( "#iptcasePayStartDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 		    $( "#iptcasePayEndDate" ).datepicker();
 		    $( "#iptcasePayEndDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		    $( "#iptcaseStepPayStartDate" ).datepicker();
+		    $( "#iptcaseStepPayStartDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		    $( "#iptcaseStepPayEndDate" ).datepicker();
+		    $( "#iptcaseStepPayEndDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 		  } );
 
 		var fileIds = [];
+		var stepPay = [];
 		var fileName;
 		var filepathdate;
 		var relaArray;
@@ -144,6 +149,31 @@ var otherfilenum = 0;
 							$("#iptcaseownerAgree2").prop("checked", true)
 						}
 						$("#iptcaseRemark").val(response.recordSigned.remark);
+						
+						//分階段還款
+						if(response.recordSignedStep != null){
+							
+							var stepnum = response.recordSigned.periods;
+							for (var i = 1; i <= stepnum; i++) {
+								$("#trstep"+ i).show();
+							} 
+							
+							$("#iptcaseStepPeriods1").val(response.recordSignedStep.stepPay1);
+							$("#iptcaseStepPeriods2").val(response.recordSignedStep.stepPay2);
+							$("#iptcaseStepPeriods3").val(response.recordSignedStep.stepPay3);
+							$("#iptcaseStepPeriods4").val(response.recordSignedStep.stepPay4);
+							$("#iptcaseStepPeriods5").val(response.recordSignedStep.stepPay5);
+							$("#iptcaseStepPeriods6").val(response.recordSignedStep.stepPay6);
+							$("#iptcaseStepPeriods7").val(response.recordSignedStep.stepPay7);
+							$("#iptcaseStepPeriods8").val(response.recordSignedStep.stepPay8);
+							$("#iptcaseStepPeriods9").val(response.recordSignedStep.stepPay9);
+							$("#iptcaseStepPeriods10").val(response.recordSignedStep.stepPay10);
+							$("#iptcaseStepPeriods11").val(response.recordSignedStep.stepPay11);
+							$("#iptcaseStepPeriods12").val(response.recordSignedStep.stepPay12);
+							$("#iptcaseStepPeriods").val(response.recordSigned.periods);
+							$("#iptcaseStepPayStartDate").val(response.recordSigned.paytimeStart);
+							$("#iptcaseStepPayEndDate").val(response.recordSigned.paytimeEnd);
+						}
 					}
 					signedId = "<%=request.getParameter("signedId")%>";
 					if(response.recordSigned != null && 
@@ -171,8 +201,10 @@ var otherfilenum = 0;
 					$("#iptcasePeriods").val(1);
 				}else if($("#iptcaseType").val() == 1){
 					$("#iptcasePeriods").val(4);
-				}else{
+				}else if($("#iptcaseType").val() == 2){
 					$("#iptcasePeriods").val(12);
+				}else{
+					dialogstepPay.dialog("open");
 				}
 				if($("#iptcasePayStartDate").val() != ""){
 					$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
@@ -182,9 +214,22 @@ var otherfilenum = 0;
 				}
 			});
 			
+			//根據分階段還款的期數跑出格子
+			$("#iptcaseStepPeriods").change(function(i){
+				var stepnum = $("#iptcaseStepPeriods").val();
+				for (var i = 1; i <= stepnum; i++) {
+					$("#trstep"+ i).show();
+				} 
+			});
+			
 			//根據選擇起日及期數帶出迄日
 			$("#iptcasePayStartDate").change(function(i){
 				$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
+			});
+			
+			//根據選擇起日及期數帶出迄日
+			$("#iptcaseStepPayStartDate").change(function(i){
+				$("#iptcaseStepPayEndDate").val(dateAddMonth($("#iptcaseStepPayStartDate").val(),parseInt($("#iptcaseStepPeriods").val())));
 			});
 			
 			//根據每期金額及期數帶出總金額
@@ -302,7 +347,8 @@ var otherfilenum = 0;
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
 						'saveRemark' : $("#iptcaseRemark").val(),
-						'saveselectOhterFiles' : saveselectOhterFiles
+						'saveselectOhterFiles' : saveselectOhterFiles,
+						'stepPay' : stepPay
 					},
 					type : "POST",
 					dataType : 'json',
@@ -562,6 +608,10 @@ var otherfilenum = 0;
 				});
 			});
 			
+			$("#btnopenstepPay").button().on("click",function(){
+				dialogstepPay.dialog("open");
+			});
+			
 		      /**
 		      回傳startdate加上addmonth
 		      	ex: startdate = 2017-04-17
@@ -606,6 +656,19 @@ var otherfilenum = 0;
 		    		height : 565,
 		    		width : 500,
 		    		modal : true
+		    	});
+		    	
+		    	var dialogstepPay = $("#stepPay-dialog-form").dialog({
+		    		autoOpen : false,
+		    		height : 565,
+		    		width : 500,
+		    		modal : true,
+		    		buttons : {
+		    			'新增' : addstepPay,
+		    			'取消' : function() {
+		    				dialogstepPay.dialog("close");
+		    			}
+		    		},
 		    	});
 		    // add by Jia ===== 定義新增時彈跳的視窗 end =====
 		    	
@@ -667,6 +730,32 @@ var otherfilenum = 0;
 		    			return str;
 		    		else
 		    			return paddingLeft("0" +str,lenght);
+		    	}
+		    	
+		    	//點選後將總額帶入框框內
+		    	function addstepPay(){
+					var stepnum = $("#iptcaseStepPeriods").val();
+					var sumamount = 0;
+		    		for (var i = 1; i <= stepnum; i++) {
+		    			if(isInteger($("#iptcaseStepPeriods"+ i).val())){
+		    				if($("#iptcaseStepPeriods"+ i).val() != ""){
+		    				sumamount += parseInt($("#iptcaseStepPeriods"+ i).val());
+		    				stepPay.push($("#iptcaseStepPeriods"+ i).val());
+		    				}
+		    			}
+					} 
+		    		$("#iptcasePeriods").val(stepnum);
+		    		$("#iptcaseSumAmount").val(sumamount);
+		    		$("#iptcaseAmount").val($("#iptcaseStepPeriods1").val());
+		    		$("#iptcasePayStartDate").val($("#iptcaseStepPayStartDate").val());
+		    		$("#iptcasePayEndDate").val($("#iptcaseStepPayEndDate").val());
+		    		
+		    		$('#iptcaseType option[value='+3+']').attr('selected', 'selected');
+		    		dialogstepPay.dialog("close");
+		    	}
+		    	
+		    	function isInteger(obj) {
+		    	    return obj%1 === 0
 		    	}
 	});
 </script>
@@ -730,6 +819,9 @@ var otherfilenum = 0;
 						<td><select id="iptcaseType">
 								<option value="">請選擇</option>
 							</select></td>
+						<td><button class="ui-button ui-widget ui-corner-all"	id="btnopenstepPay">
+							<span class="ui-icon ui-icon-gear"></span>分階段還款
+						</button></td>
 					</tr>
 					<tr>
 						<td><label>期數</label></td>
@@ -810,6 +902,74 @@ var otherfilenum = 0;
 				            </tr>
 				        </thead>
 				    </table>
+				</div>
+		</div>
+		
+		<!-- 簽呈分階段還款 -->
+		<div id="stepPay-dialog-form" title="分階段還款">
+				<div id="payTimesdiv">
+					<table>
+						<tr>
+							<td><label>期數</label></td>
+							<td><input id="iptcaseStepPeriods"></input></td>
+						</tr>
+						<tr>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate"></input></td>
+						</tr>
+						<tr>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate"></input></td>
+						</tr>
+						<tr id="trstep1" style="display:none">
+							<td><label>第一期</label></td>
+							<td><input id="iptcaseStepPeriods1"></input></td>
+						</tr>
+						<tr id="trstep2"  style="display:none">
+							<td><label>第二期</label></td>
+							<td><input id="iptcaseStepPeriods2"></input></td>
+						</tr>
+						<tr id="trstep3" style="display:none">
+							<td><label>第三期</label></td>
+							<td><input id="iptcaseStepPeriods3"></input></td>
+						</tr>
+						<tr id="trstep4" style="display:none">
+							<td><label>第四期</label></td>
+							<td><input id="iptcaseStepPeriods4"></input></td>
+						</tr>
+						<tr id="trstep5" style="display:none">
+							<td><label>第五期</label></td>
+							<td><input id="iptcaseStepPeriods5"></input></td>
+						</tr>
+						<tr id="trstep6" style="display:none">
+							<td><label>第六期</label></td>
+							<td><input id="iptcaseStepPeriods6"></input></td>
+						</tr>
+						<tr id="trstep7" style="display:none">
+							<td><label>第七期</label></td>
+							<td><input id="iptcaseStepPeriods7"></input></td>
+						</tr>
+						<tr id="trstep8" style="display:none">
+							<td><label>第八期</label></td>
+							<td><input id="iptcaseStepPeriods8"></input></td>
+						</tr>
+						<tr id="trstep9" style="display:none">
+							<td><label>第九期</label></td>
+							<td><input id="iptcaseStepPeriods9"></input></td>
+						</tr>
+						<tr id="trstep10" style="display:none">
+							<td><label>第十期</label></td>
+							<td><input id="iptcaseStepPeriods10"></input></td>
+						</tr>
+						<tr id="trstep11" style="display:none">
+							<td><label>第十一期</label></td>
+							<td><input id="iptcaseStepPeriods11"></input></td>
+						</tr>
+						<tr id="trstep12" style="display:none">
+							<td><label>第十二期</label></td>
+							<td><input id="iptcaseStepPeriods12"></input></td>
+						</tr>
+					</table>
 				</div>
 		</div>
 	</div>
