@@ -553,16 +553,10 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 	                Query<?> query = null;
 	                String hql = "from LCekRecordOtherfile lcrof where lcrof.signedId = '" + signedId + "'";
 	                query = session.createQuery(hql);
-	                if(query.list().size() > 0){
-	                	return query.list().get(0);
-	                }else
-	                {
-	                	return null;
-	                }
+	                return query.list();
 	            }
 	        });
 			log.debug("findLCekRecordOtherfileById end");
-			// TODO
 	        return (List<LCekRecordOtherfile>)execute;
 		}catch(Exception e){
 			log.error("findLCekRecordOtherfileById error ==>",e);

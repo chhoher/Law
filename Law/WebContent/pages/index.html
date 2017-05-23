@@ -75,7 +75,7 @@ var tabcount = 0;
 							var tabHref = menuid;
 							var tabId = "tabs-" + menuid;
 							
-							var tabTemplate = "<li><a href='/Law/pages/" + tabHref + "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
+							var tabTemplate = "<li><a href='" + tabHref + "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 							
 							var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 
@@ -135,22 +135,22 @@ var tabcount = 0;
 										{ "text" : "系統管理", "children" : [
 												{ "text" : "部門設定", "id" : 1 },
 												{ "text" : "使用者設定","id" : 'user.jsp' },
-												{ "text" : "系統參數","id" : 'sys/variable.jsp' },
-												{ "text" : "文件管理","id" : 'sys/file.jsp' }
+												{ "text" : "系統參數","id" : '/Law/pages/sys/variable.jsp' },
+												{ "text" : "文件管理","id" : '/Law/pages/sys/file.jsp' }
 										],"state" : { "opened" : true }},
 										{ "text" : "表單流程", "children" : [
-											{ "text" : "表單設定", "id" : 'cek/form.jsp' },
-											{ "text" : "欄位設定", "id" : 'cek/column.jsp' },
-											{ "text" : "流程設定", "id" : 'cek/flow.jsp' },
-											{ "text" : "窗口對應業主", "id" : 'cek/contactPerson.jsp' },
+											{ "text" : "表單設定", "id" : '/Law/pages/cek/form.jsp' },
+											{ "text" : "欄位設定", "id" : '/Law/pages/cek/column.jsp' },
+											{ "text" : "流程設定", "id" : '/Law/pages/cek/flow.jsp' },
+											{ "text" : "窗口對應業主", "id" : '/Law/pages/cek/contactPerson.jsp' },
 											{ "text" : "表單申請", "id" : 3 , "children" : [
-												{ "text" : "簽呈申請", "id" : 'cek/checkform.jsp' }
+												{ "text" : "簽呈申請", "id" : '/Law/pages/cek/checkform.jsp' }
 												//,{ "text" : "表單測試", "id" : 'test/refresh.jsp' }
 										],"state" : { "opened" : true }}
 									],"state" : { "opened" : true }},
 									{ "text" : "文件管理", "children" : [
-										{ "text" : "文管新增", "id" : 'doc/addDoc.jsp' },
-										{ "text" : "案件查詢", "id" : 'doc/queryCase.jsp' }
+										{ "text" : "文管新增", "id" : '/Law/pages/doc/addDoc.jsp' },
+										{ "text" : "案件查詢", "id" : '/Law/pages/doc/queryCase.jsp' }
 									],"state" : { "opened" : true }}
 									]
 								}

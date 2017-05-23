@@ -73,7 +73,7 @@ public class memdbDaoImpl extends DaoUtil implements memdbDao{
 		log.debug("findContactPersonByBankName start");
 		VEIPMemdb query = new VEIPMemdb();
 		try{
-			StringBuffer queryString = new StringBuffer("SELECT VEM.memno,VEM.memnm,VEM.memmail");
+			StringBuffer queryString = new StringBuffer("SELECT VEM.userId,VEM.memno,VEM.memnm,VEM.memmail");
 			queryString.append(" FROM L_CEK_USER_BANK LCUB");
 			queryString.append(" LEFT JOIN V_EIP_memdb VEM on VEM.memno = LCUB.memno");
 			queryString.append(" WHERE LCUB.bank_name = '" + bankName + "'");
@@ -82,6 +82,7 @@ public class memdbDaoImpl extends DaoUtil implements memdbDao{
 			List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
 
 			for (Map<?, ?> map : querylist) {
+				query.setUserID((String) map.get("userId"));
 				query.setMemno((String) map.get("memno"));
 				query.setMemnm((String) map.get("memnm"));
 				query.setMemmail((String) map.get("memmail"));
