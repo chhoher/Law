@@ -42,6 +42,7 @@
 
 <script>
 var tabcount = 0;
+var menuJson;
 	$(document).ready(function() {
 		if (typeof (JSON) == 'undefined') {
 		     //如果瀏覽器不支援JSON則載入json2.js
@@ -67,12 +68,12 @@ var tabcount = 0;
 					    });
 						
 						// Actual addTab function: adds new tab using the input from the form above
-						function addTab(menuid,menname) {
+						function addTab(menuid,menname,menuUrl) {
 							
 							tabcount ++ ;
 							//TODO add by Jia 2017-02-13 用menuid帶出頁面index (去找L_SYS_FUNCTION)
 							var tabTitle = menname;
-							var tabHref = menuid;
+							var tabHref = menuUrl;
 							var tabId = "tabs-" + menuid;
 							
 							var tabTemplate = "<li><a href='" + tabHref + "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
@@ -110,51 +111,51 @@ var tabcount = 0;
 							east__initClosed : true
 						});
 						
-						
 						/**
 						add by Jia 2017-02-10
 						以下為左方Menu實作	
-					 	**/
-						$('#menu').on("changed.jstree", function (e, data) {
-								if(data.selected.length) {
-									//$('#tabs-center').tabs("option", "active", $(this).data("tab-index"));
-									//alert('The selected node is: ' + data.instance.get_node(data.selected[0]).text);
-									//需實作點選打開子頁簽方式
-									var menuId = "test01";//TODO Add by Jia 2017-02-13 之後要用Ajax抓出來
-									menuId = data.instance.get_node(data.selected[0]).id;
-									var menname = "test02";//TODO Add by Jia 2017-02-13 之後要用Ajax抓出來
-									menname = data.instance.get_node(data.selected[0]).text;
-									addTab(menuId,menname);
-								}
-							})
-							.jstree({
-								'core' : {
-									'multiple' : false,
-									'data' : [
-										//TODO 這裡之後需要改成系統管理權限，可以新增和設定功能
-										{ "text" : "系統管理", "children" : [
-												{ "text" : "部門設定", "id" : 1 },
-												{ "text" : "使用者設定","id" : 'user.jsp' },
-												{ "text" : "系統參數","id" : '/Law/pages/sys/variable.jsp' },
-												{ "text" : "文件管理","id" : '/Law/pages/sys/file.jsp' }
-										],"state" : { "opened" : true }},
-										{ "text" : "表單流程", "children" : [
-											{ "text" : "表單設定", "id" : '/Law/pages/cek/form.jsp' },
-											{ "text" : "欄位設定", "id" : '/Law/pages/cek/column.jsp' },
-											{ "text" : "流程設定", "id" : '/Law/pages/cek/flow.jsp' },
-											{ "text" : "窗口對應業主", "id" : '/Law/pages/cek/contactPerson.jsp' },
-											{ "text" : "表單申請", "id" : 3 , "children" : [
-												{ "text" : "簽呈申請", "id" : '/Law/pages/cek/checkform.jsp' }
-												//,{ "text" : "表單測試", "id" : 'test/refresh.jsp' }
-										],"state" : { "opened" : true }}
-									],"state" : { "opened" : true }},
-									{ "text" : "文件管理", "children" : [
-										{ "text" : "文管新增", "id" : '/Law/pages/doc/addDoc.jsp' },
-										{ "text" : "案件查詢", "id" : '/Law/pages/doc/queryCase.jsp' }
-									],"state" : { "opened" : true }}
-									]
-								}
-							});
+						
+						modify by Jia 2017-05-24
+						將menu用ajax方式帶出，並綁權限
+						**/
+						$.ajax({
+							url : '../pages/sys/menu/menuAction!findMenu.action',
+							type : "POST",
+							dataType : 'json',
+							success : function(response) {
+								
+								menuJson = response.data;
+								$('#menu').on("changed.jstree", function (e, data) {
+									if(data.selected.length) {
+										//需實作點選打開子頁簽方式
+										var menuId = data.instance.get_node(data.selected[0]).id;
+										var menname = data.instance.get_node(data.selected[0]).text;
+										var menuUrl = data.node.original.menuUrl;
+										addTab(menuId,menname,menuUrl);
+										
+									}
+								});
+								
+								var $menutreeview =$('#menu');
+								$('#menu').jstree({
+					                'core': {
+					                    'data': menuJson,
+					                    'state' : {
+					                        'opened' : true
+					                      }
+					                }
+					            }).on('loaded.jstree', function() {
+					                $menutreeview.jstree('open_all');
+					            });
+								
+							},
+							error : function(xhr, ajaxOptions, thrownError) {
+								alert(xhr.status);
+								alert(thrownError);
+							}
+							
+						});
+						
 					});
 
 	$(function () {

@@ -45,6 +45,15 @@ public class AbstractAction extends ActionSupport {
 		response.getWriter().print(xmlString);
 		response.getWriter().flush();
 	}
+	
+	/**
+	 * @param str 
+	 * @throws IOException
+	 */
+	public static void writeToResponse(String str) throws IOException {
+		getResponse().setContentType("text/html;charset=UTF-8");
+		getResponse().getWriter().write(str);
+	}
 
 	/**
 	 * 取得當前系統用戶

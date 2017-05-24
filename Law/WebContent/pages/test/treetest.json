@@ -1,14 +1,138 @@
-[
-	       { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
-	       { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
-	       { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
-	       { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
-	       { "id" : "ajson5", "parent" : "ajson2", "text" : "Child 3" },
-	       { "id" : "ajson6", "parent" : "ajson2", "text" : "Child 4" },
-	       { "id" : "ajson7", "parent" : "ajson2", "text" : "Child 5" },
-	       { "id" : "ajson8", "parent" : "ajson2", "text" : "Child 6" },
-	       { "id" : "ajson9", "parent" : "ajson2", "text" : "Child 7" },
-	       { "id" : "ajson10", "parent" : "ajson3", "text" : "Child 8" },
-	       { "id" : "ajson11", "parent" : "#", "text" : "Child 9" },
-	       { "id" : "ajson12", "parent" : "ajson2", "text" : "Child 10" }
-	    ]
+[{
+			"id" : "ROOT",
+			"parent" : "#",
+			"moduleId" : "moduleROOT",
+			"text" : "文管法務系統",
+			"menuLevel" : 0,
+			"isOpen" : "N",
+			"isDelete" : "N"
+		}, {
+			"id" : "0001",
+			"parent" : "ROOT",
+			"moduleId" : "moduleROOT",
+			"text" : "系統管理",
+			"menuLevel" : 1,
+			"isOpen" : "N",
+			"isDelete" : "N"
+		}, {
+			"id" : "0002",
+			"parent" : "ROOT",
+			"moduleId" : "moduleROOT",
+			"text" : "表單流程",
+			"menuLevel" : 1,
+			"isOpen" : "N",
+			"isDelete" : "N"
+		}, {
+			"id" : "0003",
+			"parent" : "ROOT",
+			"moduleId" : "moduleROOT",
+			"text" : "文件管理",
+			"menuLevel" : 1,
+			"isOpen" : "N",
+			"isDelete" : "N"
+		}, {
+			"id" : "0004",
+			"parent" : "0001",
+			"moduleId" : "moduleROOT",
+			"text" : "部門設定",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N"
+		}, {
+			"id" : "0005",
+			"parent" : "0001",
+			"moduleId" : "moduleROOT",
+			"text" : "使用者設定",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N"
+		}, {
+			"id" : "0006",
+			"parent" : "0001",
+			"moduleId" : "moduleROOT",
+			"text" : "系統參數",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/sys/variable.jsp"
+		}, {
+			"id" : "0007",
+			"parent" : "0001",
+			"moduleId" : "moduleROOT",
+			"text" : "附件管理",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/sys/file.jsp"
+		}, {
+			"id" : "0008",
+			"parent" : "0002",
+			"moduleId" : "moduleROOT",
+			"text" : "表單設定",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/cek/form.jsp"
+		}, {
+			"id" : "0009",
+			"parent" : "0002",
+			"moduleId" : "moduleROOT",
+			"text" : "欄位設定",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/cek/column.jsp"
+		}, {
+			"id" : "0010",
+			"parent" : "0002",
+			"moduleId" : "moduleROOT",
+			"text" : "流程設定",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/cek/flow.jsp"
+		}, {
+			"id" : "0011",
+			"parent" : "0002",
+			"moduleId" : "moduleROOT",
+			"text" : "窗口對應業主",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/cek/contactPerson.jsp"
+		}, {
+			"id" : "0012",
+			"parent" : "0002",
+			"moduleId" : "moduleROOT",
+			"text" : "表單申請",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N"
+		}, {
+			"id" : "0013",
+			"parent" : "0012",
+			"moduleId" : "moduleROOT",
+			"text" : "簽呈申請",
+			"menuLevel" : 3,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/cek/checkform.jsp"
+		}, {
+			"id" : "0014",
+			"parent" : "0003",
+			"moduleId" : "moduleROOT",
+			"text" : "文管新增",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/doc/addDoc.jsp"
+		}, {
+			"id" : "0015",
+			"parent" : "0003",
+			"moduleId" : "moduleROOT",
+			"text" : "案件查詢",
+			"menuLevel" : 2,
+			"isOpen" : "N",
+			"isDelete" : "N",
+			"menuUrl" : "/Law/pages/doc/queryCase.jsp"
+		}]

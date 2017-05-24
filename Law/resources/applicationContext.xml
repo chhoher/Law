@@ -8,6 +8,7 @@
 	<import resource="COMMONS/spring_sys_dataSource.xml" />
 	<import resource="COMMONS/spring_sys_SMARTdataSource.xml"/> <!--Add By JiaJia 2017-05-22 將SMART DATABASE放入-->
 
+	<import resource="SYS/spring_sys_menu.xml" />
 	<import resource="SYS/spring_sys_variable.xml" />
 	<import resource="SYS/spring_sys_file.xml" />
 	<import resource="SYS/spring_sys_login.xml" />

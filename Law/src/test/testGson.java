@@ -31,6 +31,13 @@ public class testGson {
 	}
 	
 	public static void main(String[] args){
+		String test = "💋👍🗿💕";
+		System.out.println(test);
+		
+//		String a = "[{\"menuId\":\"ROOT\","menuPid":"#","moduleId":"moduleROOT","menuName":"文管法務系統","menuLevel":0,"isOpen":"N","isDelete":"N"},{"menuId":"0001","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"系統管理","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0002","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"表單流程","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0003","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"文件管理","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0004","menuPid":"0001","moduleId":"moduleROOT","menuName":"部門設定","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0005","menuPid":"0001","moduleId":"moduleROOT","menuName":"使用者設定","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0006","menuPid":"0001","moduleId":"moduleROOT","menuName":"系統參數","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/sys/variable.jsp"},{"menuId":"0007","menuPid":"0001","moduleId":"moduleROOT","menuName":"附件管理","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/sys/file.jsp"},{"menuId":"0008","menuPid":"0002","moduleId":"moduleROOT","menuName":"表單設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/form.jsp"},{"menuId":"0009","menuPid":"0002","moduleId":"moduleROOT","menuName":"欄位設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/column.jsp"},{"menuId":"0010","menuPid":"0002","moduleId":"moduleROOT","menuName":"流程設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/flow.jsp"},{"menuId":"0011","menuPid":"0002","moduleId":"moduleROOT","menuName":"窗口對應業主","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/contactPerson.jsp"},{"menuId":"0012","menuPid":"0002","moduleId":"moduleROOT","menuName":"表單申請","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0013","menuPid":"0012","moduleId":"moduleROOT","menuName":"簽呈申請","menuLevel":3,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/checkform.jsp"},{"menuId":"0014","menuPid":"0003","moduleId":"moduleROOT","menuName":"文管新增","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/doc/addDoc.jsp"},{"menuId":"0015","menuPid":"0003","moduleId":"moduleROOT","menuName":"案件查詢","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/doc/queryCase.jsp"}]";
+	}
+	
+	public static void main3(String[] args){
 
 	      Connection con = null;  
 	      Statement stmt = null;  
