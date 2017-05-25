@@ -9,10 +9,12 @@
 	<import resource="COMMONS/spring_sys_SMARTdataSource.xml"/> <!--Add By JiaJia 2017-05-22 將SMART DATABASE放入-->
 
 	<import resource="SYS/spring_sys_menu.xml" />
+	<import resource="SYS/spring_sys_function.xml" />
 	<import resource="SYS/spring_sys_variable.xml" />
 	<import resource="SYS/spring_sys_file.xml" />
 	<import resource="SYS/spring_sys_login.xml" />
 	<import resource="SYS/spring_sys_user.xml" />
+	<import resource="SYS/spring_sys_role.xml" />
 	<import resource="CEK/spring_cek_checkform.xml" />
 	<import resource="CEK/spring_cek_column.xml" />
 	<import resource="CEK/spring_cek_contactPerson.xml"/>

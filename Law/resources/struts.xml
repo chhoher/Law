@@ -12,7 +12,9 @@
     
         <constant name="struts.multipart.maxSize" value="1048576000"/>  <!--2017-05-08 Add By Jia 多檔上傳需給較大的容量  -->
         <include file="SYS/struts_sys_user.xml"></include>
+        <include file="SYS/struts_sys_role.xml"></include> <!-- 2017-05-25 Add By Jia 角色相關Struts -->
         <include file="SYS/struts_sys_menu.xml" /> <!--2017-05-24 Add By Jia 網頁目錄Struts -->
+        <include file="SYS/struts_sys_function.xml" /> <!--2017-05-24 Add By Jia 網頁目錄Struts -->
         <include file="SYS/struts_sys_variable.xml" /> <!--2017-03-30 Add By Jia 系統參數Struts -->
         <include file="SYS/struts_sys_file.xml" /> <!--2017-04-06 Add By Jia 文件管理Struts -->
         <include file="SYS/struts_sys_login.xml" /> <!-- Add By Jia 登入相關Struts -->

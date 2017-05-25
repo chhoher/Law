@@ -13,12 +13,14 @@ import com.myjs.sys.module.model.LSysMenu;
 import com.myjs.sys.module.service.menuService;
 
 /**
- * 2017-05-24 負責控制右側選單
+ * 2017-05-24 負責控制左側選單
  * @author JiaJia
  *
  */
 public class menuAction extends AbstractAction{
 	
+	private static final long serialVersionUID = -7121147574345343388L;
+
 	private final Logger log = LogManager.getLogger(menuAction.class);
 	
 	private menuService menuService;
@@ -38,7 +40,7 @@ public class menuAction extends AbstractAction{
 			JsonObject jsonResponse = new JsonObject();
 			jsonResponse.add("data", gson.toJsonTree(LSysMenuList));
 			String responseLSysMenuList = jsonResponse.toString();
-			String MenuJson = gson.toJsonTree(LSysMenuList).toString();
+//			String MenuJson = gson.toJsonTree(LSysMenuList).toString();
 			String replaceJsonPID = responseLSysMenuList.replace("menuPid", "parent");
 			String replaceJsonName = replaceJsonPID.replace("menuName", "text");
 			String replaceJsonURL = replaceJsonName.replace("menuId", "id");

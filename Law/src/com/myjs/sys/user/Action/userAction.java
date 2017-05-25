@@ -79,7 +79,7 @@ public class userAction extends AbstractAction{
 		    try {
 				printToResponse(data);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				log.error("findAllmemdb error msg=>", e);
 				e.printStackTrace();
 			}
 		    

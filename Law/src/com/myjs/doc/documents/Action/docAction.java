@@ -14,6 +14,8 @@ import com.myjs.commons.AbstractAction;
 
 public class docAction extends AbstractAction {
 
+	private static final long serialVersionUID = -8355626774003201809L;
+
 	private static final Logger log = LogManager.getLogger(docAction.class);
 
 	private docService docService;
