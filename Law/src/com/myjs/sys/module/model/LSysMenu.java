@@ -11,7 +11,21 @@ public class LSysMenu {
 	private String isDelete;
 	private String menuUrl;
 	
+	public LSysMenu(){
+		
+	}
 	
+	public LSysMenu(String menuId, String menuPid, String moduleId, String menuName,
+			int menuLevel, String isOpen, String isDelete, String menuUrl){
+		this.menuId = menuId;
+		this.menuPid = menuPid;
+		this.moduleId = moduleId;
+		this.menuName = menuName;
+		this.menuLevel = menuLevel;
+		this.isOpen = isOpen;
+		this.isDelete = isDelete;
+		this.menuUrl = menuUrl;
+	}
 	public String getMenuId() {
 		return menuId;
 	}

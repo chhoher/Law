@@ -1,15 +1,13 @@
 package com.myjs.sys.module.Action;
 
-import java.util.List;
+import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.myjs.cek.checkform.model.LCekColumn;
 import com.myjs.commons.AbstractAction;
-import com.myjs.sys.module.model.LSysMenu;
+import com.myjs.commons.JsonUtil;
 import com.myjs.sys.module.service.menuService;
 
 /**
@@ -21,7 +19,7 @@ public class menuAction extends AbstractAction{
 	
 	private static final long serialVersionUID = -7121147574345343388L;
 
-	private final Logger log = LogManager.getLogger(menuAction.class);
+	private static final Logger log = LogManager.getLogger(menuAction.class);
 	
 	private menuService menuService;
 	
@@ -35,20 +33,45 @@ public class menuAction extends AbstractAction{
 
 	public String findMenu(){
 		try{
-			List<LSysMenu> LSysMenuList = menuService.findAllMenu();
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-			JsonObject jsonResponse = new JsonObject();
-			jsonResponse.add("data", gson.toJsonTree(LSysMenuList));
-			String responseLSysMenuList = jsonResponse.toString();
-//			String MenuJson = gson.toJsonTree(LSysMenuList).toString();
-			String replaceJsonPID = responseLSysMenuList.replace("menuPid", "parent");
-			String replaceJsonName = replaceJsonPID.replace("menuName", "text");
-			String replaceJsonURL = replaceJsonName.replace("menuId", "id");
-			
-			log.debug("responsedata = {}", replaceJsonURL);
-			printToResponse(replaceJsonURL);
+			String selectedmoduleId = super.getRequest().getParameter("selectedmoduleId");
+			log.debug("selectedmoduleId = {}", selectedmoduleId);
+			String responseLSysMenuList = menuService.findAllMenu(selectedmoduleId);
+
+			log.debug("responsedata = {}", responseLSysMenuList);
+			printToResponse(responseLSysMenuList);
 		}catch(Exception e){
 			log.error("findMenu error msg=>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * add by Jia 2017-05-26
+	 * 新增功能鏈結到目錄表上
+	 * @return
+	 */
+	public String addMenuPid(){
+		try {
+			log.debug("addMenuPid start");
+			log.debug("=====addMenuPid info=====");
+			String iptaddfunctionModuleId = super.getRequest().getParameter("iptaddfunctionModuleId"),
+					iptaddfunctionMenuUpId = super.getRequest().getParameter("iptaddfunctionMenuUpId");
+			log.debug("iptaddfunctionModuleId = {} ,iptaddfunctionMenuUpId = {}", iptaddfunctionModuleId,
+					iptaddfunctionMenuUpId);
+
+			boolean IsUpdate = menuService.saveMenu(iptaddfunctionModuleId, iptaddfunctionMenuUpId);
+
+			String result = "";
+			if (IsUpdate) {
+				result = JsonUtil.ajaxResultSuccess("已設定目錄位置").toString();
+			} else {
+				result = JsonUtil.ajaxResultSuccess("設定目錄位置失敗").toString();
+			}
+			log.debug("addMenuPid end {}", result);
+			printToResponse(result);
+
+		} catch (Exception e) {
+			log.error("addMenuPid error msg=>", e);
 		}
 		return NONE;
 	}

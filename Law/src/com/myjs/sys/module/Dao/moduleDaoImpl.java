@@ -8,10 +8,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.myjs.commons.DaoUtil;
-import com.myjs.sys.module.model.LSysFunction;
+import com.myjs.sys.module.model.LSysModule;
 
-public class functionDaoImpl extends DaoUtil implements functionDao{
-	private static final Logger log = LogManager.getLogger(functionDaoImpl.class);
+public class moduleDaoImpl extends DaoUtil implements moduleDao{
+	private static final Logger log = LogManager.getLogger(moduleDaoImpl.class);
 
 	private JdbcTemplate jdbcTemplate;
 	
@@ -24,28 +24,28 @@ public class functionDaoImpl extends DaoUtil implements functionDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<LSysFunction> findbyproperties(String functionName){
+	public List<LSysModule> findbyproperties(String moduleName){
 		log.debug("findbyproperties start");
 		List<?> querylist = null;
 		try{
 			String[] valuearr = new String[1];
-			valuearr[0]="%" + functionName + "%";
-			String queryString = "from LSysFunction lsf where  1=1";
-			if(functionName != null && !functionName.equals("")){
+			valuearr[0]="%" + moduleName + "%";
+			String queryString = "from LSysModule lsf where  1=1";
+			if(moduleName != null && !moduleName.equals("")){
 				queryString += " and lsf.functionName like '"+valuearr[0]+"'";
 			}
 			log.debug("queryString = {}", queryString);
 			querylist = super.getHibernateTemplate().find(queryString);
 			log.debug("findbyproperties end");
-			return (List<LSysFunction>) querylist;
+			return (List<LSysModule>) querylist;
 		}catch(Exception e){
 			log.error("findbyproperties error msg =>", e);
 			return null;
 		}
 	}
 
-	public boolean save(LSysFunction transientInstance) {
-		log.debug("saving LSysFunction instance");
+	public boolean save(LSysModule transientInstance) {
+		log.debug("saving LSysModule instance");
 		boolean flag = false;
 		try {
 			Serializable lizable=super.getHibernateTemplate().save(transientInstance);

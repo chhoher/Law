@@ -2,6 +2,7 @@ package com.myjs.sys.module.Action;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.myjs.commons.AbstractAction;
 import com.myjs.commons.JsonUtil;
 import com.myjs.sys.module.model.LSysFunction;
+import com.myjs.sys.module.model.LSysModule;
 import com.myjs.sys.module.service.functionService;
 import com.myjs.sys.user.model.LSysRole;
 
@@ -23,7 +25,7 @@ import com.myjs.sys.user.model.LSysRole;
  */
 public class functionAction extends AbstractAction{
 	
-	private final Logger log = LogManager.getLogger(functionAction.class);
+	private static final Logger log = LogManager.getLogger(functionAction.class);
 	private functionService functionService;
 
 	public functionService getFunctionService() {
@@ -62,9 +64,13 @@ public class functionAction extends AbstractAction{
 			log.debug("iptaddfunctionName = {} ,iptaddfunctionUrl = {}", iptaddfunctionName, iptaddfunctionUrl);
 
 			Date now = new Date();
-			LSysFunction LSysFunction = new LSysFunction(null, iptaddfunctionName, "moduleId", now,
+//			String moduleIduuid = UUID.randomUUID().toString();// 自動生成id
+			
+			LSysModule LSysModule = new LSysModule(null, iptaddfunctionName); 
+			
+			LSysFunction LSysFunction = new LSysFunction(null, iptaddfunctionName, null, now,
 					getSessionLoginUser().getMemno(), iptaddfunctionUrl, "N", "N", now, getSessionLoginUser().getMemno());
-			boolean IsaddFunction = functionService.addSysFunction(LSysFunction);// TODO 2017-05-25
+			boolean IsaddFunction = functionService.addSysFunction(LSysModule, LSysFunction);
 			String result = "";
 			if (IsaddFunction) {
 				result = JsonUtil.ajaxResultSuccess("新增成功").toString();

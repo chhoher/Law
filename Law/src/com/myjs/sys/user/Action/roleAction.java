@@ -21,7 +21,7 @@ public class roleAction extends AbstractAction{
 	 */
 	private static final long serialVersionUID = 7489972019141183766L;
 
-	private final Logger log = LogManager.getLogger(roleAction.class);
+	private static final Logger log = LogManager.getLogger(roleAction.class);
 
 	private roleService roleService;
 	

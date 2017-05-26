@@ -115,7 +115,39 @@
                 {"id": "hp", "parent": "lappy", "text": "HP", "icon": "/"}
             ];
 			
+			var test = [
+                {"id": "a", "parent": "#", "text": "Animals","state":{"opened":true}},
+                {"id": "b", "parent": "#", "text": "Devices"},
+                {"id": "c", "parent": "animal", "text": "Dogs"},
+                {"id": "d", "parent": "animal", "text": "Lions"},
+                {"id": "r", "parent": "device", "text": "Mobile Phones"},
+                {"id": "d", "parent": "device", "text": "Laptops"},
+                {"id": "asd", "parent": "dog", "text": "Dabur Man", "icon": "/"},
+                {"id": "asdw", "parent": "dog", "text": "Dalmatian", "icon": "/"},
+                {"id": "afriscan", "parent": "lion", "text": "African Lion", "icon": "/"},
+                {"id": "ss", "parent": "lion", "text": "Indian Lion", "icon": "/"},
+                {"id": "a", "parent": "mobile", "text": "Apple IPhone 6", "icon": "/"},
+                {"id": "cc", "parent": "mobile", "text": "Samsung Note II", "icon": "/"},
+                {"id": "awe", "parent": "lappy", "text": "Lenevo", "icon": "/"},
+                {"id": "awes", "parent": "lappy", "text": "HP", "icon": "/"}
+            ];
+			var jsonOne = [{"id" : "a","typeValue" : "","name" : "我愛" },{"id":"b","typeValue":"test","name":"貓咪"}];
+			
+			var jsonTwo = [{"key":"早上","value":"0"},{"key":"中午","value":"1"},{"key":"下午","value":"2"},{"key":"晚上","value":"3"}];
+			
+			jsonOne[0].typeValue = jsonTwo;
+			
+			console.log(jsonOne);
+			
+			var text = '[{"key":"早上","value":"0"},{"key":"中午","value":"1"},{"key":"下午","value":"2"},{"key":"晚上","value":"3"}]';
+			var obj = JSON.parse(text);
+			
+			jsonOne[0].typeValue = text;
+			
+			console.log(jsonOne);
+			
 			console.log(arrayCollection);
+			console.log(test);
 			
 			$('#using_json_2').jstree({
                 'core': {

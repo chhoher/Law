@@ -22,6 +22,11 @@
 			
 			$("#functionTable").dataTable(opt);
 
+			$( "#iptaddfunctionMenuUpName" ).change(function(i) {
+				if($("#iptaddfunctionMenuUpName").val() == ""){
+					$("#iptaddfunctionMenuUpId").val("");
+				}
+			});
 		});
 	</script>
 
@@ -37,6 +42,12 @@
 						</button>
 						<button class="ui-button ui-widget ui-corner-all" id="btnqueryfunction">
 							<span class="ui-icon ui-icon-gear"></span> 查詢
+						</button>
+						<button class="ui-button ui-widget ui-corner-all" id="btnsetfunctionmenu">
+							<span class="ui-icon ui-icon-gear"></span> 目錄設定
+						</button>
+						<button class="ui-button ui-widget ui-corner-all" id="btnsetfunction">
+							<span class="ui-icon ui-icon-gear"></span> 功能設定
 						</button>
 					</td>
 				</tr>
@@ -86,5 +97,21 @@
 	  </form>
 	</div>
 
+	<!-- 目錄設定的畫面 -->
+	<div id="functionmenu-dialog-form" title="目錄設定">
+		<div>
+		<label for="labfunctionMenuUp">上層目錄</label>
+	    <input type="text" name="iptaddfunctionMenuUpName" id="iptaddfunctionMenuUpName" value="" class="text ui-widget-content ui-corner-all">
+	    <input type="hidden" name="iptaddfunctionMenuUpId" id="iptaddfunctionMenuUpId" value="" class="text ui-widget-content ui-corner-all">
+		</div>
+		<div id="functionMenuTree"></div>
+	</div>
+	
+	<!-- 設定功能項目的畫面 -->
+	<div id="setfunction-dialog-form" title="">
+		<div>
+		
+		</div>
+	</div>
 </body>
 </html>

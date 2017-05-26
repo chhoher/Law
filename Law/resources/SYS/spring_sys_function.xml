@@ -18,11 +18,27 @@
 			<ref bean="jdbcTemplate" />
 		</property>
 	</bean>
+	
+	<bean id="moduleDao" class="com.myjs.sys.module.Dao.moduleDaoImpl">
+		<description>The base dao implement java file</description>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
 
 	<!-- Services -->
 	<bean id="functionService" class="com.myjs.sys.module.service.functionServiceImpl">
 		<property name="functionDao">
 			<ref bean="functionDao"/>
+		</property>
+		<property name="moduleDao">
+			<ref bean="moduleDao"/>
+		</property>
+		<property name="menuDao">
+			<ref bean="menuDao"/>
 		</property>
 	</bean>
 
