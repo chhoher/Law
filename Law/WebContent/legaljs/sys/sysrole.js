@@ -152,7 +152,64 @@ $(function() {
 	
 	//設定許可權
 	$("#btnsetrolefunction").button().on("click", function() {
+		
+		var datatable = $("#roleTable").dataTable();
+		if(datatable.fnGetData('.selected') != null){
+		
+			// 讀取全部的欄位，包含有選和沒選
+			$.ajax({
+				url : '../pages/sys/menu/menuAction!initRoleFunction.action',
+				data : {
+					'selectedmoduleId2' : datatable.fnGetData('.selected').roleId
+				},
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					
+					if(response.selectParent != null){
+						$("#iptaddfunctionMenuUpName").val(response.selectParent.selectPName);
+						$("#iptaddfunctionMenuUpId").val(response.selectParent.selectPId);
+					}
+					
+					var menuJson = response.data;
+					$('#rolefunctionTree').on("changed.jstree", function (e, data) {
+						if(data.selected.length) {
+							//需實作點選打開子頁簽方式
+							var menuId = data.instance.get_node(data.selected[0]).id;
+							var menname = data.instance.get_node(data.selected[0]).text;
+							$("#iptaddfunctionMenuUpName").val(menname);
+							$("#iptaddfunctionMenuUpId").val(menuId);
+						}
+					});
+					
+					$('#rolefunctionTree').jstree('destroy');
+					var $rolefunctiontreeview =$('#rolefunctionTree');
+					$('#rolefunctionTree').jstree({
+		                'core': {
+		                    'data': menuJson,
+		                    'state' : {
+		                        'opened' : true
+		                      }
+		                },
+			                "checkbox": {
+			                    'visible': true,
+			                    'keep_selected_style': false
+			                },
+			                "plugins": ["wholerow", "checkbox"]
+		            }).on('loaded.jstree', function() {
+		                $rolefunctiontreeview.jstree('open_all');
+		            });
+			},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
 		functiondialog.dialog("open");
+		}else{
+			alert("請選擇角色");
+		}
+	
 	});
 	// ===== 功能列按鈕 end =====
 });

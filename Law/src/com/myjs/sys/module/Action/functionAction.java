@@ -2,7 +2,6 @@ package com.myjs.sys.module.Action;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +14,6 @@ import com.myjs.commons.JsonUtil;
 import com.myjs.sys.module.model.LSysFunction;
 import com.myjs.sys.module.model.LSysModule;
 import com.myjs.sys.module.service.functionService;
-import com.myjs.sys.user.model.LSysRole;
 
 /**
  * 2017-05-25
@@ -85,4 +83,6 @@ public class functionAction extends AbstractAction{
 		}
 		return NONE;
 	}
+	
+	
 }

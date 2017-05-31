@@ -162,7 +162,9 @@
                 },
                 "plugins": ["wholerow", "checkbox"]
             });
-			 
+
+            //$('#rolefunctionTree').jstree(true).refresh();
+			//$('#rolefunctionTree').jstree('open_all');
 		});
 	</script>
 	<div id="using_json_2"></div>

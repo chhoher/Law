@@ -2,6 +2,7 @@ package com.myjs.sys.module.Dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +35,7 @@ public class menuDaoImpl extends DaoUtil implements menuDao{
 	        Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
 	            public Object doInHibernate(Session session) throws HibernateException{
 	                Query<?> query = null;
-	                String hql = "from LSysMenu lsm where lsm.menuPid is not null";
+	                String hql = "from LSysMenu lsm where lsm.menuPid is not null order by lsm.menuId";
 	                query = session.createQuery(hql);
 	                return query.list();
 	            }
@@ -108,25 +109,29 @@ public class menuDaoImpl extends DaoUtil implements menuDao{
 	}
 	
 	public LSysMenu findBymoduleId(String Id){
-		log.debug("findById start");
+		log.debug("findBymoduleId start");
 		try{
-	        Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
-	            public Object doInHibernate(Session session) throws HibernateException{
-	                Query<?> query = null;
-	                String hql = "from LSysMenu lsm where lsm.moduleId = '" + Id + "'";
-	                query = session.createQuery(hql);
-	                if(query.list().size() > 0){
-	                	return query.list().get(0);
-	                }else
-	                {
-	                	return null;
-	                }
-	            }
-	        });
-			log.debug("findById end");
-	        return (LSysMenu)execute;
+			StringBuffer queryString = new StringBuffer("SELECT LSM.menu_id,LSM.menu_pid,");
+			queryString.append(" LSM.module_id,PLSM.menu_id   AS Pmenu_id,");
+			queryString.append(" PLSM.menu_name AS Pmenu_name");
+			queryString.append(" FROM L_SYS_MENU LSM");
+			queryString.append(" LEFT JOIN L_SYS_MENU PLSM");
+			queryString.append(" ON LSM.menu_pid = PLSM.menu_id");
+			queryString.append(" WHERE LSM.module_id='" + Id + "'");
+			log.debug("queryString = {}", queryString);
+			
+			Map<String, Object> queryObject = this.jdbcTemplate.queryForMap(queryString.toString());
+			
+			LSysMenu LSysMenu = new LSysMenu();
+			LSysMenu.setMenuId((String) queryObject.get("menu_id"));
+			LSysMenu.setMenuPid((String) queryObject.get("menu_pid"));
+			LSysMenu.setModuleId((String) queryObject.get("module_id"));
+			LSysMenu.setMenuPname((String) queryObject.get("Pmenu_name"));
+			
+			log.debug("findBymoduleId end");
+	        return LSysMenu;
 		}catch(Exception e){
-			log.error("findById error ==>",e);
+			log.error("findBymoduleId error ==>",e);
 			return null;
 		}
 	}

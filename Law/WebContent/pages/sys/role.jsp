@@ -92,7 +92,7 @@
 	</div>
 
 	<div id="functionRole-dialog-form" title="設定許可權">
-	
+		<div id="rolefunctionTree"></div>
 	</div>
 </body>
 </html>

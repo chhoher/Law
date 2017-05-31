@@ -2,6 +2,9 @@ package com.myjs.sys.module.service;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -9,6 +12,9 @@ import com.myjs.sys.module.Dao.menuDao;
 import com.myjs.sys.module.model.LSysMenu;
 
 public class menuServiceImpl implements menuService{
+	
+	private static final Logger log = LogManager.getLogger(menuServiceImpl.class);
+	
 	private menuDao menuDao;
 
 	public menuDao getMenuDao() {
@@ -29,9 +35,11 @@ public class menuServiceImpl implements menuService{
 		if(selectedmoduleId != null && !selectedmoduleId.equals("")){
 			LSysMenu selectParent = menuDao.findBymoduleId(selectedmoduleId);
 			if(selectParent != null){
+				log.debug("selectParent info ==");
+				log.debug("MenuId = {}, MenuName = {}", selectParent.getMenuPid(), selectParent.getMenuPname());
 				JsonObject json = new JsonObject();
-				json.addProperty("selectPId", selectParent.getMenuId());
-				json.addProperty("selectPName", selectParent.getMenuName());
+				json.addProperty("selectPId", selectParent.getMenuPid());
+				json.addProperty("selectPName", selectParent.getMenuPname());
 				jsonResponse.add("selectParent", json);
 			}
 			LSysMenuList = menuDao.findAllNotSelectedmodule(selectedmoduleId);

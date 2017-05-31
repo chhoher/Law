@@ -11,6 +11,9 @@ public class LSysMenu {
 	private String isDelete;
 	private String menuUrl;
 	
+	// add By Jia 2017-05-31 Vo
+	private String menuPname;
+	
 	public LSysMenu(){
 		
 	}
@@ -74,6 +77,13 @@ public class LSysMenu {
 	public void setMenuUrl(String menuUrl) {
 		this.menuUrl = menuUrl;
 	}
-	
+
+	public String getMenuPname() {
+		return menuPname;
+	}
+
+	public void setMenuPname(String menuPname) {
+		this.menuPname = menuPname;
+	}
 	
 }

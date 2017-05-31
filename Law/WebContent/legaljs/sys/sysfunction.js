@@ -112,10 +112,10 @@ $(function() {
 				success : function(response) {
 					if (response.success) {
 						alert(response.msg);
-						columndialog.dialog("close");
+						functionMenuDialog.dialog("close");
 					} else {
 						alert(response.msg);
-						columndialog.dialog("close");
+						functionMenuDialog.dialog("close");
 					}
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
@@ -213,7 +213,7 @@ $(function() {
 							$("#iptaddfunctionMenuUpId").val(menuId);
 						}
 					});
-					
+					$('#functionMenuTree').jstree('destroy');
 					var $menutreeview =$('#functionMenuTree');
 					$('#functionMenuTree').jstree({
 		                'core': {
@@ -225,7 +225,6 @@ $(function() {
 		            }).on('loaded.jstree', function() {
 		                $menutreeview.jstree('open_all');
 		            });
-					
 			},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);

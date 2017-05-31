@@ -1,11 +1,8 @@
 package com.myjs.sys.module.Action;
 
-import java.util.Date;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.myjs.cek.checkform.model.LCekColumn;
 import com.myjs.commons.AbstractAction;
 import com.myjs.commons.JsonUtil;
 import com.myjs.sys.module.service.menuService;
@@ -17,7 +14,7 @@ import com.myjs.sys.module.service.menuService;
  */
 public class menuAction extends AbstractAction{
 	
-	private static final long serialVersionUID = -7121147574345343388L;
+	private static final long serialVersionUID = 3056039626648965306L;
 
 	private static final Logger log = LogManager.getLogger(menuAction.class);
 	
@@ -72,6 +69,21 @@ public class menuAction extends AbstractAction{
 
 		} catch (Exception e) {
 			log.error("addMenuPid error msg=>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * add by Jia 2017-05-31
+	 * 角色對應功能初始化
+	 */
+	public String initRoleFunction(){
+		try{
+			log.debug("initRoleFunction start");
+			log.debug("=====role Info=====");
+			
+		}catch(Exception e){
+			
 		}
 		return NONE;
 	}
