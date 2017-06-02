@@ -82,8 +82,52 @@ public class menuAction extends AbstractAction{
 			log.debug("initRoleFunction start");
 			log.debug("=====role Info=====");
 			
-		}catch(Exception e){
+			String selectedroleId = super.getRequest().getParameter("selectedroleId");
 			
+			String responseLSysMenuList = "";
+			
+			if(selectedroleId != null && !selectedroleId.equals("")){
+				String[] roleIds = new String[1];
+				roleIds[0] = selectedroleId;
+				log.debug("selectedroleId = {}", selectedroleId);
+				responseLSysMenuList = menuService.findByRoleIds(roleIds);
+			}
+			
+			log.debug("responsedata = {}", responseLSysMenuList);
+			printToResponse(responseLSysMenuList);
+		}catch(Exception e){
+			log.error("initRoleFunction error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * add by Jia 2017-06-02
+	 * 登入後，當前登入者角色對應功能初始化
+	 */
+	public String initRolesFunction(){
+		try{
+			log.debug("initRolesFunction start");
+			log.debug("=====role Info=====");
+			
+			
+			String responseLSysMenuList = "";
+			String userId = getSessionLoginUser().getMemno();
+			
+			if(userId != null){
+				String [] a = new String[2];
+				a[0] = "8aa2e72a5c3ec466015c3ec626630001";
+				a[1] = "8aa2e72a5c3ec466015c3ec4e5a00000";
+				
+				responseLSysMenuList = menuService.findByRoleIds(a);
+			}else{// TODO 這裡要改
+				responseLSysMenuList = menuService.findAllMenu("");
+			}
+			
+			log.debug("responsedata = {}", responseLSysMenuList);
+			printToResponse(responseLSysMenuList);
+		}catch(Exception e){
+			log.error("initRolesFunction error msg==>", e);
 		}
 		return NONE;
 	}

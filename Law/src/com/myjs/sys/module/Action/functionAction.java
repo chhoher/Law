@@ -17,7 +17,7 @@ import com.myjs.sys.module.service.functionService;
 
 /**
  * 2017-05-25
- * 用來控制權縣以及連結功能
+ * 用來控制權限以及連結功能
  * @author JiaJia
  *
  */

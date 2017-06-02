@@ -7,7 +7,7 @@
     <package name="menu" namespace="/pages/sys"  extends="struts-default">  
         <action name="menuAction!*"  method="{1}" class="menuAction"  >	
         
-        	<allowed-methods>findMenu,addMenuPid</allowed-methods>
+        	<allowed-methods>findMenu,addMenuPid,initRoleFunction,initRolesFunction</allowed-methods>
         
         </action>
     </package>

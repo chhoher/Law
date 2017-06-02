@@ -6,7 +6,7 @@
 <struts>
 	<package name="roleAction" namespace="/pages/sys" extends="struts-default">
 		<action name="roleAction!*" method="{1}" class="roleAction">
-			<allowed-methods>findRole,addRole,findFunctionByRole</allowed-methods>
+			<allowed-methods>findRole,addRole,findFunctionByRole,saveRoleFunction</allowed-methods>
 		</action>
 	</package>
 

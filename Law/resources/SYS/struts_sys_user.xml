@@ -6,7 +6,7 @@
 <struts>
 	<package name="userAction" namespace="/pages/sys" extends="struts-default">
 		<action name="userAction!*" method="{1}" class="userAction">
-			<allowed-methods>search,findAllmemdb</allowed-methods>
+			<allowed-methods>search,findAllmemdb,selectedUserRole,setUserRole</allowed-methods>
 		</action>
 	</package>
 

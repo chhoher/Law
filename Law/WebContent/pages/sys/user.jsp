@@ -21,6 +21,28 @@
 			
 			$("#userTable").dataTable(opt);
 
+			var roleopt={
+		    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
+		    		"bJQueryUI":true,	
+		    		"columns": [
+		    			{ "data" :   "v",
+		                    "render" : function ( data, type, row ) {
+		                        if ( type === 'display' ) {
+		                            return '<input type="checkbox" value=' + row.roleId + ' class="editor-active">';
+		                        }
+		                        return data;
+		                    },
+		                    className: "dt-body-center"
+		                },
+		                { "data" : "roleName" }
+		            ],
+		            rowCallback: function ( row, data ) {
+		                // Set the checked state of the checkbox in the table
+		                $('input.editor-active', row).prop( 'checked', data.v == 1 );
+		            }
+		            };
+			
+		    $("#setRoleTable").dataTable(roleopt);
 		});
 	</script>
 
@@ -33,6 +55,11 @@
 					<td>
 						<button class="ui-button ui-widget ui-corner-all" id="btnqueryuser">
 							<span class="ui-icon ui-icon-gear"></span> 查詢
+						</button>
+					</td>
+					<td>
+						<button class="ui-button ui-widget ui-corner-all" id="btnsetRole">
+							<span class="ui-icon ui-icon-gear"></span> 選擇角色
 						</button>
 					</td>
 				</tr>
@@ -64,5 +91,18 @@
 	</div>
 	<!-- 使用者主畫面 end -->
 
+	<!-- 使用者選擇角色畫面 -->
+	<div id="setrole-dialog-form" title="選擇角色">
+				<div id="divsetRole">
+					<table id="setRoleTable"  class="ui-widget-content">
+					    <thead>
+				            <tr>
+				           	 	<th></th>
+				                <th>角色</th>
+				            </tr>
+				        </thead>
+				    </table>
+				</div>
+		</div>
 </body>
 </html>

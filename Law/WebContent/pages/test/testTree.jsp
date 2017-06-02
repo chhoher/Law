@@ -100,7 +100,7 @@
 			 
 			arrayCollection = [
                 {"id": "animal", "parent": "#", "text": "Animals","state":{"opened":true}},
-                {"id": "device", "parent": "#", "text": "Devices"},
+                {"id": "device", "parent": "#", "text": "Devices","state":{"selected":true}},
                 {"id": "dog", "parent": "animal", "text": "Dogs"},
                 {"id": "lion", "parent": "animal", "text": "Lions"},
                 {"id": "mobile", "parent": "device", "text": "Mobile Phones"},

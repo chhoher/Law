@@ -58,6 +58,41 @@ public class menuServiceImpl implements menuService{
 		return replaceJsonURL;
 	}
 	
+	public String findByRoleIds(String[] roleIds){
+		
+		List<LSysMenu> LSysMenuList = null; 
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		JsonObject jsonResponse = new JsonObject();
+		
+		if(roleIds != null){
+			String roleIdsString = "";
+			if(roleIds.length == 1){
+				roleIdsString = roleIds[0];
+				LSysMenuList = menuDao.findAllMenuByRoleId(roleIdsString);
+				log.debug("roleIdsString = {}", roleIdsString);
+			}else{
+				for(String roleId:roleIds){
+					roleIdsString += "'" + roleId + "',";
+				}
+				roleIdsString = roleIdsString.substring(0, roleIdsString.length()-1);
+				log.debug("roleIdsString = {}", roleIdsString);
+				LSysMenuList = menuDao.findAllMenuByRoleIds(roleIdsString);
+			}
+		}else{
+			LSysMenuList = menuDao.findAll();
+		}
+		
+		jsonResponse.add("data", gson.toJsonTree(LSysMenuList));
+		
+		String responseLSysMenuList = jsonResponse.toString();
+		String replaceJsonPID = responseLSysMenuList.replace("menuPid", "parent");
+		String replaceJsonName = replaceJsonPID.replace("menuName", "text");
+		String replaceJsonURL = replaceJsonName.replace("menuId", "id");
+		
+		return replaceJsonURL;
+	}
+	
 	public boolean saveMenu(String moduleId, String menuPid){
 		return menuDao.savePid(moduleId, menuPid);
 	}

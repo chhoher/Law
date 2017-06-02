@@ -11,6 +11,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.myjs.commons.AbstractAction;
 import com.myjs.commons.JDBCConnect;
+import com.myjs.commons.JsonUtil;
 import com.myjs.sys.user.model.LSysUser;
 import com.myjs.sys.user.model.VEIPMemdb;
 import com.myjs.sys.user.service.userService;
@@ -85,6 +86,43 @@ public class userAction extends AbstractAction{
 		    
 		} catch (JsonIOException e) {
 			log.error("findAllmemdb error", e);
+		}
+		return NONE;
+	}
+	
+	public String selectedUserRole(){
+		try{
+			log.debug("=====selectedUserRole start=====");
+			String selecteduserId = super.getRequest().getParameter("selecteduserId");
+			log.debug("selecteduserId = {}",selecteduserId);
+			String MapFileList = userService.findUserRolebyUserId(selecteduserId).toString();
+			log.debug("MapFileList = {}", MapFileList);
+			printToResponse(MapFileList);
+		}catch(Exception e){
+			log.error("selectedUserRole error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	public String setUserRole(){
+		try {
+			log.debug("setUserRole start");
+			log.debug("=====setUserRole info=====");
+			String[] saveselectRoleIds = super.getRequest().getParameterValues("saveselectRoleIds[]");
+			String saveselectuserId = super.getRequest().getParameter("saveselectuserId");
+			boolean IsaddUserRole = userService.saveOrUpdateUserRole(saveselectuserId, saveselectRoleIds);
+			
+			String result = "";
+			if (IsaddUserRole) {
+				result = JsonUtil.ajaxResultSuccess("新增成功").toString();
+			} else {
+				result = JsonUtil.ajaxResultSuccess("新增失敗").toString();
+			}
+			log.debug("setUserRole end {}", result);
+			printToResponse(result);
+
+		} catch (Exception e) {
+			log.error("setUserRole error msg=>", e);
 		}
 		return NONE;
 	}

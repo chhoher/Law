@@ -21,6 +21,19 @@ $('#userTable').on('click', 'tr', function() {
 
 $(function() {
 	
+	var dialog;
+	dialog = $("#setrole-dialog-form").dialog({
+		autoOpen : false,
+		height : 570,
+		width : 350,
+		modal : true,
+		buttons : {
+			'新增' : setRoleFunction,
+			'取消' : function() {
+				dialog.dialog("close");
+			}
+		}
+	});
 	// ===== function start =====
 	
 	// add by Jia search function
@@ -50,6 +63,39 @@ $(function() {
 		});
 	}
 	
+	function setRoleFunction(){
+		var saveselectRoleIds = [];
+		var datatable = $("#setRoleTable").dataTable();
+		$("input:checked", datatable.fnGetNodes()).each(function(){
+			saveselectRoleIds.push($(this).val());
+		});
+		
+		var userdatatable = $("#userTable").dataTable();
+		
+		$.ajax({
+				url : 'sys/user/userAction!setUserRole.action',
+				data : {
+					'saveselectRoleIds' : saveselectRoleIds,
+					'saveselectuserId' : userdatatable.fnGetData('.selected').memno
+				},
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					if (response.success) {
+						alert(response.msg);
+						dialog.dialog("close");
+					} else {
+						alert(response.msg);
+						dialog.dialog("close");
+					}
+					searchUser();
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
+	}
 	// ===== function end =====
 
 	// ===== 功能列按鈕 start =====
@@ -61,5 +107,34 @@ $(function() {
 		searchUser(iptsearchuserName);
 	});
 	
+	// 選擇角色按鈕
+	$("#btnsetRole").button().on("click",function() {
+		var datatable = $("#setRoleTable").dataTable();
+		datatable.fnClearTable();
+		var userdatatable = $("#userTable").dataTable();
+		var json = "";
+		$.ajax({
+			url : 'sys/user/userAction!selectedUserRole.action',
+			data : {
+				'selecteduserId' : userdatatable.fnGetData('.selected').memno
+			},
+			type : "POST",
+			dataType : 'json',
+			success : function(response) {
+				json = response.data;
+				datatable.fnClearTable();
+				if (response.data != '') {
+					datatable.fnAddData(json);
+				}
+				datatable.fnDraw();
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert(xhr.status);
+				alert(thrownError);
+			}
+		});
+		
+		dialog.dialog("open");
+	});
 	// ===== 功能列按鈕 end =====
 });

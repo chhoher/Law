@@ -13,6 +13,10 @@ public class LSysMenu {
 	
 	// add By Jia 2017-05-31 Vo
 	private String menuPname;
+	private String hasFunction;
+	private State state;
+	private String roleFunctionId;
+	private String functionId;
 	
 	public LSysMenu(){
 		
@@ -85,5 +89,37 @@ public class LSysMenu {
 	public void setMenuPname(String menuPname) {
 		this.menuPname = menuPname;
 	}
-	
+
+	public String getHasFunction() {
+		return hasFunction;
+	}
+
+	public void setHasFunction(String hasFunction) {
+		this.hasFunction = hasFunction;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public String getRoleFunctionId() {
+		return roleFunctionId;
+	}
+
+	public void setRoleFunctionId(String roleFunctionId) {
+		this.roleFunctionId = roleFunctionId;
+	}
+
+	public String getFunctionId() {
+		return functionId;
+	}
+
+	public void setFunctionId(String functionId) {
+		this.functionId = functionId;
+	}
+
 }

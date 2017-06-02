@@ -188,7 +188,7 @@ $(function() {
 		var datatable = $("#functionTable").dataTable();
 		if(datatable.fnGetData('.selected') != null){
 		
-			// 讀取全部的欄位，包含有選和沒選
+			// 讀取目錄樹
 			$.ajax({
 				url : '../pages/sys/menu/menuAction!findMenu.action',
 				data : {

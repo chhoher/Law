@@ -9,6 +9,11 @@ public class LSysRole {
 	private String modifyUserId;
 	private Date modifyDatetime;
 	
+	// add By Jia 2017-06-02 新增Vo
+	private String isDelete;
+	private String userRoleId;
+	private String v;
+	
 	public LSysRole(){
 		
 	}
@@ -61,5 +66,29 @@ public class LSysRole {
 	public void setModifyDatetime(Date modifyDatetime) {
 		this.modifyDatetime = modifyDatetime;
 	}
-	
+
+	public String getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	public String getUserRoleId() {
+		return userRoleId;
+	}
+
+	public void setUserRoleId(String userRoleId) {
+		this.userRoleId = userRoleId;
+	}
+
+	public String getV() {
+		return v;
+	}
+
+	public void setV(String v) {
+		this.v = v;
+	}
+
 }

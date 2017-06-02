@@ -32,7 +32,7 @@ $(function() {
 	
 	// ===== function start =====
 	
-	// 新增欄位
+	// 新增角色
 	function addRole() {
 		var valid = true;// 看輸入的格式對不對
 		allFields.removeClass("ui-state-error");
@@ -64,6 +64,34 @@ $(function() {
 			});
 		}
 		return valid;
+	}
+	
+	function addRoleFunction(){
+		var getroleFunctionJstree = $('#rolefunctionTree').jstree();
+		var datatable = $("#roleTable").dataTable();
+		$.ajax({
+				url : '../pages/sys/user/roleAction!saveRoleFunction.action',
+				data : {
+					'checkMenuIds' : getroleFunctionJstree.get_bottom_checked(),// 找到底層有勾選之項目
+					'addselectedRoleId' : datatable.fnGetData('.selected').roleId
+				},
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					if (response.success) {
+						alert(response.msg);
+						dialog.dialog("close");
+					} else {
+						alert(response.msg);
+						dialog.dialog("close");
+					}
+					searchRole();
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
 	}
 			
 	// add by Jia search function
@@ -122,11 +150,11 @@ $(function() {
 	
 	functiondialog = $("#functionRole-dialog-form").dialog({
 		autoOpen : false,
-		height : 500,
+		height : 570,
 		width : 350,
 		modal : true,
-		button : {
-			'新增' : addRole,
+		buttons : {
+			'新增' : addRoleFunction,
 			'取消' : function() {
 				functiondialog.dialog("close");
 			}
@@ -156,20 +184,15 @@ $(function() {
 		var datatable = $("#roleTable").dataTable();
 		if(datatable.fnGetData('.selected') != null){
 		
-			// 讀取全部的欄位，包含有選和沒選
+			// 讀取全部的權限，該角色擁有權限需打勾
 			$.ajax({
 				url : '../pages/sys/menu/menuAction!initRoleFunction.action',
 				data : {
-					'selectedmoduleId2' : datatable.fnGetData('.selected').roleId
+					'selectedroleId' : datatable.fnGetData('.selected').roleId
 				},
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
-					
-					if(response.selectParent != null){
-						$("#iptaddfunctionMenuUpName").val(response.selectParent.selectPName);
-						$("#iptaddfunctionMenuUpId").val(response.selectParent.selectPId);
-					}
 					
 					var menuJson = response.data;
 					$('#rolefunctionTree').on("changed.jstree", function (e, data) {
@@ -177,8 +200,6 @@ $(function() {
 							//需實作點選打開子頁簽方式
 							var menuId = data.instance.get_node(data.selected[0]).id;
 							var menname = data.instance.get_node(data.selected[0]).text;
-							$("#iptaddfunctionMenuUpName").val(menname);
-							$("#iptaddfunctionMenuUpId").val(menuId);
 						}
 					});
 					
@@ -188,7 +209,8 @@ $(function() {
 		                'core': {
 		                    'data': menuJson,
 		                    'state' : {
-		                        'opened' : true
+		                        'opened' : true,
+		                        'selected'  : true
 		                      }
 		                },
 			                "checkbox": {
@@ -196,7 +218,7 @@ $(function() {
 			                    'keep_selected_style': false
 			                },
 			                "plugins": ["wholerow", "checkbox"]
-		            }).on('loaded.jstree', function() {
+		            }).on('loaded.jstree', function(data) {
 		                $rolefunctiontreeview.jstree('open_all');
 		            });
 			},

@@ -89,4 +89,29 @@ public class roleAction extends AbstractAction{
 		}
 		return NONE;
 	}
+	
+	public String saveRoleFunction(){
+		try {
+			log.debug("saveRoleFunction start");
+			log.debug("=====saveRoleFunction info=====");
+			String addselectedRoleId = super.getRequest().getParameter("addselectedRoleId");
+			String[] checkMenuIds = super.getRequest().getParameterValues("checkMenuIds[]");
+			log.debug("addselectedRoleId = {}", addselectedRoleId);
+
+			boolean IsaddRoleFunction = roleService.saveOrUpdateRoleFunction(addselectedRoleId, checkMenuIds);
+			
+			String result = "";
+			if (IsaddRoleFunction) {
+				result = JsonUtil.ajaxResultSuccess("新增成功").toString();
+			} else {
+				result = JsonUtil.ajaxResultSuccess("新增失敗").toString();
+			}
+			log.debug("saveRoleFunction end {}", result);
+			printToResponse(result);
+
+		} catch (Exception e) {
+			log.error("saveRoleFunction error msg=>", e);
+		}
+		return NONE;
+	}
 }
