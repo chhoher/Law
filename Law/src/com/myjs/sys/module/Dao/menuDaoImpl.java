@@ -191,6 +191,9 @@ public class menuDaoImpl extends DaoUtil implements menuDao{
 				LSysMenu.setModuleId((String) map.get("module_id"));
 				LSysMenu.setMenuName((String) map.get("menu_name"));
 				LSysMenu.setMenuUrl((String) map.get("menu_url"));
+				if(map.get("is_delete") != null){
+					LSysMenu.setFunctionIsDelete((String) map.get("is_delete"));
+				}
 				LSysMenuList.add(LSysMenu);
 			}
 			

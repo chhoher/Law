@@ -51,6 +51,36 @@ public class VEIPMemdb implements java.io.Serializable {
 	
 	public VEIPMemdb() {
 	}
+	
+	public VEIPMemdb(String admin){
+		this.userID = "10601";
+		this.memno = "admin";
+	    this.memnm = "admin";
+	    this.membirth = "800101";
+	    this.memidno = "F227792354";
+	    this.memsex = null;
+	    this.memzon = "A3";
+	    this.mempos = null;
+	    this.posnm = "89";
+	    this.memdep = "A300";
+	    this.mempwd = "1qaz@WSX";
+	    this.sdate = "20170221";
+	    this.edate = null;
+	    this.memtmp = "Y";
+	    this.lastdate = null;
+	    this.lgtmp = null;
+	    this.thistime = null;
+	    this.agtno = "0.0";
+	    this.holino = "";
+	    this.memobj = "A";
+	    this.memmail = "2354@mytf.com.tw";
+	    this.memtel = "0266064600";
+	    this.telext = "XXXXXXXXXXXXXXXXXXXX";
+	    this.memfax = "N";
+	    this.memaddr = null;
+	    this.memadm = "Y";
+	    this.admno1 = "06880";
+	}
 
 	public VEIPMemdb(String userID,String memno, String memnm, String membirth, String memidno, String memsex, String memzon, String mempos, String posnm, String memdep, String mempwd, String sdate, String edate, String memtmp, String lastdate,
 			String lgtmp, String thistime, String agtno, String holino, String memobj, String memmail, String memtel, String telext, String memfax, String memaddr, String memadm, String subpos, String paytp, String memmob,

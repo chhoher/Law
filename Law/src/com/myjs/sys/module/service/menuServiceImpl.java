@@ -1,5 +1,6 @@
 package com.myjs.sys.module.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.myjs.sys.module.Dao.menuDao;
+import com.myjs.sys.user.Dao.roleDao;
 import com.myjs.sys.module.model.LSysMenu;
 
 public class menuServiceImpl implements menuService{
@@ -16,6 +18,7 @@ public class menuServiceImpl implements menuService{
 	private static final Logger log = LogManager.getLogger(menuServiceImpl.class);
 	
 	private menuDao menuDao;
+	private roleDao roleDao;
 
 	public menuDao getMenuDao() {
 		return menuDao;
@@ -25,6 +28,14 @@ public class menuServiceImpl implements menuService{
 		this.menuDao = menuDao;
 	}
 	
+	public roleDao getRoleDao() {
+		return roleDao;
+	}
+
+	public void setRoleDao(roleDao roleDao) {
+		this.roleDao = roleDao;
+	}
+
 	public String findAllMenu(String selectedmoduleId){
 		
 		List<LSysMenu> LSysMenuList = null; 
@@ -84,6 +95,47 @@ public class menuServiceImpl implements menuService{
 		}
 		
 		jsonResponse.add("data", gson.toJsonTree(LSysMenuList));
+		
+		String responseLSysMenuList = jsonResponse.toString();
+		String replaceJsonPID = responseLSysMenuList.replace("menuPid", "parent");
+		String replaceJsonName = replaceJsonPID.replace("menuName", "text");
+		String replaceJsonURL = replaceJsonName.replace("menuId", "id");
+		
+		return replaceJsonURL;
+	}
+	
+	public String findLoginMenuByUserId(String loginUserId){
+		
+		List<LSysMenu> LSysMenuList = null; 
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		JsonObject jsonResponse = new JsonObject();
+		
+		String roleIdsString = "";
+		
+		List<String> roleIds = roleDao.findRolesByUserId(loginUserId);
+		
+		for(String roleId:roleIds){
+			roleIdsString += "'" + roleId + "',";
+		}
+		roleIdsString = roleIdsString.substring(0, roleIdsString.length()-1);
+		log.debug("roleIdsString = {}", roleIdsString);
+		LSysMenuList = menuDao.findAllMenuByRoleIds(roleIdsString);
+		List<LSysMenu> returnMenuList = new ArrayList<LSysMenu>();
+		for(LSysMenu mapMenu : LSysMenuList){
+			if(mapMenu.getMenuId().equals("ROOT")){
+				returnMenuList.add(mapMenu);
+			}else{
+				if(mapMenu.getMenuUrl() != null && mapMenu.getMenuUrl().equals("無")){
+					returnMenuList.add(mapMenu);
+				}
+				if(mapMenu.getFunctionIsDelete() != null && mapMenu.getFunctionIsDelete().equals("N")){
+					returnMenuList.add(mapMenu);
+				}
+			}
+		}
+		
+		jsonResponse.add("data", gson.toJsonTree(returnMenuList));
 		
 		String responseLSysMenuList = jsonResponse.toString();
 		String replaceJsonPID = responseLSysMenuList.replace("menuPid", "parent");

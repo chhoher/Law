@@ -1,7 +1,9 @@
 package com.myjs.sys.user.Dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -141,4 +143,23 @@ public class roleDaoImpl extends DaoUtil  implements roleDao{
 			return null;
 		}
     }
+	
+	public List<String> findRolesByUserId(String userId){
+		log.debug("=====findRolesByUserId start=====");
+		try{
+			StringBuffer queryString = new StringBuffer("SELECT role_id FROM");
+			queryString.append(" L_SYS_USER_ROLE WHERE");
+			queryString.append(" user_id = '" + userId + "' AND is_delete = 'N'");
+			
+			List<String> roleIds = new ArrayList<String>();
+			List<Map<String, Object>> queryObject = this.jdbcTemplate.queryForList(queryString.toString());
+			for(Map<String, Object> map:queryObject){
+				roleIds.add((String) map.get("role_id"));
+			}
+			return roleIds;
+		}catch(Exception e){
+			log.error("findRolesByUserId error msg===>", e);
+			return null;
+		}
+	}
 }

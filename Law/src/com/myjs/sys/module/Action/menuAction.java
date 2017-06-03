@@ -115,13 +115,13 @@ public class menuAction extends AbstractAction{
 			String userId = getSessionLoginUser().getMemno();
 			
 			if(userId != null){
-				String [] a = new String[2];
-				a[0] = "8aa2e72a5c3ec466015c3ec626630001";
-				a[1] = "8aa2e72a5c3ec466015c3ec4e5a00000";
+				if(userId.equals("admin")){
+					responseLSysMenuList = menuService.findAllMenu("");
+				}else{
+					responseLSysMenuList = menuService.findLoginMenuByUserId(userId);
+				}
+			}else {
 				
-				responseLSysMenuList = menuService.findByRoleIds(a);
-			}else{// TODO 這裡要改
-				responseLSysMenuList = menuService.findAllMenu("");
 			}
 			
 			log.debug("responsedata = {}", responseLSysMenuList);

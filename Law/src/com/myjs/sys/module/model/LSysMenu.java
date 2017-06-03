@@ -17,6 +17,7 @@ public class LSysMenu {
 	private State state;
 	private String roleFunctionId;
 	private String functionId;
+	private String functionIsDelete;
 	
 	public LSysMenu(){
 		
@@ -120,6 +121,14 @@ public class LSysMenu {
 
 	public void setFunctionId(String functionId) {
 		this.functionId = functionId;
+	}
+
+	public String getFunctionIsDelete() {
+		return functionIsDelete;
+	}
+
+	public void setFunctionIsDelete(String functionIsDelete) {
+		this.functionIsDelete = functionIsDelete;
 	}
 
 }

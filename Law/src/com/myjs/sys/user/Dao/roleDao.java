@@ -12,4 +12,5 @@ public interface roleDao {
 	public boolean updateroleFunctionForJDBCTemplate(String roleId);
 	public boolean updateroleFunctionForRoleFunctioneIds(String roleFunctionIds);
 	public List<LSysRoleFunction> findRoleFunctionByRoleId(String roleId);
+	public List<String> findRolesByUserId(String userId);
 }
