@@ -281,7 +281,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocentitlementForeclosure">
-	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
+	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="addcensubtab()">
 
         <div id="censubtabs">
           <ul>
@@ -310,6 +310,7 @@
 					<td><label>原債權人</label></td>
 					<td><input id="iptcentitlementOldBankName" ></input></td>
 				</tr>
+				<tr>
 					<td><label>*法院年字案股</label></td>
 					<td><input id="iptcentitlementCourtYearCourt" ></input></td>
 					<td><label>年度</label></td>
@@ -320,6 +321,7 @@
 					<td><input id="iptcentitlementCourtYearShare" ></input></td>
 					<td><label>案號</label></td>
 					<td><input id="iptcentitlementCourtYearCaseId" ></input></td>
+				</tr>
 				<tr>
 					<td><label>*發文日期</label></td>
 					<td><input id="iptcentitlementSendDate" ></input></td>
@@ -338,11 +340,11 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccourtDoc">
-	法院文<img alt="新增法院文" src="../images/plus.png" onclick="addsubtab()">
+	法院文<img alt="新增法院文" src="../images/plus.png" onclick="addcourtDocsubtab()">
 		
 		<div id="courtDocsubtabs">
           <ul>
-            <li><a href="#courtDoctabs-0">法院文</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#courtDocsubtabs-0">法院文</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
           <div id="courtDocsubtabs-0">
             <div>
@@ -367,6 +369,7 @@
 					<td><label>原債權人</label></td>
 					<td><input id="iptcentitlementOldBankName" ></input></td>
 				</tr>
+				<tr>
 					<td><label>*法院年字案股</label></td>
 					<td><input id="iptcentitlementCourtYearCourt" ></input></td>
 					<td><label>年度</label></td>
@@ -377,6 +380,7 @@
 					<td><input id="iptcentitlementCourtYearShare" ></input></td>
 					<td><label>案號</label></td>
 					<td><input id="iptcentitlementCourtYearCaseId" ></input></td>
+				</tr>
 				<tr>
 					<td><label>*發文日期</label></td>
 					<td><input id="iptcentitlementSendDate" ></input></td>
@@ -395,90 +399,250 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccashierCheck">
-	本票<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
+	本票<img alt="新增本票" src="../images/plus.png" onclick="addcashierChecksubtab()">
 
-        <div id="subtabs">
+        <div id="cashierChecksubtabs">
           <ul>
-            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
-            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#cashierChecksubtabs-0">本票</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
-          <div id="subtabs-1">
-            some data
-          </div>
-          <div id="subtabs-2">
-            some data
+          <div id="cashierChecksubtabs-0">
+            <div>
+           	 <table>
+           	 	<tr>
+					<td><label>收文日期</label></td>
+					<td><input id="iptcashierCheckReceivedDate"></input></td>
+					<td><label>業主調件日</label></td>
+					<td><input id="iptcashierCheckBankDate" ></input></td>
+					<td><label>文件狀態</label></td>
+					<td><input id="iptcashierCheckDocStatus" ></input></td>
+				</tr>
+				<tr>
+					<td><label>文件類別</label></td>
+					<td><input id="iptcashierCheckTypeOne" ></input></td>
+					<td><label>文件項目</label></td>
+					<td><input id="iptcashierCheckTypeTwo" ></input></td>
+					<td><label>債權人</label></td>
+					<td><input id="iptcashierCheckBankName" ></input></td>
+					<td><label>原債權人</label></td>
+					<td><input id="iptcashierCheckOldBankName" ></input></td>
+				</tr>
+				<tr>
+					<td><label>相對人</label></td>
+					<td><input id="iptcashierCheckRelationPerson" ></input></td>
+				</tr>
+				<tr>
+					<td><label>本票發票日</label></td>
+					<td><input id="iptcashierCheckStartDate" ></input></td>
+					<td><label>本票金額</label></td>
+					<td><input id="iptcashierCheckAmount" ></input></td>
+					<td><label>本票到期日</label></td>
+					<td><input id="iptcashierCheckEndDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>備註</label></td>
+					<td><input id="iptcashierCheckRemark" ></input></td>
+				</tr>
+           	 </table>
+           	</div>
+            
           </div>
   		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocdebts">
-	債讓<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
+	債讓<img alt="債讓" src="../images/plus.png" onclick="adddebtssubtab()">
 
-        <div id="subtabs">
+        <div id="debtssubtabs">
           <ul>
-            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
-            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#debtssubtabs-0">債讓</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
-          <div id="subtabs-1">
-            some data
+          <div id="debtssubtabs-0">
+
+        <div>
+           	 <table>
+           	 	<tr>
+					<td><label>收文日期</label></td>
+					<td><input id="iptdebtsReceivedDate"></input></td>
+					<td><label>業主調件日</label></td>
+					<td><input id="iptdebtsBankDate" ></input></td>
+					<td><label>文件狀態</label></td>
+					<td><input id="iptdebtsDocStatus" ></input></td>
+				</tr>
+				<tr>
+					<td><label>文件類別</label></td>
+					<td><input id="iptdebtsTypeOne" ></input></td>
+					<td><label>文件項目</label></td>
+					<td><input id="iptdebtsTypeTwo" ></input></td>
+					<td><label>債權人</label></td>
+					<td><input id="iptdebtsBankName" ></input></td>
+					<td><label>原債權人</label></td>
+					<td><input id="iptdebtsOldBankName" ></input></td>
+				</tr>
+				<tr>
+					<td><label>相對人</label></td>
+					<td><input id="iptdebtsRelationPerson" ></input></td>
+				</tr>
+				<tr>
+					<td><label>法院年字案股</label></td>
+					<td><input id="iptdebtsCourtYearCourt" ></input></td>
+					<td><label>年度</label></td>
+					<td><input id="iptdebtsCourtYearYear" ></input></td>
+					<td><label>字</label></td>
+					<td><input id="iptdebtsCourtYearTxt" ></input></td>
+					<td><label>股別</label></td>
+					<td><input id="iptdebtsCourtYearShare" ></input></td>
+					<td><label>案號</label></td>
+					<td><input id="iptdebtsCourtYearCaseId" ></input></td>
+				</tr>
+				<tr>
+					<td><label>債讓日</label></td>
+					<td><input id="iptdebtsDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>備註</label></td>
+					<td><input id="iptdebtsRemark" ></input></td>
+				</tr>
+           	 </table>
+           	</div>
           </div>
-          <div id="subtabs-2">
-            some data
-          </div>
-  		</div>
+  	</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocclaimsDoc">
-	債權文件<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
+	債權文件<img alt="債權文件" src="../images/plus.png" onclick="addclaimsDocsubtab()">
 
-        <div id="subtabs">
+        <div id="claimsDocsubtabs">
           <ul>
-            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
-            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#claimsDocsubtabs-0">債權文件</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
-          <div id="subtabs-1">
-            some data
-          </div>
-          <div id="subtabs-2">
-            some data
+          <div id="claimsDocsubtabs-0">
+            <div>
+           	 <table>
+           	 	<tr>
+					<td><label>收文日期</label></td>
+					<td><input id="iptclaimsDocReceivedDate"></input></td>
+					<td><label>業主調件日</label></td>
+					<td><input id="iptclaimsDocBankDate" ></input></td>
+					<td><label>文件狀態</label></td>
+					<td><input id="iptclaimsDocDocStatus" ></input></td>
+				</tr>
+				<tr>
+					<td><label>文件類別</label></td>
+					<td><input id="iptclaimsDocTypeOne" ></input></td>
+					<td><label>文件項目</label></td>
+					<td><input id="iptclaimsDocTypeTwo" ></input></td>
+					<td><label>債權人</label></td>
+					<td><input id="iptclaimsDocBankName" ></input></td>
+					<td><label>原債權人</label></td>
+					<td><input id="iptclaimsDocOldBankName" ></input></td>
+				</tr>
+				<tr>
+					<td><label>相對人</label></td>
+					<td><input id="iptclaimsDocrelationPerson" ></input></td>
+				</tr>
+				<tr>
+					<td><label>額度</label></td>
+					<td><input id="iptclaimsDocQuota" ></input></td>
+					<td><label>利率</label></td>
+					<td><input id="iptclaimsDocInterestRate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>備註</label></td>
+					<td><input id="iptclaimsDocRemark" ></input></td>
+				</tr>
+           	 </table>
+           	</div>
+            
           </div>
   		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocfile">
-	卷宗<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
+	卷宗<img alt="卷宗" src="../images/plus.png" onclick="addfilesubtab()">
 
-        <div id="subtabs">
+        <div id="filesubtabs">
           <ul>
-            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
-            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#filesubtabs-0">卷宗</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
-          <div id="subtabs-1">
-            some data
-          </div>
-          <div id="subtabs-2">
-            some data
+          <div id="filesubtabs-0">
+            <div>
+           	 <table>
+           	 	<tr>
+					<td><label>收文日期</label></td>
+					<td><input id="iptfileReceivedDate"></input></td>
+					<td><label>業主調件日</label></td>
+					<td><input id="iptfileBankDate" ></input></td>
+					<td><label>文件狀態</label></td>
+					<td><input id="iptfileDocStatus" ></input></td>
+				</tr>
+				<tr>
+					<td><label>文件類別</label></td>
+					<td><input id="iptfileTypeOne" ></input></td>
+					<td><label>文件項目</label></td>
+					<td><input id="iptfileTypeTwo" ></input></td>
+					<td><label>債權人</label></td>
+					<td><input id="iptfileBankName" ></input></td>
+				</tr>
+				<tr>
+					<td><label>份數</label></td>
+					<td><input id="iptfileNums" ></input></td>
+				</tr>
+				<tr>
+					<td><label>備註</label></td>
+					<td><input id="iptfileRemark" ></input></td>
+				</tr>
+           	 </table>
+           	</div>
+            
           </div>
   		</div>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocother">
-	其它<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab(this)">
+	其它<img alt="其它" src="../images/plus.png" onclick="addothersubtab()">
 
-        <div id="subtabs">
+        <div id="othersubtabs">
           <ul>
-            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
-            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#othersubtabs-0">其它</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
-          <div id="subtabs-1">
-            some data
-          </div>
-          <div id="subtabs-2">
-            some data
+          <div id="othersubtabs-0">
+            <div>
+           	 <table>
+           	 	<tr>
+					<td><label>收文日期</label></td>
+					<td><input id="iptotherReceivedDate"></input></td>
+					<td><label>業主調件日</label></td>
+					<td><input id="iptotherBankDate" ></input></td>
+					<td><label>文件狀態</label></td>
+					<td><input id="iptotherDocStatus" ></input></td>
+				</tr>
+				<tr>
+					<td><label>文件類別</label></td>
+					<td><input id="iptotherTypeOne" ></input></td>
+					<td><label>文件項目</label></td>
+					<td><input id="iptotherTypeTwo" ></input></td>
+					<td><label>債權人</label></td>
+					<td><input id="iptotherBankName" ></input></td>
+				</tr>
+				<tr>
+					<td><label>收據種類</label></td>
+					<td><input id="iptotherReceiptType" ></input></td>
+					<td><label>收據金額</label></td>
+					<td><input id="iptotherReceiptAmount" ></input></td>
+					<td><label>法院製發日</label></td>
+					<td><input id="iptotherCourtDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>備註</label></td>
+					<td><input id="iptotherRemark" ></input></td>
+				</tr>
+           	 </table>
+           	</div>
+            
           </div>
   		</div>
 	</div>
 	
-</div>
+	</div>
 </body>
 </html>
