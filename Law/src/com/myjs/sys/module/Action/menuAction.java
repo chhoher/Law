@@ -1,11 +1,16 @@
 package com.myjs.sys.module.Action;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.JsonObject;
 import com.myjs.commons.AbstractAction;
 import com.myjs.commons.JsonUtil;
 import com.myjs.sys.module.service.menuService;
+import com.myjs.sys.user.model.LSysRole;
+import com.myjs.sys.user.service.roleService;
 
 /**
  * 2017-05-24 負責控制左側選單
@@ -19,6 +24,7 @@ public class menuAction extends AbstractAction{
 	private static final Logger log = LogManager.getLogger(menuAction.class);
 	
 	private menuService menuService;
+	private roleService roleService;
 	
 	public menuService getMenuService() {
 		return menuService;
@@ -26,6 +32,14 @@ public class menuAction extends AbstractAction{
 
 	public void setMenuService(menuService menuService) {
 		this.menuService = menuService;
+	}
+	
+	public roleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(roleService roleService) {
+		this.roleService = roleService;
 	}
 
 	public String findMenu(){
@@ -117,12 +131,29 @@ public class menuAction extends AbstractAction{
 			if(userId != null){
 				if(userId.equals("admin")){
 					responseLSysMenuList = menuService.findAllMenu("");
+					List<LSysRole> rolesList = roleService.findByProperty(null, null);
+					String roleIds = "[";
+					for(LSysRole mapLSysRole : rolesList){
+						roleIds += mapLSysRole.getRoleId() + ",";
+					}
+					roleIds = roleIds.substring(0, roleIds.length()-1) + "]";
+					log.debug("roleIds = {} ", roleIds);
+					setSessionLoginUserRoles(roleIds);
 				}else{
-					responseLSysMenuList = menuService.findLoginMenuByUserId(userId);
+					JsonObject jsString = menuService.findLoginMenuByUserId(userId);
+					responseLSysMenuList = jsString.toString();
+
+					String replaceJsonPID = responseLSysMenuList.replace("menuPid", "parent");
+					String replaceJsonName = replaceJsonPID.replace("menuName", "text");
+					String replaceJsonURL = replaceJsonName.replace("menuId", "id");
+					responseLSysMenuList = replaceJsonURL;
+					
+					setSessionLoginUserRoles(jsString.toString());
 				}
 			}else {
 				
 			}
+
 			
 			log.debug("responsedata = {}", responseLSysMenuList);
 			printToResponse(responseLSysMenuList);

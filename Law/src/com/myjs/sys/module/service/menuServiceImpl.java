@@ -104,7 +104,7 @@ public class menuServiceImpl implements menuService{
 		return replaceJsonURL;
 	}
 	
-	public String findLoginMenuByUserId(String loginUserId){
+	public JsonObject findLoginMenuByUserId(String loginUserId){
 		
 		List<LSysMenu> LSysMenuList = null; 
 
@@ -136,13 +136,10 @@ public class menuServiceImpl implements menuService{
 		}
 		
 		jsonResponse.add("data", gson.toJsonTree(returnMenuList));
+
+		jsonResponse.add("roleIds", gson.toJsonTree(roleIds));// add By Jia 2017-06-06 登入時同時把roleIds存入暫存
 		
-		String responseLSysMenuList = jsonResponse.toString();
-		String replaceJsonPID = responseLSysMenuList.replace("menuPid", "parent");
-		String replaceJsonName = replaceJsonPID.replace("menuName", "text");
-		String replaceJsonURL = replaceJsonName.replace("menuId", "id");
-		
-		return replaceJsonURL;
+		return jsonResponse;
 	}
 	
 	public boolean saveMenu(String moduleId, String menuPid){

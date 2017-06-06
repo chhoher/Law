@@ -338,18 +338,58 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccourtDoc">
-	法院文<img alt="新增執行名義" src="../images/plus.png" onclick="addsubtab()">
-
-        <div id="subtabs">
+	法院文<img alt="新增法院文" src="../images/plus.png" onclick="addsubtab()">
+		
+		<div id="courtDocsubtabs">
           <ul>
-            <li><a href="#subtabs-1">subtab1</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
-            <li><a href="#subtabs-2">subtab2</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#courtDoctabs-0">法院文</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
           </ul>
-          <div id="subtabs-1">
-            some data
-          </div>
-          <div id="subtabs-2">
-            some data
+          <div id="courtDocsubtabs-0">
+            <div>
+           	 <table>
+           	 	<tr>
+					<td><label>共用案號</label></td>
+					<td><input id="iptcentitlementShareCaseId"></input></td>
+				</tr>
+				<tr>
+					<td><label>業主調件日</label></td>
+					<td><input id="iptcentitlementBankDate" ></input></td>
+					<td><label>*收文日期</label></td>
+					<td><input id="iptcentitlementreceivedDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>*文件類別</label></td>
+					<td><input id="iptcentitlementTypeOne" ></input></td>
+					<td><label>*文件項目</label></td>
+					<td><input id="iptcentitlementTypeTwo" ></input></td>
+					<td><label>*債權人</label></td>
+					<td><input id="iptcentitlementBankName" ></input></td>
+					<td><label>原債權人</label></td>
+					<td><input id="iptcentitlementOldBankName" ></input></td>
+				</tr>
+					<td><label>*法院年字案股</label></td>
+					<td><input id="iptcentitlementCourtYearCourt" ></input></td>
+					<td><label>年度</label></td>
+					<td><input id="iptcentitlementCourtYearYear" ></input></td>
+					<td><label>字</label></td>
+					<td><input id="iptcentitlementCourtYearTxt" ></input></td>
+					<td><label>股別</label></td>
+					<td><input id="iptcentitlementCourtYearShare" ></input></td>
+					<td><label>案號</label></td>
+					<td><input id="iptcentitlementCourtYearCaseId" ></input></td>
+				<tr>
+					<td><label>*發文日期</label></td>
+					<td><input id="iptcentitlementSendDate" ></input></td>
+					<td><label>*最近執行日期</label></td>
+					<td><input id="iptcentitlementNewSendDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>備註</label></td>
+					<td><input id="iptcentitlementRemark" ></input></td>
+				</tr>
+           	 </table>
+           	</div>
+            
           </div>
   		</div>
 	</div>

@@ -24,6 +24,9 @@
 		<property name="memdbDao">
 			<ref bean="memdbDao"/>
 		</property>
+		<property name="roleDao">
+			<ref bean="roleDao" />
+		</property>
 	</bean>
 
 	<!-- Action -->

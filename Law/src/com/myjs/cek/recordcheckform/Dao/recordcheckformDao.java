@@ -12,7 +12,7 @@ import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 
 public interface recordcheckformDao {
 	public List<LCekRecordCheckform> findAll();
-	public List<LCekRecordCheckform> findbyproperties(String startDate,	String endDate, String applyUserId, String status);
+	public List<LCekRecordCheckform> findbyproperties(String startDate,	String endDate, String applyUserId, String status, String recevidUserId);
 	public LCekSignedCaseInfo findCaseByCaseId(String caseId);
 	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId);
 	public boolean save(LCekRecordSigned transientInstance) ;

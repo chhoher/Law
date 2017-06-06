@@ -17,6 +17,9 @@ public class AbstractAction extends ActionSupport {
 
 	/** session 存放當前登入系統的用戶bean */
 	public static final String AP_SYS_SESSION_LOGIN_MEMDB = "AP_SYS_SESSION_LOGIN_MEMDB";
+	
+	/** session 存放當前登入系統的用戶bean的角色 */
+	public static final String AP_SYS_SESSION_LOGIN_ROLES = "AP_SYS_SESSION_LOGIN_ROLES";
 
 	/**
 	 * session can be get by request.getSession()
@@ -63,6 +66,15 @@ public class AbstractAction extends ActionSupport {
 	public static VEIPMemdb getSessionLoginUser() {
 		return (VEIPMemdb) getRequest().getSession().getAttribute(AP_SYS_SESSION_LOGIN_MEMDB);
 	}
+	
+	/**
+	 * 取得當前系統用戶的角色
+	 * 
+	 * @param String
+	 */
+	public static String getSessionLoginUserRoles() {
+		return (String) getRequest().getSession().getAttribute(AP_SYS_SESSION_LOGIN_ROLES);
+	}
 
 	/**
 	 * 設置登入系統的用戶
@@ -73,6 +85,15 @@ public class AbstractAction extends ActionSupport {
 		getRequest().getSession().setAttribute(AP_SYS_SESSION_LOGIN_MEMDB, loginMemdb);
 	}
 
+	/**
+	 * 設置登入系統的用戶的角色
+	 * 
+	 * @param loginMemdb
+	 */
+	public static void setSessionLoginUserRoles(String loginUserRoles) {
+		getRequest().getSession().setAttribute(AP_SYS_SESSION_LOGIN_ROLES, loginUserRoles);
+	}
+	
 	/**
 	 * 設置Attribute
 	 */

@@ -67,14 +67,15 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		}
     }
 	
-	public List<LCekRecordCheckform> findbyproperties(String startDate,	String endDate, String applyUserId, String status) {
+	public List<LCekRecordCheckform> findbyproperties(String startDate,	String endDate, String applyUserId, String status, String recevidUserId) {
 		log.debug("findbyproperties start");
 		try{
-			String[] valuearr = new String[4];
+			String[] valuearr = new String[5];
 			valuearr[0]= startDate;
 			valuearr[1]= endDate + " 23:59:59";
 			valuearr[2]= applyUserId;
 			valuearr[3]= status;
+			valuearr[4]= recevidUserId;
 			
 			StringBuffer queryString=new StringBuffer("SELECT LCRS.signed_id, LCRS.case_id, LCRS.bank_name, LCRS.prod_name, LCRS.payer,");
 			queryString.append(" LCRS.payer_role, LCRS.type, LCRS.periods, LCRS.paytime_start, LCRS.paytime_end, LCRS.ammount_p,");
@@ -85,7 +86,14 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			queryString.append(" LEFT JOIN L_CEK_RECORD_CHECKFORM LCRC ON LCRS.signed_id = LCRC.mappingtable_id");
 			queryString.append(" AND LCRC.modify_datetime = (");
 			queryString.append(" SELECT MAX(modify_datetime) FROM L_CEK_RECORD_CHECKFORM");
-			queryString.append(" WHERE LCRS.signed_id = mappingtable_id) WHERE 1 = 1");
+			queryString.append(" WHERE LCRS.signed_id = mappingtable_id)");
+
+			if(recevidUserId != null && !recevidUserId.equals("")){
+				queryString.append(" LEFT JOIN L_CEK_RECORD_CHECKFORM LCRCM");
+				queryString.append(" ON LCRS.signed_id = LCRCM.mappingtable_id");
+			}
+			
+			queryString.append(" WHERE 1 = 1");
 			if(startDate != null && !startDate.equals("")){
 				queryString.append(" and LCRS.apply_datetime >= '"+valuearr[0]+"'");
 			}
@@ -97,6 +105,9 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			}
 			if(status != null && !status.equals("") && !status.equals("0")){
 				queryString.append(" and LCRS.status = '"+valuearr[3]+"'");
+			}
+			if(recevidUserId != null && !recevidUserId.equals("")){
+				queryString.append(" AND LCRCM.received_user_id = '" + valuearr[4] +"'");
 			}
 			log.debug("queryString = {}",queryString);
 			List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());

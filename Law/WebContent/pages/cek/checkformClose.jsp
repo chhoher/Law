@@ -4,7 +4,7 @@
 <html>
 <body>
 <!-- Add By Jia 2017-03-07 新增申請表單的JS功能 -->
-<script type="text/javascript" src="../legaljs/cek/cekrecordcheckform.js"></script>
+<script type="text/javascript" src="../legaljs/cek/cekrecordcheckformClose.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
 	function paddingLeft(str,lenght){
@@ -14,10 +14,10 @@ $(document).ready(function(){
 		return paddingLeft("0" +str,lenght);
 	}
 	
-	$( "#iptsearchrecordcheckformCreateDateS" ).datepicker();
-    $( "#iptsearchrecordcheckformCreateDateS" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-    $( "#iptsearchrecordcheckformCreateDateE" ).datepicker();
-    $( "#iptsearchrecordcheckformCreateDateE" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#iptsearchrecordcheckformCloseCreateDateS" ).datepicker();
+    $( "#iptsearchrecordcheckformCloseCreateDateS" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    $( "#iptsearchrecordcheckformCloseCreateDateE" ).datepicker();
+    $( "#iptsearchrecordcheckformCloseCreateDateE" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
     var opt={
     		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
@@ -56,7 +56,7 @@ $(document).ready(function(){
                 }
             ]
             };
-    $("#recordcheckformTable").dataTable(opt);
+    $("#recordcheckformCloseTable").dataTable(opt);
     
     });
 </script>
@@ -68,16 +68,10 @@ $(document).ready(function(){
 		<table>
 			<tr>
 				<td>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnaddrecordcheckform">
-					    	<span class="ui-icon ui-icon-gear"></span> 新增
-					</button>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryrecordcheckform">
+					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryrecordcheckformClose">
 				    	<span class="ui-icon ui-icon-gear"></span> 查詢
 				  	</button>
-				  	<!-- <button class="ui-button ui-widget ui-corner-all" id ="btndeleterecordcheckform">
-				    	<span class="ui-icon ui-icon-gear"></span> 刪除
-				  	</button> -->
-				  	<button class="ui-button ui-widget ui-corner-all" id ="btnopenrecordcheckform">
+				  	<button class="ui-button ui-widget ui-corner-all" id ="btnopenrecordcheckformClose">
 				    	<span class="ui-icon ui-icon-gear"></span> 查看
 				  	</button>
 				</td>
@@ -86,26 +80,20 @@ $(document).ready(function(){
 			<table>
 			<tr>
 				<td>
-			    	<label for="labsearchrecordcheckformCreateDateS">申請日期: </label>
-					<input id="iptsearchrecordcheckformCreateDateS"></input>
+			    	<label for="labsearchrecordcheckformCloseCreateDateS">申請日期: </label>
+					<input id="iptsearchrecordcheckformCloseCreateDateS"></input>
 				</td>
 				<td>
-			    	<label for="labsearchrecordcheckformCreateDateE">~ </label>
-					<input id="iptsearchrecordcheckformCreateDateE"></input>
+			    	<label for="labsearchrecordcheckformCloseCreateDateE">~ </label>
+					<input id="iptsearchrecordcheckformCloseCreateDateE"></input>
 				</td>
-				<%
-				String loginUserRoles = (String)request.getSession().getAttribute("AP_SYS_SESSION_LOGIN_ROLES");
-			    
-			   // 登入者如有 8aa2e72a5c77b459015c77b80d350000	sign01	簽呈可覆核主管 這個角色的化才可以看到
-				if( loginUserRoles.indexOf("8aa2e72a5c77b459015c77b80d350000") > 0) {%>
 				<td>
-			    	<label for="labsearchrecordcheckformApplyUserId">申請人: </label>
-					<input id="iptsearchrecordcheckformApplyUserId"></input>
+			    	<label for="labsearchrecordcheckformCloseApplyUserId">申請人: </label>
+					<input id="iptsearchrecordcheckformCloseApplyUserId"></input>
 				</td>
-				<%} %>
 				<td>
-			    	<label for="labsearchrecordcheckStatus">狀態: </label>
-					<select id="iptsearchrecordcheckStatus">
+			    	<label for="labsearchrecordcheckStatusClose">狀態: </label>
+					<select id="iptsearchrecordcheckStatusClose">
 								<option value="0">請選擇</option>
 								<option value="1">暫存</option>
 								<option value="2">主管審核</option>
@@ -121,7 +109,7 @@ $(document).ready(function(){
 	</div>
 	
 　<div style="margin:5px 5px 5px 5px">
-		<table id="recordcheckformTable"  >
+		<table id="recordcheckformCloseTable"  >
 		    <thead>
             <tr>
             	<th>案號</th>
@@ -163,22 +151,6 @@ $(document).ready(function(){
 	
 </div>
 <!-- 申請表單主畫面 end -->
-
-<!-- 新增申請表單 start -->
-<div id="recordcheckform-dialog-form" title="新增簽呈">
-  <p class="validateTips"></p>
- 
-  <form>
-    <fieldset>
-      <label for="labsignedCaseNo">案號</label>
-      <input type="text" name="iptsignedCaseNo" id="iptsignedCaseNo" value="" class="text ui-widget-content ui-corner-all"><div></div>
- 
-      <!-- Allow form submission with keyboard without duplicating the dialog button -->
-      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-    </fieldset>
-  </form>
-</div>
-<!-- 新增申請表單 end -->
 
 </body>
 </html>

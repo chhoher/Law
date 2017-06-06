@@ -34,6 +34,9 @@
 		<property name="menuService">
 			<ref bean="menuService" />
 		</property>
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>
 	</bean>
 	
 	

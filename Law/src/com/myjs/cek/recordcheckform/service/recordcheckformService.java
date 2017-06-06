@@ -13,7 +13,7 @@ import com.myjs.sys.user.model.VEIPMemdb;
 
 public interface recordcheckformService {
 	public List<LCekRecordCheckform> findByProperty(String startDate, String endDate, String applyUserId, String status,
-			VEIPMemdb loginUser);
+			VEIPMemdb loginUser, String roleIds);
 	public LCekSignedCaseInfo findCaseByCaseId(String caseId);
 	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId);
 	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform,

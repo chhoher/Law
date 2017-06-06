@@ -71,7 +71,6 @@ public class recordcheckformAction extends AbstractAction {
 					.getParameter("iptsearchrecordcheckformApplyUserId");
 			String iptsearchrecordcheckStatus = super.getRequest().getParameter("iptsearchrecordcheckStatus");
 			
-			log.debug("LoginUser = {}", getSessionLoginUser().getMemadm());
 			VEIPMemdb loginUser = getSessionLoginUser();
 			
 			log.debug("iptsearchrecordcheckformCreateDateS = {} ,iptsearchrecordcheckformCreateDateE = {} ,"
@@ -81,7 +80,7 @@ public class recordcheckformAction extends AbstractAction {
 
 			List<LCekRecordCheckform> LCekCheckformList = recordcheckformService.findByProperty(
 					iptsearchrecordcheckformCreateDateS, iptsearchrecordcheckformCreateDateE,
-					iptsearchrecordcheckformApplyUserId, iptsearchrecordcheckStatus, loginUser);
+					iptsearchrecordcheckformApplyUserId, iptsearchrecordcheckStatus, loginUser, getSessionLoginUserRoles());
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			JsonObject jsonResponse = new JsonObject();
 			jsonResponse.add("data", gson.toJsonTree(LCekCheckformList));
