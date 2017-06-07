@@ -57,4 +57,21 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-06-07 
+	 * 初始化下拉選單
+	 */
+	public String initSelectOption(){
+		try{
+			log.debug("=====initSelectOption start=====");
+			String returnValue = docService.findDocaddSelectOption();
+			
+			log.debug("returnValue = {}", returnValue);
+			printToResponse(returnValue);
+		}catch(Exception e){
+			log.error("initSelectOption error msg==>", e);
+		}
+		return NONE;
+	}
 }

@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.doc.documents.Dao.docDao;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.myjs.cek.recordcheckform.Dao.recordcheckformDao;
 import com.myjs.sys.variable.Dao.variableDao;
 import com.myjs.sys.variable.model.LSysVariable;
@@ -52,5 +54,15 @@ public class docServiceImpl implements docService{
 			isCheck = false;
 		}
 		return recordcheckformDao.findCaseByproperties(caseId, debtorName, debtorId, docNo, legalCaseId, isCheck);
+	}
+	
+	public String findDocaddSelectOption(){
+		List<LSysVariable> LSysVariableList = variableDao.findVariablesubbyproperties("8aa2e72a5c8074d5015c8076afcd0000");//文件狀態
+		List<LSysVariable> LSysVariableListTypeOne = variableDao.findVariablesubbyproperties("8aa2e72a5c812434015c812e92070000");//文件類別
+		Gson gson = new Gson();
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableList));
+		jsonResponse.add("TypeOne", gson.toJsonTree(LSysVariableListTypeOne));
+		return jsonResponse.toString();
 	}
 }

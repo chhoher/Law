@@ -60,7 +60,40 @@
 				}
 			});
 		    
-		    
+		    //Add By Jia 2017-06-07 初始化下拉選項的內容
+		    $.ajax({
+				url : '../pages/doc/documents/docAction!initSelectOption.action',
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					docStatus = response.DocStatus;
+					
+					//執行名義 文件狀態
+					$("#iptcentitlementDocStatus option").remove();
+					var docArray = response.DocStatus;
+					var seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptcentitlementDocStatus").append(seloption);
+					$('#iptcentitlementDocStatus option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
+					
+					//執行名義 文件類別
+					$("#iptcentitlementTypeOne").remove();
+					var docArray2 = response.TypeOne;
+					var seloption2 = "";
+					$.each(docArray2,function(i){
+						seloption2 += '<option value="'+docArray2[i].variableId+'">'+docArray2[i].variableName+'</option>'; 
+					});
+					$("#iptcentitlementTypeOne").append(seloption2);
+					console.log(docArray2);
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
+			
 		    //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 start
 		    $("#ckbaddDocAll").on( "click", function(){
 		    	if($("#ckbaddDocAll").is(':checked')){
@@ -256,13 +289,13 @@
 			<tr>
 				<td>
 					<button class="ui-button ui-widget ui-corner-all" id ="btnaddCekcheckform">
-					    <span class="ui-icon ui-icon-gear"></span> 新增
+					    <span class="ui-icon ui-icon-gear"></span> 儲存
 					</button>
 					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryCekcheckform">
-				    	<span class="ui-icon ui-icon-gear"></span> 查詢
+				    	<span class="ui-icon ui-icon-gear"></span> 連結到本案文管系統
 				  	</button>
 				  	<button class="ui-button ui-widget ui-corner-all" id ="btndeleteCekcheckform">
-				    	<span class="ui-icon ui-icon-gear"></span> 刪除
+				    	<span class="ui-icon ui-icon-gear"></span> 連結到法務申請
 				  	</button>
 				</td>
 			</tr>
@@ -294,6 +327,12 @@
 					<td><label>共用案號</label></td>
 					<td><input id="iptcentitlementShareCaseId"></input></td>
 				</tr>
+           	 	<tr>
+					<td><input type="checkbox" name="centitlementShadow" value="all" id="ckbcentitlementShadow" checked>影本</td>
+					<td><input type="checkbox" name="centitlementShadowBank" value="all" id="ckbcentitlementShadowBank" checked>業主收文僅提供影本</td>
+					<td><label>文件狀態</label></td>
+					<td><select id="iptcentitlementDocStatus"><option value="">請選擇</option></select></td>
+				</tr>
 				<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptcentitlementBankDate" ></input></td>
@@ -302,7 +341,7 @@
 				</tr>
 				<tr>
 					<td><label>*文件類別</label></td>
-					<td><input id="iptcentitlementTypeOne" ></input></td>
+					<td><select id="iptcentitlementTypeOne"><option value="">請選擇</option></select></td>
 					<td><label>*文件項目</label></td>
 					<td><input id="iptcentitlementTypeTwo" ></input></td>
 					<td><label>*債權人</label></td>
@@ -348,7 +387,7 @@
           </ul>
           <div id="courtDocsubtabs-0">
             <div>
-           	 <table>
+<!--            	 <table>
            	 	<tr>
 					<td><label>共用案號</label></td>
 					<td><input id="iptcentitlementShareCaseId"></input></td>
@@ -391,7 +430,7 @@
 					<td><label>備註</label></td>
 					<td><input id="iptcentitlementRemark" ></input></td>
 				</tr>
-           	 </table>
+           	 </table> -->
            	</div>
             
           </div>

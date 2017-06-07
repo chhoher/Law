@@ -170,7 +170,7 @@ $(function() {
 	function addVariablesub() {
 		var valid = true;// 看輸入的格式對不對
 		allFields.removeClass("ui-state-error");
-		valid = valid && checkLength(tips, iptaddvariablesubName, "資料名稱", 3, 20);
+		valid = valid && checkLength(tips, iptaddvariablesubName, "資料名稱", 0, 20);
 		if (valid) {
 			$.ajax({
 				url : '../pages/sys/variable/variableAction!addVariableSub.action',
