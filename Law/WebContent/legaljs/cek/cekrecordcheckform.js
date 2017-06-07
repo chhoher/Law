@@ -43,7 +43,9 @@ $(function() {
 				dataType : 'json',
 				success : function(response){
 					useruserID = response.data.userID;
-					window.open('../pages/cek/signedform.jsp?caseId=' + iptsignedCaseNo.val() + '' +
+					var opencaseId = iptsignedCaseNo.val();
+					dialog.dialog("close");
+					window.open('../pages/cek/signedform.jsp?caseId=' + opencaseId + '' +
 							'&userId=' + useruserID + '&type=1');
 				},
 				error : function(xhr, ajaxOptions, thrownError){

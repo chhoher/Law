@@ -204,7 +204,7 @@ var otherfilenum = 0;
 				}else if($("#iptcaseType").val() == 2){
 					$("#iptcasePeriods").val(12);
 				}else{
-					dialogstepPay.dialog("open");
+					//dialogstepPay.dialog("open");
 				}
 				if($("#iptcasePayStartDate").val() != ""){
 					$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
