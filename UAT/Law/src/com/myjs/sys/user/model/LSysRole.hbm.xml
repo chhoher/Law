@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/5/25  15:38:14 by Jia -->
+<hibernate-mapping>
+    <class name="com.myjs.sys.user.model.LSysRole" table="L_SYS_ROLE">
+        <id name="roleId" type="java.lang.String">
+            <column name="role_id" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="roleCode" type="java.lang.String">
+            <column name="role_code" />
+        </property>
+        <property name="roleName" type="java.lang.String">
+            <column name="role_name" />
+        </property>
+        <property name="modifyUserId" type="java.lang.String">
+            <column name="modify_user_id" />
+        </property>
+        <property name="modifyDatetime" type="timestamp">
+            <column name="modify_datetime" length="23" />
+        </property>
+    </class>
+</hibernate-mapping>

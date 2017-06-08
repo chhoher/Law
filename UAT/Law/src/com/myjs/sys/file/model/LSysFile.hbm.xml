@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.myjs.sys.file.model.LSysFile" table="L_SYS_FILE" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="fileId" type="string">
+            <column name="file_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="fileName" type="string">
+            <column name="file_name" length="30" not-null="true"/>
+        </property>
+        <property name="fileDisplayName" type="string">
+            <column name="file_display_name" length="30"/>
+        </property>
+        <property name="fileType" type="string">
+            <column name="file_type" length="50"/>
+        </property>
+        <property name="filePath" type="string">
+            <column name="file_path" />
+        </property>
+        <property name="createDatetime" type="timestamp">
+            <column name="create_datetime" length="23" />
+        </property>
+        <property name="createUserId" type="string">
+            <column name="create_user_id" length="50" />
+        </property>
+        <property name="modifyDatetime" type="timestamp">
+            <column name="modify_datetime" length="23"/>
+        </property>
+        <property name="modifyUserId" type="string">
+            <column name="modify_user_id" length="50"/>
+        </property>
+        <property name="isDelete" type="string">
+            <column name="is_delete" length="1" not-null="true" />
+        </property>
+        <property name="fileOwner" type="string">
+            <column name="file_owner" length="50" />
+        </property>
+        <property name="fileSigned" type="string">
+            <column name="file_signed" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

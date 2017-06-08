@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/2/22 ?U?? 04:13:23 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.myjs.sys.user.model.LSysUser" table="L_SYS_USER">
+        <id name="userId" type="java.lang.String">
+            <column name="USER_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="userCname" type="java.lang.String">
+            <column name="USER_CNAME" />
+        </property>
+        <property name="userPassword" type="java.lang.String">
+            <column name="USER_PASSWORD" />
+        </property>
+        <property name="userStatus" type="java.lang.String">
+            <column name="USER_STATUS" />
+        </property>
+        <property name="userEmail" type="java.lang.String">
+            <column name="USER_EMAIL" />
+        </property>
+        <property name="createdate" type="java.util.Date">
+            <column name="CREATEDATE" />
+        </property>
+        <property name="modifydate" type="java.util.Date">
+            <column name="MODIFYDATE" />
+        </property>
+    </class>
+</hibernate-mapping>

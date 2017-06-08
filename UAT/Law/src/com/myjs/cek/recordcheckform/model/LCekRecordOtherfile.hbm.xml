@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.recordcheckform.model.LCekRecordOtherfile" table="L_CEK_RECORD_OTHERFILE" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="signedId" type="string">
+            <column name="signed_id"  length="50" not-null="true" />
+        </id>
+        <property name="fileName" type="string">
+            <column name="file_name" length="60" not-null="true" />
+        </property>
+        <property name="filePath" type="string">
+            <column name="file_path"  length="50"/>
+        </property>
+        <property name="Isselected" type="string">
+            <column name="Isselected" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

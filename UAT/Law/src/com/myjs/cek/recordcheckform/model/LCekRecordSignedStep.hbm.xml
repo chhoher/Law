@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.recordcheckform.model.LCekRecordSignedStep" table="L_CEK_RECORD_SIGNED_STEP" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="signedId" type="string">
+            <column name="signed_id" length="50" />
+        </id>
+        <property name="stepPay1" type="int">
+            <column name="step_pay_1" not-null="true" />
+        </property>
+        <property name="stepPay2" type="int">
+            <column name="step_pay_2" not-null="true" />
+        </property>
+        <property name="stepPay3" type="int">
+            <column name="step_pay_3" not-null="true" />
+        </property>
+        <property name="stepPay4" type="int">
+            <column name="step_pay_4" not-null="true" />
+        </property>
+        <property name="stepPay5" type="int">
+            <column name="step_pay_5" not-null="true" />
+        </property>
+        <property name="stepPay6" type="int">
+            <column name="step_pay_6" not-null="true" />
+        </property>
+        <property name="stepPay7" type="int">
+            <column name="step_pay_7" not-null="true" />
+        </property>
+        <property name="stepPay8" type="int">
+            <column name="step_pay_8" not-null="true" />
+        </property>
+        <property name="stepPay9" type="int">
+            <column name="step_pay_9" not-null="true" />
+        </property>
+        <property name="stepPay10" type="int">
+            <column name="step_pay_10" not-null="true" />
+        </property>
+        <property name="stepPay11" type="int">
+            <column name="step_pay_11" not-null="true" />
+        </property>
+        <property name="stepPay12" type="int">
+            <column name="step_pay_12" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

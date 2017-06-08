@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.myjs.sys.module.model.LSysRoleFunction" table="L_SYS_ROLE_FUNCTION" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="roleFunctionId" type="string">
+            <column name="role_function_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="roleId" type="string">
+            <column name="role_id" length="50"/>
+        </property>
+        <property name="functionId" type="string">
+            <column name="function_id" length="50"/>
+        </property>
+        <property name="isDelete" type="string">
+            <column name="is_delete" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

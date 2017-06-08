@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+        
+    <struts>
+    <package name="documents" namespace="/pages/doc"  extends="struts-default">  
+        <action name="docAction!*"  method="{1}" class="docAction"  >		
+        
+        	<allowed-methods>loadCaseInfo,initSelectOption</allowed-methods>
+        
+        </action>
+    </package>
+</struts>

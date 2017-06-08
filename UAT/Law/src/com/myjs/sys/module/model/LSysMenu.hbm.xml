@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.myjs.sys.module.model.LSysMenu" table="L_SYS_MENU" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="menuId" type="string">
+            <column name="menu_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="menuPid" type="string">
+            <column name="menu_pid" length="50"/>
+        </property>
+        <property name="moduleId" type="string">
+            <column name="module_id" length="50"/>
+        </property>
+        <property name="menuName" type="string">
+            <column name="menu_name" length="50"/>
+        </property>
+        <property name="menuLevel" type="int">
+            <column name="menu_level" />
+        </property>
+        <property name="isOpen" type="string">
+            <column name="is_open" length="1" />
+        </property>
+        <property name="isDelete" type="string">
+            <column name="is_delete" length="1" />
+        </property>
+        <property name="menuUrl" type="string">
+            <column name="menu_url" />
+        </property>
+    </class>
+</hibernate-mapping>

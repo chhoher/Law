@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.checkform.model.LCekColumn" table="L_CEK_COLUMN" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="columnId" type="string">
+            <column name="column_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="columnName" type="string">
+            <column name="column_name" length="50" />
+        </property>
+        <property name="columnAlert" type="string">
+            <column name="column_alert" length="50" />
+        </property>
+        <property name="columnIsdefault" type="string">
+            <column name="column_isdefault" length="1" not-null="true" />
+        </property>
+        <property name="columnType" type="string">
+            <column name="column_type" length="10" not-null="true" />
+        </property>
+        <property name="columnSize" type="int">
+            <column name="column_size" not-null="true" />
+        </property>
+        <property name="columnStatus" type="string">
+            <column name="column_status" length="1" not-null="true" />
+        </property>
+        <property name="createUserId" type="string">
+            <column name="create_user_id" length="20" />
+        </property>
+        <property name="createDatetime" type="timestamp">
+            <column name="create_datetime" length="23" />
+        </property>
+        <property name="modifyUserId" type="string">
+            <column name="modify_user_id" length="20" />
+        </property>
+        <property name="modifyDatetime" type="timestamp">
+            <column name="modify_datetime" length="23" />
+        </property>
+    </class>
+</hibernate-mapping>

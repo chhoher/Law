@@ -1,0 +1,56 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<import resource="COMMONS/spring_sys_dataSource.xml" />
+	<import resource="COMMONS/spring_sys_SMARTdataSource.xml"/> <!--Add By JiaJia 2017-05-22 將SMART DATABASE放入-->
+
+	<import resource="SYS/spring_sys_function.xml" />
+	<import resource="SYS/spring_sys_menu.xml" />
+	<import resource="SYS/spring_sys_variable.xml" />
+	<import resource="SYS/spring_sys_file.xml" />
+	<import resource="SYS/spring_sys_login.xml" />
+	<import resource="SYS/spring_sys_user.xml" />
+	<import resource="SYS/spring_sys_role.xml" />
+	<import resource="CEK/spring_cek_checkform.xml" />
+	<import resource="CEK/spring_cek_column.xml" />
+	<import resource="CEK/spring_cek_contactPerson.xml"/>
+	<import resource="CEK/spring_cek_flow.xml" />
+	<import resource="CEK/spring_cek_recordcheckform.xml" />
+	<import resource="DOC/spring_doc_documents.xml" />
+	
+	<!-- refer hibernate factory config -->
+	<bean id="sessionFactory"	class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingLocations">
+			<value>classpath*:/com/myjs/**/*.hbm.xml</value>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+    class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+</bean>
+
+<!-- 配置事務通知 -->
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+        <!-- 所有find開頭的方法為readOnly，所有查詢方法都以find開頭 -->
+        <tx:method name="find*" read-only="true" />
+        <!-- 其餘方法如果沒有事務的時候，就開啟新事物運行該方法，否則使用已有的事物運行該方法 -->
+        <!-- 關閉readOnly保證save*,update*,delete*等方法可以修改數據 -->
+        <tx:method name="*" propagation="REQUIRED" read-only="false"/>
+    </tx:attributes>
+</tx:advice>
+
+<!-- 設置com.myjs底下Dao的class都加上txAdvice事務通知(主要用於實現Hibernate的提交回滾等) -->
+<aop:config>
+    <aop:pointcut id="DaoPointCut" expression="execution(* com.myjs.*.*.Dao..*.*(..))" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="DaoPointCut"/>
+</aop:config>
+	
+</beans>

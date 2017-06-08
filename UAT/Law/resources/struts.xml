@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+        
+    <struts>
+    
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default"> 
+        <action name="index"><result type="redirect">/pages/index.html</result></action>
+    </package>
+    
+        <constant name="struts.multipart.maxSize" value="1048576000"/>  <!--2017-05-08 Add By Jia 多檔上傳需給較大的容量  -->
+        <include file="SYS/struts_sys_user.xml"></include>
+        <include file="SYS/struts_sys_role.xml"></include> <!-- 2017-05-25 Add By Jia 角色相關Struts -->
+        <include file="SYS/struts_sys_menu.xml" /> <!--2017-05-24 Add By Jia 網頁目錄Struts -->
+        <include file="SYS/struts_sys_function.xml" /> <!--2017-05-24 Add By Jia 網頁目錄Struts -->
+        <include file="SYS/struts_sys_variable.xml" /> <!--2017-03-30 Add By Jia 系統參數Struts -->
+        <include file="SYS/struts_sys_file.xml" /> <!--2017-04-06 Add By Jia 文件管理Struts -->
+        <include file="SYS/struts_sys_login.xml" /> <!-- Add By Jia 登入相關Struts -->
+        <include file="CEK/struts_cek_checkform.xml" /> <!-- Add By Jia 表單設定Struts -->
+        <include file="CEK/struts_cek_column.xml" /> <!-- Add By Jia 欄位設定Struts -->
+        <include file="CEK/struts_cek_flow.xml" /> <!-- Add By Jia 流程設定Struts -->
+        <include file="CEK/struts_cek_recordcheckform.xml" /> <!-- Add By Jia 申請表單Struts -->
+        <include file="CEK/struts_cek_contactPerson.xml" /> <!-- Add By Jia 窗口對應業主Struts -->
+        <include file="DOC/struts_doc_documents.xml" />
+    </struts>
+    

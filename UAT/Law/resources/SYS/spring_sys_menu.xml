@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+	<!-- DAO -->
+	<bean id="menuDao" class="com.myjs.sys.module.Dao.menuDaoImpl">
+		<description>The base dao implement java file</description>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+
+	<!-- Services -->
+	<bean id="menuService" class="com.myjs.sys.module.service.menuServiceImpl">
+		<property name="menuDao">
+			<ref bean="menuDao"/>
+		</property>
+		<property name="roleDao">
+			<ref bean="roleDao"/>
+		</property>
+	</bean>
+
+	<!-- Action -->
+	<bean id="menuAction" class="com.myjs.sys.module.Action.menuAction">
+		<property name="menuService">
+			<ref bean="menuService" />
+		</property>
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>
+	</bean>
+	
+	
+</beans>

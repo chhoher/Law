@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.checkform.model.LCekCheckform" table="L_CEK_CHECKFORM" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="checkformId" type="string">
+            <column name="checkform_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="checkformName" type="string">
+            <column name="checkform_name" length="20" not-null="true" />
+        </property>
+        <property name="checkformType" type="string">
+            <column name="checkform_type" length="50" />
+        </property>
+        <property name="createUserId" type="string">
+            <column name="create_user_id" length="50" not-null="true" />
+        </property>
+        <property name="createDatetime" type="timestamp">
+            <column name="create_datetime" length="23" not-null="true" />
+        </property>
+        <property name="modifyUserId" type="string">
+            <column name="modify_user_id" length="50" />
+        </property>
+        <property name="modifyDatetime" type="timestamp">
+            <column name="modify_datetime" length="23" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="1" not-null="true" />
+        </property>
+        <property name="flowId" type="string">
+            <column name="flow_id" length="50" />
+        </property>
+        <property name="checkformCode" type="string">
+            <column name="checkform_code" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

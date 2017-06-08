@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+	<!-- DAO -->
+
+	<bean id="checkformDao"
+		class="com.myjs.cek.checkform.Dao.checkformDaoImpl">
+		<description>The base dao implement java file</description>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="checkformColumnDao"
+		class="com.myjs.cek.checkform.Dao.checkformColumnDaoImpl">
+		<description>The base dao implement java file</description>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+
+	<bean id="checkformFileDao"
+		class="com.myjs.cek.checkform.Dao.checkformFileDaoImpl">
+		<description>The base dao implement java file</description>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+	
+	<!-- Services -->
+	<bean id="checkformService"
+		class="com.myjs.cek.checkform.service.checkformServiceImpl">
+		<property name="checkformDao">
+			<ref bean="checkformDao" />
+		</property>
+		<property name="checkformColumnDao">
+			<ref bean="checkformColumnDao" />
+		</property>
+		<property name="checkformFileDao">
+			<ref bean="checkformFileDao"/>
+		</property>
+	</bean>
+
+	<!-- Action -->
+	<bean id="checkformAction"
+		class="com.myjs.cek.checkform.Action.checkformAction">
+		<property name="checkformService">
+			<ref bean="checkformService" />
+		</property>
+	</bean>
+	
+	
+</beans>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo" table="V_SMART_RELAINFO" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="Row_ID" type="int">
+            <column name="Row_ID"/>
+            <generator class="increment" />
+        </id>
+        <property name="Case_ID" type="int">
+            <column name="Case_ID"/>
+        </property>
+        <property name="Name" type="string">
+            <column name="Name" length="20" />
+        </property>
+        <property name="ID" type="string">
+            <column name="ID" length="20"/>
+        </property>
+        <property name="Rela_kind" type="string">
+            <column name="Rela_kind" length="20"/>
+        </property>
+    </class>
+</hibernate-mapping>

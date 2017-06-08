@@ -17,16 +17,18 @@ public class LCekSignedRelaInfo implements java.io.Serializable {
 	private String Name;
 	private String ID;
 	private String Rela_kind;
+	private String Role;
 
 	public LCekSignedRelaInfo() {
 
 	}
 
-	public LCekSignedRelaInfo(int Row_ID, int Case_ID, String Name, String ID, String Rela_kind) {
+	public LCekSignedRelaInfo(int Row_ID, int Case_ID, String Name, String ID, String Rela_kind, String Role) {
 		this.Case_ID = Case_ID;
 		this.Name = Name;
 		this.ID = ID;
 		this.Rela_kind = Rela_kind;
+		this.Role = Role;
 	}
 
 	public Long getRow_ID() {
@@ -67,6 +69,14 @@ public class LCekSignedRelaInfo implements java.io.Serializable {
 
 	public void setRela_kind(String rela_kind) {
 		Rela_kind = rela_kind;
+	}
+
+	public String getRole() {
+		return Role;
+	}
+
+	public void setRole(String role) {
+		Role = role;
 	}
 
 	

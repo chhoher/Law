@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/2/22 ?U?? 04:13:23 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.myjs.sys.user.model.LSysUserDepart" table="LSYSUSERDEPART">
+        <id name="modifyUserId" type="java.lang.String">
+            <column name="MODIFYUSERID" />
+            <generator class="assigned" />
+        </id>
+        <property name="userDepartId" type="java.lang.String">
+            <column name="USERDEPARTID" />
+        </property>
+        <many-to-one name="LSysDepart" class="com.myjs.sys.user.model.LSysDepart" fetch="join">
+            <column name="LSYSDEPART" />
+        </many-to-one>
+        <many-to-one name="LSysUser" class="com.myjs.sys.user.model.LSysUser" fetch="join">
+            <column name="LSYSUSER" />
+        </many-to-one>
+        <property name="isLeader" type="java.lang.String">
+            <column name="ISLEADER" />
+        </property>
+        <property name="isDelete" type="java.lang.String">
+            <column name="ISDELETE" />
+        </property>
+        <property name="createdate" type="java.util.Date">
+            <column name="CREATEDATE" />
+        </property>
+        <property name="modifydate" type="java.util.Date">
+            <column name="MODIFYDATE" />
+        </property>
+    </class>
+</hibernate-mapping>

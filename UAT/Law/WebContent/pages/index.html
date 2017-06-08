@@ -1,0 +1,209 @@
+<!doctype html>
+<head>
+<meta  http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
+<title>法務文管系統</title>
+<link rel="stylesheet" href="../js/jquery-ui.css">
+<link rel="stylesheet" href="../js/themes/default/style.min.css" />
+
+<style>
+
+#tabs {
+	margin-top: 0.1em;
+}
+
+#tabs li .ui-icon-close {
+	float: left;
+	margin: 0.4em 0.2em 0 0;
+	cursor: pointer;
+}
+
+#add_tab {
+	cursor: pointer;
+}
+</style>
+
+<script type="text/javascript" src="../js/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../js/stable/jquery.layout.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<link href="../js/jquery.dataTables.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+
+<!-- Add By Jia 2017-04-11 多檔上傳JS引用 -->
+<script src="../js/vendor/jquery.ui.widget.js"></script>
+<script src="../js/jquery.iframe-transport.js"></script>
+<script src="../js/jquery.fileupload.js"></script>
+
+<!-- Add By Jia 2017-02-10 jstree plugin -->
+<script src="../js/jstree.min.js"></script>
+
+<!-- Add By Jia 2017-03-07 js commons add -->
+<script type="text/javascript" src="../commons/regex.js"></script>
+<script type="text/javascript" src="../js/json2.js"></script>
+
+<script>
+var tabcount = 0;
+var menuJson;
+	$(document).ready(function() {
+		if (typeof (JSON) == 'undefined') {
+		     //如果瀏覽器不支援JSON則載入json2.js
+		     $.getScript('js/json2.js');
+		}
+		
+						
+						var tabs = $("#tabs").tabs();
+						var tabArr= [];
+						
+						$("#tabs").tabs().on( "tabsbeforeload", function( event, ui ) {
+					        var key = ui.tab.find("a").text();
+					              if(tabArr[key+"_loaded"] != undefined){
+					            	  if(tabArr[key+"_loaded"] == 1){
+					                	ui.jqXHR.abort();
+					            	  }
+					              }
+					    } );
+
+					    $("#tabs").tabs().on("tabsload", function (event, ui) {
+					    	var key = ui.tab.find("a").text();
+					        tabArr[key+"_loaded"] = 1;
+					    });
+						
+						// Actual addTab function: adds new tab using the input from the form above
+						function addTab(menuid,menname,menuUrl) {
+							
+							tabcount ++ ;
+							//TODO add by Jia 2017-02-13 用menuid帶出頁面index (去找L_SYS_FUNCTION)
+							var tabTitle = menname;
+							var tabHref = menuUrl;
+							var tabId = "tabs-" + menuid;
+							
+							var tabTemplate = "<li><a href='" + tabHref + "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
+							
+							var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
+
+							var key = menname;
+					        tabArr[key+"_loaded"] = 0;
+							
+							tabs.find(".ui-tabs-nav").append(li);
+							tabs.tabs("refresh");
+							tabs.tabs({ active: tabcount	});
+						}
+
+						// Close icon: removing the tab on click
+						tabs.on("click", "span.ui-icon-close", function() {
+							var panelId = $(this).closest("li").remove().attr(
+									"aria-controls");
+							$("#" + panelId).remove();
+							tabcount--;
+						});
+
+						tabs.on("keyup",function(event) {
+							if (event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE) {
+												var panelId = tabs.find(".ui-tabs-active")
+														.remove()	.attr("aria-controls");
+												$("#" + panelId).remove();
+											}
+										});
+
+						$("body").layout({
+							applyDemoStyles : true,
+							south__initClosed : true,
+							north__initClosed : true,
+							east__initClosed : true
+						});
+						
+						/**
+						add by Jia 2017-02-10
+						以下為左方Menu實作	
+						
+						modify by Jia 2017-05-24
+						將menu用ajax方式帶出，並綁權限
+						**/
+						$.ajax({
+							url : '../pages/sys/menu/menuAction!initRolesFunction.action',
+							type : "POST",
+							dataType : 'json',
+							success : function(response) {
+								
+								menuJson = response.data;
+								$('#menu').on("changed.jstree", function (e, data) {
+									if(data.selected.length) {
+										//需實作點選打開子頁簽方式
+										var menuId = data.instance.get_node(data.selected[0]).id;
+										var menname = data.instance.get_node(data.selected[0]).text;
+										var menuUrl = data.node.original.menuUrl;
+										addTab(menuId,menname,menuUrl);
+										
+									}
+								});
+								
+								var $menutreeview =$('#menu');
+								$('#menu').jstree({
+					                'core': {
+					                    'data': menuJson,
+					                    'state' : {
+					                        'opened' : true
+					                      }
+					                }
+					            }).on('loaded.jstree', function(e, data) {
+					                $menutreeview.jstree('open_all');
+					            });
+							},
+							error : function(xhr, ajaxOptions, thrownError) {
+								alert(xhr.status);
+								alert(thrownError);
+							}
+							
+						});
+						
+					});
+
+	$(function () {
+		//$("div.tabs a").click(function () {
+			//alert();
+			//$(".litab").hide(); //隐藏所有
+		//});
+		}); 
+	
+</script>
+</head>
+<body>
+
+	<div class="ui-layout-center">
+		<div id="tabs"  class="tabs">
+			<ul class="list-side">
+				<li>
+					<a href="#tabs-1">首頁</a> 
+					<span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>
+				</li>
+					<!--  <li><a href="#tab-3">Google Tab</a></li>-->
+				<!--  <li class="litab">
+					<a href="#aaaa" target="_blank" >UCAMC</a>
+				</li>-->
+			</ul>
+			<!-- 這裡可以做個首頁來放 -->
+			<div id="tabs-1">
+				<p>首頁</p>
+			</div>
+			<!-- <div id ="aaaa">
+				<a href="/Law/pages/cek/form.jsp" target="_blank" >UCAMC</a>
+			</div> -->
+			<!--  <div id="tab-3">
+    			<iframe src="http://www.google.com"></iframe>
+			</div>
+			-->
+		</div>
+
+	</div>
+	<div class="ui-layout-north">
+		<!--  <button id="add_tab">Add Tab</button>-->
+	</div>
+	<div class="ui-layout-south">South</div>
+	<div class="ui-layout-east">East</div>
+	<div class="ui-layout-west">
+				<!-- TODO 這裡還沒寫好，之後要從DB撈出功能列，目前先暫時直接寫死-->
+				<div id="menu">	</div>
+	</div>
+
+	<!-- add by Jia 先定義div，這裡要放的是通用格式的左右移動SelectedBox -->
+	<div id="divSelectedBox"></div>
+</body>

@@ -211,7 +211,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			//寄送Mail start
 			 
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("2354@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
 					"簽呈信件", "鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + adminUser.getUserID() + "&type=2&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
@@ -285,7 +285,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			//寄送Mail start
 			 
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("2354@mytf.com.tw", applyUser.getMemmail(), "劉家嘉", 
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", applyUser.getMemmail(), "劉家嘉", 
 					"簽呈信件", "退回簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + applyUser.getUserID() + "&type=3&caseId="+ LCekRecordSigned.getCaseId() +">"+"退回簽呈", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
@@ -362,7 +362,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			//寄送Mail start
 			 
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("2354@mytf.com.tw", contactPerson.getMemmail(), "劉家嘉", 
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", contactPerson.getMemmail(), "劉家嘉", 
 					"簽呈信件", "核准簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + contactPerson.getUserID() + "&type=4&caseId="+ LCekRecordSigned.getCaseId() +">"+"核准簽呈", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
@@ -438,10 +438,10 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			//寄送Mail start
 			 
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("2354@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
 					"簽呈信件", "結案簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + applyUser.getUserID() + "&type=5&caseId="+ LCekRecordSigned.getCaseId() +">"+"結案簽呈", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
-			sendMailcontent = new MailSenderInfo("2354@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
+			sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
 					"簽呈信件", "結案簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + adminUser.getUserID() + "&type=5&caseId="+ LCekRecordSigned.getCaseId() +">"+"結案簽呈", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end

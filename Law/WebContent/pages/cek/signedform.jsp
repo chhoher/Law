@@ -89,13 +89,13 @@ var otherfilenum = 0;
 						var leftseloption = "";
 						$.each(relaArray,function(i){
 							leftseloption += '<option value="'+i+'">'+relaArray[i].Name+'</option>'; 
-							if(relaArray[i].Rela_kind == "本人"){
+							if(relaArray[i].Role == "CM"){
 								relaDeb = i;
 							}
 						});
 						$("#iptcaseRela").append(leftseloption);
 						$('#iptcaseRela option[value='+relaDeb+']').attr('selected', 'selected');
-						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Rela_kind);
+						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Role);
 						$("#iptcaseType option").remove();
 						caseTypeArray = response.signedType;
 						var caseTypeseloption = "";
@@ -123,7 +123,7 @@ var otherfilenum = 0;
 						});
 						$("#iptcaseRela").append(leftseloption);
 						$('#iptcaseRela option[value='+leftselectedVal+']').attr('selected', 'selected');
-						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Rela_kind);
+						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Role);
 						$("#iptcaseType option").remove();
 						caseTypeArray = response.signedType;
 						var caseTypeseloption = "";
@@ -193,7 +193,7 @@ var otherfilenum = 0;
 			});
 			
 			$( "#iptcaseRela" ).change(function(i) {
-				$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Rela_kind);
+				$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Role);
 			});
 			
 			$( "#iptcaseType" ).change(function(i) {
@@ -433,6 +433,7 @@ var otherfilenum = 0;
 						} else {
 							alert(response.msg);
 						}
+						window.close();
 					},
 					error : function(xhr, ajaxOptions,thrownError) {
 						alert(xhr.status);
@@ -490,6 +491,7 @@ var otherfilenum = 0;
 						}
 						$( "#btnbackSigned" ).button( "disable" );
 						$( "#btncheckedSubmitSigned" ).button( "disable" );
+						window.close();
 					},
 					error : function(xhr, ajaxOptions,thrownError) {
 						alert(xhr.status);
@@ -542,6 +544,7 @@ var otherfilenum = 0;
 								<%
 							}
 							%>
+							window.close();
 						} else {
 							alert(response.msg);
 						}
@@ -597,6 +600,7 @@ var otherfilenum = 0;
 								<%
 							}
 							%>
+							window.close();
 						} else {
 							alert(response.msg);
 						}

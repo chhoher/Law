@@ -266,31 +266,38 @@ public class FilesUploads {
 		}
 	
 	public List<LSysFile> findAllFiles(String caseId){
-		File a = new File("\\\\sfsimg\\ImageFiles\\案件資料檔\\" + caseId);
-		String[] filenames;
-		String fullpath = a.getAbsolutePath();
-			      
-		List<LSysFile> filelist = new ArrayList<LSysFile>();
-		 
-		if(a.isDirectory()){
-			filenames=a.list();
-			for (int i = 0 ; i < filenames.length ; i++){         
-				File tempFile = new File(fullpath + "\\" + filenames[i]);
-				LSysFile tempsysFile = new LSysFile();
-				if(tempFile.isDirectory()){
-					//System.out.println("目錄:" + filenames[i]);
-				}else{
-					tempsysFile.setV("0");
-					tempsysFile.setFileName(filenames[i]);
-					tempsysFile.setFilePath(fullpath + "\\" + filenames[i]);
-					filelist.add(tempsysFile);
-			            //System.out.println("檔案:" + filenames[i]);
+		try{
+			File a = new File("\\\\sfsimg\\ImageFiles\\案件資料檔\\" + caseId);
+//			File a = new File("\\\\TPEITA04\\test3\\test");
+//			File a = new File("\\\\Sfspub\\公用資料夾\\IT\\test1");
+			String[] filenames;
+			String fullpath = a.getAbsolutePath();
+				      
+			List<LSysFile> filelist = new ArrayList<LSysFile>();
+			 
+			if(a.isDirectory()){
+				filenames=a.list();
+				for (int i = 0 ; i < filenames.length ; i++){         
+					File tempFile = new File(fullpath + "\\" + filenames[i]);
+					LSysFile tempsysFile = new LSysFile();
+					if(tempFile.isDirectory()){
+						//System.out.println("目錄:" + filenames[i]);
+					}else{
+						tempsysFile.setV("0");
+						tempsysFile.setFileName(filenames[i]);
+						tempsysFile.setFilePath(fullpath + "\\" + filenames[i]);
+						filelist.add(tempsysFile);
+				            //System.out.println("檔案:" + filenames[i]);
+					}
 				}
+			}else{
+				log.debug("[" + a + "]不是目錄");
 			}
-		}else{
-			        System.out.println("[" + a + "]不是目錄");
+			return filelist;
+		}catch(Exception e){
+			log.error("findAllFiles error msg=>", e);
+			return null;
 		}
-		return filelist;
 	}
 	
 	public static void main(String[] args) {

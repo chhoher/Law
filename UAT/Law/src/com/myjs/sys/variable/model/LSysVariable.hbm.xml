@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+
+
+    <class name="com.myjs.sys.variable.model.LSysVariable" table="L_SYS_VARIABLE" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="variableId" type="string">
+            <column name="variable_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="variableType" type="string">
+            <column name="variable_type" length="50" />
+        </property>
+        <property name="variableName" type="string">
+            <column name="variable_name" length="50" not-null="true"/>
+        </property>
+        <property name="createDatetime" type="timestamp">
+            <column name="create_datetime" length="23" not-null="true" />
+        </property>
+        <property name="createUserId" type="string">
+            <column name="create_user_id" length="50" not-null="true" />
+        </property>
+        <property name="modifyDatetime" type="timestamp">
+            <column name="modify_datetime" length="23" />
+        </property>
+        <property name="modifyUserId" type="string">
+            <column name="modify_user_id" length="50" />
+        </property>
+        <property name="isDelete" type="string">
+            <column name="is_delete" length="1" not-null="true" />
+        </property>
+        <property name="variableValue" type="string">
+            <column name="variable_value" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

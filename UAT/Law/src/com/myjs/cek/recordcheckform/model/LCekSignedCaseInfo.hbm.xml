@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017/3/23 ?U?? 01:55:52 by Hibernate Tools 5.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo" table="V_SMART_CASEINFO" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<id name="Case_ID" type="int">
+            <column name="Case_ID"/>
+            <generator class="increment" />
+        </id>
+        <property name="Batch_NO" type="byte">
+            <column name="Batch_NO"/>
+        </property>
+        <property name="Prod_ID" type="string">
+            <column name="Prod_ID" length="5" />
+        </property>
+        <property name="CCard_num" type="string">
+            <column name="CCard_num" length="20"/>
+        </property>
+        <property name="PayCode" type="string">
+            <column name="PayCode" length="20"/>
+        </property>
+        <property name="Currency_kind" type="string">
+            <column name="Currency_kind" length="2"/>
+        </property>
+        <property name="Exchange_rate" type="big_decimal">
+            <column name="Exchange_rate" />
+        </property>
+        <property name="PriDebt_amount" type="int">
+            <column name="PriDebt_amount"/>
+        </property>
+        <property name="Debt_amount" type="int">
+            <column name="Debt_amount"/>
+        </property>
+        <property name="QDate" type="timestamp">
+            <column name="QDate" length="23" />
+        </property>
+        <property name="AccountAge" type="string">
+            <column name="AccountAge" length="3" />
+        </property>
+        <property name="Case_status" type="string">
+            <column name="Case_status" length="7" />
+        </property>
+        <property name="Assigned_dt" type="timestamp">
+            <column name="Assigned_dt" length="23" />
+        </property>
+        <property name="Assigned_er" type="string">
+            <column name="Assigned_er" length="10" />
+        </property>
+        <property name="PreAssigned_dt" type="timestamp">
+            <column name="PreAssigned_dt" length="23" />
+        </property>
+        <property name="PreAssigned_er" type="string">
+            <column name="PreAssigned_er" length="10" />
+        </property>
+        <property name="Record_dt" type="timestamp">
+            <column name="Record_dt" length="23" />
+        </property>
+        <property name="Record_er" type="string">
+            <column name="Record_er" length="10" />
+        </property>
+        <property name="Update_dt" type="timestamp">
+            <column name="Update_dt" length="23" />
+        </property>
+        <property name="Update_er" type="string">
+            <column name="Update_er" length="10" />
+        </property>
+        <property name="Reason" type="string">
+            <column name="Reason" length="25" />
+        </property>
+        <property name="ctCase_interest" type="string">
+            <column name="ctCase_interest" />
+        </property>
+        <property name="ctCase_d" type="timestamp">
+            <column name="ctCase_d" length="23" />
+        </property>
+        <property name="gvCCard_d" type="timestamp">
+            <column name="gvCCard_d" length="23" />
+        </property>
+        <property name="kiCCard_d" type="timestamp">
+            <column name="kiCCard_d" length="23" />
+        </property>
+        <property name="cpInterest_d" type="timestamp">
+            <column name="cpInterest_d" length="23" />
+        </property>
+        <property name="tnBadDebt_d" type="timestamp">
+            <column name="tnBadDebt_d" length="23" />
+        </property>
+        <property name="tnPress_d" type="timestamp">
+            <column name="tnPress_d" length="23" />
+        </property>
+        <property name="stInterest_d" type="timestamp">
+            <column name="stInterest_d" length="23" />
+        </property>
+        <property name="CanCost_amount" type="string">
+            <column name="CanCost_amount"/>
+        </property>
+        <property name="shPay_d" type="timestamp">
+            <column name="shPay_d" length="23" />
+        </property>
+        <property name="DelayPay_months" type="string">
+            <column name="DelayPay_months"/>
+        </property>
+        <property name="PreLoanCash" type="string">
+            <column name="PreLoanCash"/>
+        </property>
+        <property name="Bank_other" type="string">
+            <column name="Bank_other" length="10" />
+        </property>
+        <property name="LCost_d" type="timestamp">
+            <column name="LCost_d" length="23" />
+        </property>
+        <property name="LCost_amount" type="string">
+            <column name="LCost_amount"/>
+        </property>
+        <property name="LPay_d" type="timestamp">
+            <column name="LPay_d" length="23" />
+        </property>
+        <property name="LPay_amount" type="int">
+            <column name="LPay_amount"/>
+        </property>
+        <property name="Pay_Notes" type="string">
+            <column name="Pay_Notes" length="50" />
+        </property>
+        <property name="CasePS" type="string">
+            <column name="CasePS" length="150" />
+        </property>
+        <property name="A_Capital" type="string">
+            <column name="A_Capital"/>
+        </property>
+        <property name="A_CFInterest" type="string">
+            <column name="A_CFInterest"/>
+        </property>
+        <property name="A_Interest" type="string">
+            <column name="A_Interest"/>
+        </property>
+        <property name="A_BKInterest" type="string">
+            <column name="A_BKInterest"/>
+        </property>
+        <property name="A_Other" type="string">
+            <column name="A_Other"/>
+        </property>
+        <property name="A_Total" type="string">
+            <column name="A_Total"/>
+        </property>
+        <property name="A_SIF" type="string">
+            <column name="A_SIF"/>
+        </property>
+        <property name="B_Capital" type="string">
+            <column name="B_Capital"/>
+        </property>
+        <property name="B_CFInterest" type="string">
+            <column name="B_CFInterest"/>
+        </property>
+        <property name="B_Interest" type="string">
+            <column name="B_Interest"/>
+        </property>
+        <property name="B_BKInterest" type="string">
+            <column name="B_BKInterest"/>
+        </property>
+        <property name="B_Other" type="string">
+            <column name="B_Other"/>
+        </property>
+        <property name="B_Total" type="string">
+            <column name="B_Total"/>
+        </property>
+        <property name="B_SIF" type="string">
+            <column name="B_SIF"/>
+        </property>
+        <property name="ITDate" type="timestamp">
+            <column name="ITDate" length="23" />
+        </property>
+        <property name="Interest_Period" type="string">
+            <column name="Interest_Period" length="2" />
+        </property>
+        <property name="Interest_kind" type="string">
+            <column name="Interest_kind" length="2" />
+        </property>
+        <property name="Interest_Rate" type="big_decimal">
+            <column name="Interest_Rate"/>
+        </property>
+        <property name="BK_Rate" type="big_decimal">
+            <column name="BK_Rate"/>
+        </property>
+        <property name="Disct_Capital" type="big_decimal">
+            <column name="Disct_Capital" />
+        </property>
+        <property name="Disct_IT" type="big_decimal">
+            <column name="Disct_IT"/>
+        </property>
+        <property name="Disct_ctCaseIT" type="big_decimal">
+            <column name="Disct_ctCaseIT"/>
+        </property>
+        <property name="Disct_bkIT" type="big_decimal">
+            <column name="Disct_bkIT"/>
+        </property>
+        <property name="Disct_Other" type="big_decimal">
+            <column name="Disct_Other" />
+        </property>
+        <property name="LoanBank" type="string">
+            <column name="LoanBank" length="10" />
+        </property>
+        <property name="Stat_MailedCnt" type="short">
+            <column name="Stat_MailedCnt"/>
+        </property>
+        <property name="Stat_PullFLCnt" type="short">
+            <column name="Stat_PullFLCnt"/>
+        </property>
+        <property name="Stat_VisitedCnt" type="short">
+            <column name="Stat_VisitedCnt"/>
+        </property>
+        <property name="Stat_PMTAmt" type="int">
+            <column name="Stat_PMTAmt"/>
+        </property>
+        <property name="Stat_PTPCnt" type="short">
+            <column name="Stat_PTPCnt" />
+        </property>
+        <property name="Stat_BPCnt" type="short">
+            <column name="Stat_BPCnt"/>
+        </property>
+        <property name="Stat_CalledCnt" type="short">
+            <column name="Stat_CalledCnt"/>
+        </property>
+        <property name="CaseMarkContent" type="string">
+            <column name="CaseMarkContent" length="25" />
+        </property>
+        <property name="SecondHand_type" type="string">
+            <column name="SecondHand_type" length="500" />
+        </property>
+        <property name="tnBadDebt_amt" type="string">
+            <column name="tnBadDebt_amt"/>
+        </property>
+        <property name="otherDebt_amt" type="int">
+            <column name="otherDebt_amt"/>
+        </property>
+        <property name="PMS_flag" type="string">
+            <column name="PMS_flag" length="1" />
+        </property>
+        <property name="insider_amt" type="string">
+            <column name="insider_amt"/>
+        </property>
+        <property name="outsider_amt" type="string">
+            <column name="outsider_amt"/>
+        </property>
+        <property name="sider_d" type="timestamp">
+            <column name="sider_d" length="23" />
+        </property>
+        <property name="G_ID" type="int">
+            <column name="G_ID"/>
+        </property>
+        <property name="Prod_Name" type="string">
+            <column name="Prod_Name" length="15" />
+        </property>
+        <property name="Bank_ID" type="string">
+            <column name="Bank_ID" length="10" />
+        </property>
+        <property name="Bank_name" type="string">
+            <column name="Bank_name" length="10" />
+        </property>
+        <property name="Bank_alias" type="string">
+            <column name="Bank_alias" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
