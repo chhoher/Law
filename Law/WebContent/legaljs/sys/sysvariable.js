@@ -265,6 +265,7 @@ $(function() {
     		"sDom": '<"top">rt<"bottom"><"clear">',
     		"bJQueryUI":true,	
     		"bSort": false,
+    		"bPaginate" : false,
     		"columns": [
                 { "data": "variableName" }
             ]

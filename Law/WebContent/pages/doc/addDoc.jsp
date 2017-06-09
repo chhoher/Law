@@ -14,6 +14,7 @@
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
 		    		"bSort": false,
+		    		"bPaginate" : false,
 		    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
 		    		"bJQueryUI":true,	
 		    		"columns": [
@@ -79,7 +80,7 @@
 					$('#iptcentitlementDocStatus option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
 					
 					//執行名義 文件類別
-					$("#iptcentitlementTypeOne").remove();
+					$("#iptcentitlementTypeOne option").remove();
 					var docArray2 = response.TypeOne;
 					var seloption2 = "";
 					$.each(docArray2,function(i){
@@ -328,8 +329,8 @@
 					<td><input id="iptcentitlementShareCaseId"></input></td>
 				</tr>
            	 	<tr>
-					<td><input type="checkbox" name="centitlementShadow" value="all" id="ckbcentitlementShadow" checked>影本</td>
-					<td><input type="checkbox" name="centitlementShadowBank" value="all" id="ckbcentitlementShadowBank" checked>業主收文僅提供影本</td>
+					<td><input type="radio" name="centitlementShadow" value="all" id="ckbcentitlementShadow" checked>影本</td>
+					<td><input type="radio" name="centitlementShadow" value="all" id="ckbcentitlementShadowBank" checked>業主收文僅提供影本</td>
 					<td><label>文件狀態</label></td>
 					<td><select id="iptcentitlementDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
@@ -343,7 +344,7 @@
 					<td><label>*文件類別</label></td>
 					<td><select id="iptcentitlementTypeOne"><option value="">請選擇</option></select></td>
 					<td><label>*文件項目</label></td>
-					<td><input id="iptcentitlementTypeTwo" ></input></td>
+					<td><select id="iptcentitlementTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>*債權人</label></td>
 					<td><input id="iptcentitlementBankName" ></input></td>
 					<td><label>原債權人</label></td>
