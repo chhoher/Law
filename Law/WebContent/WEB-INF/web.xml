@@ -17,6 +17,12 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<!-- Add By Jia 2017-06-12 啟動的時候先將variable 存起來，當作一個簡單的cache -->
+	<listener>
+		<listener-class>com.myjs.commons.SaveParameter</listener-class>
+	</listener>
+	
 	<filter>
 		<filter-name>hibernateFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
@@ -25,6 +31,7 @@
 			<param-value>false</param-value>
 		</init-param>
 	</filter>
+	
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
@@ -42,7 +49,7 @@
 
 		<init-param>
 			<param-name>loginPages</param-name>
-			<param-value>/pages/test/*.jsp,/pages/login/login.jsp,/login!*.action,/pages/cek/signedform.jsp</param-value>
+			<param-value>/pages/test/*.jsp,/pages/login/login.jsp,/login!*.action,/pages/cek/signedform.jsp,/pages/test/*.html</param-value>
 		</init-param>
 	    <init-param>
 			<param-name>forhiddenPages</param-name>

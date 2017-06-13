@@ -1,11 +1,13 @@
 package com.myjs.doc.documents.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
+import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -55,14 +57,31 @@ public class docServiceImpl implements docService{
 		}
 		return recordcheckformDao.findCaseByproperties(caseId, debtorName, debtorId, docNo, legalCaseId, isCheck);
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public String findDocaddSelectOption(){
-		List<LSysVariable> LSysVariableList = variableDao.findVariablesubbyproperties("8aa2e72a5c8074d5015c8076afcd0000");//文件狀態
-		List<LSysVariable> LSysVariableListTypeOne = variableDao.findVariablesubbyproperties("8aa2e72a5c812434015c812e92070000");//文件類別
+		Map LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c8074d5015c8076afcd0000");
+		List<LSysVariable> LSysVariableListDocStatus = (List<LSysVariable>) LSysVariableMap.get("list"); //文件狀態
+		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
+		List<LSysVariable> LSysVariableListTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//文件類別
+		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c8a7b56015c8aa8dfed0000");
+		List<LSysVariable> LSysVariableListTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目
+		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b8eee900000");
+		List<LSysVariable> LSysVariableListBankName = (List<LSysVariable>) LSysVariableMap.get("list");//債權人
+		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9274670009");
+		List<LSysVariable> LSysVariableListOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");//原債權人
+//		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
+//		List<LSysVariable> LSysVariableListTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//相對人
+		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9528290012");
+		List<LSysVariable> LSysVariableListCourtYearCourt = (List<LSysVariable>) LSysVariableMap.get("list");//文件類別
 		Gson gson = new Gson();
 		JsonObject jsonResponse = new JsonObject();
-		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableList));
+		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableListDocStatus));
 		jsonResponse.add("TypeOne", gson.toJsonTree(LSysVariableListTypeOne));
+		jsonResponse.add("TypeTwo", gson.toJsonTree(LSysVariableListTypeTwo));
+		jsonResponse.add("BankName", gson.toJsonTree(LSysVariableListBankName));
+		jsonResponse.add("OldBankName", gson.toJsonTree(LSysVariableListOldBankName));
+		jsonResponse.add("CourtYearCourt", gson.toJsonTree(LSysVariableListCourtYearCourt));
 		return jsonResponse.toString();
 	}
 }

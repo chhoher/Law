@@ -2,8 +2,8 @@
 <head>
 <meta  http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
 <title>法務文管系統</title>
-<link rel="stylesheet" href="../js/jquery-ui.css">
-<link rel="stylesheet" href="../js/themes/default/style.min.css" />
+<link rel="stylesheet" href="../../js/jquery-ui.css">
+<link rel="stylesheet" href="../../js/themes/default/style.min.css" />
 
 <style>
 
@@ -22,53 +22,36 @@
 }
 </style>
 
-<script type="text/javascript" src="../js/external/jquery/jquery.js"></script>
-<script type="text/javascript" src="../js/stable/jquery.layout.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<link href="../js/jquery.dataTables.css" rel="stylesheet">
-<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../js/stable/jquery.layout.js"></script>
+<script src="../../js/jquery-ui.js"></script>
+<link href="../../js/jquery.dataTables.css" rel="stylesheet">
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 
 <!-- Add By Jia 2017-04-11 多檔上傳JS引用 -->
-<script src="../js/vendor/jquery.ui.widget.js"></script>
-<script src="../js/jquery.iframe-transport.js"></script>
-<script src="../js/jquery.fileupload.js"></script>
+<script src="../../js/vendor/jquery.ui.widget.js"></script>
+<script src="../../js/jquery.iframe-transport.js"></script>
+<script src="../../js/jquery.fileupload.js"></script>
 
 <!-- Add By Jia 2017-02-10 jstree plugin -->
-<script src="../js/jstree.min.js"></script>
+<script src="../../js/jstree.min.js"></script>
 
 <!-- Add By Jia 2017-03-07 js commons add -->
-<script type="text/javascript" src="../commons/regex.js"></script>
-<script type="text/javascript" src="../js/json2.js"></script>
+<script type="text/javascript" src="../../commons/regex.js"></script>
+<script type="text/javascript" src="../../js/json2.js"></script>
 
 <!-- Add By Jia 2017-06-13 js Tab add -->
-<script type="text/javascript" src="../commons/tabsControls.js"></script>
+<script type="text/javascript" src="../../commons/tabsControls.js"></script>
 <script>
-//var tabcount = 0;
 var menuJson;
 	$(document).ready(function() {
 		if (typeof (JSON) == 'undefined') {
 		     //如果瀏覽器不支援JSON則載入json2.js
-		     $.getScript('js/json2.js');
+		     $.getScript('../js/json2.js');
 		}
 		
 						
 						var tabs = $("#tabs").tabs();
-						//var tabArr= [];
-						
-						
-						$("#tabs").tabs().on( "tabsbeforeload", function( event, ui ) {
-					        var key = ui.tab.find("a").text();
-					              if(tabArr[key+"_loaded"] != undefined){
-					            	  if(tabArr[key+"_loaded"] == 1){
-					                	ui.jqXHR.abort();
-					            	  }
-					              }
-					    } );
-
-					    $("#tabs").tabs().on("tabsload", function (event, ui) {
-					    	var key = ui.tab.find("a").text();
-					        tabArr[key+"_loaded"] = 1;
-					    });
 						
 						
 						// Actual addTab function: adds new tab using the input from the form above
@@ -123,7 +106,7 @@ var menuJson;
 						將menu用ajax方式帶出，並綁權限
 						**/
 						$.ajax({
-							url : '../pages/sys/menu/menuAction!initRolesFunction.action',
+							url : '../../pages/sys/menu/menuAction!initRolesFunction.action',
 							type : "POST",
 							dataType : 'json',
 							success : function(response) {
@@ -135,7 +118,7 @@ var menuJson;
 										var menuId = data.instance.get_node(data.selected[0]).id;
 										var menname = data.instance.get_node(data.selected[0]).text;
 										var menuUrl = data.node.original.menuUrl;
-										addTabs(menuId,menname,menuUrl);
+										addTab(menuId,menname,menuUrl);
 										
 									}
 								});
@@ -161,13 +144,6 @@ var menuJson;
 						
 					});
 
-	$(function () {
-		//$("div.tabs a").click(function () {
-			//alert();
-			//$(".litab").hide(); //隐藏所有
-		//});
-		}); 
-	
 </script>
 </head>
 <body>

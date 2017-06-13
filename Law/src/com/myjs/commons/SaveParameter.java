@@ -1,51 +1,66 @@
 package com.myjs.commons;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import com.myjs.sys.variable.model.LSysVariable;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
-public class SaveParameter {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.myjs.sys.variable.model.LSysVariable;
+import com.myjs.sys.variable.service.variableService;
+
+// TODO Add By Jia 2017-06-12 以後記得在sysvariable加上當使用者一變更就加進去或移除
+public class SaveParameter implements ServletContextListener{
+	private static final Logger log = LogManager.getLogger(SaveParameter.class); 
+	
+	@SuppressWarnings("rawtypes")
+	public static Map AllParameter = new HashMap();// 所有資料字典內容
+	@SuppressWarnings("rawtypes")
+	private static Map AllSystemParameter;// 所有系統參數
+	private variableService variableService;
+	
 	private static String SYSVariable = "";  
 	private static ArrayList<LSysVariable> parameters;
 	
-	public static void main(String[] args){
-		LSysVariable LSysVariable = new LSysVariable("Id1", "Type1", "Name1", new Date(),
-				"createUserId", new Date(), "modifyUserId", "N", "Value1");
-		ArrayList<LSysVariable> listVariable = new ArrayList<LSysVariable>();
-		listVariable.add(LSysVariable);
-		LSysVariable = new LSysVariable("Id2", "Type2", "Name2", new Date(),
-				"createUserId", new Date(), "modifyUserId", "N", "Value2");
-		listVariable.add(LSysVariable);
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		// TODO Auto-generated method stub
 		
-		System.out.println(listVariable.get(0).getVariableId());
-		System.out.println(listVariable.get(1).getVariableId());
+	}
 
-		System.out.println("=====");
-		System.out.println(listVariable.indexOf("Id1"));
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		log.info("=====載入所有Variable=====");
+		WebApplicationContext SpringApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext());
+		variableService=(variableService) SpringApplicationContext.getBean("variableService");
 		
-		ArrayList<Map> all  = new ArrayList<Map>();
-		Map varList = new HashMap();
-		varList.put("id", "1");
-		varList.put("list", listVariable);
-
-		LSysVariable = new LSysVariable("Id3", "Type3", "Name3", new Date(),
-				"createUserId", new Date(), "modifyUserId", "N", "Value3");
-		ArrayList<LSysVariable> listVariable2 = new ArrayList<LSysVariable>();
-		listVariable2.add(LSysVariable);
-		LSysVariable = new LSysVariable("Id4", "Type4", "Name4", new Date(),
-				"createUserId", new Date(), "modifyUserId", "N", "Value4");
-		listVariable2.add(LSysVariable);
-		
-		Map varList2 = new HashMap();
-		varList2.put("id", "2");
-		varList2.put("list", listVariable2);
-		
-		System.out.println(varList.get("list"));
-		System.out.println(varList2.get("list"));
-		
+		List<LSysVariable> AllParentVariables = variableService.findByProperty(null);
+		List<LSysVariable> AllSubVariables = variableService.findAllsubVariable();
+		for(LSysVariable lsvP:AllParentVariables){
+			Map varList = new HashMap();
+			varList.put("id", lsvP.getVariableId());
+			ArrayList<LSysVariable> listVariableitem = new ArrayList<LSysVariable>();
+			
+			for(LSysVariable lsvS:AllSubVariables){
+				if(lsvP.getVariableId().equals(lsvS.getVariableType()))
+					listVariableitem.add(lsvS);
+			}
+			
+			varList.put("list", listVariableitem);
+			AllParameter.put(lsvP.getVariableId(), varList);
+			
+			// 獲取variable方式("variableId")
+			Map R = (Map) AllParameter.get(lsvP.getVariableId());
+			log.info((R.get("list")));
+		}
 		
 	}
 }
