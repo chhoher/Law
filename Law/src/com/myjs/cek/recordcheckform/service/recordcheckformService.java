@@ -20,6 +20,6 @@ public interface recordcheckformService {
 			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles, String[] stepPay);
 	public LCekRecordSigned findRecordSignedById(String signedId);
 	public LCekRecordSignedStep findRecordSignedStepById(String signedId);
-	public JsonObject downloadSignedFile(String fileTypeOne, String fileTypeTwo, String signedId);
+	public JsonObject downloadSignedFile(String fileTypeOne, String fileTypeTwo, String signedId, LCekRecordSigned lcs);
 	public JsonObject findOtherFilesByCaseId(String signedId, String caseId, String type, String userId);
 }

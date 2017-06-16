@@ -209,12 +209,27 @@ public class recordcheckformAction extends AbstractAction {
 					userId, signedId, filepathdate, signedfileuploadName, saveapplyUserId, saveownerAgree, saveRemark);
 			
 			int caseid = Integer.valueOf(savecaseId);
-			int caseAmount = Integer.valueOf(savecaseAmount);
-			int caseSumAmount = Integer.valueOf(savecaseSumAmount);
-			int casePeriods = Integer.valueOf(savecasePeriods);
-			
-			Date casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
-			Date casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			int caseAmount = 0;
+			if(savecaseAmount != null && !savecaseAmount.equals("")){
+				caseAmount = Integer.valueOf(savecaseAmount);
+			}
+			int caseSumAmount = 0;
+			if(savecaseSumAmount != null && !savecaseSumAmount.equals("")){
+				caseSumAmount = Integer.valueOf(savecaseSumAmount);
+			}
+			int casePeriods = 0;
+			if(savecasePeriods != null && !savecasePeriods.equals("")){
+				casePeriods = Integer.valueOf(savecasePeriods);
+			}
+
+			Date casePayStartDate = new Date();
+			if(savecasePayStartDate != null && !savecasePayStartDate.equals("")){
+				casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
+			}
+			Date casePayEndDate = new Date();
+			if(savecasePayEndDate != null && !savecasePayEndDate.equals("")){
+				casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			}
 
 			Date createdate = new Date();
 			Date modifydate = createdate;
@@ -313,12 +328,27 @@ public class recordcheckformAction extends AbstractAction {
 					savecasePeriods, savecasePayStartDate, savecasePayEndDate, savecaseAmount, savecaseSumAmount, userId, signedId, saveapplyUserId, saveownerAgree, saveRemark);
 			
 			int caseid = Integer.valueOf(savecaseId);
-			int caseAmount = Integer.valueOf(savecaseAmount);
-			int caseSumAmount = Integer.valueOf(savecaseSumAmount);
-			int casePeriods = Integer.valueOf(savecasePeriods);
-			
-			Date casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
-			Date casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			int caseAmount = 0;
+			if(savecaseAmount != null && !savecaseAmount.equals("")){
+				caseAmount = Integer.valueOf(savecaseAmount);
+			}
+			int caseSumAmount = 0;
+			if(savecaseSumAmount != null && !savecaseSumAmount.equals("")){
+				caseSumAmount = Integer.valueOf(savecaseSumAmount);
+			}
+			int casePeriods = 0;
+			if(savecasePeriods != null && !savecasePeriods.equals("")){
+				casePeriods = Integer.valueOf(savecasePeriods);
+			}
+
+			Date casePayStartDate = new Date();
+			if(savecasePayStartDate != null && !savecasePayStartDate.equals("")){
+				casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
+			}
+			Date casePayEndDate = new Date();
+			if(savecasePayEndDate != null && !savecasePayEndDate.equals("")){
+				casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			}
 
 			Date createdate = new Date();
 			Date modifydate = createdate;
@@ -415,12 +445,27 @@ public class recordcheckformAction extends AbstractAction {
 					userId, signedId, savecaseBackmark,saveapplyUserId, saveownerAgree, saveRemark);
 			
 			int caseid = Integer.valueOf(savecaseId);
-			int caseAmount = Integer.valueOf(savecaseAmount);
-			int caseSumAmount = Integer.valueOf(savecaseSumAmount);
-			int casePeriods = Integer.valueOf(savecasePeriods);
-			
-			Date casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
-			Date casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			int caseAmount = 0;
+			if(savecaseAmount != null && !savecaseAmount.equals("")){
+				caseAmount = Integer.valueOf(savecaseAmount);
+			}
+			int caseSumAmount = 0;
+			if(savecaseSumAmount != null && !savecaseSumAmount.equals("")){
+				caseSumAmount = Integer.valueOf(savecaseSumAmount);
+			}
+			int casePeriods = 0;
+			if(savecasePeriods != null && !savecasePeriods.equals("")){
+				casePeriods = Integer.valueOf(savecasePeriods);
+			}
+
+			Date casePayStartDate = new Date();
+			if(savecasePayStartDate != null && !savecasePayStartDate.equals("")){
+				casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
+			}
+			Date casePayEndDate = new Date();
+			if(savecasePayEndDate != null && !savecasePayEndDate.equals("")){
+				casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			}
 
 			Date createdate = new Date();
 			Date modifydate = createdate;
@@ -525,12 +570,27 @@ public class recordcheckformAction extends AbstractAction {
 					signedId, saveapplyUserId, saveownerAgree, saveRemark);
 			
 			int caseid = Integer.valueOf(savecaseId);
-			int caseAmount = Integer.valueOf(savecaseAmount);
-			int caseSumAmount = Integer.valueOf(savecaseSumAmount);
-			int casePeriods = Integer.valueOf(savecasePeriods);
-			
-			Date casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
-			Date casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			int caseAmount = 0;
+			if(savecaseAmount != null && !savecaseAmount.equals("")){
+				caseAmount = Integer.valueOf(savecaseAmount);
+			}
+			int caseSumAmount = 0;
+			if(savecaseSumAmount != null && !savecaseSumAmount.equals("")){
+				caseSumAmount = Integer.valueOf(savecaseSumAmount);
+			}
+			int casePeriods = 0;
+			if(savecasePeriods != null && !savecasePeriods.equals("")){
+				casePeriods = Integer.valueOf(savecasePeriods);
+			}
+
+			Date casePayStartDate = new Date();
+			if(savecasePayStartDate != null && !savecasePayStartDate.equals("")){
+				casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
+			}
+			Date casePayEndDate = new Date();
+			if(savecasePayEndDate != null && !savecasePayEndDate.equals("")){
+				casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			}
 
 			Date createdate = new Date();
 			Date modifydate = createdate;
@@ -579,8 +639,65 @@ public class recordcheckformAction extends AbstractAction {
 					fileTypeTwo = super.getRequest().getParameter("fileTypeTwo"),
 					signedId = super.getRequest().getParameter("signedId");
 			
+			log.debug("套表將要用的值帶入");
+			String savecaseId = super.getRequest().getParameter("savecaseId"),
+					savecaseBankName = super.getRequest().getParameter("savecaseBankName"),
+					savecaseProductName = super.getRequest().getParameter("savecaseProductName"),
+					savecaseRela = super.getRequest().getParameter("savecaseRela"),
+					savecaseRelaRole = super.getRequest().getParameter("savecaseRelaRole"),
+					savecaseType = super.getRequest().getParameter("savecaseType"),
+					savecasePeriods = super.getRequest().getParameter("savecasePeriods"),
+					savecasePayStartDate = super.getRequest().getParameter("savecasePayStartDate"),
+					savecasePayEndDate = super.getRequest().getParameter("savecasePayEndDate"),
+					savecaseAmount = super.getRequest().getParameter("savecaseAmount"),
+					savecaseSumAmount = super.getRequest().getParameter("savecaseSumAmount"),
+					userId = super.getRequest().getParameter("userId"),
+					saveapplyUserId = super.getRequest().getParameter("saveapplyUserId"),
+					savecaseCreateDate = super.getRequest().getParameter("savecaseCreateDate"),
+					savepayerID = super.getRequest().getParameter("savepayerID");
+					
+			log.debug("savecaseId = {}, savecaseBankName = {}, savecaseProductName = {}, savecaseRela = {},"
+					+ "savecaseRelaRole = {}, savecaseType = {}, savecasePeriods = {}, savecasePayStartDate = {},"
+					+ "savecasePayEndDate = {}, savecaseAmount = {}, savecaseSumAmount = {}, userId = {}, "
+					+ "saveapplyUserId = {} , savecaseCreateDate = {}, savepayerID = {}"
+					, savecaseId, savecaseBankName, savecaseProductName, savecaseRela, savecaseRelaRole, savecaseType, 
+					savecasePeriods, savecasePayStartDate, savecasePayEndDate, savecaseAmount, savecaseSumAmount,
+					userId, saveapplyUserId, savecaseCreateDate, savepayerID);
+			
+
+			int caseid = Integer.valueOf(savecaseId);
+			int caseAmount = 0;
+			if(savecaseAmount != null && !savecaseAmount.equals("")){
+				caseAmount = Integer.valueOf(savecaseAmount);
+			}
+			int caseSumAmount = 0;
+			if(savecaseSumAmount != null && !savecaseSumAmount.equals("")){
+				caseSumAmount = Integer.valueOf(savecaseSumAmount);
+			}
+			int casePeriods = 0;
+			if(savecasePeriods != null && !savecasePeriods.equals("")){
+				casePeriods = Integer.valueOf(savecasePeriods);
+			}
+			Date casePayStartDate = new Date();
+			if(savecasePayStartDate != null && !savecasePayStartDate.equals("")){
+				casePayStartDate = DateTimeFormat.getTime(savecasePayStartDate + " 00:00:00");
+			}
+			Date casePayEndDate = new Date();
+			if(savecasePayEndDate != null && !savecasePayEndDate.equals("")){
+				casePayEndDate = DateTimeFormat.getTime(savecasePayEndDate + " 00:00:00");
+			}
+			Date caseCreateDate = new Date();
+			if(savecasePayEndDate != null && !savecasePayEndDate.equals("")){
+				caseCreateDate = DateTimeFormat.getTime(savecaseCreateDate + " 00:00:00");
+			}
+			
+			LCekRecordSigned LCekRecordSigned = new LCekRecordSigned(signedId, caseid, savecaseBankName, savecaseProductName, savecaseRela,
+					savecaseRelaRole, savecaseType, casePeriods, casePayStartDate, casePayEndDate, caseAmount,
+					caseSumAmount, caseCreateDate, 0, "", userId,"", caseCreateDate,"applyUserName","",	"", "");
+			LCekRecordSigned.setPayerId(savepayerID);
+			
 			log.debug("fileTypeOne = {} , fileTypeTwo = {} , signedId = {}", fileTypeOne, fileTypeTwo, signedId);
-			String MapFileList = recordcheckformService.downloadSignedFile(fileTypeOne,fileTypeTwo, signedId).toString();
+			String MapFileList = recordcheckformService.downloadSignedFile(fileTypeOne,fileTypeTwo, signedId, LCekRecordSigned).toString();
 			log.debug("MapFileList = {}", MapFileList);
 			printToResponse(MapFileList);
 		}catch(Exception e){

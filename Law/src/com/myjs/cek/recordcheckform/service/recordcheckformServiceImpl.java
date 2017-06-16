@@ -1,12 +1,18 @@
 package com.myjs.cek.recordcheckform.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jxls.common.Context;
+import org.jxls.util.JxlsHelper;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +32,7 @@ import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.FilesUploads;
 import com.myjs.commons.MailSenderInfo;
 import com.myjs.commons.MailUtil;
+import com.myjs.commons.NumberUtil;
 
 public class recordcheckformServiceImpl implements recordcheckformService{
 	private static final Logger log = LogManager.getLogger(recordcheckformServiceImpl.class);
@@ -462,7 +469,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 	
 	// add By Jia 2017-04-25
 	// 回傳檔案路徑提供下載
-	public JsonObject downloadSignedFile(String fileTypeOne,String fileTypeTwo, String signedId){
+	public JsonObject downloadSignedFile(String fileTypeOne,String fileTypeTwo, String signedId, LCekRecordSigned lcs){
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		JsonObject jsonResponse = new JsonObject();
 		try{
@@ -482,6 +489,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 				}
 			}else{
 				List<Map<String, Object>> fileList = fileDao.findfilePathByTypes(fileTypeOne, fileTypeTwo);
+				
 				for (Map<?, ?> map : fileList) {
 
 					LSysFile lcekfile = new LSysFile();
@@ -489,8 +497,33 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					lcekfile.setFileName((String) map.get("file_name"));
 					lcekfile.setFilePath((String) map.get("file_path"));
 
-					MapFileList.add(lcekfile);
+					// 進行套表
+					log.debug("套表開始");
+					log.debug("檔案路徑 = {}", lcekfile.getFilePath() + "\\" + lcekfile.getFileName());
+					List<LCekRecordSigned> LCekRecordSigned = new ArrayList<LCekRecordSigned>();
+//					LCekRecordSigned LCekRecordSigned1 = new LCekRecordSigned(null , 2740584, "京城銀行", "京城銀行信用卡_Y2", "張淑茹",
+//							"CM", "分期清償", 10, new Date(), new Date(), 25000,
+//							250000, new Date(), 0, "", "00345",
+//							"123124", new Date(),"jia","jia",
+//							"y", "");
+					VEIPMemdb applyUser = memdbDao.findbyuserId(lcs.getApplyUserId());// 申請人
+					lcs.setApplyUserName(applyUser.getMemnm());
+					lcs.setCaseNo(NumberUtil.addZeroForNum(lcs.getCaseId() + "", 8));
+					LCekRecordSigned.add(lcs);
+			        try(InputStream is = new FileInputStream(lcekfile.getFilePath() + "\\" + lcekfile.getFileName())) {
+			        	log.debug("is = {}", is);
+			            try (OutputStream os = new FileOutputStream(lcekfile.getFilePath() + "/New" + lcekfile.getFileName())) {
+			                Context context = new Context();
+			                context.putVar("LCekRecordSigned", LCekRecordSigned);
+			                JxlsHelper.getInstance().processTemplate(is, os, context);
+			            }
+			        }
+			        
+					lcekfile.setFileId((String) map.get("file_id"));
+					lcekfile.setFileName("New" + lcekfile.getFileName());
+					lcekfile.setFilePath((String) map.get("file_path"));
 
+					MapFileList.add(lcekfile);
 				}
 			}
 			jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));

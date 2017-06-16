@@ -249,7 +249,7 @@ var otherfilenum = 0;
 			
 			$("#btnopenSignedFile").button().on("click",function(e){
 				e.preventDefault();  //stop the browser from following
-				
+
 				// TODO 這裡之後要記得改成可以套表的 
 				//從L_SYS_FILE抓取檔案
 				$.ajax({
@@ -257,7 +257,23 @@ var otherfilenum = 0;
 					data : {
 						'fileTypeOne' : $("#iptcaseType").find('option:selected').text(),
 						'fileTypeTwo' : $("#iptcaseBankName").val(),
-						'signedId' : signedId
+						'signedId' : signedId,
+						// 以下是套表專用
+						'savecaseId' : $("#iptcaseId").val(),
+						'savecaseBankName' : $("#iptcaseBankName").val(),
+						'savecaseProductName' : $("#iptcaseProductName").val(),
+						'savecaseRela' : $("#iptcaseRela").find('option:selected').text(),
+						'savecaseRelaRole' : $("#iptcaseRelaRole").val(),
+						'savecaseType' : $("#iptcaseType").find('option:selected').text(),
+						'savecasePeriods' : $("#iptcasePeriods").val(),
+						'savecasePayStartDate' : $("#iptcasePayStartDate").val(),
+						'savecasePayEndDate' : $("#iptcasePayEndDate").val(),
+						'savecaseAmount' : $("#iptcaseAmount").val(),
+						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
+						'userId' : '<%=request.getParameter("userId")%>',
+						'saveapplyUserId' : $("#iptapplyUserId").val(),
+						'savecaseCreateDate' : $("#iptcaseCreateDate").val(),
+						'savepayerID' : relaArray[$("#iptcaseRela option:selected").val()].ID
 					},
 					type : "POST",
 					dataType : 'json',
