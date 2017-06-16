@@ -18,7 +18,8 @@ var tabs = $("#tabs").tabs();
 	var key = menname;
 	tabArr[key + "_loaded"] = 0;
 
-	tabs.find(".ui-tabs-nav").append(li);
+//	tabs.find(".ui-tabs-nav").append(li);
+	$("div#tabs ul#ulindex").append(li);
 	tabs.tabs("refresh");
 	tabs.tabs({
 				active : tabcount

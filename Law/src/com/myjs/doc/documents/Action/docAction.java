@@ -74,4 +74,17 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-06-14
+	 * 儲存新增文件
+	 */
+	public String saveaddDoc(){
+		try{
+			
+		}catch(Exception e){
+			
+		}
+		return NONE;
+	}
 }

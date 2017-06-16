@@ -440,19 +440,19 @@ var othersubtabs = $("#othersubtabs").tabs();
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
-					"<td><input id='iptotherDocStatus" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherDocStatus" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>文件類別</label></td>" +
-					"<td><input id='iptotherTypeOne" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherTypeOne" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>文件項目</label></td>" +
-					"<td><input id='iptotherTypeTwo" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
-					"<td><input id='iptotherBankName" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherBankName" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>收據種類</label></td>" +
-					"<td><input id='iptotherReceiptType"  + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherReceiptType" + othersubtabcount + "'></input></td>" +
 					"<td><label>收據金額</label></td>" +
 					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "'></input></td>" +
 					"<td><label>法院製發日</label></td>" +
@@ -460,7 +460,7 @@ var othersubtabs = $("#othersubtabs").tabs();
 				"</tr>" +
 				"<tr>" +
 					"<td><label>備註</label></td>" +
-					"<td><input id='iptotherRemark" + "' ></input></td>" +
+					"<td><input id='iptotherRemark" + othersubtabcount + "'></input></td>" +
 				"</tr>" +
            	 "</table>";
 		
@@ -515,18 +515,87 @@ $(function() {
 		});
 	}
 	
+	function saveaddDoc(){
+//		<table>
+//           	 	<tr>
+//					<td><label>收文日期</label></td>
+//					<td><input id="iptotherReceivedDate"></input></td>
+//					<td><label>業主調件日</label></td>
+//					<td><input id="iptotherBankDate" ></input></td>
+//					<td><label>文件狀態</label></td>
+//					<td><select id="iptotherDocStatus"><option value="">請選擇</option></select></td>
+//				</tr>
+//				<tr>
+//					<td><label>文件類別</label></td>
+//					<td><select id="iptotherTypeOne"><option value="">請選擇</option></select></td>
+//					<td><label>文件項目</label></td>
+//					<td><select id="iptotherTypeTwo"><option value="">請選擇</option></select></td>
+//					<td><label>債權人</label></td>
+//					<td><select id="iptotherBankName"><option value="">請選擇</option></select></td>
+//				</tr>
+//				<tr>
+//					<td><label>收據種類</label></td>
+//					<td><input id="iptotherReceiptType" ></input></td>
+//					<td><label>收據金額</label></td>
+//					<td><input id="iptotherReceiptAmount" ></input></td>
+//					<td><label>法院製發日</label></td>
+//					<td><input id="iptotherCourtDate" ></input></td>
+//				</tr>
+//				<tr>
+//					<td><label>備註</label></td>
+//					<td><input id="iptotherRemark" ></input></td>
+//				</tr>
+//           	 </table>
+		// 儲存(其他)
+		$.ajax({
+					url : '../pages/doc/documents/docAction!saveaddDoc.action',
+					data : {
+						'iptotherReceivedDate' : $("#iptotherReceivedDate").val(),
+						'iptotherBankDate' : $("#iptotherBankDate").val(),
+						'iptotherDocStatus' : $("#iptotherDocStatus").val(),
+						'savecaseRela' : $("#iptcaseRela").find('option:selected').text(),
+						'savecaseRelaRole' : $("#iptcaseRelaRole").val(),
+						'savecaseType' : $("#iptcaseType").find('option:selected').text(),
+						'savecasePeriods' : $("#iptcasePeriods").val(),
+						'savecasePayStartDate' : $("#iptcasePayStartDate").val(),
+						'savecasePayEndDate' : $("#iptcasePayEndDate").val(),
+						'savecaseAmount' : $("#iptcaseAmount").val(),
+						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
+						'type' : '1',
+						'userId' : '<%=request.getParameter("userId")%>',
+						'signedId' : signedId,
+						'filepathdate' : filepathdate,
+						'signedfileuploadName' : fileName,
+						'fileIds' : fileIds,
+						'savecaseBackmark' : $("#iptcaseBackMark").val(),
+						'saveapplyUserId' : $("#iptapplyUserId").val(),
+						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
+						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
+						'saveRemark' : $("#iptcaseRemark").val(),
+						'saveselectOhterFiles' : saveselectOhterFiles,
+						'stepPay' : stepPay
+					},
+					type : "POST",
+					dataType : 'json',
+					success : function(response) {
+						if (response.success) {
+							alert(response.msg);
+						} else {
+							alert(response.msg);
+						}
+					},
+					error : function(xhr, ajaxOptions, thrownError) {
+						alert(xhr.status);
+						alert(thrownError);
+					}
+				});
+	}
 	// ===== function end =====
 
 	// ===== 功能列按鈕 start =====
-	// 查詢按鈕
-	$("#btnquerycase").button().on("click",function() {
-		// 定義查詢條件欄位
-		var iptsearchdebtorName = $("#iptsearchdebtorName").val(), 
-			iptsearchdebtorID = $("#iptsearchdebtorID").val(),
-			iptsearchcaseId = $("#iptsearchcaseId").val(),
-			iptsearchdocNo = $("#iptsearchdocNo").val(),
-			iptsearchLawCaseId = $("#iptsearchLawCaseId").val();
-		searchCase(iptsearchdebtorName, iptsearchdebtorID, iptsearchcaseId, iptsearchdocNo, iptsearchLawCaseId);
+	// 儲存按鈕
+	$("#btnsaveaddDoc").button().on("click",function() {
+		saveaddDoc();
 	});
 	
 	// ===== 功能列按鈕 end =====

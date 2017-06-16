@@ -11,6 +11,16 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			
+			//將日期欄位格式化
+			$( "#iptotherReceivedDate" ).datepicker();
+		    $( "#iptotherReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+			$( "#iptotherBankDate" ).datepicker();
+		    $( "#iptotherBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+			$( "#iptotherCourtDate" ).datepicker();
+		    $( "#iptotherCourtDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		    
+			
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
 		    		"bSort": false,
@@ -123,6 +133,48 @@
 						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
 					});
 					$("#iptcentitlementCourtYearCourt").append(seloption);
+					
+					//=====其他=====
+					//其他 文件狀態
+					$("#iptotherDocStatus option").remove();
+					docArray = response.DocStatus;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherDocStatus").append(seloption);
+					$('#iptotherDocStatus option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
+					
+					//其他 文件類別
+					$("#iptotherTypeOne option").remove();
+					docArray = response.TypeOne;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherTypeOne").append(seloption);
+					$('#iptotherTypeOne option[value=8aa2e72a5c812434015c81307418000a]').attr('selected', 'selected');
+					
+					//其他 文件項目
+					$("#iptotherTypeTwo option").remove();
+					docArray = response.otherTypeTwo;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherTypeTwo").append(seloption);
+					
+					//其他 債權人
+					$("#iptotherBankName option").remove();
+					docArray = response.BankName;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherBankName").append(seloption);
+					
+					//設定收文日期為當日
+					$("#iptotherReceivedDate").val(response.nowDate);
 					
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
@@ -326,7 +378,7 @@
 		<table>
 			<tr>
 				<td>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnaddCekcheckform">
+					<button class="ui-button ui-widget ui-corner-all" id ="btnsaveaddDoc">
 					    <span class="ui-icon ui-icon-gear"></span> 儲存
 					</button>
 					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryCekcheckform">
@@ -996,15 +1048,15 @@
 					<td><label>業主調件日</label></td>
 					<td><input id="iptotherBankDate" ></input></td>
 					<td><label>文件狀態</label></td>
-					<td><input id="iptotherDocStatus" ></input></td>
+					<td><select id="iptotherDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>文件類別</label></td>
-					<td><input id="iptotherTypeOne" ></input></td>
+					<td><select id="iptotherTypeOne"><option value="">請選擇</option></select></td>
 					<td><label>文件項目</label></td>
-					<td><input id="iptotherTypeTwo" ></input></td>
+					<td><select id="iptotherTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><input id="iptotherBankName" ></input></td>
+					<td><select id="iptotherBankName"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>收據種類</label></td>

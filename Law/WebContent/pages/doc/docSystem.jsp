@@ -111,15 +111,16 @@
 		<table>
 			<tr>
 				<td>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnaddCekcheckform">
+					<button class="ui-button ui-widget ui-corner-all" id ="btnsecondedDoc">
 					    <span class="ui-icon ui-icon-gear"></span> 申請借調
 					</button>
 					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryCekcheckform">
 				    	<span class="ui-icon ui-icon-gear"></span> 匯出Excel
 				  	</button>
+				  	<!-- 
 				  	<button class="ui-button ui-widget ui-corner-all" id ="btndeleteCekcheckform">
 				    	<span class="ui-icon ui-icon-gear"></span> 連結到法務申請
-				  	</button>
+				  	</button> -->
 				</td>
 			</tr>
 		</table>
@@ -136,6 +137,7 @@
                 <th>進度</th>
                 <th>影像檔</th>
                 <th>業主調件日</th>
+                <th>日期</th>
             </tr>
         </thead>
     </table>
