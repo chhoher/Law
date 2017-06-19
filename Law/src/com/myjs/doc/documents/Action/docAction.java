@@ -81,7 +81,21 @@ public class docAction extends AbstractAction {
 	 */
 	public String saveaddDoc(){
 		try{
-			
+			log.debug("=====saveaddDoc start=====");
+			String iptotherReceivedDate = super.getRequest().getParameter("iptotherReceivedDate"),
+				iptotherBankDate = super.getRequest().getParameter("iptotherBankDate"),
+				iptotherDocStatus = super.getRequest().getParameter("iptotherDocStatus"),
+				iptotherTypeOne = super.getRequest().getParameter("iptotherTypeOne"),
+				iptotherTypeTwo = super.getRequest().getParameter("iptotherTypeTwo"),
+				iptotherBankName = super.getRequest().getParameter("iptotherBankName"),
+				iptotherReceiptType = super.getRequest().getParameter("iptotherReceiptType"),
+				iptotherReceiptAmount = super.getRequest().getParameter("iptotherReceiptAmount"),
+				iptotherCourtDate = super.getRequest().getParameter("iptotherCourtDate"),
+				iptotherRemark = super.getRequest().getParameter("iptotherRemark");
+			log.debug("iptotherReceivedDate = {}, iptotherBankDate = {}, iptotherDocStatus = {}, iptotherTypeTwo = {},"
+					+ " iptotherBankName = {}, iptotherReceiptType = {}, iptotherReceiptAmount = {}, "
+					+ "iptotherCourtDate = {}, iptotherRemark = {}", iptotherReceivedDate, iptotherBankDate, iptotherDocStatus, 
+					iptotherTypeTwo, iptotherBankName, iptotherReceiptType, iptotherReceiptAmount, iptotherCourtDate, iptotherRemark);
 		}catch(Exception e){
 			
 		}

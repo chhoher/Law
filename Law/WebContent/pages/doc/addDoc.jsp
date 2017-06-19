@@ -1052,7 +1052,7 @@
 				</tr>
 				<tr>
 					<td><label>文件類別</label></td>
-					<td><select id="iptotherTypeOne"><option value="">請選擇</option></select></td>
+					<td><select id="iptotherTypeOne" disabled><option value="">請選擇</option></select></td>
 					<td><label>文件項目</label></td>
 					<td><select id="iptotherTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>

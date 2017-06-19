@@ -444,7 +444,7 @@ var othersubtabs = $("#othersubtabs").tabs();
 				"</tr>" +
 				"<tr>" +
 					"<td><label>文件類別</label></td>" +
-					"<td><select id='iptotherTypeOne" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptotherTypeOne" + othersubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 					"<td><label>文件項目</label></td>" +
 					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
@@ -452,15 +452,15 @@ var othersubtabs = $("#othersubtabs").tabs();
 				"</tr>" +
 				"<tr>" +
 					"<td><label>收據種類</label></td>" +
-					"<td><input id='iptotherReceiptType" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherReceiptType" + othersubtabcount + "' ></input></td>" +
 					"<td><label>收據金額</label></td>" +
-					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "' ></input></td>" +
 					"<td><label>法院製發日</label></td>" +
-					"<td><input id='iptotherCourtDate" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherCourtDate" + othersubtabcount + "' ></input></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>備註</label></td>" +
-					"<td><input id='iptotherRemark" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherRemark" + othersubtabcount + "' ></input></td>" +
 				"</tr>" +
            	 "</table>";
 		
@@ -552,28 +552,14 @@ $(function() {
 					data : {
 						'iptotherReceivedDate' : $("#iptotherReceivedDate").val(),
 						'iptotherBankDate' : $("#iptotherBankDate").val(),
-						'iptotherDocStatus' : $("#iptotherDocStatus").val(),
-						'savecaseRela' : $("#iptcaseRela").find('option:selected').text(),
-						'savecaseRelaRole' : $("#iptcaseRelaRole").val(),
-						'savecaseType' : $("#iptcaseType").find('option:selected').text(),
-						'savecasePeriods' : $("#iptcasePeriods").val(),
-						'savecasePayStartDate' : $("#iptcasePayStartDate").val(),
-						'savecasePayEndDate' : $("#iptcasePayEndDate").val(),
-						'savecaseAmount' : $("#iptcaseAmount").val(),
-						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
-						'type' : '1',
-						'userId' : '<%=request.getParameter("userId")%>',
-						'signedId' : signedId,
-						'filepathdate' : filepathdate,
-						'signedfileuploadName' : fileName,
-						'fileIds' : fileIds,
-						'savecaseBackmark' : $("#iptcaseBackMark").val(),
-						'saveapplyUserId' : $("#iptapplyUserId").val(),
-						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
-						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
-						'saveRemark' : $("#iptcaseRemark").val(),
-						'saveselectOhterFiles' : saveselectOhterFiles,
-						'stepPay' : stepPay
+						'iptotherDocStatus' : $("#iptotherDocStatus").find('option:selected').val(),
+						'iptotherTypeOne' : $("#iptotherTypeOne").find('option:selected').val(),
+						'iptotherTypeTwo' : $("#iptotherTypeTwo").find('option:selected').val(),
+						'iptotherBankName' : $("#iptotherBankName").find('option:selected').val(),
+						'iptotherReceiptType' : $("#iptotherReceiptType").val(),
+						'iptotherReceiptAmount' : $("#iptotherReceiptAmount").val(),
+						'iptotherCourtDate' : $("#iptotherCourtDate").val(),
+						'iptotherRemark' : $("#iptotherRemark").val()
 					},
 					type : "POST",
 					dataType : 'json',
