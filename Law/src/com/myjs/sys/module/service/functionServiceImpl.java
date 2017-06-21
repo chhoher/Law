@@ -54,7 +54,7 @@ public class functionServiceImpl implements functionService{
 			addLSysFunction.setModuleId(addLSysModule.getModuleId());
 		}
 		LSysMenu LSysMenu = new LSysMenu(null, null, addLSysModule.getModuleId(),
-				addLSysModule.getModuleName(), 0, "N", "N", addLSysFunction.getFunctionUrl());
+				addLSysModule.getModuleName(), 0, "N", "N", addLSysFunction.getFunctionUrl(), "N");
 		menuDao.save(LSysMenu);
 		log.debug("ModuleId = {}", addLSysModule.getModuleId());
 		return functionDao.save(addLSysFunction);

@@ -5,6 +5,7 @@
  * Date: 2017-06-19
  */
  (function (){
+ 	var law = {};
  	var 
  		// law.prototype
  		autorName = "JiaJia",
@@ -25,38 +26,56 @@
  		addTabs = function(tabsId, menuid, menname, menuUrl){
 			var tabs = $(tabsId).tabs();
 			
-				var tabTitle = menname;
-				var tabHref = menuUrl;
-				var tabId = "tabs-" + menuid;
-				var tabTemplate = "<li id='" + tabId + "'><a href='"
-						+ tabHref
-						+ "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-			
-				var 
-					label = tabTitle, 
-					id = tabId, 
-					li = $(tabTemplate.replace(/#\{href\}/g,"#" + id).replace(/#\{label\}/g, label));
-			
-				var key = tabId;
+					var tabTitle = menname;
+					var tabHref = menuUrl;
+					var tabId = "tabs-" + menuid;
+					var tabTemplate = "<li id='" + tabId + "'><a href='"
+							+ tabHref
+							+ "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 				
-				if(law.tabControl.tabArr[key + "_loaded"] === undefined 
-						|| law.tabControl.tabArr[key+"_loaded"].isOpened === false){
+					var 
+						label = tabTitle, 
+						id = tabId, 
+						li = $(tabTemplate.replace(/#\{href\}/g,"#" + id).replace(/#\{label\}/g, label));
 				
-					law.tabControl.tabcount++;
-					$("div#tabs ul#ulindex").append(li);
-					tabs.tabs("refresh");
-					tabs.tabs({
-								active : law.tabControl.tabcount
-							});
-					law.tabControl.activedNum = law.tabControl.tabcount;
-				}else{
-					tabs.tabs({
-						active : law.tabControl.tabArr[key + "_loaded"].tabindex
-					});
+					var key = tabId;
+					
+					
+				if(menuUrl !== undefined && menuUrl !== "無"){
+					
+					if(law.tabControl.tabArr[key + "_loaded"] === undefined 
+							|| law.tabControl.tabArr[key+"_loaded"].isOpened === false){
+					
+						law.tabControl.tabcount++;
+						$("div#tabs ul#ulindex").append(li);
+						tabs.tabs("refresh");
+						tabs.tabs({
+									active : law.tabControl.tabcount
+								});
+						law.tabControl.activedNum = law.tabControl.tabcount;
+					}else{
+						tabs.tabs({
+							active : law.tabControl.tabArr[key + "_loaded"].tabindex
+						});
+					}
+				
 				}
-};
- 		
- 	var law = {};
+				
+	},
+	
+	/*
+	 * 當remove tab的時候同時把該物件全部清空
+	 */
+	removeTabs = function(ObjectName){
+		delete law.ObjectName;
+	},
+	
+	/*
+	 * 取得物件位置
+	 */
+	getObject = function(subName){
+		return law[subName];
+	};
  	
  	/*
  	 * 將所有物件塞入law
@@ -71,9 +90,14 @@
  		tabArr : tabArr,
  		tabcount : tabcount,
  		activedNum : activedNum,
- 		addTabs : addTabs
+ 		addTabs : addTabs,
+ 		removeTabs : removeTabs
  	};
  	
+ 	// addDoc物件
+ 	law.addDoc = {};
+ 	
+ 	law.getObject = getObject;
  	/*
  	 * 加入law到window裡
  	 */

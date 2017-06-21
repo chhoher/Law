@@ -82,6 +82,7 @@ public class docAction extends AbstractAction {
 	public String saveaddDoc(){
 		try{
 			log.debug("=====saveaddDoc start=====");
+			log.debug("other = {}", super.getRequest().getParameter("returnOther"));
 			String iptotherReceivedDate = super.getRequest().getParameter("iptotherReceivedDate"),
 				iptotherBankDate = super.getRequest().getParameter("iptotherBankDate"),
 				iptotherDocStatus = super.getRequest().getParameter("iptotherDocStatus"),
@@ -96,8 +97,9 @@ public class docAction extends AbstractAction {
 					+ " iptotherBankName = {}, iptotherReceiptType = {}, iptotherReceiptAmount = {}, "
 					+ "iptotherCourtDate = {}, iptotherRemark = {}", iptotherReceivedDate, iptotherBankDate, iptotherDocStatus, 
 					iptotherTypeTwo, iptotherBankName, iptotherReceiptType, iptotherReceiptAmount, iptotherCourtDate, iptotherRemark);
+			log.debug("no item");
 		}catch(Exception e){
-			
+			log.error("saveaddDoc error msg===>", e);
 		}
 		return NONE;
 	}

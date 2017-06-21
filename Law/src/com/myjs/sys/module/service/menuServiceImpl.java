@@ -105,41 +105,62 @@ public class menuServiceImpl implements menuService{
 	}
 	
 	public JsonObject findLoginMenuByUserId(String loginUserId){
-		
-		List<LSysMenu> LSysMenuList = null; 
-
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		JsonObject jsonResponse = new JsonObject();
-		
-		String roleIdsString = "";
-		
-		List<String> roleIds = roleDao.findRolesByUserId(loginUserId);
-		
-		for(String roleId:roleIds){
-			roleIdsString += "'" + roleId + "',";
-		}
-		roleIdsString = roleIdsString.substring(0, roleIdsString.length()-1);
-		log.debug("roleIdsString = {}", roleIdsString);
-		LSysMenuList = menuDao.findAllMenuByRoleIds(roleIdsString);
-		List<LSysMenu> returnMenuList = new ArrayList<LSysMenu>();
-		for(LSysMenu mapMenu : LSysMenuList){
-			if(mapMenu.getMenuId().equals("ROOT")){
-				returnMenuList.add(mapMenu);
-			}else{
-				if(mapMenu.getMenuUrl() != null && mapMenu.getMenuUrl().equals("無")){
+		try{
+			List<LSysMenu> LSysMenuList = null; 
+	
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			JsonObject jsonResponse = new JsonObject();
+			
+			String roleIdsString = "";
+			
+			List<String> roleIds = roleDao.findRolesByUserId(loginUserId);
+			
+			for(String roleId:roleIds){
+				roleIdsString += "'" + roleId + "',";
+			}
+			roleIdsString = roleIdsString.substring(0, roleIdsString.length()-1);
+			log.debug("roleIdsString = {}", roleIdsString);
+			LSysMenuList = menuDao.findAllMenuByRoleIds(roleIdsString);
+			List<LSysMenu> returnMenuList = new ArrayList<LSysMenu>();
+			for(LSysMenu mapMenu : LSysMenuList){
+				if(mapMenu.getMenuId().equals("ROOT")){
 					returnMenuList.add(mapMenu);
-				}
-				if(mapMenu.getFunctionIsDelete() != null && mapMenu.getFunctionIsDelete().equals("N")){
-					returnMenuList.add(mapMenu);
+				}else{
+					if(mapMenu.getIsNode() != null && mapMenu.getIsNode().equals("Y")){
+						returnMenuList.add(mapMenu);
+					}else if(mapMenu.getFunctionIsDelete() != null && mapMenu.getFunctionIsDelete().equals("N")){
+						returnMenuList.add(mapMenu);
+					}
 				}
 			}
+			
+			List<LSysMenu> returnMenuListNoNode = new ArrayList<LSysMenu>();
+			
+			// add By Jia 2017-06-21 這裡把節點下面無選項去除
+			for(LSysMenu retML : returnMenuList){
+				boolean hasChild = false;
+				if(retML.getIsNode().equals("Y")){
+					for(LSysMenu mapMenuIsNode : returnMenuList){
+						if(mapMenuIsNode.getMenuPid().equals(retML.getMenuId())){
+							hasChild = true;
+						}
+					}
+				}else{
+					hasChild = true;
+				}
+				if(hasChild){
+					returnMenuListNoNode.add(retML);
+				}
+			}
+			
+			jsonResponse.add("data", gson.toJsonTree(returnMenuListNoNode));
+	
+			jsonResponse.add("roleIds", gson.toJsonTree(roleIds));// add By Jia 2017-06-06 登入時同時把roleIds存入暫存
+			return jsonResponse;
+		}catch(Exception e){
+			log.error("error msg==>", e);
+			return null;
 		}
-		
-		jsonResponse.add("data", gson.toJsonTree(returnMenuList));
-
-		jsonResponse.add("roleIds", gson.toJsonTree(roleIds));// add By Jia 2017-06-06 登入時同時把roleIds存入暫存
-		
-		return jsonResponse;
 	}
 	
 	public boolean saveMenu(String moduleId, String menuPid){

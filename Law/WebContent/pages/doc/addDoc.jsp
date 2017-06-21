@@ -11,7 +11,6 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
 			//將日期欄位格式化
 			$( "#iptotherReceivedDate" ).datepicker();
 		    $( "#iptotherReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
@@ -19,7 +18,6 @@
 		    $( "#iptotherBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 			$( "#iptotherCourtDate" ).datepicker();
 		    $( "#iptotherCourtDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		    
 			
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
@@ -176,6 +174,8 @@
 					//設定收文日期為當日
 					$("#iptotherReceivedDate").val(response.nowDate);
 					
+					// 初始化其他選項
+					law.addDoc.other.initothersubtab(response.nowDate, response.DocStatus, response.TypeOne, response.otherTypeTwo, response.BankName);
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
@@ -404,7 +404,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocentitlementForeclosure">
-	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="addcensubtab()">
+	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="law.addDoc.cen.addcensubtab()">
 
         <div id="censubtabs">
           <ul>
@@ -1033,11 +1033,11 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocother">
-	其它<img alt="其它" src="../images/plus.png" onclick="addothersubtab()">
+	其它<img alt="其它" src="../images/plus.png" onclick="law.addDoc.other.addothersubtab()">
 
         <div id="othersubtabs">
           <ul>
-            <li><a href="#othersubtabs-0">其它</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#othersubtabs-0">其它</a></li>
           </ul>
           <div id="othersubtabs-0">
             <div>

@@ -28,5 +28,8 @@
         <property name="menuUrl" type="string">
             <column name="menu_url" />
         </property>
+        <property name="isNode" type="string">
+            <column name="is_node" length="1" />
+        </property>
     </class>
 </hibernate-mapping>
