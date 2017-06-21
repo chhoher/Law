@@ -3,13 +3,14 @@
  */
  
  // 執行名義 start
-var censubtabcount = 0;
-var cenactivesubtabcount = 0;
-var censubtabs = $("#censubtabs").tabs();
-
-	function addcensubtab() {
-		censubtabcount ++ ;
-		cenactivesubtabcount ++;
+law.addDoc.cen = {
+	censubtabcount : 0,
+	censubtabs : $("#censubtabs").tabs(),
+	cenactivesubtabcount : 0,
+	addcensubtab : function (){
+		var cenactivesubtabcount = law.addDoc.cen.cenactivesubtabcount;
+		var censubtabcount = law.addDoc.cen.censubtabcount;
+		var censubtabs = law.addDoc.cen.censubtabs;
 		var tabTitle = "執行名義";
 		var tabId = "tabs-" + censubtabcount;
 		
@@ -59,20 +60,24 @@ var censubtabs = $("#censubtabs").tabs();
 					"<td><input id='iptcentitlementRemark"+censubtabcount+"'></input></td>"+
 				"</tr>"+
            	" </table>";
+           	
+		law.addDoc.cen.censubtabcount ++ ;
+		law.addDoc.cen.cenactivesubtabcount ++;
 		
-		censubtabs.find(".ui-tabs-nav").append(li);
-		censubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		censubtabs.tabs("refresh");
-		censubtabs.tabs({ active: cenactivesubtabcount});
+		law.addDoc.cen.censubtabs.find(".ui-tabs-nav").append(li);
+		law.addDoc.cen.censubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
+		law.addDoc.cen.censubtabs.tabs("refresh");
+		law.addDoc.cen.censubtabs.tabs({ active: law.addDoc.cen.cenactivesubtabcount});
 	}
-	
+};
+
 	// Close icon: removing the tab on click
-	censubtabs.on("click", "span.ui-icon-close", function() {
+	$("#censubtabs").tabs().on("click", "span.ui-icon-close", function() {
 		var panelId = $(this).closest("li").remove().attr(
 				"aria-controls");
 		$("#" + panelId).remove();
-		cenactivesubtabcount--;
-		censubtabs.tabs({ active: cenactivesubtabcount});
+		law.addDoc.cen.cenactivesubtabcount--;
+		law.addDoc.cen.censubtabs.tabs({ active: law.addDoc.cen.cenactivesubtabcount});
 	});
 // 執行名義 end
 	
@@ -419,20 +424,20 @@ var filesubtabs = $("#filesubtabs").tabs();
 // 卷宗 end	
 	
 // 其它 start
-var othersubtabcount = 0;
-var otheractivesubtabcount = 0;
-var othersubtabs = $("#othersubtabs").tabs();
-	function addothersubtab() {
-		othersubtabcount ++ ;
-		otheractivesubtabcount ++;
-		
+law.addDoc.other = {
+	othersubtabcount : 0,
+	otheractivesubtabcount : 0,
+	othersubtabs : $("#othersubtabs").tabs(),
+	otherexistsubtabs : [],
+	addothersubtab : function(){
+		var other = law.addDoc.other;
+		var othersubtabcount = other.othersubtabcount;
+		var otheractivesubtabcount = other.otheractivesubtabcount;
+		var othersubtabs = other.othersubtabs;
 		var tabTitle = "其它";
 		var tabId = "tabs-" + othersubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
+		var tabTemplate = "<li id='liothertab_" + othersubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
 					"<td><label>收文日期</label></td>" +
@@ -440,43 +445,113 @@ var othersubtabs = $("#othersubtabs").tabs();
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
-					"<td><input id='iptotherDocStatus" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherDocStatus" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>文件類別</label></td>" +
-					"<td><input id='iptotherTypeOne" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherTypeOne" + othersubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 					"<td><label>文件項目</label></td>" +
-					"<td><input id='iptotherTypeTwo" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
-					"<td><input id='iptotherBankName" + othersubtabcount + "'></input></td>" +
+					"<td><select id='iptotherBankName" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>收據種類</label></td>" +
-					"<td><input id='iptotherReceiptType"  + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherReceiptType" + othersubtabcount + "' ></input></td>" +
 					"<td><label>收據金額</label></td>" +
-					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "' ></input></td>" +
 					"<td><label>法院製發日</label></td>" +
-					"<td><input id='iptotherCourtDate" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherCourtDate" + othersubtabcount + "' ></input></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>備註</label></td>" +
-					"<td><input id='iptotherRemark" + "' ></input></td>" +
+					"<td><input id='iptotherRemark" + othersubtabcount + "' ></input></td>" +
 				"</tr>" +
            	 "</table>";
+       	 var docArray,seloption;
 		
-		othersubtabs.find(".ui-tabs-nav").append(li);
-		othersubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		othersubtabs.tabs("refresh");
-		othersubtabs.tabs({ active:otheractivesubtabcount});
+		other.othersubtabcount ++ ;
+		other.otheractivesubtabcount ++;
+		
+		other.othersubtabs.find(".ui-tabs-nav").append(li);
+		other.othersubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
+		other.othersubtabs.tabs("refresh");
+		other.othersubtabs.tabs({ active:other.otheractivesubtabcount});
+           	 
+		other.otherexistsubtabs.push(true);
+		// 開始初始化
+		
+		//將日期欄位格式化
+		$( "#iptotherReceivedDate" + othersubtabcount ).datepicker();
+	    $( "#iptotherReceivedDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		$( "#iptotherBankDate" + othersubtabcount ).datepicker();
+	    $( "#iptotherBankDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		$( "#iptotherCourtDate" + othersubtabcount ).datepicker();
+	    $( "#iptotherCourtDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	    
+		//其他 文件狀態
+		$("#iptotherDocStatus" + othersubtabcount + " option").remove();
+		docArray = other.DocStatus;
+		seloption = "";
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+		});
+		$("#iptotherDocStatus" + othersubtabcount).append(seloption);
+		$('#iptotherDocStatus' + othersubtabcount + ' option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
+		
+		//其他 文件類別
+		$("#iptotherTypeOne" + othersubtabcount + " option").remove();
+		docArray = other.TypeOne;
+		seloption = "";
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+		});
+		$("#iptotherTypeOne" + othersubtabcount).append(seloption);
+		$('#iptotherTypeOne' + othersubtabcount + ' option[value=8aa2e72a5c812434015c81307418000a]').attr('selected', 'selected');
+		
+		//其他 文件項目
+		$("#iptotherTypeTwo" + othersubtabcount + " option").remove();
+		docArray = other.TypeTwo;
+		seloption = "";
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+		});
+		$("#iptotherTypeTwo" + othersubtabcount).append(seloption);
+		
+		//其他 債權人
+		$("#iptotherBankName" + othersubtabcount + " option").remove();
+		docArray = other.BankName;
+		seloption = "";
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+		});
+		$("#iptotherBankName" + othersubtabcount).append(seloption);
+		
+		//設定收文日期為當日
+		$("#iptotherReceivedDate" + othersubtabcount).val(other.ReceivedDate);
+			
+	},
+	// 初始化
+	initothersubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName){
+		var initsub = law.addDoc.other;
+		initsub.ReceivedDate = ReceivedDate;
+		initsub.DocStatus = DocStatus;
+		initsub.TypeOne = TypeOne;
+		initsub.TypeTwo = TypeTwo;
+		initsub.BankName = BankName;
 	}
+}
 	
 	// Close icon: removing the tab on click
-	filesubtabs.on("click", "span.ui-icon-close", function() {
+	$("#othersubtabs").tabs().on("click", "span.ui-icon-close", function() {
+		var other = law.addDoc.other;
 		var panelId = $(this).closest("li").remove().attr(
 				"aria-controls");
 		$("#" + panelId).remove();
-		fileactivesubtabcount--;
-		filesubtabs.tabs({ active: fileactivesubtabcount});
+		var liid = $(this).closest("li")["0"].id;
+		other.otherexistsubtabs[liid.substring(liid.indexOf("_") + 1)] = false;
+		other.otheractivesubtabcount--;
+		other.othersubtabs.tabs({ active: other.otheractivesubtabcount});
 	});
 // 其它 end	
 	
@@ -484,49 +559,101 @@ $(function() {
 	
 	// ===== function start =====
 	
-	// add by Jia search function
-	function searchCase(iptsearchdebtorName, iptsearchdebtorID, iptsearchcaseId, iptsearchdocNo, iptsearchLawCaseId) {
-		var datatable = $("#queryCaseTable").dataTable();
-		datatable.fnClearTable();
-		var json = "";
+	function saveaddDoc(){
+		// 儲存(其他)
+//		"<table>" +
+//           	 	"<tr>" +
+//					"<td><label>收文日期</label></td>" +
+//					"<td><input id='iptotherReceivedDate" + othersubtabcount + "'></input></td>" +
+//					"<td><label>業主調件日</label></td>" +
+//					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
+//					"<td><label>文件狀態</label></td>" +
+//					"<td><select id='iptotherDocStatus" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+//				"</tr>" +
+//				"<tr>" +
+//					"<td><label>文件類別</label></td>" +
+//					"<td><select id='iptotherTypeOne" + othersubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
+//					"<td><label>文件項目</label></td>" +
+//					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+//					"<td><label>債權人</label></td>" +
+//					"<td><select id='iptotherBankName" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+//				"</tr>" +
+//				"<tr>" +
+//					"<td><label>收據種類</label></td>" +
+//					"<td><input id='iptotherReceiptType" + othersubtabcount + "' ></input></td>" +
+//					"<td><label>收據金額</label></td>" +
+//					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "' ></input></td>" +
+//					"<td><label>法院製發日</label></td>" +
+//					"<td><input id='iptotherCourtDate" + othersubtabcount + "' ></input></td>" +
+//				"</tr>" +
+//				"<tr>" +
+//					"<td><label>備註</label></td>" +
+//					"<td><input id='iptotherRemark" + othersubtabcount + "' ></input></td>" +
+//				"</tr>" +
+//           	 "</table>"
+		var length = law.addDoc.other.othersubtabcount,
+			i = 0,
+			other = {},
+			returnOther = "";
+			
+			var topItem = {
+				'receivedDate' : $("#iptotherReceivedDate").val(),
+				'bankDate' : $("#iptotherBankDate").val(),
+				'docStatus' : $("#iptotherDocStatus").find('option:selected').val(),
+				'typeOne' : $("#iptotherTypeOne").find('option:selected').val(),
+				'typeTwo' : $("#iptotherTypeTwo").find('option:selected').val(),
+				'bankName' : $("#iptotherBankName").find('option:selected').val(),
+				'receiptType' : $("#iptotherReceiptType").val(),
+				'receiptAmount' : $("#iptotherReceiptAmount").val(),
+				'courtDate' : $("#iptotherCourtDate").val(),
+				'remark' : $("#iptotherRemark").val()
+			};
+			
+			other.subItems = [];
+			other.subItems.push(topItem);
+		for ( ; i < length; i++ ) {
+				var subItems = {
+					'receivedDate' : $("#iptotherReceivedDate" + i ).val(),
+					'bankDate' : $("#iptotherBankDate" + i ).val(),
+					'docStatus' : $("#iptotherDocStatus" + i ).find('option:selected').val(),
+					'typeOne' : $("#iptotherTypeOne" + i ).find('option:selected').val(),
+					'typeTwo' : $("#iptotherTypeTwo" + i ).find('option:selected').val(),
+					'bankName' : $("#iptotherBankName" + i ).find('option:selected').val(),
+					'receiptType' : $("#iptotherReceiptType" + i ).val(),
+					'receiptAmount' : $("#iptotherReceiptAmount" + i ).val(),
+					'courtDate' : $("#iptotherCourtDate" + i ).val(),
+					'remark' : $("#iptotherRemark" + i ).val()
+			};
+			other.subItems.push(subItems);
+		}
+		
+		console.log(other);
+		returnOther = JSON.stringify(other);
+		
 		$.ajax({
-			url : '../pages/doc/documents/docAction!loadCaseInfo.action',
-			data : {
-				'iptsearchdebtorName' : iptsearchdebtorName,
-				'iptsearchdebtorID' : iptsearchdebtorID,
-				'iptsearchcaseId' : iptsearchcaseId,
-				'iptsearchdocNo' : iptsearchdocNo,
-				'iptsearchLawCaseId' : iptsearchLawCaseId
-			},
-			type : "POST",
-			dataType : 'json',
-			success : function(response) {
-				json = response.data;
-				datatable.fnClearTable();
-				if (response.data != '') {
-					datatable.fnAddData(json);
-				}
-				datatable.fnDraw();
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert(xhr.status);
-				alert(thrownError);
-			}
-		});
+					url : '../pages/doc/documents/docAction!saveaddDoc.action',
+					data : {returnOther : returnOther},
+					type : "POST",
+					dataType : 'json',
+					success : function(response) {
+						if (response.success) {
+							alert(response.msg);
+						} else {
+							alert(response.msg);
+						}
+					},
+					error : function(xhr, ajaxOptions, thrownError) {
+						alert(xhr.status);
+						alert(thrownError);
+					}
+				});
 	}
-	
 	// ===== function end =====
 
 	// ===== 功能列按鈕 start =====
-	// 查詢按鈕
-	$("#btnquerycase").button().on("click",function() {
-		// 定義查詢條件欄位
-		var iptsearchdebtorName = $("#iptsearchdebtorName").val(), 
-			iptsearchdebtorID = $("#iptsearchdebtorID").val(),
-			iptsearchcaseId = $("#iptsearchcaseId").val(),
-			iptsearchdocNo = $("#iptsearchdocNo").val(),
-			iptsearchLawCaseId = $("#iptsearchLawCaseId").val();
-		searchCase(iptsearchdebtorName, iptsearchdebtorID, iptsearchcaseId, iptsearchdocNo, iptsearchLawCaseId);
+	// 儲存按鈕
+	$("#btnsaveaddDoc").button().on("click",function() {
+		saveaddDoc();
 	});
 	
 	// ===== 功能列按鈕 end =====

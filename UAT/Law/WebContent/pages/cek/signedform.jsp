@@ -89,13 +89,13 @@ var otherfilenum = 0;
 						var leftseloption = "";
 						$.each(relaArray,function(i){
 							leftseloption += '<option value="'+i+'">'+relaArray[i].Name+'</option>'; 
-							if(relaArray[i].Rela_kind == "本人"){
+							if(relaArray[i].Role == "CM"){
 								relaDeb = i;
 							}
 						});
 						$("#iptcaseRela").append(leftseloption);
 						$('#iptcaseRela option[value='+relaDeb+']').attr('selected', 'selected');
-						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Rela_kind);
+						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Role);
 						$("#iptcaseType option").remove();
 						caseTypeArray = response.signedType;
 						var caseTypeseloption = "";
@@ -123,7 +123,7 @@ var otherfilenum = 0;
 						});
 						$("#iptcaseRela").append(leftseloption);
 						$('#iptcaseRela option[value='+leftselectedVal+']').attr('selected', 'selected');
-						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Rela_kind);
+						$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Role);
 						$("#iptcaseType option").remove();
 						caseTypeArray = response.signedType;
 						var caseTypeseloption = "";
@@ -193,7 +193,7 @@ var otherfilenum = 0;
 			});
 			
 			$( "#iptcaseRela" ).change(function(i) {
-				$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Rela_kind);
+				$("#iptcaseRelaRole").val(relaArray[$("#iptcaseRela option:selected").val()].Role);
 			});
 			
 			$( "#iptcaseType" ).change(function(i) {
@@ -249,7 +249,7 @@ var otherfilenum = 0;
 			
 			$("#btnopenSignedFile").button().on("click",function(e){
 				e.preventDefault();  //stop the browser from following
-				
+
 				// TODO 這裡之後要記得改成可以套表的 
 				//從L_SYS_FILE抓取檔案
 				$.ajax({
@@ -257,7 +257,23 @@ var otherfilenum = 0;
 					data : {
 						'fileTypeOne' : $("#iptcaseType").find('option:selected').text(),
 						'fileTypeTwo' : $("#iptcaseBankName").val(),
-						'signedId' : signedId
+						'signedId' : signedId,
+						// 以下是套表專用
+						'savecaseId' : $("#iptcaseId").val(),
+						'savecaseBankName' : $("#iptcaseBankName").val(),
+						'savecaseProductName' : $("#iptcaseProductName").val(),
+						'savecaseRela' : $("#iptcaseRela").find('option:selected').text(),
+						'savecaseRelaRole' : $("#iptcaseRelaRole").val(),
+						'savecaseType' : $("#iptcaseType").find('option:selected').text(),
+						'savecasePeriods' : $("#iptcasePeriods").val(),
+						'savecasePayStartDate' : $("#iptcasePayStartDate").val(),
+						'savecasePayEndDate' : $("#iptcasePayEndDate").val(),
+						'savecaseAmount' : $("#iptcaseAmount").val(),
+						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
+						'userId' : '<%=request.getParameter("userId")%>',
+						'saveapplyUserId' : $("#iptapplyUserId").val(),
+						'savecaseCreateDate' : $("#iptcaseCreateDate").val(),
+						'savepayerID' : relaArray[$("#iptcaseRela option:selected").val()].ID
 					},
 					type : "POST",
 					dataType : 'json',
@@ -433,6 +449,7 @@ var otherfilenum = 0;
 						} else {
 							alert(response.msg);
 						}
+						window.close();
 					},
 					error : function(xhr, ajaxOptions,thrownError) {
 						alert(xhr.status);
@@ -490,6 +507,7 @@ var otherfilenum = 0;
 						}
 						$( "#btnbackSigned" ).button( "disable" );
 						$( "#btncheckedSubmitSigned" ).button( "disable" );
+						window.close();
 					},
 					error : function(xhr, ajaxOptions,thrownError) {
 						alert(xhr.status);
@@ -542,6 +560,7 @@ var otherfilenum = 0;
 								<%
 							}
 							%>
+							window.close();
 						} else {
 							alert(response.msg);
 						}
@@ -597,6 +616,7 @@ var otherfilenum = 0;
 								<%
 							}
 							%>
+							window.close();
 						} else {
 							alert(response.msg);
 						}

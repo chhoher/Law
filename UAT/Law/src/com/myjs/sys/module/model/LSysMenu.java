@@ -10,6 +10,7 @@ public class LSysMenu {
 	private String isOpen;
 	private String isDelete;
 	private String menuUrl;
+	private String isNode;
 	
 	// add By Jia 2017-05-31 Vo
 	private String menuPname;
@@ -24,7 +25,7 @@ public class LSysMenu {
 	}
 	
 	public LSysMenu(String menuId, String menuPid, String moduleId, String menuName,
-			int menuLevel, String isOpen, String isDelete, String menuUrl){
+			int menuLevel, String isOpen, String isDelete, String menuUrl, String isNode){
 		this.menuId = menuId;
 		this.menuPid = menuPid;
 		this.moduleId = moduleId;
@@ -33,6 +34,7 @@ public class LSysMenu {
 		this.isOpen = isOpen;
 		this.isDelete = isDelete;
 		this.menuUrl = menuUrl;
+		this.isNode = isNode;
 	}
 	public String getMenuId() {
 		return menuId;
@@ -129,6 +131,14 @@ public class LSysMenu {
 
 	public void setFunctionIsDelete(String functionIsDelete) {
 		this.functionIsDelete = functionIsDelete;
+	}
+
+	public String getIsNode() {
+		return isNode;
+	}
+
+	public void setIsNode(String isNode) {
+		this.isNode = isNode;
 	}
 
 }

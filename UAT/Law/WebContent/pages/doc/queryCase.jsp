@@ -53,6 +53,7 @@ $(document).ready(function(){
 				</td>
 			</tr>
 			<!-- 查詢條件欄位 -->
+			<tr><td>
 			<table>
 			<tr>
 				<td>
@@ -77,6 +78,7 @@ $(document).ready(function(){
 				</td>
 			</tr>
 			</table>
+			</td></tr>
 			<!-- 查詢條件欄位 -->
 		</table>
 	</div>

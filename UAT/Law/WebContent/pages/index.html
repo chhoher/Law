@@ -40,65 +40,46 @@
 <script type="text/javascript" src="../commons/regex.js"></script>
 <script type="text/javascript" src="../js/json2.js"></script>
 
+<!-- Add By Jia 2017-06-19 將法務文管系統的javascript 全部封裝起來 -->
+<script type="text/javascript" src="../legaljs/law.js"></script>
 <script>
-var tabcount = 0;
-var menuJson;
 	$(document).ready(function() {
 		if (typeof (JSON) == 'undefined') {
 		     //如果瀏覽器不支援JSON則載入json2.js
 		     $.getScript('js/json2.js');
 		}
 		
-						
-						var tabs = $("#tabs").tabs();
-						var tabArr= [];
-						
 						$("#tabs").tabs().on( "tabsbeforeload", function( event, ui ) {
-					        var key = ui.tab.find("a").text();
-					              if(tabArr[key+"_loaded"] != undefined){
-					            	  if(tabArr[key+"_loaded"] == 1){
+					        var key = ui.tab["0"].id;
+					              if(law.tabControl.tabArr[key+"_loaded"] !== undefined){
+					            	  if(law.tabControl.tabArr[key+"_loaded"].isOpened === true){
 					                	ui.jqXHR.abort();
 					            	  }
+					            	  law.tabControl.activedNum = law.tabControl.tabArr[key+"_loaded"].tabindex;
 					              }
 					    } );
 
 					    $("#tabs").tabs().on("tabsload", function (event, ui) {
-					    	var key = ui.tab.find("a").text();
-					        tabArr[key+"_loaded"] = 1;
+					    	var key = ui.tab["0"].id;
+					    	law.tabControl.tabArr[key + "_loaded"] = { isOpened : true, tabindex : law.tabControl.tabcount};
 					    });
 						
-						// Actual addTab function: adds new tab using the input from the form above
-						function addTab(menuid,menname,menuUrl) {
-							
-							tabcount ++ ;
-							//TODO add by Jia 2017-02-13 用menuid帶出頁面index (去找L_SYS_FUNCTION)
-							var tabTitle = menname;
-							var tabHref = menuUrl;
-							var tabId = "tabs-" + menuid;
-							
-							var tabTemplate = "<li><a href='" + tabHref + "'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-							
-							var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-							var key = menname;
-					        tabArr[key+"_loaded"] = 0;
-							
-							tabs.find(".ui-tabs-nav").append(li);
-							tabs.tabs("refresh");
-							tabs.tabs({ active: tabcount	});
-						}
-
 						// Close icon: removing the tab on click
-						tabs.on("click", "span.ui-icon-close", function() {
+						$("#tabs").tabs().on("click", "span.ui-icon-close", function() {
 							var panelId = $(this).closest("li").remove().attr(
 									"aria-controls");
 							$("#" + panelId).remove();
-							tabcount--;
+							var key = $(this).closest("li")["0"].id;
+							law.tabControl.tabArr[key + "_loaded"] = { isOpened : false, tabindex : -1};
+							law.tabControl.tabcount--;
+							$("#tabs").tabs().tabs({
+								active : law.tabControl.activedNum
+							});
 						});
 
-						tabs.on("keyup",function(event) {
+						$("#tabs").tabs().on("keyup",function(event) {
 							if (event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE) {
-												var panelId = tabs.find(".ui-tabs-active")
+												var panelId = $("#tabs").tabs().find(".ui-tabs-active")
 														.remove()	.attr("aria-controls");
 												$("#" + panelId).remove();
 											}
@@ -123,7 +104,7 @@ var menuJson;
 							type : "POST",
 							dataType : 'json',
 							success : function(response) {
-								
+								var menuJson;
 								menuJson = response.data;
 								$('#menu').on("changed.jstree", function (e, data) {
 									if(data.selected.length) {
@@ -131,7 +112,7 @@ var menuJson;
 										var menuId = data.instance.get_node(data.selected[0]).id;
 										var menname = data.instance.get_node(data.selected[0]).text;
 										var menuUrl = data.node.original.menuUrl;
-										addTab(menuId,menname,menuUrl);
+										law.tabControl.addTabs("#tabs", menuId,menname,menuUrl);
 										
 									}
 								});
@@ -170,7 +151,7 @@ var menuJson;
 
 	<div class="ui-layout-center">
 		<div id="tabs"  class="tabs">
-			<ul class="list-side">
+			<ul class="list-side" id="ulindex">
 				<li>
 					<a href="#tabs-1">首頁</a> 
 					<span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>

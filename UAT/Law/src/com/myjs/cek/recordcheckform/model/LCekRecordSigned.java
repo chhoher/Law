@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "L_CEK_RECORD_SIGNED", schema = "dbo", catalog = "Legal")
 public class LCekRecordSigned implements java.io.Serializable {
 
-	private static final long serialVersionUID = -5241557043026223998L;
+	private static final long serialVersionUID = 5863622685524623548L;
 	private String signedId;
 	private int caseId;
 	private String bankName;
@@ -36,6 +36,9 @@ public class LCekRecordSigned implements java.io.Serializable {
 	private String ownerAgree;
 	private String remark;
 	
+	//add By Jia VO 套表專用
+	private String caseNo;
+	private String payerId;
 
 	public LCekRecordSigned() {
 
@@ -244,6 +247,22 @@ public class LCekRecordSigned implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getCaseNo() {
+		return caseNo;
+	}
+
+	public void setCaseNo(String caseNo) {
+		this.caseNo = caseNo;
+	}
+
+	public String getPayerId() {
+		return payerId;
+	}
+
+	public void setPayerId(String payerId) {
+		this.payerId = payerId;
 	}
 
 }

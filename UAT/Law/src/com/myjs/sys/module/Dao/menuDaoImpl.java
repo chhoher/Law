@@ -168,7 +168,7 @@ public class menuDaoImpl extends DaoUtil implements menuDao{
 		log.debug("findAllMenuByRoleIds start");
 		try{
 			StringBuffer queryString = new StringBuffer("SELECT LSM.menu_id,LSM.menu_pid,LSM.menu_url,");
-			queryString.append(" LSF.module_id,LSM.menu_name,LSF.function_id,LSRF.is_delete");
+			queryString.append(" LSF.module_id,LSM.menu_name,LSF.function_id,LSRF.is_delete,LSM.is_node");
 			queryString.append(" FROM L_SYS_MENU LSM");
 			queryString.append(" LEFT JOIN L_SYS_FUNCTION LSF ON");
 			queryString.append(" LSM.module_id = LSF.module_id");
@@ -179,7 +179,7 @@ public class menuDaoImpl extends DaoUtil implements menuDao{
 			queryString.append(" AND is_delete = 'N') LSRF ON");
 			queryString.append(" LSF.function_id = LSRF.function_id");
 			queryString.append(" GROUP BY menu_id,menu_pid,LSF.module_id,menu_name,");
-			queryString.append(" LSF.function_id,LSRF.is_delete,LSM.menu_url");
+			queryString.append(" LSF.function_id,LSRF.is_delete,LSM.menu_url,LSM.is_node");
 			log.debug("queryString = {}", queryString);
 			
 			List<Map<String, Object>> queryObject = this.jdbcTemplate.queryForList(queryString.toString());
@@ -193,6 +193,9 @@ public class menuDaoImpl extends DaoUtil implements menuDao{
 				LSysMenu.setMenuUrl((String) map.get("menu_url"));
 				if(map.get("is_delete") != null){
 					LSysMenu.setFunctionIsDelete((String) map.get("is_delete"));
+				}
+				if(map.get("is_node") != null){
+					LSysMenu.setIsNode((String) map.get("is_node"));
 				}
 				LSysMenuList.add(LSysMenu);
 			}

@@ -74,4 +74,33 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-06-14
+	 * 儲存新增文件
+	 */
+	public String saveaddDoc(){
+		try{
+			log.debug("=====saveaddDoc start=====");
+			log.debug("other = {}", super.getRequest().getParameter("returnOther"));
+			String iptotherReceivedDate = super.getRequest().getParameter("iptotherReceivedDate"),
+				iptotherBankDate = super.getRequest().getParameter("iptotherBankDate"),
+				iptotherDocStatus = super.getRequest().getParameter("iptotherDocStatus"),
+				iptotherTypeOne = super.getRequest().getParameter("iptotherTypeOne"),
+				iptotherTypeTwo = super.getRequest().getParameter("iptotherTypeTwo"),
+				iptotherBankName = super.getRequest().getParameter("iptotherBankName"),
+				iptotherReceiptType = super.getRequest().getParameter("iptotherReceiptType"),
+				iptotherReceiptAmount = super.getRequest().getParameter("iptotherReceiptAmount"),
+				iptotherCourtDate = super.getRequest().getParameter("iptotherCourtDate"),
+				iptotherRemark = super.getRequest().getParameter("iptotherRemark");
+			log.debug("iptotherReceivedDate = {}, iptotherBankDate = {}, iptotherDocStatus = {}, iptotherTypeTwo = {},"
+					+ " iptotherBankName = {}, iptotherReceiptType = {}, iptotherReceiptAmount = {}, "
+					+ "iptotherCourtDate = {}, iptotherRemark = {}", iptotherReceivedDate, iptotherBankDate, iptotherDocStatus, 
+					iptotherTypeTwo, iptotherBankName, iptotherReceiptType, iptotherReceiptAmount, iptotherCourtDate, iptotherRemark);
+			log.debug("no item");
+		}catch(Exception e){
+			log.error("saveaddDoc error msg===>", e);
+		}
+		return NONE;
+	}
 }

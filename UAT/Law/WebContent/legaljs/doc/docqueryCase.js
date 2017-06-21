@@ -3,14 +3,15 @@
  */
 
 // 表格中的超連結function
-	// TODO TAB 先暫時這樣 連結到文管系統
 	function todocSystem(data) {
-		alert(data);
+		//固定帶文管系統頁簽的資料
+		law.tabControl.addTabs("#tabs",'8aa2e72a5ca02291015ca0ae14e70001','文管系統','/Law/pages/doc/docSystem.jsp?caseId=' + data);
+		//window.open("../pages/doc/addDoc.jsp?caseId=" + data);
 	}
 	
-	// TODO TAB 先暫時這樣 連結到文管新增
 	function toaddDoc(data) {
-		window.open("../pages/doc/addDoc.jsp?caseId=" + data);
+		//固定帶文管新增頁簽的資料
+		law.tabControl.addTabs("#tabs",'8aa2e72a5c5c9b6e015c5cb587cc0025','文管新增','/Law/pages/doc/addDoc.jsp?caseId=' + data);
 	}
 	
 	// TODO Add By Jia 2017-05-11 目前還沒有做到法務 連結到申請法務

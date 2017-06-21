@@ -11,9 +11,18 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			//將日期欄位格式化
+			$( "#iptotherReceivedDate" ).datepicker();
+		    $( "#iptotherReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+			$( "#iptotherBankDate" ).datepicker();
+		    $( "#iptotherBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+			$( "#iptotherCourtDate" ).datepicker();
+		    $( "#iptotherCourtDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+			
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
 		    		"bSort": false,
+		    		"bPaginate" : false,
 		    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
 		    		"bJQueryUI":true,	
 		    		"columns": [
@@ -79,14 +88,94 @@
 					$('#iptcentitlementDocStatus option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
 					
 					//執行名義 文件類別
-					$("#iptcentitlementTypeOne").remove();
-					var docArray2 = response.TypeOne;
-					var seloption2 = "";
-					$.each(docArray2,function(i){
-						seloption2 += '<option value="'+docArray2[i].variableId+'">'+docArray2[i].variableName+'</option>'; 
+					$("#iptcentitlementTypeOne option").remove();
+					docArray = response.TypeOne;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
 					});
-					$("#iptcentitlementTypeOne").append(seloption2);
-					console.log(docArray2);
+					$("#iptcentitlementTypeOne").append(seloption);
+
+					//執行名義 文件項目
+					$("#iptcentitlementTypeTwo option").remove();
+					docArray = response.TypeTwo;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptcentitlementTypeTwo").append(seloption);
+					
+					//執行名義 債權人
+					$("#iptcentitlementBankName option").remove();
+					docArray = response.BankName;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptcentitlementBankName").append(seloption);
+					
+					//執行名義 原債權人
+					$("#iptcentitlementOldBankName option").remove();
+					docArray = response.OldBankName;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptcentitlementOldBankName").append(seloption);
+					
+					//執行名義 法院年字號
+					$("#iptcentitlementCourtYearCourt option").remove();
+					docArray = response.CourtYearCourt;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptcentitlementCourtYearCourt").append(seloption);
+					
+					//=====其他=====
+					//其他 文件狀態
+					$("#iptotherDocStatus option").remove();
+					docArray = response.DocStatus;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherDocStatus").append(seloption);
+					$('#iptotherDocStatus option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
+					
+					//其他 文件類別
+					$("#iptotherTypeOne option").remove();
+					docArray = response.TypeOne;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherTypeOne").append(seloption);
+					$('#iptotherTypeOne option[value=8aa2e72a5c812434015c81307418000a]').attr('selected', 'selected');
+					
+					//其他 文件項目
+					$("#iptotherTypeTwo option").remove();
+					docArray = response.otherTypeTwo;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherTypeTwo").append(seloption);
+					
+					//其他 債權人
+					$("#iptotherBankName option").remove();
+					docArray = response.BankName;
+					seloption = "";
+					$.each(docArray,function(i){
+						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+					});
+					$("#iptotherBankName").append(seloption);
+					
+					//設定收文日期為當日
+					$("#iptotherReceivedDate").val(response.nowDate);
+					
+					// 初始化其他選項
+					law.addDoc.other.initothersubtab(response.nowDate, response.DocStatus, response.TypeOne, response.otherTypeTwo, response.BankName);
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
@@ -263,6 +352,7 @@
 		    	}
 		    });
 		  //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 end
+		  
 		    var $slave = $("#subtabs").tabs();
 		});
 	</script>
@@ -288,7 +378,7 @@
 		<table>
 			<tr>
 				<td>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnaddCekcheckform">
+					<button class="ui-button ui-widget ui-corner-all" id ="btnsaveaddDoc">
 					    <span class="ui-icon ui-icon-gear"></span> 儲存
 					</button>
 					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryCekcheckform">
@@ -314,7 +404,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocentitlementForeclosure">
-	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="addcensubtab()">
+	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="law.addDoc.cen.addcensubtab()">
 
         <div id="censubtabs">
           <ul>
@@ -328,30 +418,34 @@
 					<td><input id="iptcentitlementShareCaseId"></input></td>
 				</tr>
            	 	<tr>
-					<td><input type="checkbox" name="centitlementShadow" value="all" id="ckbcentitlementShadow" checked>影本</td>
-					<td><input type="checkbox" name="centitlementShadowBank" value="all" id="ckbcentitlementShadowBank" checked>業主收文僅提供影本</td>
+					<td><input type="radio" name="centitlementShadow" value="all" id="rdocentitlementShadow" checked>影本</td>
+					<td><input type="radio" name="centitlementShadow" value="all" id="rdocentitlementShadowBank" checked>業主收文僅提供影本</td>
 					<td><label>文件狀態</label></td>
 					<td><select id="iptcentitlementDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
+					<td><label>收文日期</label></td>
+					<td><input id="iptcentitlementreceivedDate" ></input></td>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptcentitlementBankDate" ></input></td>
-					<td><label>*收文日期</label></td>
-					<td><input id="iptcentitlementreceivedDate" ></input></td>
 				</tr>
 				<tr>
-					<td><label>*文件類別</label></td>
+					<td><label>文件類別</label></td>
 					<td><select id="iptcentitlementTypeOne"><option value="">請選擇</option></select></td>
-					<td><label>*文件項目</label></td>
-					<td><input id="iptcentitlementTypeTwo" ></input></td>
-					<td><label>*債權人</label></td>
-					<td><input id="iptcentitlementBankName" ></input></td>
+					<td><label>文件項目</label></td>
+					<td><select id="iptcentitlementTypeTwo"><option value="">請選擇</option></select></td>
+					<td><label>債權人</label></td>
+					<td><select id="iptcentitlementBankName"><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
-					<td><input id="iptcentitlementOldBankName" ></input></td>
+					<td><select id="iptcentitlementOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
-					<td><label>*法院年字案股</label></td>
-					<td><input id="iptcentitlementCourtYearCourt" ></input></td>
+					<td><label>相對人</label></td>
+					<td><select id="iptcentitlementRela"><option value="">請選擇</option></select></td>
+				</tr>
+				<tr>
+					<td><label>法院年字案股</label></td>
+					<td><select id="iptcentitlementCourtYearCourt"><option value="">請選擇</option></select></td>
 					<td><label>年度</label></td>
 					<td><input id="iptcentitlementCourtYearYear" ></input></td>
 					<td><label>字</label></td>
@@ -362,15 +456,318 @@
 					<td><input id="iptcentitlementCourtYearCaseId" ></input></td>
 				</tr>
 				<tr>
-					<td><label>*發文日期</label></td>
+					<td><label>發文日期</label></td>
 					<td><input id="iptcentitlementSendDate" ></input></td>
-					<td><label>*最近執行日期</label></td>
+					<td><label>最近執行日期</label></td>
 					<td><input id="iptcentitlementNewSendDate" ></input></td>
 				</tr>
 				<tr>
 					<td><label>備註</label></td>
 					<td><input id="iptcentitlementRemark" ></input></td>
 				</tr>
+           	 </table>
+           	 <table>
+           	 	<tr><td>補正</td></tr>
+           	 	<tr>
+           	 		<td>
+           	 			<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content">
+		           	 		<div>
+								<input type="checkbox" name="ckbcentitlement" value="all" id="ckbcentitlementAll" checked>全選
+								<input type="checkbox" name="ckbcentitlement" value="transcripts" id="ckbcentitlementTranscripts">戶謄
+								<input type="checkbox" name="ckbcentitlement" value="coOwnedTranscripts" id="ckbcentitlementCoOwnedTranscripts">共有人戶謄
+								<input type="checkbox" name="ckbcentitlement" value="mortgageeTranscripts" id="ckbcentitlementMortgageeTranscripts">抵押權人戶謄
+								<input type="checkbox" name="ckbcentitlement" value="lawTranscripts" id="ckbcentitlementLawTranscripts">法代戶謄
+								<input type="checkbox" name="ckbcentitlement" value="heirTranscripts" id="ckbcentitlementHeirTranscripts">繼承人戶謄
+								<input type="checkbox" name="ckbcentitlement" value="dirtTranscripts" id="ckbcentitlementDirtTranscripts">土謄
+								<input type="checkbox" name="ckbcentitlement" value="builtTranscripts" id="ckbcentitlementBuiltTranscripts">建謄
+								<input type="checkbox" name="ckbcentitlement" value="distribution" id="ckbcentitlementDistribution">分配表
+							</div>
+							<div>
+								<input type="checkbox" name="ckbcentitlement" value="thingThird" id="ckbcentitlementThingThird">事項表(第三人)
+								<input type="checkbox" name="ckbcentitlement" value="thingDebt" id="ckbcentitlementThingDebt">事項表(債權人)
+								<input type="checkbox" name="ckbcentitlement" value="coOwned" id="ckbcentitlementCoOwned">共有人名冊
+								<input type="checkbox" name="ckbcentitlement" value="debtDoc" id="ckbcentitlementDebtDoc">債權文件
+								<input type="checkbox" name="ckbcentitlement" value="detail" id="ckbcentitlementDetail">帳務明細
+								<input type="checkbox" name="ckbcentitlement" value="file" id="ckbcentitlementFile">執名附件
+								<input type="checkbox" name="ckbcentitlement" value="debtContinue" id="ckbcentitlementDebtContinue">債證續行表
+								<input type="checkbox" name="ckbcentitlement" value="cashierCheck" id="ckbcentitlementCashierCheck">本票
+								<input type="checkbox" name="ckbcentitlement" value="other" id="ckbcentitlementOther">其它
+							</div>
+						</div>
+					</td>
+           	 	</tr>
+           	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementTranscripts">
+           	 				<input type="checkbox" name="namecentitlementTranscriptsSub" value="transcripts" id="ckbcentitlementTranscriptsSub">戶謄
+							<input id="iptcentitlementTranscriptsDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementTranscriptsRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementTranscriptsRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementTranscriptsRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementTranscriptsRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementTranscriptsRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementCoOwnedTranscripts">
+           	 				<input type="checkbox" name="namecentitlementCoOwnedTranscriptsSub" value="transcripts" id="ckbcentitlementCoOwnedTranscriptsSub">共有人戶謄
+							<input id="iptcentitlementCoOwnedTranscriptsDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementCoOwnedTranscriptsRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementCoOwnedTranscriptsRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCoOwnedTranscriptsRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCoOwnedTranscriptsRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCoOwnedTranscriptsRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementMortgageeTranscripts">
+           	 				<input type="checkbox" name="namecentitlementMortgageeTranscriptsSub" value="transcripts" id="ckbcentitlementMortgageeTranscriptsSub">抵押權人戶謄
+							<input id="iptcentitlementMortgageeTranscriptsDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementMortgageeTranscriptsRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementMortgageeTranscriptsRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementMortgageeTranscriptsRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementMortgageeTranscriptsRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementMortgageeTranscriptsRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementLawTranscripts">
+           	 				<input type="checkbox" name="namecentitlementLawTranscriptsSub" value="transcripts" id="ckbcentitlementLawTranscriptsSub">法代戶謄
+							<input id="iptcentitlementLawTranscriptsDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementLawTranscriptsRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementLawTranscriptsRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementLawTranscriptsRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementLawTranscriptsRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementLawTranscriptsRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementHeirTranscripts">
+           	 				<input type="checkbox" name="namecentitlementHeirTranscriptsSub" value="transcripts" id="ckbcentitlementHeirTranscriptsSub">繼承人戶謄
+							<input id="iptcentitlementHeirTranscriptsDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementHeirTranscriptsRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementHeirTranscriptsRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementHeirTranscriptsRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementHeirTranscriptsRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementHeirTranscriptsRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementDirtTranscripts">
+           	 				<input type="checkbox" name="namecentitlementDirtTranscriptsSub" value="transcripts" id="ckbcentitlementDirtTranscriptsSub">土謄
+							<input id="iptcentitlementDirtTranscriptsDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementDirtTranscriptsRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementDirtTranscriptsRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDirtTranscriptsRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDirtTranscriptsRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDirtTranscriptsRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementBuiltTranscripts">
+           	 				<input type="checkbox" name="namecentitlementBuiltTranscripts" value="transcripts" id="ckbcentitlementBuiltTranscriptsSub">建謄
+							<input id="iptcentitlementBuiltTranscriptsDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementBuiltTranscriptsRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementBuiltTranscriptsRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementBuiltTranscriptsRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementBuiltTranscriptsRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementBuiltTranscriptsRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementDistribution">
+           	 				<input type="checkbox" name="namecentitlementDistributionSub" value="transcripts" id="ckbcentitlementDistributionSub">分配表
+							<input id="iptcentitlementDistributionDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementDistributionRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementDistributionRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDistributionRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDistributionRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDistributionRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementThingThird">
+           	 				<input type="checkbox" name="namecentitlementThingThirdSub" value="transcripts" id="ckbcentitlementThingThirdSub">事項表(第三人)
+							<input id="iptcentitlementThingThirdDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementThingThirdRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementThingThirdRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementThingThirdRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementThingThirdRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementThingThirdRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementThingDebt">
+           	 				<input type="checkbox" name="namecentitlementThingDebtSub" value="transcripts" id="ckbcentitlementThingDebtSub">事項表(債權人)
+							<input id="iptcentitlementThingDebtDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementThingDebtRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementThingDebtRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementThingDebtRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementThingDebtRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementThingDebtRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementCoOwned">
+           	 				<input type="checkbox" name="namecentitlementCoOwnedSub" value="transcripts" id="ckbcentitlementCoOwnedSub">共有人名冊
+							<input id="iptcentitlementCoOwnedDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementCoOwnedRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementCoOwnedRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCoOwnedRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCoOwnedRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCoOwnedRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementDebtDoc">
+           	 				<input type="checkbox" name="namecentitlementDebtDocSub" value="transcripts" id="ckbcentitlementDebtDocSub">債權文件
+							<input id="iptcentitlementDebtDocDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementDebtDocRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementDebtDocRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDebtDocRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDebtDocRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDebtDocRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementDetail">
+           	 				<input type="checkbox" name="namecentitlementDetailSub" value="transcripts" id="ckbcentitlementDetailSub">帳務明細
+							<input id="iptcentitlementDetailDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementDetailRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementDetailRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDetailRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDetailRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDetailRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementFile">
+           	 				<input type="checkbox" name="namecentitlementFileSub" value="transcripts" id="ckbcentitlementFileSub">執名附件
+							<input id="iptcentitlementFileDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementFileRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementFileRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementFileRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementFileRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementFileRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divccentitlementDebtContinue">
+           	 				<input type="checkbox" name="namecentitlementDebtContinueSub" value="transcripts" id="ckbcentitlementDebtContinueSub">債證續行表
+							<input id="iptcentitlementDebtContinueDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementDebtContinueRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementDebtContinueRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDebtContinueRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDebtContinueRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementDebtContinueRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementCashierCheck">
+           	 				<input type="checkbox" name="namecentitlementCashierCheckSub" value="transcripts" id="ckbcentitlementCashierCheckSub">本票
+							<input id="iptcentitlementCashierCheckDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementCashierCheckRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementCashierCheckRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCashierCheckRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCashierCheckRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementCashierCheckRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
+        	 	<tr>
+           	 		<td>
+           	 			<div id="divcentitlementOther">
+           	 				<input type="checkbox" name="namecentitlementOtherSub" value="transcripts" id="ckbcentitlementOtherSub">其它
+							<input id="iptcentitlementOtherDays" ></input>
+           	 				<label>日內</label>
+           	 				<label>備註</label>
+							<input id="iptcentitlementOtherRemark" ></input>
+							<label>相對人</label>
+							<select id="iptcentitlementOtherRelaOne"><option value="">請選擇</option></select>
+							<select id="iptcentitlementOtherRelaTwo"><option value="">請選擇</option></select>
+							<select id="iptcentitlementOtherRelaThree"><option value="">請選擇</option></select>
+							<select id="iptcentitlementOtherRelaFour"><option value="">請選擇</option></select>
+           	 			</div>
+           	 		</td>
+        	 	</tr>
            	 </table>
            	</div>
             
@@ -387,50 +784,48 @@
           </ul>
           <div id="courtDocsubtabs-0">
             <div>
-<!--            	 <table>
-           	 	<tr>
-					<td><label>共用案號</label></td>
-					<td><input id="iptcentitlementShareCaseId"></input></td>
-				</tr>
-				<tr>
-					<td><label>業主調件日</label></td>
-					<td><input id="iptcentitlementBankDate" ></input></td>
-					<td><label>*收文日期</label></td>
-					<td><input id="iptcentitlementreceivedDate" ></input></td>
-				</tr>
-				<tr>
-					<td><label>*文件類別</label></td>
-					<td><input id="iptcentitlementTypeOne" ></input></td>
-					<td><label>*文件項目</label></td>
-					<td><input id="iptcentitlementTypeTwo" ></input></td>
-					<td><label>*債權人</label></td>
-					<td><input id="iptcentitlementBankName" ></input></td>
-					<td><label>原債權人</label></td>
-					<td><input id="iptcentitlementOldBankName" ></input></td>
-				</tr>
-				<tr>
-					<td><label>*法院年字案股</label></td>
-					<td><input id="iptcentitlementCourtYearCourt" ></input></td>
-					<td><label>年度</label></td>
-					<td><input id="iptcentitlementCourtYearYear" ></input></td>
-					<td><label>字</label></td>
-					<td><input id="iptcentitlementCourtYearTxt" ></input></td>
-					<td><label>股別</label></td>
-					<td><input id="iptcentitlementCourtYearShare" ></input></td>
-					<td><label>案號</label></td>
-					<td><input id="iptcentitlementCourtYearCaseId" ></input></td>
-				</tr>
-				<tr>
-					<td><label>*發文日期</label></td>
-					<td><input id="iptcentitlementSendDate" ></input></td>
-					<td><label>*最近執行日期</label></td>
-					<td><input id="iptcentitlementNewSendDate" ></input></td>
-				</tr>
-				<tr>
-					<td><label>備註</label></td>
-					<td><input id="iptcentitlementRemark" ></input></td>
-				</tr>
-           	 </table> -->
+				<table>
+	           	 	<tr>
+						<td><label>共用案號</label></td>
+						<td><input id="iptcourtDocShareCaseId"></input></td>
+					</tr>
+	           	 	<tr>
+						<td><input type="radio" name="courtDocShadow" value="all" id="rdocourtDocShadow" checked>影本</td>
+						<td><input type="radio" name="courtDocShadow" value="all" id="rdocourtDocShadowBank" checked>業主收文僅提供影本</td>
+						<td><label>文件狀態</label></td>
+						<td><select id="iptcourtDocDocStatus"><option value="">請選擇</option></select></td>
+					</tr>
+					<tr>
+						<td><label>收文日期</label></td>
+						<td><input id="iptcourtDocReceivedDate" ></input></td>
+						<td><label>業主調件日</label></td>
+						<td><input id="iptcourtDocBankDate" ></input></td>
+						<td><label>委任狀編號</label></td>
+						<td><input id="iptcourtDocLetter" ></input></td>
+					</tr>
+					<tr>
+						<td><label>文件類別</label></td>
+						<td><select id="iptcourtDocTypeOne"><option value="">請選擇</option></select></td>
+						<td><label>文件項目</label></td>
+						<td><select id="iptcourtDocTypeTwo"><option value="">請選擇</option></select></td>
+						<td><label>債權人</label></td>
+						<td><select id="iptcourtDocBankName"><option value="">請選擇</option></select></td>
+						<td><label>原債權人</label></td>
+						<td><select id="iptcourtDocOldBankName"><option value="">請選擇</option></select></td>
+					</tr>
+					<tr>
+						<td><label>法院年字案股</label></td>
+						<td><select id="iptcourtDocCourtYearCourt"><option value="">請選擇</option></select></td>
+						<td><label>年度</label></td>
+						<td><input id="iptcourtDocCourtYearYear" ></input></td>
+						<td><label>字</label></td>
+						<td><input id="iptcourtDocCourtYearTxt" ></input></td>
+						<td><label>股別</label></td>
+						<td><input id="iptcourtDocCourtYearShare" ></input></td>
+						<td><label>案號</label></td>
+						<td><input id="iptcourtDocCourtYearCaseId" ></input></td>
+					</tr>
+           	 	</table>
            	</div>
             
           </div>
@@ -638,11 +1033,11 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocother">
-	其它<img alt="其它" src="../images/plus.png" onclick="addothersubtab()">
+	其它<img alt="其它" src="../images/plus.png" onclick="law.addDoc.other.addothersubtab()">
 
         <div id="othersubtabs">
           <ul>
-            <li><a href="#othersubtabs-0">其它</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#othersubtabs-0">其它</a></li>
           </ul>
           <div id="othersubtabs-0">
             <div>
@@ -653,15 +1048,15 @@
 					<td><label>業主調件日</label></td>
 					<td><input id="iptotherBankDate" ></input></td>
 					<td><label>文件狀態</label></td>
-					<td><input id="iptotherDocStatus" ></input></td>
+					<td><select id="iptotherDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>文件類別</label></td>
-					<td><input id="iptotherTypeOne" ></input></td>
+					<td><select id="iptotherTypeOne" disabled><option value="">請選擇</option></select></td>
 					<td><label>文件項目</label></td>
-					<td><input id="iptotherTypeTwo" ></input></td>
+					<td><select id="iptotherTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><input id="iptotherBankName" ></input></td>
+					<td><select id="iptotherBankName"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>收據種類</label></td>

@@ -268,6 +268,8 @@ public class FilesUploads {
 	public List<LSysFile> findAllFiles(String caseId){
 		try{
 			File a = new File("\\\\sfsimg\\ImageFiles\\案件資料檔\\" + caseId);
+//			File a = new File("\\\\TPEITA04\\test3\\test");
+//			File a = new File("\\\\Sfspub\\公用資料夾\\IT\\test1");
 			String[] filenames;
 			String fullpath = a.getAbsolutePath();
 				      

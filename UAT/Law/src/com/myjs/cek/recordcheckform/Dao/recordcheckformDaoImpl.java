@@ -283,7 +283,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		try{
 			//LCekSignedRelaInfo 是View表，查詢SMART的TABLE，SMART操作按F8跳出的相關人
 			StringBuffer queryString=new StringBuffer("select row_number() over(order by lcsri.Case_ID ASC) AS Row_ID,");
-			queryString.append(" lcsri.Case_ID,lcsri.Name,lcsri.ID,lcsri.Rela_kind");
+			queryString.append(" lcsri.Case_ID,lcsri.Name,lcsri.ID,lcsri.Rela_kind,lcsri.Role");
 			queryString.append(" from V_SMART_RELAINFO lcsri where  1=1");
 			if(caseId != null && !caseId.equals("")){
 				queryString.append(" and lcsri.Case_ID = "+caseId);
@@ -300,12 +300,13 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 				LCekSignedRelaInfo.setName((String) map.get("Name"));
 				LCekSignedRelaInfo.setID((String) map.get("ID"));
 				LCekSignedRelaInfo.setRela_kind((String) map.get("Rela_kind"));
+				LCekSignedRelaInfo.setRole((String) map.get("Role"));
 				MapLCekSignedRelaInfo.add(LCekSignedRelaInfo);
 			}
 			
 			//LCekSignedRelaInfo 是View表，查詢SMART的TABLE，SMART操作按F8跳出的相關人
 			queryString=new StringBuffer("select row_number() over(order by lcsri.Case_ID ASC) AS Row_ID,");
-			queryString.append(" lcsri.Case_ID,lcsri.Name,lcsri.ID,lcsri.Rela_kind");
+			queryString.append(" lcsri.Case_ID,lcsri.Name,lcsri.ID,lcsri.Rela_kind,lcsri.Role");
 			queryString.append(" from V_SMART_C_RELAINFO lcsri where  1=1");
 			if(caseId != null && !caseId.equals("")){
 				queryString.append(" and lcsri.Case_ID = "+caseId);
@@ -321,6 +322,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 				LCekSignedRelaInfo.setName((String) map.get("Name"));
 				LCekSignedRelaInfo.setID((String) map.get("ID"));
 				LCekSignedRelaInfo.setRela_kind((String) map.get("Rela_kind"));
+				LCekSignedRelaInfo.setRole((String) map.get("Role"));
 				MapLCekSignedRelaInfo.add(LCekSignedRelaInfo);
 			}
 			log.debug("findRelaByCaseId end");

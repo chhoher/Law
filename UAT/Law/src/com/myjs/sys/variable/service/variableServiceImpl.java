@@ -42,4 +42,12 @@ public class variableServiceImpl implements variableService{
 			return variableDao.findVariablesubbyproperties(queryLSysVariable.getVariableType());
 		}
 	}
+	
+	/**
+	 * add By Jia 2017-06-12
+	 * 將所有子項目Variable讀出
+	 */
+	public List<LSysVariable> findAllsubVariable(){
+		return variableDao.findVariablesubbyproperties(null);
+	}
 }
