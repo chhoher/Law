@@ -5,6 +5,7 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
 <!-- Add By Jia 2017-05-12 文管新增的JS功能 -->
 <script type="text/javascript" src="../legaljs/doc/docaddDoc.js"></script>
+<script type="text/javascript" src="../legaljs/doc/adddoc/docOther.js"></script>
 <head>
 <title>文管新增</title>
 </head>
@@ -60,6 +61,24 @@
 					datatable.fnClearTable();
 					if (response.data != '') {
 						datatable.fnAddData(json);
+						
+						// Add By Jia 2017-06-22 初始話表單，若是新表單給予一個新的ID
+						$.ajax({
+							url : '../pages/doc/documents/docAction!initaddDoc.action',
+							data : {
+								'caseId' : <%=request.getParameter("caseId")%>
+							},
+							type : "POST",
+							dataType : 'json',
+							success : function(response) {
+								law.addDoc.docInfoId = response.docInfoId;
+							},
+							error : function(xhr, ajaxOptions, thrownError) {
+								alert(xhr.status);
+								alert(thrownError);
+							}
+						});
+						
 					}
 					datatable.fnDraw();
 				},
@@ -69,6 +88,8 @@
 				}
 			});
 		    
+			
+			
 		    //Add By Jia 2017-06-07 初始化下拉選項的內容
 		    $.ajax({
 				url : '../pages/doc/documents/docAction!initSelectOption.action',

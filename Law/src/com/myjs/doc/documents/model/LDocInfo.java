@@ -3,30 +3,24 @@ package com.myjs.doc.documents.model;
 import java.util.Date;
 
 public class LDocInfo {
-	private int docInfoId;
+	private String docInfoId;
 	private int caseId;
-	private String bankName;
-	private String debtName;
-	private String debtID;
 	private String createUserId;
 	private Date createDatetime;
 	
-	public LDocInfo(int docInfoId, int caseId, String bankName, String debtName, String debtID, String createUserId,
+	public LDocInfo(String docInfoId, int caseId, String createUserId,
 			Date createDatetime) {
 		this.docInfoId = docInfoId;
 		this.caseId = caseId;
-		this.bankName = bankName;
-		this.debtName = debtName;
-		this.debtID = debtID;
 		this.createUserId = createUserId;
 		this.createDatetime = createDatetime;
 	}
 
-	public int getDocInfoId() {
+	public String getDocInfoId() {
 		return docInfoId;
 	}
 
-	public void setDocInfoId(int docInfoId) {
+	public void setDocInfoId(String docInfoId) {
 		this.docInfoId = docInfoId;
 	}
 
@@ -36,30 +30,6 @@ public class LDocInfo {
 
 	public void setCaseId(int caseId) {
 		this.caseId = caseId;
-	}
-
-	public String getBankName() {
-		return bankName;
-	}
-
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
-	}
-
-	public String getDebtName() {
-		return debtName;
-	}
-
-	public void setDebtName(String debtName) {
-		this.debtName = debtName;
-	}
-
-	public String getDebtID() {
-		return debtID;
-	}
-
-	public void setDebtID(String debtID) {
-		this.debtID = debtID;
 	}
 
 	public String getCreateUserId() {

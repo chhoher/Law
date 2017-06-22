@@ -20,5 +20,12 @@ public interface docService {
 	 * 將文管新增的內容轉換後新增到DB
 	 * @throws Exception 
 	 */
-	public String saveaddDoc(VEIPMemdb loginMemdb, String caseId, String saveDocInfo, String saveOtherdoc) throws Exception;
+	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo, String saveOtherdoc) throws Exception;
+	
+	/**
+	 * add By Jia 2017-06-22
+	 * 新增一筆docInfo
+	 * @throws Exception
+	 */
+	public String saveaddDocInfo(VEIPMemdb loginUser, String caseId) throws Exception;
 }

@@ -8,12 +8,9 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.myjs.doc.documents.service.docService;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.commons.AbstractAction;
-import com.myjs.commons.ErrorMsgControl;
 
 public class docAction extends AbstractAction {
 
@@ -89,16 +86,39 @@ public class docAction extends AbstractAction {
 			log.debug("=====saveaddDoc start=====");
 			String caseId = super.getRequest().getParameter("caseId"),
 					docinfoJson = super.getRequest().getParameter("returnOther"),
-					otherdocsJson = super.getRequest().getParameter("returnOther");
-			log.debug("caseId = {}", caseId);
+					otherdocsJson = super.getRequest().getParameter("returnOther"),
+					docInfoId = super.getRequest().getParameter("docInfoId");
+			log.debug("caseId = {}, docInfoId = {}", caseId, docInfoId);
 			log.debug("other = {}", otherdocsJson);
 			
-			String response = docService.saveaddDoc(getSessionLoginUser(), caseId, docinfoJson, otherdocsJson);
+			String response = docService.saveaddDoc(docInfoId, getSessionLoginUser(), caseId, docinfoJson, otherdocsJson);
 			printToResponse(response);
 			
 		}catch(Exception e){
 			sendException(e);
 			log.error("saveaddDoc error msg===>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-06-22
+	 * 載入需修改的文件，若是新增的則給一組UUID
+	 */
+	public String initaddDoc(){
+		try{
+			String infoId = super.getRequest().getParameter("infoId"),
+					caseId = super.getRequest().getParameter("caseId");
+			if(infoId != null && !infoId.equals("") && !infoId.equals("undefined")){
+				// select table L_DOC_INFO
+			}else{
+				// insert table L_DOC_INFO 並取回ID
+				String response = docService.saveaddDocInfo(getSessionLoginUser(), caseId);
+				printToResponse(response);
+			}
+		}catch(Exception e){
+			sendException(e);
+			log.error("initaddDoc error msg==>", e);
 		}
 		return NONE;
 	}

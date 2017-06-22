@@ -108,7 +108,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div >
-		<table id="flowsubTable"  class="ui-widget-content" class="display" cellspacing="0" width="100%">
+		<table id="flowsubTable" class="display" cellspacing="0" width="100%">
 		    <thead>
             <tr>
                 <th>順序</th>

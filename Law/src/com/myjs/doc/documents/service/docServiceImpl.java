@@ -11,6 +11,7 @@ import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
+import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -94,7 +95,7 @@ public class docServiceImpl implements docService{
 		return jsonResponse.toString();
 	}
 	
-	public String saveaddDoc(VEIPMemdb loginMemdb, String caseId, String saveDocInfo, String saveOtherdoc) throws Exception{
+	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo, String saveOtherdoc) throws Exception{
 		Date nowDatetime = new Date();
 		Gson gson = new Gson();
 		int case_id = Integer.parseInt(caseId);
@@ -102,6 +103,7 @@ public class docServiceImpl implements docService{
 		List<LDocOtherdocs> docsItems = gson.fromJson(saveOtherdoc, new TypeToken<List<LDocOtherdocs>>(){}.getType());
 
 		for(int i = 0;i < docsItems.size();i ++){
+			docsItems.get(i).setInfoId(docInfoId);
 			docsItems.get(i).setCreateDatetime(nowDatetime);
 			docsItems.get(i).setCreateUserId(loginMemdb.getMemno());
 			docsItems.get(i).setCaseId(case_id);
@@ -110,5 +112,15 @@ public class docServiceImpl implements docService{
 
 		
 		return null;
+	}
+
+	public String saveaddDocInfo(VEIPMemdb loginUser, String caseId) throws Exception{
+		int case_id = Integer.parseInt(caseId);
+		LDocInfo LDocInfo = new LDocInfo(null, case_id, loginUser.getMemnm(), new Date());
+		boolean flag = docDao.save(LDocInfo);
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("success", flag);
+		jsonResponse.addProperty("docInfoId", LDocInfo.getDocInfoId());
+		return jsonResponse.toString();
 	}
 }
