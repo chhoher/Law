@@ -5,9 +5,9 @@ import java.util.List;
 import com.myjs.sys.user.model.VEIPMemdb;
 
 public interface memdbDao {
-	public VEIPMemdb findbyuserName(String userName);
-	public VEIPMemdb findbyMemno(String memno);
-	public VEIPMemdb findContactPersonByBankName(String bankName);
-	public VEIPMemdb findbyuserId(String userId);
-	public List<VEIPMemdb> search() ;
+	public VEIPMemdb findbyuserName(String userName) throws Exception;
+	public VEIPMemdb findbyMemno(String memno) throws Exception;
+	public VEIPMemdb findContactPersonByBankName(String bankName) throws Exception;
+	public VEIPMemdb findbyuserId(String userId) throws Exception;
+	public List<VEIPMemdb> search() throws Exception ;
 }

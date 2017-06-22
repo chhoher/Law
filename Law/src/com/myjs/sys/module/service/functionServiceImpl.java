@@ -27,7 +27,7 @@ public class functionServiceImpl implements functionService{
 		this.functionDao = functionDao;
 	}
 
-	public List<LSysFunction> findByProperty(String functionName){
+	public List<LSysFunction> findByProperty(String functionName) throws Exception{
 		return functionDao.findbyproperties(functionName);
 	}
 	
@@ -47,7 +47,7 @@ public class functionServiceImpl implements functionService{
 		this.menuDao = menuDao;
 	}
 
-	public boolean addSysFunction(LSysModule addLSysModule, LSysFunction addLSysFunction){
+	public boolean addSysFunction(LSysModule addLSysModule, LSysFunction addLSysFunction) throws Exception{
 		log.debug("addSysFunction start");
 		boolean saveModule = moduleDao.save(addLSysModule);
 		if(saveModule){

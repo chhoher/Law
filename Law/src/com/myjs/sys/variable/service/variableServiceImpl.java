@@ -19,7 +19,7 @@ public class variableServiceImpl implements variableService{
 		this.variableDao = variableDao;
 	}
 
-	public List<LSysVariable> findByProperty(LSysVariable queryLSysVariable){
+	public List<LSysVariable> findByProperty(LSysVariable queryLSysVariable) throws Exception{
 		if(queryLSysVariable == null){
 			return variableDao.findAll();
 		}else{
@@ -27,15 +27,15 @@ public class variableServiceImpl implements variableService{
 		}
 	}
 	
-	public boolean addVariable(LSysVariable addLSysVariable){
+	public boolean addVariable(LSysVariable addLSysVariable) throws Exception{
 		return variableDao.save(addLSysVariable);
 	}
 	
-	public boolean deleteVariable(LSysVariable deleteLSysVariable){
+	public boolean deleteVariable(LSysVariable deleteLSysVariable) throws Exception{
 		return variableDao.delete(deleteLSysVariable);
 	}
 	
-	public List<LSysVariable> findVariableSubByProperty(LSysVariable queryLSysVariable){
+	public List<LSysVariable> findVariableSubByProperty(LSysVariable queryLSysVariable) throws Exception{
 		if(queryLSysVariable == null){
 			return variableDao.findAll();
 		}else{
@@ -47,7 +47,7 @@ public class variableServiceImpl implements variableService{
 	 * add By Jia 2017-06-12
 	 * 將所有子項目Variable讀出
 	 */
-	public List<LSysVariable> findAllsubVariable(){
+	public List<LSysVariable> findAllsubVariable() throws Exception{
 		return variableDao.findVariablesubbyproperties(null);
 	}
 }

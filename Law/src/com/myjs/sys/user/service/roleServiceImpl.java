@@ -33,48 +33,43 @@ public class roleServiceImpl implements roleService{
 		this.menuDao = menuDao;
 	}
 
-	public List<LSysRole> findByProperty(String roleCode, String roleName){
+	public List<LSysRole> findByProperty(String roleCode, String roleName) throws Exception{
 		return roleDao.findbyproperties(roleCode, roleName);
 	}
 	
-	public boolean addSysRole(LSysRole addLSysRole){
+	public boolean addSysRole(LSysRole addLSysRole) throws Exception{
 		return roleDao.save(addLSysRole);
 	}
 	
-	public boolean saveOrUpdateRoleFunction(String addselectedRoleId, String[] checkMenuIds){
-		try{
-			//取得addselectedRoleId 選擇的roleId
-			//checkMenuIds 勾取的menuId
-			//先update is_delete = 'Y' 後insert
-			roleDao.updateroleFunctionForJDBCTemplate(addselectedRoleId);//update
-			
-			//insert
-			List<LSysMenu> LSysMenuList = menuDao.findAllMenuByRoleId(addselectedRoleId);
-			String toUpdateRoleFunctionIds = "";
-			boolean hasSameMenuId = false;
-			for(LSysMenu mapMenu : LSysMenuList){
-				if(checkMenuIds != null){
-					for(int i = 0; i < checkMenuIds.length; i++){
-						if(checkMenuIds[i].equals(mapMenu.getMenuId())){
-							if(mapMenu.getRoleFunctionId() != null){
-								hasSameMenuId = true;
-								toUpdateRoleFunctionIds += "'" + mapMenu.getRoleFunctionId() + "',";
-							}else{
-	//							log.debug("mapMenu.getRoleFunctionId() = {}", mapMenu.getRoleFunctionId());
-								LSysRoleFunction LSysRoleFunction = new LSysRoleFunction(null, addselectedRoleId, mapMenu.getFunctionId(), "N");
-								roleDao.save(LSysRoleFunction);
-							}
+	public boolean saveOrUpdateRoleFunction(String addselectedRoleId, String[] checkMenuIds) throws Exception{
+		//取得addselectedRoleId 選擇的roleId
+		//checkMenuIds 勾取的menuId
+		//先update is_delete = 'Y' 後insert
+		roleDao.updateroleFunctionForJDBCTemplate(addselectedRoleId);//update
+		
+		//insert
+		List<LSysMenu> LSysMenuList = menuDao.findAllMenuByRoleId(addselectedRoleId);
+		String toUpdateRoleFunctionIds = "";
+		boolean hasSameMenuId = false;
+		for(LSysMenu mapMenu : LSysMenuList){
+			if(checkMenuIds != null){
+				for(int i = 0; i < checkMenuIds.length; i++){
+					if(checkMenuIds[i].equals(mapMenu.getMenuId())){
+						if(mapMenu.getRoleFunctionId() != null){
+							hasSameMenuId = true;
+							toUpdateRoleFunctionIds += "'" + mapMenu.getRoleFunctionId() + "',";
+						}else{
+//							log.debug("mapMenu.getRoleFunctionId() = {}", mapMenu.getRoleFunctionId());
+							LSysRoleFunction LSysRoleFunction = new LSysRoleFunction(null, addselectedRoleId, mapMenu.getFunctionId(), "N");
+							roleDao.save(LSysRoleFunction);
 						}
 					}
 				}
 			}
-			if(hasSameMenuId){
-				roleDao.updateroleFunctionForRoleFunctioneIds(toUpdateRoleFunctionIds.substring(0, toUpdateRoleFunctionIds.length()-1));
-			}
-			return true;
-		}catch(Exception e){
-			log.error("saveOrUpdateRoleFunction error msg ==>", e);
-			return false;
 		}
+		if(hasSameMenuId){
+			roleDao.updateroleFunctionForRoleFunctioneIds(toUpdateRoleFunctionIds.substring(0, toUpdateRoleFunctionIds.length()-1));
+		}
+		return true;
 	}
 }

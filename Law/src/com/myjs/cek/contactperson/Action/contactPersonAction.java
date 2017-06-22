@@ -50,6 +50,7 @@ public class contactPersonAction extends AbstractAction{
 			log.debug("responsedata = {}", responseLCekUserBankList);
 			printToResponse(responseLCekUserBankList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findAllContactBank error msg=>", e);
 		}
 		log.debug("findAllContactBank end");
@@ -70,6 +71,7 @@ public class contactPersonAction extends AbstractAction{
 			log.debug("MapAddContactPerson = {}", MapAddContactPerson);
 			printToResponse(MapAddContactPerson.toString());
 		}catch(Exception e){
+			sendException(e);
 			log.error("addContactPerson error msg=>", e);
 		}
 		return NONE;

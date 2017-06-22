@@ -51,6 +51,7 @@ public class menuAction extends AbstractAction{
 			log.debug("responsedata = {}", responseLSysMenuList);
 			printToResponse(responseLSysMenuList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("findMenu error msg=>", e);
 		}
 		return NONE;
@@ -82,6 +83,7 @@ public class menuAction extends AbstractAction{
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("addMenuPid error msg=>", e);
 		}
 		return NONE;
@@ -110,6 +112,7 @@ public class menuAction extends AbstractAction{
 			log.debug("responsedata = {}", responseLSysMenuList);
 			printToResponse(responseLSysMenuList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("initRoleFunction error msg==>", e);
 		}
 		return NONE;
@@ -158,6 +161,7 @@ public class menuAction extends AbstractAction{
 			log.debug("responsedata = {}", responseLSysMenuList);
 			printToResponse(responseLSysMenuList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("initRolesFunction error msg==>", e);
 		}
 		return NONE;

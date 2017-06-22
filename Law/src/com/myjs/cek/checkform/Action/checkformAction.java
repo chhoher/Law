@@ -61,6 +61,7 @@ public class checkformAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekCheckformList);
 			printToResponse(responseLCekCheckformList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findCekForm error ms=>", e);
 		}
 		log.debug("findCekForm end");
@@ -96,6 +97,7 @@ public class checkformAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			String result = JsonUtil.ajaxResultFalse("新增失敗:" + e).toString();
 			try {
 				printToResponse(result);
@@ -150,6 +152,7 @@ public class checkformAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			String result = JsonUtil.ajaxResultFalse("刪除失敗:" + e).toString();
 			try {
 				printToResponse(result);
@@ -181,6 +184,7 @@ public class checkformAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekCheckformList);
 			printToResponse(responseLCekCheckformList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findCekForm error ms=>", e);
 		}
 		log.debug("findCekForm end");
@@ -206,6 +210,7 @@ public class checkformAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekCheckformFileList);
 			printToResponse(responseLCekCheckformFileList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findCekForm error ms=>", e);
 		}
 		log.debug("findCekForm end");
@@ -230,6 +235,7 @@ public class checkformAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekCheckformList);
 			printToResponse(responseLCekCheckformList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("saveSelectedColumn error ms=>", e);
 		}
 		log.debug("saveSelectedColumn end");
@@ -254,6 +260,7 @@ public class checkformAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekCheckformList);
 			printToResponse(responseLCekCheckformList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("saveSelectedFile error ms=>", e);
 		}
 		log.debug("saveSelectedFile end");

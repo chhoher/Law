@@ -62,6 +62,7 @@ public class flowAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekFlowList);
 			printToResponse(responseLCekFlowList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findFlow error ms=>", e);
 		}
 		log.debug("findFlow end");
@@ -92,6 +93,7 @@ public class flowAction extends AbstractAction {
 			log.debug("addFlow end {}", result);
 			printToResponse(result);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("addFlow error msg=>", e);
 		}
 		return NONE;
@@ -136,6 +138,7 @@ public class flowAction extends AbstractAction {
 			log.debug("deleteCekFlow end {}", result);
 			printToResponse(result);
 		} catch (Exception e) {
+			sendException(e);
 			String result = JsonUtil.ajaxResultFalse("刪除失敗:" + e).toString();
 			try {
 				printToResponse(result);
@@ -167,6 +170,7 @@ public class flowAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekFlowList);
 			printToResponse(responseLCekFlowList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findFlowSub error ms=>", e);
 		}
 		log.debug("findFlowSub end");

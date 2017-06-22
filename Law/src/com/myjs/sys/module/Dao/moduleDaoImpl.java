@@ -24,39 +24,29 @@ public class moduleDaoImpl extends DaoUtil implements moduleDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<LSysModule> findbyproperties(String moduleName){
+	public List<LSysModule> findbyproperties(String moduleName) throws Exception{
 		log.debug("findbyproperties start");
 		List<?> querylist = null;
-		try{
-			String[] valuearr = new String[1];
-			valuearr[0]="%" + moduleName + "%";
-			String queryString = "from LSysModule lsf where  1=1";
-			if(moduleName != null && !moduleName.equals("")){
-				queryString += " and lsf.functionName like '"+valuearr[0]+"'";
-			}
-			log.debug("queryString = {}", queryString);
-			querylist = super.getHibernateTemplate().find(queryString);
-			log.debug("findbyproperties end");
-			return (List<LSysModule>) querylist;
-		}catch(Exception e){
-			log.error("findbyproperties error msg =>", e);
-			return null;
+		String[] valuearr = new String[1];
+		valuearr[0]="%" + moduleName + "%";
+		String queryString = "from LSysModule lsf where  1=1";
+		if(moduleName != null && !moduleName.equals("")){
+			queryString += " and lsf.functionName like '"+valuearr[0]+"'";
 		}
+		log.debug("queryString = {}", queryString);
+		querylist = super.getHibernateTemplate().find(queryString);
+		log.debug("findbyproperties end");
+		return (List<LSysModule>) querylist;
 	}
 
-	public boolean save(LSysModule transientInstance) {
+	public boolean save(LSysModule transientInstance) throws Exception {
 		log.debug("saving LSysModule instance");
 		boolean flag = false;
-		try {
-			Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-			if(null!=lizable||!"".equals(lizable)){
-				flag=true;
-			}
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save error =>", re);
-			throw re;
+		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
+		if(null!=lizable||!"".equals(lizable)){
+			flag=true;
 		}
+		log.debug("save successful");
 		return flag;
 	}
 }

@@ -48,6 +48,8 @@ public class LoginFilter extends OncePerRequestFilter {
 				responseLoginPage(request, response);
 			}
 		} catch (Exception e) {
+			ErrorMsgControl msg = new ErrorMsgControl();
+			msg.sendErrorMsg(e, "non session", "non session", "SaveParameter");
 			log.error(" login filter error happend", e);
 		}
 	}
@@ -57,7 +59,7 @@ public class LoginFilter extends OncePerRequestFilter {
 	 * 
 	 * @param reqUrl
 	 */
-	private boolean isSpecil(String reqUrl) {
+	private boolean isSpecil(String reqUrl) throws Exception{
 		// 禁止的url
 		for (int i = 0; i < forhiddenPages.length; i++) {
 			if (reqUrl.indexOf(forhiddenPages[i].trim()) > -1) {
@@ -91,7 +93,7 @@ public class LoginFilter extends OncePerRequestFilter {
 	 * @param spils
 	 * @return
 	 */
-	private static boolean checkFlag(String reqUrl, String[] spils) {
+	private static boolean checkFlag(String reqUrl, String[] spils) throws Exception{
 		int befortInt = -1;
 		for (int j = 0; j < spils.length; j++) {
 			int teInt = reqUrl.indexOf(spils[j]);
@@ -130,7 +132,7 @@ public class LoginFilter extends OncePerRequestFilter {
 		log.debug(" loginFilter false");
 	}
 
-	public void setLoginPages(String loginPages) {
+	public void setLoginPages(String loginPages) throws Exception{
 		if(loginPages!=null && loginPages.length()==0){
 			this.loginPages =new String[]{""};
 		}else{
@@ -142,7 +144,7 @@ public class LoginFilter extends OncePerRequestFilter {
 		this.rootPath = rootPath;
 	}
 
-	public void setForhiddenPages(String forhiddenPages) {
+	public void setForhiddenPages(String forhiddenPages) throws Exception{
 		if(forhiddenPages!=null && forhiddenPages.length()==0){
 			this.forhiddenPages =new String[]{""};
 		}else{

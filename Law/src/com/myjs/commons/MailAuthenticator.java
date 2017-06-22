@@ -23,7 +23,7 @@ public class MailAuthenticator extends Authenticator {
 	}
 	
 	@Override
-	protected PasswordAuthentication getPasswordAuthentication() {
+	protected PasswordAuthentication getPasswordAuthentication(){
 		System.out.println("===執行EMAIL驗證===");
 		log.debug("執行mail驗證");
 		System.out.println("userName = "+userName+" Password = "+password);

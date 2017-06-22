@@ -37,30 +37,35 @@ public class SaveParameter implements ServletContextListener{
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		log.info("=====載入所有Variable=====");
-		WebApplicationContext SpringApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext());
-		variableService=(variableService) SpringApplicationContext.getBean("variableService");
-		
-		List<LSysVariable> AllParentVariables = variableService.findByProperty(null);
-		List<LSysVariable> AllSubVariables = variableService.findAllsubVariable();
-		for(LSysVariable lsvP:AllParentVariables){
-			Map varList = new HashMap();
-			varList.put("id", lsvP.getVariableId());
-			ArrayList<LSysVariable> listVariableitem = new ArrayList<LSysVariable>();
+	public void contextInitialized(ServletContextEvent sce){
+		try{
+			log.info("=====載入所有Variable=====");
+			WebApplicationContext SpringApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext());
+			variableService=(variableService) SpringApplicationContext.getBean("variableService");
 			
-			for(LSysVariable lsvS:AllSubVariables){
-				if(lsvP.getVariableId().equals(lsvS.getVariableType()))
-					listVariableitem.add(lsvS);
+			List<LSysVariable> AllParentVariables = variableService.findByProperty(null);
+			List<LSysVariable> AllSubVariables = variableService.findAllsubVariable();
+			for(LSysVariable lsvP:AllParentVariables){
+				Map varList = new HashMap();
+				varList.put("id", lsvP.getVariableId());
+				ArrayList<LSysVariable> listVariableitem = new ArrayList<LSysVariable>();
+				
+				for(LSysVariable lsvS:AllSubVariables){
+					if(lsvP.getVariableId().equals(lsvS.getVariableType()))
+						listVariableitem.add(lsvS);
+				}
+				
+				varList.put("list", listVariableitem);
+				AllParameter.put(lsvP.getVariableId(), varList);
+				
+				// 獲取variable方式("variableId")
+				Map R = (Map) AllParameter.get(lsvP.getVariableId());
+				log.info((R.get("list")));
 			}
-			
-			varList.put("list", listVariableitem);
-			AllParameter.put(lsvP.getVariableId(), varList);
-			
-			// 獲取variable方式("variableId")
-			Map R = (Map) AllParameter.get(lsvP.getVariableId());
-			log.info((R.get("list")));
+		}catch(Exception e){
+			ErrorMsgControl msg = new ErrorMsgControl();
+			msg.sendErrorMsg(e, "non session", "non session", "SaveParameter");
+			log.error("載入variable error msg==>",e);
 		}
-		
 	}
 }

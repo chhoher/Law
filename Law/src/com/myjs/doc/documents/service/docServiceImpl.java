@@ -10,8 +10,10 @@ import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
+import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.myjs.cek.recordcheckform.Dao.recordcheckformDao;
 import com.myjs.sys.variable.Dao.variableDao;
 import com.myjs.sys.variable.model.LSysVariable;
@@ -47,7 +49,7 @@ public class docServiceImpl implements docService{
 	}
 
 	public List<LCekSignedCaseInfo> findByProperty(String caseId, String debtorName, String debtorId, String docNo,
-			String legalCaseId){
+			String legalCaseId) throws Exception{
 		LSysVariable LSysVariable = variableDao.findVariablebyId("SYSTEM01");//TODO Add By Jia 2017-05-11 未來加入propertise內來設定 固定帶這個
 		boolean isCheck = false;
 		log.debug("=查核機制 value == {}", LSysVariable.getVariableValue());
@@ -60,7 +62,7 @@ public class docServiceImpl implements docService{
 	}
 
 	@SuppressWarnings("unchecked")
-	public String findDocaddSelectOption(){
+	public String findDocaddSelectOption() throws Exception{
 		Map<?, ?> LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c8074d5015c8076afcd0000");
 		List<LSysVariable> LSysVariableListDocStatus = (List<LSysVariable>) LSysVariableMap.get("list"); //文件狀態
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
@@ -88,5 +90,17 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("otherTypeTwo", gson.toJsonTree(LSysVariableListOtherTypeTwo));
 		jsonResponse.addProperty("nowDate", DateTimeFormat.getNowDate());
 		return jsonResponse.toString();
+	}
+	
+	public String saveaddDoc(String saveDocInfo, String saveOtherdoc) throws Exception{
+			Gson gson = new Gson();
+			
+			List<LDocOtherdocs> docsItems = gson.fromJson(saveOtherdoc, new TypeToken<List<LDocOtherdocs>>(){}.getType());
+	
+			for(int i = 0;i < docsItems.size();i ++){
+				System.out.println(docsItems.get(i).getBankName());
+			}
+
+		return null;
 	}
 }

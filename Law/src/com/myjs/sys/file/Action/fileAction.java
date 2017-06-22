@@ -96,6 +96,7 @@ public class fileAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLSysFileList);
 			printToResponse(responseLSysFileList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findFile error msg=>", e);
 		}
 		log.debug("findFile end");
@@ -138,6 +139,7 @@ public class fileAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("addFile error msg=>", e);
 		}
 		return NONE;
@@ -187,6 +189,7 @@ public class fileAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			String result = JsonUtil.ajaxResultFalse("刪除失敗:" + e).toString();
 			try {
 				printToResponse(result);
@@ -204,13 +207,13 @@ public class fileAction extends AbstractAction {
 		// 聲明文件上傳的路徑
 //		String path = "C:/LegalFiles/UploadFiles/" + super.getRequest().getParameter("datetimeDis");
 //		String path = "C:/LegalFiles/UploadFiles";
-		String path = getpath();
-		String iptaddfileName = super.getRequest().getParameter("iptaddfileName");
-		String signedpath = super.getRequest().getParameter("signedpath");
-		log.debug("path = {} , iptaddfileName = {} , signedpath = {}", path, iptaddfileName, signedpath);
-		String uploadpath = fileService.uploadFile(upload, path, uploadFileName, signedpath);
-
 		try {
+			String path = getpath();
+			String iptaddfileName = super.getRequest().getParameter("iptaddfileName");
+			String signedpath = super.getRequest().getParameter("signedpath");
+			log.debug("path = {} , iptaddfileName = {} , signedpath = {}", path, iptaddfileName, signedpath);
+			String uploadpath = fileService.uploadFile(upload, path, uploadFileName, signedpath);
+
 			JsonObject json = new JsonObject();
 			json.addProperty("success", "success");
 			json.addProperty("fileuploadDatetime", uploadpath);
@@ -218,6 +221,7 @@ public class fileAction extends AbstractAction {
 			log.debug("fileUpload end {}", json);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("fileUpload error", e);
 		}
 		return NONE;
@@ -229,13 +233,13 @@ public class fileAction extends AbstractAction {
 		// 聲明文件上傳的路徑
 //		String path = "C:/LegalFiles/UploadFiles/" + super.getRequest().getParameter("datetimeDis");
 //		String path = "C:/LegalFiles/UploadFiles";
-		String path = getpath();
-		String iptaddfileName = uploadFileName;
-		String signedpath = "/modify";
-		log.debug("path = {} , iptaddfileName = {} , signedpath = {}", path, iptaddfileName, signedpath);
-		String uploadpath = fileService.uploadFile(upload, path, iptaddfileName, signedpath);
-
 		try {
+			String path = getpath();
+			String iptaddfileName = uploadFileName;
+			String signedpath = "/modify";
+			log.debug("path = {} , iptaddfileName = {} , signedpath = {}", path, iptaddfileName, signedpath);
+			String uploadpath = fileService.uploadFile(upload, path, iptaddfileName, signedpath);
+
 			JsonObject json = new JsonObject();
 			json.addProperty("success", "success");
 			json.addProperty("fileuploadDatetime", uploadpath);
@@ -244,6 +248,7 @@ public class fileAction extends AbstractAction {
 			log.debug("fileUpload end {}", json);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("fileUpload error", e);
 		}
 		return NONE;

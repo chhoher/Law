@@ -8,9 +8,12 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.myjs.doc.documents.service.docService;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.commons.AbstractAction;
+import com.myjs.commons.ErrorMsgControl;
 
 public class docAction extends AbstractAction {
 
@@ -53,6 +56,7 @@ public class docAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekSignedCaseInfoList);
 			printToResponse(responseLCekSignedCaseInfoList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("loadCaseInfo error ms=>", e);
 		}
 		return NONE;
@@ -70,6 +74,7 @@ public class docAction extends AbstractAction {
 			log.debug("returnValue = {}", returnValue);
 			printToResponse(returnValue);
 		}catch(Exception e){
+			sendException(e);
 			log.error("initSelectOption error msg==>", e);
 		}
 		return NONE;
@@ -82,23 +87,16 @@ public class docAction extends AbstractAction {
 	public String saveaddDoc(){
 		try{
 			log.debug("=====saveaddDoc start=====");
-			log.debug("other = {}", super.getRequest().getParameter("returnOther"));
-			String iptotherReceivedDate = super.getRequest().getParameter("iptotherReceivedDate"),
-				iptotherBankDate = super.getRequest().getParameter("iptotherBankDate"),
-				iptotherDocStatus = super.getRequest().getParameter("iptotherDocStatus"),
-				iptotherTypeOne = super.getRequest().getParameter("iptotherTypeOne"),
-				iptotherTypeTwo = super.getRequest().getParameter("iptotherTypeTwo"),
-				iptotherBankName = super.getRequest().getParameter("iptotherBankName"),
-				iptotherReceiptType = super.getRequest().getParameter("iptotherReceiptType"),
-				iptotherReceiptAmount = super.getRequest().getParameter("iptotherReceiptAmount"),
-				iptotherCourtDate = super.getRequest().getParameter("iptotherCourtDate"),
-				iptotherRemark = super.getRequest().getParameter("iptotherRemark");
-			log.debug("iptotherReceivedDate = {}, iptotherBankDate = {}, iptotherDocStatus = {}, iptotherTypeTwo = {},"
-					+ " iptotherBankName = {}, iptotherReceiptType = {}, iptotherReceiptAmount = {}, "
-					+ "iptotherCourtDate = {}, iptotherRemark = {}", iptotherReceivedDate, iptotherBankDate, iptotherDocStatus, 
-					iptotherTypeTwo, iptotherBankName, iptotherReceiptType, iptotherReceiptAmount, iptotherCourtDate, iptotherRemark);
-			log.debug("no item");
+			String docinfoJson = super.getRequest().getParameter("returnOther"),
+					otherdocsJson = super.getRequest().getParameter("returnOther");
+
+			log.debug("other = {}", otherdocsJson);
+			
+			String response = docService.saveaddDoc(docinfoJson, otherdocsJson);
+			printToResponse(response);
+			
 		}catch(Exception e){
+			sendException(e);
 			log.error("saveaddDoc error msg===>", e);
 		}
 		return NONE;

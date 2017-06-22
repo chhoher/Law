@@ -38,7 +38,7 @@ public class userDaoImpl extends DaoUtil  implements userDao{
 	private EntityManager entityManager;
 	
 	@Override
-	public void saveObject(Object obj) throws HibernateException {
+	public void saveObject(Object obj) throws Exception {
 		session.save(obj);  
 	}
 
@@ -53,7 +53,7 @@ public class userDaoImpl extends DaoUtil  implements userDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<LSysUser> findAll() {
+	public List<LSysUser> findAll() throws Exception {
 		log.debug("finding all");
 		List<LSysUser> userList = (List<LSysUser>) getSession().createQuery("from LSysUser").list();
 		return userList;
@@ -61,7 +61,7 @@ public class userDaoImpl extends DaoUtil  implements userDao{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<LSysUser> search() {
+	public List<LSysUser> search() throws Exception {
 		log.debug("finding all");
         Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException{
@@ -76,80 +76,56 @@ public class userDaoImpl extends DaoUtil  implements userDao{
         return (List<LSysUser>)execute;
     }
 	
-	public LSysUser findById(String id) {
+	public LSysUser findById(String id) throws Exception {
 		log.debug("getting LSysUser instance with id: " + id);
-		try {
-			LSysUser instance = entityManager.find(LSysUser.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
+		LSysUser instance = entityManager.find(LSysUser.class, id);
+		log.debug("get successful");
+		return instance;
 	}
 	
-	public List<Map<String, Object>> findUserRolebyUserId(String userId){
+	public List<Map<String, Object>> findUserRolebyUserId(String userId) throws Exception{
 
 		List<Map<String, Object>> fileList = null;
-		try{
-			StringBuffer queryString=new StringBuffer("SELECT LSR.role_id,LSR.role_name,");
-			queryString.append(" LSUR.is_delete,LSUR.user_role_id");
-			queryString.append(" FROM L_SYS_ROLE LSR");
-			queryString.append(" LEFT JOIN ( SELECT LSR.role_id,LSR.role_name,");
-			queryString.append(" LSUR.is_delete,user_role_id");
-			queryString.append(" FROM L_SYS_ROLE LSR");
-			queryString.append(" LEFT JOIN L_SYS_USER_ROLE LSUR ON LSR.role_id = LSUR.role_id");
-			queryString.append(" WHERE user_id = '" + userId + "' ) LSUR");
-			queryString.append(" ON LSR.role_id = LSUR.role_id");
-			log.debug("findSelectOtherFileBySignedId queryString = {}",queryString);
-			fileList=this.jdbcTemplate.queryForList(queryString.toString());
-		}catch(Exception e){
-			log.error("findSelectOtherFileBySignedId error msg==>", e);
-		}
+		StringBuffer queryString=new StringBuffer("SELECT LSR.role_id,LSR.role_name,");
+		queryString.append(" LSUR.is_delete,LSUR.user_role_id");
+		queryString.append(" FROM L_SYS_ROLE LSR");
+		queryString.append(" LEFT JOIN ( SELECT LSR.role_id,LSR.role_name,");
+		queryString.append(" LSUR.is_delete,user_role_id");
+		queryString.append(" FROM L_SYS_ROLE LSR");
+		queryString.append(" LEFT JOIN L_SYS_USER_ROLE LSUR ON LSR.role_id = LSUR.role_id");
+		queryString.append(" WHERE user_id = '" + userId + "' ) LSUR");
+		queryString.append(" ON LSR.role_id = LSUR.role_id");
+		log.debug("findSelectOtherFileBySignedId queryString = {}",queryString);
+		fileList=this.jdbcTemplate.queryForList(queryString.toString());
 		return fileList;
 	}
 	
-    public boolean updateuserRoleForJDBCTemplate(String userId){
-		try{
-			log.debug("=====updateuserRoleForJDBCTemplate start=====");
-			StringBuffer deleteString = new StringBuffer("UPDATE L_SYS_USER_ROLE");
-			deleteString.append(" SET is_delete = 'Y' WHERE");
-			deleteString.append(" user_id = '" + userId + "'");
-			this.jdbcTemplate.execute(deleteString.toString());
-			return true;
-		}catch(Exception e){
-			log.error("updateuserRoleForJDBCTemplate error msg ==>", e);
-			return false;
-		}
+    public boolean updateuserRoleForJDBCTemplate(String userId) throws Exception{
+		log.debug("=====updateuserRoleForJDBCTemplate start=====");
+		StringBuffer deleteString = new StringBuffer("UPDATE L_SYS_USER_ROLE");
+		deleteString.append(" SET is_delete = 'Y' WHERE");
+		deleteString.append(" user_id = '" + userId + "'");
+		this.jdbcTemplate.execute(deleteString.toString());
+		return true;
 	}
     
-    public boolean save(LSysUserRole transientInstance){
+    public boolean save(LSysUserRole transientInstance) throws Exception{
 		log.debug("saving LSysUserRole instance");
 		boolean flag = false;
-		try {
-			log.debug("LSysUserRole info");
-			Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-			if(null!=lizable||!"".equals(lizable)){
-				flag=true;
-			}
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save error =>", re);
-			throw re;
+		log.debug("LSysUserRole info");
+		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
+		if(null!=lizable||!"".equals(lizable)){
+			flag=true;
 		}
+		log.debug("save successful");
 		return flag;
 	}
-    public boolean updateuserRoleForUserRoleIds(String userRoleIds){
-		try{
-			log.debug("=====updateuserRoleForUserRoleIds start=====");
-			StringBuffer deleteString = new StringBuffer("UPDATE L_SYS_USER_ROLE");
-			deleteString.append(" SET is_delete = 'N' WHERE");
-			deleteString.append(" user_role_id in (" + userRoleIds + ")");
-			this.jdbcTemplate.execute(deleteString.toString());
-			return true;
-		}catch(Exception e){
-			log.error("updateuserRoleForUserRoleIds error msg ==>", e);
-			return false;
-		}
+    public boolean updateuserRoleForUserRoleIds(String userRoleIds) throws Exception{
+		log.debug("=====updateuserRoleForUserRoleIds start=====");
+		StringBuffer deleteString = new StringBuffer("UPDATE L_SYS_USER_ROLE");
+		deleteString.append(" SET is_delete = 'N' WHERE");
+		deleteString.append(" user_role_id in (" + userRoleIds + ")");
+		this.jdbcTemplate.execute(deleteString.toString());
+		return true;
 	}
 }

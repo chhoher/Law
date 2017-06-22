@@ -17,110 +17,80 @@ public class variableDaoImpl extends DaoUtil implements variableDao{
 	private static final Logger log = LogManager.getLogger(variableDaoImpl.class);
 	
 	@SuppressWarnings("unchecked")
-	public List<LSysVariable> findAll() {
+	public List<LSysVariable> findAll() throws Exception{
 		log.debug("finding all LSysVariable start");
-		try{
-	        Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
-	            public Object doInHibernate(Session session) throws HibernateException{
-	                Query<?> query = null;
-	                String hql = "from LSysVariable lsv where  lsv.variableType is null";
-	                query = session.createQuery(hql);
-	                return query.list();
-	            }
-	        });
-			log.debug("finding all LSysVariable end");
-	        return (List<LSysVariable>)execute;
-		}catch(Exception e){
-			log.error("finding all LSysVariable error msg=>",e);
-			return null;
-		}
+        Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException{
+                Query<?> query = null;
+                String hql = "from LSysVariable lsv where  lsv.variableType is null";
+                query = session.createQuery(hql);
+                return query.list();
+            }
+        });
+		log.debug("finding all LSysVariable end");
+        return (List<LSysVariable>)execute;
     }
 	
 	@SuppressWarnings("unchecked")
-	public List<LSysVariable> findbyproperties(String variableName){
+	public List<LSysVariable> findbyproperties(String variableName) throws Exception{
 		log.debug("findbyproperties start");
 		List<?> querylist = null;
-		try{
-			String[] valuearr = new String[1];
-			valuearr[0]="%" + variableName + "%";
-			String queryString = "from LSysVariable lsv where  lsv.variableType is null";
-			if(variableName != null && !variableName.equals("")){
-				queryString += " and lsv.variableName like '"+valuearr[0]+"'";
-			}
-			log.debug("queryString = {}", queryString);
-			querylist = super.getHibernateTemplate().find(queryString);
-			log.debug("findbyproperties end");
-			return (List<LSysVariable>) querylist;
-		}catch(Exception e){
-			log.error("findbyproperties error msg =>", e);
-			return null;
+		String[] valuearr = new String[1];
+		valuearr[0]="%" + variableName + "%";
+		String queryString = "from LSysVariable lsv where  lsv.variableType is null";
+		if(variableName != null && !variableName.equals("")){
+			queryString += " and lsv.variableName like '"+valuearr[0]+"'";
 		}
+		log.debug("queryString = {}", queryString);
+		querylist = super.getHibernateTemplate().find(queryString);
+		log.debug("findbyproperties end");
+		return (List<LSysVariable>) querylist;
 	}
 	
 
-	public boolean save(LSysVariable transientInstance) {
+	public boolean save(LSysVariable transientInstance) throws Exception{
 		log.debug("saving LSysVariable instance");
 		boolean flag = false;
-		try {
-			Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-			if(null!=lizable||!"".equals(lizable)){
-				flag=true;
-			}
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save error =>", re);
-			throw re;
+		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
+		if(null!=lizable||!"".equals(lizable)){
+			flag=true;
 		}
+		log.debug("save successful");
 		return flag;
 	}
 	
-	public boolean delete(LSysVariable transientInstance){
+	public boolean delete(LSysVariable transientInstance) throws Exception{
 		log.debug("LSysVariable delete start ");
 		boolean flag;
-		try{
-			super.getHibernateTemplate().delete(transientInstance);
-			flag = true;
-		}catch(Exception e){
-			flag = false;
-			log.error("LSysVariable error msg ==>",e);
-		}
+		super.getHibernateTemplate().delete(transientInstance);
+		flag = true;
 		return flag;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<LSysVariable> findVariablesubbyproperties(String variableType){
+	public List<LSysVariable> findVariablesubbyproperties(String variableType) throws Exception{
 		log.debug("findVariablesubbyproperties start");
 		List<?> querylist = null;
-		try{
-			String[] valuearr = new String[1];
-			valuearr[0]=variableType;
-			String queryString = "from LSysVariable lsv where  1=1";
-			if(variableType != null && !variableType.equals("")){
-				queryString += " and lsv.variableType = '"+valuearr[0]+"'";
-			}
-			log.debug("queryString = {}", queryString);
-			querylist = super.getHibernateTemplate().find(queryString);
-			log.debug("findVariablesubbyproperties end");
-			return (List<LSysVariable>) querylist;
-		}catch(Exception e){
-			log.error("findVariablesubbyproperties error msg =>", e);
-			return null;
+		String[] valuearr = new String[1];
+		valuearr[0]=variableType;
+		String queryString = "from LSysVariable lsv where  1=1";
+		if(variableType != null && !variableType.equals("")){
+			queryString += " and lsv.variableType = '"+valuearr[0]+"'";
 		}
+		log.debug("queryString = {}", queryString);
+		querylist = super.getHibernateTemplate().find(queryString);
+		log.debug("findVariablesubbyproperties end");
+		return (List<LSysVariable>) querylist;
 	}
 	
-	public LSysVariable findVariablebyId(String variableId){
+	public LSysVariable findVariablebyId(String variableId) throws Exception{
 		log.debug("findVariablebyId start");
 		LSysVariable query = null;
-		try{
-			String queryString = "from LSysVariable lsv where  variableId='" + variableId + "'";
-			log.debug("queryString = {}", queryString);
-			query = (LSysVariable) super.getHibernateTemplate().get(
-					"com.myjs.sys.variable.model.LSysVariable", variableId);
-			log.debug("findVariablebyId end");
-			return query;
-		}catch(Exception e){
-			log.error("findVariablebyId error msg =>", e);
-			return null;
-		}
+		String queryString = "from LSysVariable lsv where  variableId='" + variableId + "'";
+		log.debug("queryString = {}", queryString);
+		query = (LSysVariable) super.getHibernateTemplate().get(
+				"com.myjs.sys.variable.model.LSysVariable", variableId);
+		log.debug("findVariablebyId end");
+		return query;
 	}
 }

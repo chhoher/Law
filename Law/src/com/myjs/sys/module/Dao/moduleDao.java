@@ -5,6 +5,6 @@ import java.util.List;
 import com.myjs.sys.module.model.LSysModule;
 
 public interface moduleDao {
-	public List<LSysModule> findbyproperties(String functionName);
-	public boolean save(LSysModule transientInstance);
+	public List<LSysModule> findbyproperties(String functionName) throws Exception;
+	public boolean save(LSysModule transientInstance) throws Exception;
 }

@@ -48,6 +48,7 @@ public class roleAction extends AbstractAction{
 			log.debug("responsedata = {}", responseLSysRoleList);
 			printToResponse(responseLSysRoleList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("findRole error msg==>", e);
 		}
 		return NONE;
@@ -75,6 +76,7 @@ public class roleAction extends AbstractAction{
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("addRole error msg=>", e);
 		}
 		return NONE;
@@ -85,6 +87,7 @@ public class roleAction extends AbstractAction{
 			log.debug("findFunctionByRole start");
 			
 		}catch(Exception e){
+			sendException(e);
 			log.error("findFunctionByRole error msg==>", e);
 		}
 		return NONE;
@@ -110,6 +113,7 @@ public class roleAction extends AbstractAction{
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("saveRoleFunction error msg=>", e);
 		}
 		return NONE;

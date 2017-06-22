@@ -30,17 +30,13 @@ public class loginServiceImpl implements loginService{
 		this.roleDao = roleDao;
 	}
 
-	public VEIPMemdb checkLoginUser(String username, String password){
+	public VEIPMemdb checkLoginUser(String username, String password) throws Exception{
 		VEIPMemdb vEipMemdb = null;
-		try{
-			vEipMemdb = memdbDao.findbyuserName(username);
-		}catch(Exception e){
-			log.error("checkLoginUser error msg==>",e);
-		}
+		vEipMemdb = memdbDao.findbyuserName(username);
 		return vEipMemdb;
 	}
 	
-	public List<String> findRolesIdsByUserId(String userId){
+	public List<String> findRolesIdsByUserId(String userId) throws Exception{
 		return roleDao.findRolesByUserId(userId);
 	}
 }

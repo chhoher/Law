@@ -58,6 +58,7 @@ public class columnAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekColumnList);
 			printToResponse(responseLCekColumnList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findColumn error msg=>", e);
 		}
 		log.debug("findColumn end");
@@ -90,6 +91,7 @@ public class columnAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("add Column error msg=>", e);
 		}
 		return NONE;
@@ -139,6 +141,7 @@ public class columnAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			String result = JsonUtil.ajaxResultFalse("刪除失敗:" + e).toString();
 			try {
 				printToResponse(result);

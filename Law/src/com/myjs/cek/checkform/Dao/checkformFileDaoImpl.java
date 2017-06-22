@@ -23,58 +23,42 @@ public class checkformFileDaoImpl extends DaoUtil implements checkformFileDao{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public List<Map<String, Object>> findThisCheckformFile(String checkformId) {
+	public List<Map<String, Object>> findThisCheckformFile(String checkformId) throws Exception {
 		log.debug("finding all LCekFile start");
-		try{
-			StringBuffer queryString=new StringBuffer("SELECT file_id,file_name,MAX(checkform_file_id) AS 'checkform_file_id',MAX(is_delete) AS 'is_delete'");
-			queryString.append(" FROM (SELECT LSF.file_id,LSF.file_name,LCCF.checkform_file_id,LCCF.is_delete");
-			queryString.append(" FROM L_SYS_FILE LSF,L_CEK_CHECKFORM_FILE LCCF");
-			queryString.append(" WHERE LSF.file_id = LCCF.file_id AND checkform_id = '" + checkformId + "'");
-			queryString.append(" UNION SELECT LSF.file_id,LSF.file_name,NULL,NULL");
-			queryString.append(" FROM L_SYS_FILE LSF ) C");
-			queryString.append(" GROUP BY file_id,file_name");
-			log.debug("queryString = {}",queryString);
-			List<Map<String, Object>> fileList=this.jdbcTemplate.queryForList(queryString.toString());
-			return fileList;
-		}catch(Exception e){
-			log.error("finding all LCekFile error msg=>",e);
-			return null;
-		}
+		StringBuffer queryString=new StringBuffer("SELECT file_id,file_name,MAX(checkform_file_id) AS 'checkform_file_id',MAX(is_delete) AS 'is_delete'");
+		queryString.append(" FROM (SELECT LSF.file_id,LSF.file_name,LCCF.checkform_file_id,LCCF.is_delete");
+		queryString.append(" FROM L_SYS_FILE LSF,L_CEK_CHECKFORM_FILE LCCF");
+		queryString.append(" WHERE LSF.file_id = LCCF.file_id AND checkform_id = '" + checkformId + "'");
+		queryString.append(" UNION SELECT LSF.file_id,LSF.file_name,NULL,NULL");
+		queryString.append(" FROM L_SYS_FILE LSF ) C");
+		queryString.append(" GROUP BY file_id,file_name");
+		log.debug("queryString = {}",queryString);
+		List<Map<String, Object>> fileList=this.jdbcTemplate.queryForList(queryString.toString());
+		return fileList;
     }
 	
-	public boolean saveOrUpdate(LCekCheckformFile transientInstance) {
+	public boolean saveOrUpdate(LCekCheckformFile transientInstance) throws Exception {
 		log.debug("saving LCekCheckformFile instance");
 		boolean flag = false;
-		try {
-			super.getHibernateTemplate().saveOrUpdate(transientInstance);
-			flag=true;
-			log.debug("save successful");
-		} catch (Exception re) {
-			flag = false;
-			log.error("save error =>", re);
-			throw re;
-		}
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
+		flag=true;
+		log.debug("save successful");
 		return flag;
 	}
 
-	public boolean updateRemoveFiles(String removeFileIds,String checkformId) {
+	public boolean updateRemoveFiles(String removeFileIds,String checkformId) throws Exception {
 		log.debug("updateRemoveFiles start");
 		boolean flag = false;
-		try{
-			StringBuffer queryString=new StringBuffer("UPDATE L_CEK_CHECKFORM_FILE");
-			queryString.append(" SET is_delete = 'Y'");
-			queryString.append(" WHERE checkform_id = '"+checkformId + "'");
-			queryString.append(" AND file_id in (");
-			queryString.append(removeFileIds);
-			queryString.append(")");
-			int i = this.jdbcTemplate.update(queryString.toString());
-			log.debug("queryString = {}",queryString);
-			log.debug("i = {}",i);
-			flag = true;
-		}catch(Exception e){
-			flag = false;
-			log.error("updateRemoveFiles error msg==>",e);
-		}
+		StringBuffer queryString=new StringBuffer("UPDATE L_CEK_CHECKFORM_FILE");
+		queryString.append(" SET is_delete = 'Y'");
+		queryString.append(" WHERE checkform_id = '"+checkformId + "'");
+		queryString.append(" AND file_id in (");
+		queryString.append(removeFileIds);
+		queryString.append(")");
+		int i = this.jdbcTemplate.update(queryString.toString());
+		log.debug("queryString = {}",queryString);
+		log.debug("i = {}",i);
+		flag = true;
 		return flag;
 	}
 }

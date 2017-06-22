@@ -24,39 +24,29 @@ public class functionDaoImpl extends DaoUtil implements functionDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<LSysFunction> findbyproperties(String functionName){
+	public List<LSysFunction> findbyproperties(String functionName) throws Exception{
 		log.debug("findbyproperties start");
 		List<?> querylist = null;
-		try{
-			String[] valuearr = new String[1];
-			valuearr[0]="%" + functionName + "%";
-			String queryString = "from LSysFunction lsf where  1=1";
-			if(functionName != null && !functionName.equals("")){
-				queryString += " and lsf.functionName like '"+valuearr[0]+"'";
-			}
-			log.debug("queryString = {}", queryString);
-			querylist = super.getHibernateTemplate().find(queryString);
-			log.debug("findbyproperties end");
-			return (List<LSysFunction>) querylist;
-		}catch(Exception e){
-			log.error("findbyproperties error msg =>", e);
-			return null;
+		String[] valuearr = new String[1];
+		valuearr[0]="%" + functionName + "%";
+		String queryString = "from LSysFunction lsf where  1=1";
+		if(functionName != null && !functionName.equals("")){
+			queryString += " and lsf.functionName like '"+valuearr[0]+"'";
 		}
+		log.debug("queryString = {}", queryString);
+		querylist = super.getHibernateTemplate().find(queryString);
+		log.debug("findbyproperties end");
+		return (List<LSysFunction>) querylist;
 	}
 
-	public boolean save(LSysFunction transientInstance) {
+	public boolean save(LSysFunction transientInstance) throws Exception {
 		log.debug("saving LSysFunction instance");
 		boolean flag = false;
-		try {
-			Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-			if(null!=lizable||!"".equals(lizable)){
-				flag=true;
-			}
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save error =>", re);
-			throw re;
+		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
+		if(null!=lizable||!"".equals(lizable)){
+			flag=true;
 		}
+		log.debug("save successful");
 		return flag;
 	}
 }

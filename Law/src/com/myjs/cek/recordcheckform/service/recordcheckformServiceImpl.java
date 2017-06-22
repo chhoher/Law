@@ -65,40 +65,34 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		this.memdbDao = memdbDao;
 	}
 
-	public List<LCekRecordCheckform> findByProperty(String startDate, String endDate, String applyUserId, String status, VEIPMemdb loginUser, String roleIds){
+	public List<LCekRecordCheckform> findByProperty(String startDate, String endDate, String applyUserId, String status, VEIPMemdb loginUser, String roleIds) throws Exception{
 		log.debug("LCekRecordCheckform findByProperty start");
-		try{
-			//判斷登入人的身分是否為主管級，
-			//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b80d350000	roleCode:sign01	roleName:簽呈可覆核主管}
-			//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b8e8960002	roleCode:sign02	roleName:簽呈可結案窗口}
-			//若不是主管級的，只能查詢自己的表單
-			if(roleIds.indexOf("8aa2e72a5c77b459015c77b80d350000") < 0){
-				if(roleIds.indexOf("8aa2e72a5c77b459015c77b8e8960002") < 0){
-					return recordcheckformDao.findbyproperties(startDate,	endDate, loginUser.getMemno(), status, null);
-				}else{
-					return recordcheckformDao.findbyproperties(startDate,	endDate, applyUserId, status, loginUser.getMemno());
-				}
+		//判斷登入人的身分是否為主管級，
+		//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b80d350000	roleCode:sign01	roleName:簽呈可覆核主管}
+		//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b8e8960002	roleCode:sign02	roleName:簽呈可結案窗口}
+		//若不是主管級的，只能查詢自己的表單
+		if(roleIds.indexOf("8aa2e72a5c77b459015c77b80d350000") < 0){
+			if(roleIds.indexOf("8aa2e72a5c77b459015c77b8e8960002") < 0){
+				return recordcheckformDao.findbyproperties(startDate,	endDate, loginUser.getMemno(), status, null);
 			}else{
-				//查詢時變成查received有他的紀錄
 				return recordcheckformDao.findbyproperties(startDate,	endDate, applyUserId, status, loginUser.getMemno());
 			}
-		}catch(Exception e){
-			log.error("LCekRecordCheckform findByProperty error msg ==>", e);
+		}else{
+			//查詢時變成查received有他的紀錄
+			return recordcheckformDao.findbyproperties(startDate,	endDate, applyUserId, status, loginUser.getMemno());
 		}
-		return null;
-		
 	}
 	
-	public LCekSignedCaseInfo findCaseByCaseId(String caseId){
+	public LCekSignedCaseInfo findCaseByCaseId(String caseId) throws Exception{
 		return recordcheckformDao.findCaseByCaseId(caseId);
 	}
 	
-	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId){
+	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId) throws Exception{
 		return recordcheckformDao.findRelaByCaseId(caseId);
 	}
 	
 	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform, 
-			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles, String[] stepPay){
+			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles, String[] stepPay) throws Exception{
 		//type = 1 表示暫存
 		if(type.equals("1")){ 
 			
@@ -459,116 +453,108 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		return "";
 	}
 	
-	public LCekRecordSigned findRecordSignedById(String signedId){
+	public LCekRecordSigned findRecordSignedById(String signedId) throws Exception{
 		return recordcheckformDao.findRecordSignedById(signedId);
 	}
 	
-	public LCekRecordSignedStep findRecordSignedStepById(String signedId){
+	public LCekRecordSignedStep findRecordSignedStepById(String signedId) throws Exception{
 		return recordcheckformDao.findRecordSignedStepById(signedId);
 	}
 	
 	// add By Jia 2017-04-25
 	// 回傳檔案路徑提供下載
-	public JsonObject downloadSignedFile(String fileTypeOne,String fileTypeTwo, String signedId, LCekRecordSigned lcs){
+	public JsonObject downloadSignedFile(String fileTypeOne,String fileTypeTwo, String signedId, LCekRecordSigned lcs) throws Exception{
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		JsonObject jsonResponse = new JsonObject();
-		try{
-			log.debug("===== downloadSignedFile =====");
-			List<LSysFile> MapFileList = new ArrayList<LSysFile>();
-			if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
-				List<Map<String, Object>> fileList = fileDao.findfilePathBySignedId(signedId);
-				for (Map<?, ?> map : fileList) {
+		log.debug("===== downloadSignedFile =====");
+		List<LSysFile> MapFileList = new ArrayList<LSysFile>();
+		if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
+			List<Map<String, Object>> fileList = fileDao.findfilePathBySignedId(signedId);
+			for (Map<?, ?> map : fileList) {
 
-					LSysFile lcekfile = new LSysFile();
-					lcekfile.setFileId((String) map.get("record_file_id"));
-					lcekfile.setFileName((String) map.get("file_name"));
-					lcekfile.setFilePath((String) map.get("file_path"));
+				LSysFile lcekfile = new LSysFile();
+				lcekfile.setFileId((String) map.get("record_file_id"));
+				lcekfile.setFileName((String) map.get("file_name"));
+				lcekfile.setFilePath((String) map.get("file_path"));
 
-					MapFileList.add(lcekfile);
+				MapFileList.add(lcekfile);
 
-				}
-			}else{
-				List<Map<String, Object>> fileList = fileDao.findfilePathByTypes(fileTypeOne, fileTypeTwo);
-				
-				for (Map<?, ?> map : fileList) {
+			}
+		}else{
+			List<Map<String, Object>> fileList = fileDao.findfilePathByTypes(fileTypeOne, fileTypeTwo);
+			
+			for (Map<?, ?> map : fileList) {
 
-					LSysFile lcekfile = new LSysFile();
-					lcekfile.setFileId((String) map.get("file_id"));
-					lcekfile.setFileName((String) map.get("file_name"));
-					lcekfile.setFilePath((String) map.get("file_path"));
+				LSysFile lcekfile = new LSysFile();
+				lcekfile.setFileId((String) map.get("file_id"));
+				lcekfile.setFileName((String) map.get("file_name"));
+				lcekfile.setFilePath((String) map.get("file_path"));
 
-					// 進行套表
-					log.debug("套表開始");
-					log.debug("檔案路徑 = {}", lcekfile.getFilePath() + "\\" + lcekfile.getFileName());
-					List<LCekRecordSigned> LCekRecordSigned = new ArrayList<LCekRecordSigned>();
+				// 進行套表
+				log.debug("套表開始");
+				log.debug("檔案路徑 = {}", lcekfile.getFilePath() + "\\" + lcekfile.getFileName());
+				List<LCekRecordSigned> LCekRecordSigned = new ArrayList<LCekRecordSigned>();
 //					LCekRecordSigned LCekRecordSigned1 = new LCekRecordSigned(null , 2740584, "京城銀行", "京城銀行信用卡_Y2", "張淑茹",
 //							"CM", "分期清償", 10, new Date(), new Date(), 25000,
 //							250000, new Date(), 0, "", "00345",
 //							"123124", new Date(),"jia","jia",
 //							"y", "");
-					VEIPMemdb applyUser = memdbDao.findbyuserId(lcs.getApplyUserId());// 申請人
-					lcs.setApplyUserName(applyUser.getMemnm());
-					lcs.setCaseNo(NumberUtil.addZeroForNum(lcs.getCaseId() + "", 8));
-					LCekRecordSigned.add(lcs);
-			        try(InputStream is = new FileInputStream(lcekfile.getFilePath() + "\\" + lcekfile.getFileName())) {
-			        	log.debug("is = {}", is);
-			            try (OutputStream os = new FileOutputStream(lcekfile.getFilePath() + "/New" + lcekfile.getFileName())) {
-			                Context context = new Context();
-			                context.putVar("LCekRecordSigned", LCekRecordSigned);
-			                JxlsHelper.getInstance().processTemplate(is, os, context);
-			            }
-			        }
-			        
-					lcekfile.setFileId((String) map.get("file_id"));
-					lcekfile.setFileName("New" + lcekfile.getFileName());
-					lcekfile.setFilePath((String) map.get("file_path"));
+				VEIPMemdb applyUser = memdbDao.findbyuserId(lcs.getApplyUserId());// 申請人
+				lcs.setApplyUserName(applyUser.getMemnm());
+				lcs.setCaseNo(NumberUtil.addZeroForNum(lcs.getCaseId() + "", 8));
+				LCekRecordSigned.add(lcs);
+		        try(InputStream is = new FileInputStream(lcekfile.getFilePath() + "\\" + lcekfile.getFileName())) {
+		        	log.debug("is = {}", is);
+		            try (OutputStream os = new FileOutputStream(lcekfile.getFilePath() + "/New" + lcekfile.getFileName())) {
+		                Context context = new Context();
+		                context.putVar("LCekRecordSigned", LCekRecordSigned);
+		                JxlsHelper.getInstance().processTemplate(is, os, context);
+		            }
+		        }
+		        
+				lcekfile.setFileId((String) map.get("file_id"));
+				lcekfile.setFileName("New" + lcekfile.getFileName());
+				lcekfile.setFilePath((String) map.get("file_path"));
 
-					MapFileList.add(lcekfile);
-				}
+				MapFileList.add(lcekfile);
 			}
-			jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
-		}catch(Exception e){
-			log.error("downloadSignedFile error msg ==>", e);
 		}
+		jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
 		return jsonResponse;
 	}
 	
-	public JsonObject findOtherFilesByCaseId(String signedId,String caseId,String type, String userId){
+	public JsonObject findOtherFilesByCaseId(String signedId,String caseId,String type, String userId) throws Exception{
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		JsonObject jsonResponse = new JsonObject();
 		List<LSysFile> MapFileList = new ArrayList<LSysFile>();
-		try{
-			log.debug("===== findOtherFilesByCaseId =====");
-			if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
-				List<Map<String, Object>> fileList = fileDao.findSelectOtherFileBySignedId(signedId);
-				for (Map<?, ?> map : fileList) {
-					LSysFile lcekfile = new LSysFile();
-					lcekfile.setFileName((String) map.get("file_name"));
-					lcekfile.setFilePath((String) map.get("file_path"));
-					lcekfile.setV(((String) map.get("Isselected")).equals("Y") ? "1":"0");
-					MapFileList.add(lcekfile);
-				}
-				if(type.equals("1")){
-					FilesUploads fileupload = new FilesUploads();
-					List<LSysFile> MapFileListAll = new ArrayList<LSysFile>();
-					MapFileListAll = fileupload.findAllFiles(caseId);
-					for(int i = 0;i < MapFileList.size(); i++){
-						for(int j = 0;j < MapFileListAll.size(); j++){
-							if(MapFileListAll.get(j).getFileName().equals(MapFileList.get(i).getFileName())){
-								MapFileListAll.get(j).setV("1");
-							}
+		log.debug("===== findOtherFilesByCaseId =====");
+		if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
+			List<Map<String, Object>> fileList = fileDao.findSelectOtherFileBySignedId(signedId);
+			for (Map<?, ?> map : fileList) {
+				LSysFile lcekfile = new LSysFile();
+				lcekfile.setFileName((String) map.get("file_name"));
+				lcekfile.setFilePath((String) map.get("file_path"));
+				lcekfile.setV(((String) map.get("Isselected")).equals("Y") ? "1":"0");
+				MapFileList.add(lcekfile);
+			}
+			if(type.equals("1")){
+				FilesUploads fileupload = new FilesUploads();
+				List<LSysFile> MapFileListAll = new ArrayList<LSysFile>();
+				MapFileListAll = fileupload.findAllFiles(caseId);
+				for(int i = 0;i < MapFileList.size(); i++){
+					for(int j = 0;j < MapFileListAll.size(); j++){
+						if(MapFileListAll.get(j).getFileName().equals(MapFileList.get(i).getFileName())){
+							MapFileListAll.get(j).setV("1");
 						}
 					}
-					MapFileList = MapFileListAll;
 				}
-			}else{
-				FilesUploads fileupload = new FilesUploads();
-				MapFileList = fileupload.findAllFiles(caseId);
+				MapFileList = MapFileListAll;
 			}
-			jsonResponse.add("data", gson.toJsonTree(MapFileList));
-		}catch(Exception e){
-			log.error("findOtherFilesByCaseId error msg ==>", e);
+		}else{
+			FilesUploads fileupload = new FilesUploads();
+			MapFileList = fileupload.findAllFiles(caseId);
 		}
+		jsonResponse.add("data", gson.toJsonTree(MapFileList));
 		return jsonResponse;
 	}
 }
