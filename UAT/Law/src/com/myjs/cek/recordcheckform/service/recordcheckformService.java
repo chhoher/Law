@@ -13,13 +13,13 @@ import com.myjs.sys.user.model.VEIPMemdb;
 
 public interface recordcheckformService {
 	public List<LCekRecordCheckform> findByProperty(String startDate, String endDate, String applyUserId, String status,
-			VEIPMemdb loginUser, String roleIds);
-	public LCekSignedCaseInfo findCaseByCaseId(String caseId);
-	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId);
+			VEIPMemdb loginUser, String roleIds) throws Exception;
+	public LCekSignedCaseInfo findCaseByCaseId(String caseId) throws Exception;
+	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId) throws Exception;
 	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform,
-			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles, String[] stepPay);
-	public LCekRecordSigned findRecordSignedById(String signedId);
-	public LCekRecordSignedStep findRecordSignedStepById(String signedId);
-	public JsonObject downloadSignedFile(String fileTypeOne, String fileTypeTwo, String signedId, LCekRecordSigned lcs);
-	public JsonObject findOtherFilesByCaseId(String signedId, String caseId, String type, String userId);
+			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles, String[] stepPay) throws Exception;
+	public LCekRecordSigned findRecordSignedById(String signedId) throws Exception;
+	public LCekRecordSignedStep findRecordSignedStepById(String signedId) throws Exception;
+	public JsonObject downloadSignedFile(String fileTypeOne, String fileTypeTwo, String signedId, LCekRecordSigned lcs) throws Exception;
+	public JsonObject findOtherFilesByCaseId(String signedId, String caseId, String type, String userId) throws Exception;
 }

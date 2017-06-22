@@ -17,7 +17,7 @@ public class flowServiceImpl implements flowService{
 		this.flowDao = flowDao;
 	}
 	
-	public List<LCekFlow> findByProperty(LCekFlow queryLCekFlow){
+	public List<LCekFlow> findByProperty(LCekFlow queryLCekFlow) throws Exception{
 		if(queryLCekFlow == null){
 			return flowDao.findAll();
 		}else{
@@ -25,15 +25,15 @@ public class flowServiceImpl implements flowService{
 		}
 	}
 	
-	public boolean addCekFlow(LCekFlow addlcekflow){
+	public boolean addCekFlow(LCekFlow addlcekflow) throws Exception{
 		return flowDao.save(addlcekflow);
 	}
 	
-	public boolean deleteCekFlow(LCekFlow deleteCekFlow){
+	public boolean deleteCekFlow(LCekFlow deleteCekFlow) throws Exception{
 		return flowDao.delete(deleteCekFlow);
 	}
 	
-	public List<LCekFlowsub> findFlowsubByProperty(LCekFlowsub queryLCekFlowsub){
+	public List<LCekFlowsub> findFlowsubByProperty(LCekFlowsub queryLCekFlowsub) throws Exception{
 		if(queryLCekFlowsub == null){
 			return flowDao.findAllFlowsub();
 		}else{

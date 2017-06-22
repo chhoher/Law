@@ -6,11 +6,11 @@ import java.util.Map;
 import com.myjs.sys.file.model.LSysFile;
 
 public interface fileDao {
-	public List<LSysFile> findAll();
-	public List<LSysFile> findbyproperties(String fileName);
-	public boolean save(LSysFile transientInstance) ;
-	public boolean delete(LSysFile transientInstance);
-	public List<Map<String, Object>> findfilePathByTypes(String fileTypeOne, String fileTypeTwo);
-	public List<Map<String, Object>> findfilePathBySignedId(String signedId);
-	public List<Map<String, Object>> findSelectOtherFileBySignedId(String signedId);
+	public List<LSysFile> findAll() throws Exception;
+	public List<LSysFile> findbyproperties(String fileName) throws Exception;
+	public boolean save(LSysFile transientInstance) throws Exception ;
+	public boolean delete(LSysFile transientInstance) throws Exception;
+	public List<Map<String, Object>> findfilePathByTypes(String fileTypeOne, String fileTypeTwo) throws Exception;
+	public List<Map<String, Object>> findfilePathBySignedId(String signedId) throws Exception;
+	public List<Map<String, Object>> findSelectOtherFileBySignedId(String signedId) throws Exception;
 }

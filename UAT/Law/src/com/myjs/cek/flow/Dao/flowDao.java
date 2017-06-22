@@ -6,10 +6,10 @@ import com.myjs.cek.checkform.model.LCekFlow;
 import com.myjs.cek.checkform.model.LCekFlowsub;
 
 public interface flowDao {
-	public List<LCekFlow> findAll();
-	public List<LCekFlow> findbyproperties(String flowCode, String flowType, String flowName);
-	public boolean save(LCekFlow transientInstance) ;
-	public boolean delete(LCekFlow transientInstance);
-	public List<LCekFlowsub> findAllFlowsub();
-	public List<LCekFlowsub> findFlowsubbyproperties(String flowId);
+	public List<LCekFlow> findAll() throws Exception;
+	public List<LCekFlow> findbyproperties(String flowCode, String flowType, String flowName) throws Exception;
+	public boolean save(LCekFlow transientInstance) throws Exception ;
+	public boolean delete(LCekFlow transientInstance) throws Exception;
+	public List<LCekFlowsub> findAllFlowsub() throws Exception;
+	public List<LCekFlowsub> findFlowsubbyproperties(String flowId) throws Exception;
 }

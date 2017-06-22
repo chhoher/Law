@@ -52,12 +52,14 @@ public class userAction extends AbstractAction{
 		    try {
 				printToResponse(data);
 			} catch (Exception e) {
+				sendException(e);
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		    
 		    
-		} catch (JsonIOException e) {
+		} catch (Exception e) {
+			sendException(e);
 		    e.printStackTrace();
 		}
 		return NONE;
@@ -77,14 +79,10 @@ public class userAction extends AbstractAction{
 
 		    String data = jsonResponse.toString();
 			System.out.println(data);
-		    try {
-				printToResponse(data);
-			} catch (Exception e) {
-				log.error("findAllmemdb error msg=>", e);
-				e.printStackTrace();
-			}
+			printToResponse(data);
 		    
-		} catch (JsonIOException e) {
+		} catch (Exception e) {
+			sendException(e);
 			log.error("findAllmemdb error", e);
 		}
 		return NONE;
@@ -99,6 +97,7 @@ public class userAction extends AbstractAction{
 			log.debug("MapFileList = {}", MapFileList);
 			printToResponse(MapFileList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("selectedUserRole error msg==>", e);
 		}
 		return NONE;
@@ -122,6 +121,7 @@ public class userAction extends AbstractAction{
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("setUserRole error msg=>", e);
 		}
 		return NONE;

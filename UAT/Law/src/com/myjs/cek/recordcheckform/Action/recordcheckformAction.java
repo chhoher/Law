@@ -89,6 +89,7 @@ public class recordcheckformAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekCheckformList);
 			printToResponse(responseLCekCheckformList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findCekForm error ms=>", e);
 		}
 		log.debug("findCekForm end");
@@ -149,6 +150,7 @@ public class recordcheckformAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekSignedCaseInfo);
 			printToResponse(responseLCekSignedCaseInfo);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("initSignedForm error ms=>", e);
 		}
 		return NONE;
@@ -268,6 +270,7 @@ public class recordcheckformAction extends AbstractAction {
 			printToResponse(json.toString());
 			
 		} catch (Exception e) {
+			sendException(e);
 			log.error("saveSigned error ms=>", e);
 		}
 		return NONE;
@@ -385,6 +388,7 @@ public class recordcheckformAction extends AbstractAction {
 			printToResponse(result);
 			
 		} catch (Exception e) {
+			sendException(e);
 			log.error("saveSigned error ms=>", e);
 		}
 		return NONE;
@@ -507,6 +511,7 @@ public class recordcheckformAction extends AbstractAction {
 			printToResponse(result);
 			
 		} catch (Exception e) {
+			sendException(e);
 			log.error("backSigned error ms=>", e);
 		}
 		return NONE;
@@ -627,6 +632,7 @@ public class recordcheckformAction extends AbstractAction {
 			printToResponse(result);
 			
 		} catch (Exception e) {
+			sendException(e);
 			log.error("sendSignedForm error ms=>", e);
 		}
 		return NONE;
@@ -701,6 +707,7 @@ public class recordcheckformAction extends AbstractAction {
 			log.debug("MapFileList = {}", MapFileList);
 			printToResponse(MapFileList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("downloadSignedFile error msg==>", e);
 		}
 		return NONE;
@@ -723,6 +730,7 @@ public class recordcheckformAction extends AbstractAction {
 			log.debug("MapFileList = {}", MapFileList);
 			printToResponse(MapFileList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("selectedSigned error msg==>", e);
 		}
 		return NONE;

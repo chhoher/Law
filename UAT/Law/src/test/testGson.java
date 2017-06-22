@@ -13,9 +13,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.myjs.cek.checkform.model.LCekColumn;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
+import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.myjs.sys.module.model.LSysMenu;
 
 public class testGson {
@@ -37,44 +40,24 @@ public class testGson {
 		
 //		String a = "[{\"menuId\":\"ROOT\","menuPid":"#","moduleId":"moduleROOT","menuName":"文管法務系統","menuLevel":0,"isOpen":"N","isDelete":"N"},{"menuId":"0001","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"系統管理","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0002","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"表單流程","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0003","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"文件管理","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0004","menuPid":"0001","moduleId":"moduleROOT","menuName":"部門設定","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0005","menuPid":"0001","moduleId":"moduleROOT","menuName":"使用者設定","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0006","menuPid":"0001","moduleId":"moduleROOT","menuName":"系統參數","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/sys/variable.jsp"},{"menuId":"0007","menuPid":"0001","moduleId":"moduleROOT","menuName":"附件管理","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/sys/file.jsp"},{"menuId":"0008","menuPid":"0002","moduleId":"moduleROOT","menuName":"表單設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/form.jsp"},{"menuId":"0009","menuPid":"0002","moduleId":"moduleROOT","menuName":"欄位設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/column.jsp"},{"menuId":"0010","menuPid":"0002","moduleId":"moduleROOT","menuName":"流程設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/flow.jsp"},{"menuId":"0011","menuPid":"0002","moduleId":"moduleROOT","menuName":"窗口對應業主","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/contactPerson.jsp"},{"menuId":"0012","menuPid":"0002","moduleId":"moduleROOT","menuName":"表單申請","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0013","menuPid":"0012","moduleId":"moduleROOT","menuName":"簽呈申請","menuLevel":3,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/checkform.jsp"},{"menuId":"0014","menuPid":"0003","moduleId":"moduleROOT","menuName":"文管新增","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/doc/addDoc.jsp"},{"menuId":"0015","menuPid":"0003","moduleId":"moduleROOT","menuName":"案件查詢","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/doc/queryCase.jsp"}]";
 		
-		String other = "{\"topItem\":{\"iptotherReceivedDate\":\"2017-06-20\""
-				+ ",\"iptotherBankDate\":\"2017-06-01\",\"iptotherDocStatus\":\"8aa2e72a5c8074d5015c8076cfe50001\""
-				+ ",\"iptotherTypeOne\":\"8aa2e72a5c812434015c81307418000a\",\"iptotherTypeTwo\":\"8aa2e72a5ca5db32015ca5de7a410001\","
-				+ "\"iptotherBankName\":\"8aa2e72a5c9b8c95015c9b8ff8780001\",\"iptotherReceiptType\":\"1\""
-				+ ",\"iptotherReceiptAmount\":\"1\",\"iptotherCourtDate\":\"2017-06-01\",\"iptotherRemark\":\"1\"}"
-				+ ",\"subItems\":[{\"iptotherReceivedDate\":\"2017-06-20\",\"iptotherBankDate\":\"2017-06-02\""
-				+ ",\"iptotherDocStatus\":\"8aa2e72a5c8074d5015c807749b60002\",\"iptotherTypeOne\":\"8aa2e72a5c812434015c81307418000a\""
-				+ ",\"iptotherTypeTwo\":\"8aa2e72a5ca5db32015ca5df0beb0002\",\"iptotherBankName\":\"8aa2e72a5c9b8c95015c9b903de50002\""
-				+ ",\"iptotherReceiptType\":\"2\",\"iptotherReceiptAmount\":\"2\",\"iptotherCourtDate\":\"2017-06-02\""
-				+ ",\"iptotherRemark\":\"2\"},{\"iptotherReceivedDate\":\"2017-06-20\",\"iptotherBankDate\":\"2017-06-03\""
-				+ ",\"iptotherDocStatus\":\"8aa2e72a5c8074d5015c80777e400004\",\"iptotherTypeOne\":\"8aa2e72a5c812434015c81307418000a\""
-				+ ",\"iptotherTypeTwo\":\"8aa2e72a5ca5db32015ca5df82760003\",\"iptotherBankName\":\"8aa2e72a5c9b8c95015c9b907d4d0003\""
-				+ ",\"iptotherReceiptType\":\"3\",\"iptotherReceiptAmount\":\"3\",\"iptotherCourtDate\":\"2017-06-03\",\"iptotherRemark\":\"3\"}]}";
+		String other = "[{\"receivedDate\":\"2017-06-21\""
+				+ ",\"bankDate\":\"2017-06-21\",\"docStatus\":\"8aa2e72a5c8074d5015c8076cfe50001\""
+				+ ",\"typeOne\":\"8aa2e72a5c812434015c81307418000a\",\"typeTwo\":\"8aa2e72a5ca5db32015ca5de7a410001\""
+				+ ",\"bankName\":\"8aa2e72a5c9b8c95015c9b8ff8780001\",\"receiptType\":\"0\",\"receiptAmount\":\"1\""
+				+ ",\"courtDate\":\"2017-06-21\",\"remark\":\"0\"},{\"receivedDate\":\"2017-06-21\""
+				+ ",\"bankDate\":\"2017-06-22\",\"docStatus\":\"8aa2e72a5c8074d5015c807749b60002\""
+				+ ",\"typeOne\":\"8aa2e72a5c812434015c81307418000a\",\"typeTwo\":\"8aa2e72a5ca5db32015ca5df82760003\""
+				+ ",\"bankName\":\"8aa2e72a5c9b8c95015c9b903de50002\",\"receiptType\":\"2\",\"receiptAmount\":\"2\",\"courtDate\":\"2017-06-22\",\"remark\":\"2\"}]";
 		
-		ArrayList <LSysMenu> a = new ArrayList<LSysMenu>();
-		LSysMenu b = new LSysMenu();
-		LSysMenu c = new LSysMenu();
-		a.add(b);
-		a.add(c);
-		System.out.println("asd===" + a);
-		a.remove(0);
-		System.out.println("asd===" + a.get(0));
+		System.out.println(other);
 		
+		Gson gson = new Gson();
+		
+		List<LDocOtherdocs> subItems = gson.fromJson(other, new TypeToken<List<LDocOtherdocs>>(){}.getType());
 
-		b = new LSysMenu();
-		c = new LSysMenu();
-
-		LSysMenu d = new LSysMenu();
-		System.out.println("asd===" + b);
-		System.out.println("asd===" + c);
-		System.out.println("asd===" + d);
-		
-		b=c;
-		c=d;
-		System.out.println("asd===" + b);
-		System.out.println("asd===" + c);
-		System.out.println("asd===" + d);
-		
+		for(int i = 0;i < subItems.size();i ++){
+			System.out.println(subItems.get(i).getBankName());
+		}
 	}
 	
 	public static void main3(String[] args){

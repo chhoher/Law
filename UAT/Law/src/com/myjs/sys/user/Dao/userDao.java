@@ -11,17 +11,17 @@ import com.myjs.sys.user.model.LSysUser;
 
 public interface userDao {
 	
-	public void saveObject(Object obj) throws HibernateException;  
+	public void saveObject(Object obj) throws Exception;  
 	  
     public Session getSession();  
   
     public void setSession(Session session);  
     
-    public List<LSysUser> findAll();
+    public List<LSysUser> findAll() throws Exception;
     
-    public List<LSysUser> search();
-    public List<Map<String, Object>> findUserRolebyUserId(String userId);
-    public boolean updateuserRoleForJDBCTemplate(String userId);
-    public boolean save(LSysUserRole transientInstance);
-    public boolean updateuserRoleForUserRoleIds(String userRoleIds);
+    public List<LSysUser> search() throws Exception;
+    public List<Map<String, Object>> findUserRolebyUserId(String userId) throws Exception;
+    public boolean updateuserRoleForJDBCTemplate(String userId) throws Exception;
+    public boolean save(LSysUserRole transientInstance) throws Exception;
+    public boolean updateuserRoleForUserRoleIds(String userRoleIds) throws Exception;
 }

@@ -58,6 +58,7 @@ public class variableAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekColumnList);
 			printToResponse(responseLCekColumnList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findVariable error msg=>", e);
 		}
 		log.debug("findVariable end");
@@ -89,6 +90,7 @@ public class variableAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("add Variable error msg=>", e);
 		}
 		return NONE;
@@ -132,6 +134,7 @@ public class variableAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			String result = JsonUtil.ajaxResultFalse("刪除失敗:" + e).toString();
 			try {
 				printToResponse(result);
@@ -167,6 +170,7 @@ public class variableAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLCekColumnList);
 			printToResponse(responseLCekColumnList);
 		} catch (Exception e) {
+			sendException(e);
 			log.error("findVariableSub error msg=>", e);
 		}
 		log.debug("findVariableSub end");
@@ -199,6 +203,7 @@ public class variableAction extends AbstractAction {
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("addVariableSub error msg=>", e);
 		}
 		return NONE;

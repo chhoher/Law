@@ -628,7 +628,7 @@ $(function() {
 		}
 		
 		console.log(other);
-		returnOther = JSON.stringify(other);
+		returnOther = JSON.stringify(other.subItems);
 		
 		$.ajax({
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',

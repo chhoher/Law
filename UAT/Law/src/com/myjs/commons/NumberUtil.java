@@ -2,7 +2,7 @@ package com.myjs.commons;
 
 public class NumberUtil {
 
-	public static String addZeroForNum(String str, int strLength) {
+	public static String addZeroForNum(String str, int strLength) throws Exception{
 	    int strLen = str.length();
 	    if (strLen < strLength) {
 	        while (strLen < strLength) {

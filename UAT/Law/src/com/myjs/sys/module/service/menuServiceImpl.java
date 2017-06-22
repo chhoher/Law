@@ -36,7 +36,7 @@ public class menuServiceImpl implements menuService{
 		this.roleDao = roleDao;
 	}
 
-	public String findAllMenu(String selectedmoduleId){
+	public String findAllMenu(String selectedmoduleId) throws Exception{
 		
 		List<LSysMenu> LSysMenuList = null; 
 
@@ -69,7 +69,7 @@ public class menuServiceImpl implements menuService{
 		return replaceJsonURL;
 	}
 	
-	public String findByRoleIds(String[] roleIds){
+	public String findByRoleIds(String[] roleIds) throws Exception{
 		
 		List<LSysMenu> LSysMenuList = null; 
 
@@ -104,66 +104,61 @@ public class menuServiceImpl implements menuService{
 		return replaceJsonURL;
 	}
 	
-	public JsonObject findLoginMenuByUserId(String loginUserId){
-		try{
-			List<LSysMenu> LSysMenuList = null; 
-	
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-			JsonObject jsonResponse = new JsonObject();
-			
-			String roleIdsString = "";
-			
-			List<String> roleIds = roleDao.findRolesByUserId(loginUserId);
-			
-			for(String roleId:roleIds){
-				roleIdsString += "'" + roleId + "',";
-			}
-			roleIdsString = roleIdsString.substring(0, roleIdsString.length()-1);
-			log.debug("roleIdsString = {}", roleIdsString);
-			LSysMenuList = menuDao.findAllMenuByRoleIds(roleIdsString);
-			List<LSysMenu> returnMenuList = new ArrayList<LSysMenu>();
-			for(LSysMenu mapMenu : LSysMenuList){
-				if(mapMenu.getMenuId().equals("ROOT")){
-					returnMenuList.add(mapMenu);
-				}else{
-					if(mapMenu.getIsNode() != null && mapMenu.getIsNode().equals("Y")){
-						returnMenuList.add(mapMenu);
-					}else if(mapMenu.getFunctionIsDelete() != null && mapMenu.getFunctionIsDelete().equals("N")){
-						returnMenuList.add(mapMenu);
-					}
-				}
-			}
-			
-			List<LSysMenu> returnMenuListNoNode = new ArrayList<LSysMenu>();
-			
-			// add By Jia 2017-06-21 這裡把節點下面無選項去除
-			for(LSysMenu retML : returnMenuList){
-				boolean hasChild = false;
-				if(retML.getIsNode().equals("Y")){
-					for(LSysMenu mapMenuIsNode : returnMenuList){
-						if(mapMenuIsNode.getMenuPid().equals(retML.getMenuId())){
-							hasChild = true;
-						}
-					}
-				}else{
-					hasChild = true;
-				}
-				if(hasChild){
-					returnMenuListNoNode.add(retML);
-				}
-			}
-			
-			jsonResponse.add("data", gson.toJsonTree(returnMenuListNoNode));
-	
-			jsonResponse.add("roleIds", gson.toJsonTree(roleIds));// add By Jia 2017-06-06 登入時同時把roleIds存入暫存
-			return jsonResponse;
-		}catch(Exception e){
-			log.error("error msg==>", e);
-			return null;
+	public JsonObject findLoginMenuByUserId(String loginUserId) throws Exception{
+		List<LSysMenu> LSysMenuList = null; 
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		JsonObject jsonResponse = new JsonObject();
+		
+		String roleIdsString = "";
+		
+		List<String> roleIds = roleDao.findRolesByUserId(loginUserId);
+		
+		for(String roleId:roleIds){
+			roleIdsString += "'" + roleId + "',";
 		}
+		roleIdsString = roleIdsString.substring(0, roleIdsString.length()-1);
+		log.debug("roleIdsString = {}", roleIdsString);
+		LSysMenuList = menuDao.findAllMenuByRoleIds(roleIdsString);
+		List<LSysMenu> returnMenuList = new ArrayList<LSysMenu>();
+		for(LSysMenu mapMenu : LSysMenuList){
+			if(mapMenu.getMenuId().equals("ROOT")){
+				returnMenuList.add(mapMenu);
+			}else{
+				if(mapMenu.getIsNode() != null && mapMenu.getIsNode().equals("Y")){
+					returnMenuList.add(mapMenu);
+				}else if(mapMenu.getFunctionIsDelete() != null && mapMenu.getFunctionIsDelete().equals("N")){
+					returnMenuList.add(mapMenu);
+				}
+			}
+		}
+		
+		List<LSysMenu> returnMenuListNoNode = new ArrayList<LSysMenu>();
+		
+		// add By Jia 2017-06-21 這裡把節點下面無選項去除
+		for(LSysMenu retML : returnMenuList){
+			boolean hasChild = false;
+			if(retML.getIsNode().equals("Y")){
+				for(LSysMenu mapMenuIsNode : returnMenuList){
+					if(mapMenuIsNode.getMenuPid().equals(retML.getMenuId())){
+						hasChild = true;
+					}
+				}
+			}else{
+				hasChild = true;
+			}
+			if(hasChild){
+				returnMenuListNoNode.add(retML);
+			}
+		}
+		
+		jsonResponse.add("data", gson.toJsonTree(returnMenuListNoNode));
+
+		jsonResponse.add("roleIds", gson.toJsonTree(roleIds));// add By Jia 2017-06-06 登入時同時把roleIds存入暫存
+		return jsonResponse;
 	}
 	
-	public boolean saveMenu(String moduleId, String menuPid){
+	public boolean saveMenu(String moduleId, String menuPid) throws Exception{
 		return menuDao.savePid(moduleId, menuPid);
 	}
 }

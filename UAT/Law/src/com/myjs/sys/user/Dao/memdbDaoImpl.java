@@ -27,96 +27,76 @@ public class memdbDaoImpl extends DaoUtil implements memdbDao{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public VEIPMemdb findbyuserName(String userName){
+	public VEIPMemdb findbyuserName(String userName) throws Exception{
 		log.debug("findbyuserName start");
 		VEIPMemdb query = null;
-		try{
-			String queryString = "from VEIPMemdb vem where  vem.memtmp='Y'";
-			if(userName != null && !userName.equals("")){
-				queryString += " and vem.memnm = '"+userName+"'";
-			}
-			log.debug("queryString = {}", queryString);
-			List<?> VeipmemdbList = super.getHibernateTemplate().find(queryString);
-			if(VeipmemdbList.size() != 0){
-				query = (VEIPMemdb) VeipmemdbList.get(0);
-			}
-			log.debug("findbyuserName end");
-			return query;
-		}catch(Exception e){
-			log.error("findbyuserName error msg =>", e);
-			return null;
+		String queryString = "from VEIPMemdb vem where  vem.memtmp='Y'";
+		if(userName != null && !userName.equals("")){
+			queryString += " and vem.memnm = '"+userName+"'";
 		}
+		log.debug("queryString = {}", queryString);
+		List<?> VeipmemdbList = super.getHibernateTemplate().find(queryString);
+		if(VeipmemdbList.size() != 0){
+			query = (VEIPMemdb) VeipmemdbList.get(0);
+		}
+		log.debug("findbyuserName end");
+		return query;
 	}
 	
-	public VEIPMemdb findbyMemno(String memno){
+	public VEIPMemdb findbyMemno(String memno) throws Exception{
 		log.debug("findbyMemno start");
 		VEIPMemdb query = null;
-		try{
-			String queryString = "from VEIPMemdb vem where  vem.memtmp='Y'";
-			if(memno != null && !memno.equals("")){
-				queryString += " and vem.memno = '"+memno+"'";
-			}
-			log.debug("queryString = {}", queryString);
-			List<?> VeipmemdbList = super.getHibernateTemplate().find(queryString);
-			if(VeipmemdbList.size() != 0){
-				query = (VEIPMemdb) VeipmemdbList.get(0);
-			}
-			log.debug("findbyMemno end");
-			return query;
-		}catch(Exception e){
-			log.error("findbyMemno error msg =>", e);
-			return null;
+		String queryString = "from VEIPMemdb vem where  vem.memtmp='Y'";
+		if(memno != null && !memno.equals("")){
+			queryString += " and vem.memno = '"+memno+"'";
 		}
+		log.debug("queryString = {}", queryString);
+		List<?> VeipmemdbList = super.getHibernateTemplate().find(queryString);
+		if(VeipmemdbList.size() != 0){
+			query = (VEIPMemdb) VeipmemdbList.get(0);
+		}
+		log.debug("findbyMemno end");
+		return query;
 	}
 	
-	public VEIPMemdb findContactPersonByBankName(String bankName){
+	public VEIPMemdb findContactPersonByBankName(String bankName) throws Exception{
 		log.debug("findContactPersonByBankName start");
 		VEIPMemdb query = new VEIPMemdb();
-		try{
-			StringBuffer queryString = new StringBuffer("SELECT VEM.userId,VEM.memno,VEM.memnm,VEM.memmail");
-			queryString.append(" FROM L_CEK_USER_BANK LCUB");
-			queryString.append(" LEFT JOIN V_EIP_memdb VEM on VEM.memno = LCUB.memno");
-			queryString.append(" WHERE LCUB.bank_name = '" + bankName + "'");
-			
-			log.debug("queryString = {}",queryString);
-			List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
+		StringBuffer queryString = new StringBuffer("SELECT VEM.userId,VEM.memno,VEM.memnm,VEM.memmail");
+		queryString.append(" FROM L_CEK_USER_BANK LCUB");
+		queryString.append(" LEFT JOIN V_EIP_memdb VEM on VEM.memno = LCUB.memno");
+		queryString.append(" WHERE LCUB.bank_name = '" + bankName + "'");
+		
+		log.debug("queryString = {}",queryString);
+		List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
 
-			for (Map<?, ?> map : querylist) {
-				query.setUserID((String) map.get("userId"));
-				query.setMemno((String) map.get("memno"));
-				query.setMemnm((String) map.get("memnm"));
-				query.setMemmail((String) map.get("memmail"));
-			}
-			return query;
-		}catch(Exception e){
-			log.error("findContactPersonByBankName error msg ==>", e);
-			return null;
+		for (Map<?, ?> map : querylist) {
+			query.setUserID((String) map.get("userId"));
+			query.setMemno((String) map.get("memno"));
+			query.setMemnm((String) map.get("memnm"));
+			query.setMemmail((String) map.get("memmail"));
 		}
+		return query;
 	}
 	
-	public VEIPMemdb findbyuserId(String userId){
+	public VEIPMemdb findbyuserId(String userId) throws Exception{
 		log.debug("findbyuserId start");
 		VEIPMemdb query = null;
-		try{
-			String queryString = "from VEIPMemdb vem";
-			if(userId != null && !userId.equals("")){
-				queryString += " where vem.userID = '"+userId+"'";
-			}
-			log.debug("queryString = {}", queryString);
-			List<?> VeipmemdbList = super.getHibernateTemplate().find(queryString);
-			if(VeipmemdbList.size() != 0){
-				query = (VEIPMemdb) VeipmemdbList.get(0);
-			}
-			log.debug("findbyuserId end");
-			return query;
-		}catch(Exception e){
-			log.error("findbyuserId error msg =>", e);
-			return null;
+		String queryString = "from VEIPMemdb vem";
+		if(userId != null && !userId.equals("")){
+			queryString += " where vem.userID = '"+userId+"'";
 		}
+		log.debug("queryString = {}", queryString);
+		List<?> VeipmemdbList = super.getHibernateTemplate().find(queryString);
+		if(VeipmemdbList.size() != 0){
+			query = (VEIPMemdb) VeipmemdbList.get(0);
+		}
+		log.debug("findbyuserId end");
+		return query;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<VEIPMemdb> search() {
+	public List<VEIPMemdb> search() throws Exception {
 		log.debug("finding all");
         Object execute = super.getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException{

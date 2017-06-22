@@ -86,12 +86,12 @@ public class FilesUploads {
     }
  
     // 設定檔案上傳後存放的地方
-    public void setUploadDir(String upload_dir) {
+    public void setUploadDir(String upload_dir) throws Exception {
         this.def_upload_dir = upload_dir;
     }
  
     // 取得所有欄位,包含一般欄位及上傳的欄位
-    public Map getAllParameter() {
+    public Map getAllParameter()  throws Exception{
         Map rvalue = new HashMap();
         rvalue.putAll(map);
         rvalue.putAll(uploadlist);
@@ -99,7 +99,7 @@ public class FilesUploads {
     }
  
     // 取得某一欄位的值,一般欄位
-    public String getParameter(String FieldName) {
+    public String getParameter(String FieldName)  throws Exception{
         if (map.containsKey(FieldName))
             return String.valueOf(map.get(FieldName));
         else
@@ -107,7 +107,7 @@ public class FilesUploads {
     }
  
     // 取得某一欄位的值,上傳欄位
-    public FileItem getUploadParameter(String FieldName) {
+    public FileItem getUploadParameter(String FieldName)  throws Exception{
         if (uploadlist.containsKey(FieldName))
             return (FileItem) uploadlist.get(FieldName);
         else
@@ -115,7 +115,7 @@ public class FilesUploads {
     }
  
     // 檢查上傳資料是否正確
-    public String checkUpload() {
+    public String checkUpload()  throws Exception{
         Iterator iter = uploadlist.keySet().iterator();
         while (iter.hasNext()) {
             Object Name = iter.next();
@@ -129,7 +129,7 @@ public class FilesUploads {
     }
  
     // 開始上傳
-    public String doUpload(FileItem item, String fileName) {
+    public String doUpload(FileItem item, String fileName)  throws Exception{
         String str = "";
         long sizeInBytes = item.getSize();
         // 碓認上傳資料是否有誤
@@ -155,13 +155,8 @@ public class FilesUploads {
  
             File uploadedFile = new File(def_upload_dir + fileName);
             // 會產生 Exception
-            try {
                 item.write(uploadedFile);
  
-            } catch (Exception e) {
-                System.out.println("上傳失敗!" + e.toString());
-                str = "上傳失敗!";
-            }
             // 會產生 Exception
  
         }
@@ -170,7 +165,7 @@ public class FilesUploads {
  
     // 是否存在此上傳欄位資料
  
-    public boolean isExtUpload(String fileName) {
+    public boolean isExtUpload(String fileName) throws Exception {
         return uploadlist.containsKey(fileName);
     }
     
@@ -191,7 +186,6 @@ public class FilesUploads {
 		
         InputStream in = null;
         OutputStream out = null;
-        try {
         	System.out.println(dst.exists());
         	dst.mkdirs();
         	System.out.println(dst.isFile());
@@ -207,25 +201,13 @@ public class FilesUploads {
             while ((len = in.read(buffer)) > 0) {
                 out.write(buffer, 0, len);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
             if (null != in) {
-                try {
                     in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
             if (null != out) {
-                try {
                     out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
-        }
+        
     }
 	
 	/**
@@ -234,7 +216,7 @@ public class FilesUploads {
 	 * @param path 上傳目的地
 	 * @return
 	 */
-	public boolean fileUpload(File[] UploadFile, String path, String fileName){
+	public boolean fileUpload(File[] UploadFile, String path, String fileName) throws Exception{
 		
 		boolean IsUpload = false;
 		//根據路徑名創建一個文件
@@ -246,7 +228,6 @@ public class FilesUploads {
 		}
         
 		//通過調用copyFile()方法將指定的文件copy到指定的路徑中
-		try {
 			String fileNames[] = fileName.split(",");
 			if(UploadFile.length > 0){
 				for(int i = 0; i < UploadFile.length; i ++){
@@ -257,16 +238,11 @@ public class FilesUploads {
 				FileUtils.copyFile(UploadFile[0], new File(file, fileName));
 			}
 			IsUpload = true;
-		} catch (Exception e) {
-			IsUpload = false;
-			log.error("fileUpload error",e);
-		}
 		return IsUpload;
 		
 		}
 	
-	public List<LSysFile> findAllFiles(String caseId){
-		try{
+	public List<LSysFile> findAllFiles(String caseId) throws Exception{
 			File a = new File("\\\\sfsimg\\ImageFiles\\案件資料檔\\" + caseId);
 //			File a = new File("\\\\TPEITA04\\test3\\test");
 //			File a = new File("\\\\Sfspub\\公用資料夾\\IT\\test1");
@@ -294,10 +270,6 @@ public class FilesUploads {
 				log.debug("[" + a + "]不是目錄");
 			}
 			return filelist;
-		}catch(Exception e){
-			log.error("findAllFiles error msg=>", e);
-			return null;
-		}
 	}
 	
 	public static void main(String[] args) {

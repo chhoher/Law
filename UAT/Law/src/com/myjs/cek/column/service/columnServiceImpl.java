@@ -16,7 +16,7 @@ public class columnServiceImpl implements columnService{
 		this.columnDao = columnDao;
 	}
 	
-	public List<LCekColumn> findByProperty(LCekColumn queryLCekColumn){
+	public List<LCekColumn> findByProperty(LCekColumn queryLCekColumn) throws Exception{
 		if(queryLCekColumn == null){
 			return columnDao.findAll();
 		}else{
@@ -24,11 +24,11 @@ public class columnServiceImpl implements columnService{
 		}
 	}
 	
-	public boolean addCekColumn(LCekColumn addlcekcolumn){
+	public boolean addCekColumn(LCekColumn addlcekcolumn) throws Exception{
 		return columnDao.save(addlcekcolumn);
 	}
 	
-	public boolean deleteCekColumn(LCekColumn deletecekColumn){
+	public boolean deleteCekColumn(LCekColumn deletecekColumn) throws Exception{
 		return columnDao.delete(deletecekColumn);
 	}
 }

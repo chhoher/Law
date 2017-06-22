@@ -167,4 +167,20 @@ public class AbstractAction extends ActionSupport {
 		url.append(getRequest().getContextPath());
 		return url.toString();
 	}
+	
+	/**
+	 * add By Jia 2017-06-21 sendException to Programmer
+	 * @param e
+	 * @return
+	 */
+	public boolean sendException(Exception e){
+			ErrorMsgControl msg = new ErrorMsgControl();
+			if(getSessionLoginUser() == null){
+				msg.sendErrorMsg(e, "non session", "non session", getRequest().getServerName());
+			}else{
+				msg.sendErrorMsg(e, getSessionLoginUser().getMemno(), getSessionLoginUser().getMemnm(), getRequest().getServerName());
+			}
+			return true;
+		
+	}
 }

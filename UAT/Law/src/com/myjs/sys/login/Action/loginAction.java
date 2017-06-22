@@ -59,6 +59,7 @@ public class loginAction extends AbstractAction {
 			log.debug("deleteCekFlow end {}", result);
 			printToResponse(result);
 		}catch(Exception e){
+			sendException(e);
 			log.error("login error msg ==>",e);
 		}
 		return NONE;
@@ -76,6 +77,7 @@ public class loginAction extends AbstractAction {
 			log.debug("responsedata = {}", responseLoginUser);
 			printToResponse(responseLoginUser);
 		}catch(Exception e){
+			sendException(e);
 			log.error("getLoginUserInfo error msg ==>", e);
 		}
 		return NONE;

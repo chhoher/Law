@@ -24,7 +24,7 @@ public class contactPersonServiceImpl implements contactPersonService{
 	}
 
 	@Override
-	public List<LCekUserBank> findByProperty(LCekUserBank queryLCekUserBank){
+	public List<LCekUserBank> findByProperty(LCekUserBank queryLCekUserBank) throws Exception{
 		if(queryLCekUserBank == null){
 			return contactPersonDao.findAll();
 		}else{
@@ -32,25 +32,18 @@ public class contactPersonServiceImpl implements contactPersonService{
 		}
 	}
 
-	public JsonObject saveOrUpdate(String memnm, String memno, String bankName){
-
-		try{
-			log.debug("===== saveOrUpdate start =====");
-			List<LCekUserBank> LCekUserBankList = contactPersonDao.findbyproperties(null, bankName);
-			LCekUserBank LCekUserBank = new LCekUserBank();
-			LCekUserBank.setMemnm(memnm);
-			LCekUserBank.setMemno(memno);
-			LCekUserBank.setBankName(bankName);
-			if(LCekUserBankList.size() == 0){
-				contactPersonDao.save(LCekUserBank);
-			}else{
-				contactPersonDao.updateLCekUserBank(LCekUserBank);
-			}
-			return JsonUtil.ajaxResultSuccess("儲存成功");
-		}catch(Exception e){
-			log.error("saveOrUpdate error msg ==>", e);
-			return JsonUtil.ajaxResultSuccess("儲存失敗");
+	public JsonObject saveOrUpdate(String memnm, String memno, String bankName) throws Exception{
+		log.debug("===== saveOrUpdate start =====");
+		List<LCekUserBank> LCekUserBankList = contactPersonDao.findbyproperties(null, bankName);
+		LCekUserBank LCekUserBank = new LCekUserBank();
+		LCekUserBank.setMemnm(memnm);
+		LCekUserBank.setMemno(memno);
+		LCekUserBank.setBankName(bankName);
+		if(LCekUserBankList.size() == 0){
+			contactPersonDao.save(LCekUserBank);
+		}else{
+			contactPersonDao.updateLCekUserBank(LCekUserBank);
 		}
-	
+		return JsonUtil.ajaxResultSuccess("儲存成功");
 	}
 }

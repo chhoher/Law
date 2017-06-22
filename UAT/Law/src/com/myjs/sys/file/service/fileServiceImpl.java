@@ -24,7 +24,7 @@ public class fileServiceImpl implements fileService{
 		this.fileDao = fileDao;
 	}
 
-	public List<LSysFile> findByProperty(LSysFile queryLSysFile){
+	public List<LSysFile> findByProperty(LSysFile queryLSysFile) throws Exception{
 		if(queryLSysFile == null){
 			return fileDao.findAll();
 		}else{
@@ -32,27 +32,23 @@ public class fileServiceImpl implements fileService{
 		}
 	}
 	
-	public boolean addFile(LSysFile addLSysFile){
+	public boolean addFile(LSysFile addLSysFile) throws Exception{
 		return fileDao.save(addLSysFile);
 	}
 	
-	public boolean deleteFile(LSysFile deleteLSysFile){
+	public boolean deleteFile(LSysFile deleteLSysFile) throws Exception{
 		return fileDao.delete(deleteLSysFile);
 	}
 
-	public String uploadFile(File[] uploadFile, String path, String fileName, String signedpath){
+	public String uploadFile(File[] uploadFile, String path, String fileName, String signedpath) throws Exception{
 		String uploadDatetime = DateTimeFormat.getNowDateNum();
-		try {
-			if(signedpath != null && !signedpath.equals("")){
-				path += signedpath + "/" + uploadDatetime;
-			}else{
-				path += "/" + uploadDatetime;
-			}
-			FilesUploads filesupload = new FilesUploads();
-			filesupload.fileUpload(uploadFile, path, fileName);
-		} catch (Exception e) {
-			log.error("uploadFile Error => ", e);
-		} 
+		if(signedpath != null && !signedpath.equals("")){
+			path += signedpath + "/" + uploadDatetime;
+		}else{
+			path += "/" + uploadDatetime;
+		}
+		FilesUploads filesupload = new FilesUploads();
+		filesupload.fileUpload(uploadFile, path, fileName);
 		return uploadDatetime;
 	}
 }

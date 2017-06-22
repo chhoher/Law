@@ -48,6 +48,7 @@ public class functionAction extends AbstractAction{
 			log.debug("responsedata = {}", responseLSysFunctionList);
 			printToResponse(responseLSysFunctionList);
 		}catch(Exception e){
+			sendException(e);
 			log.error("findFunction error msg==>", e);
 		}
 		return NONE;
@@ -79,6 +80,7 @@ public class functionAction extends AbstractAction{
 			printToResponse(result);
 
 		} catch (Exception e) {
+			sendException(e);
 			log.error("addRole error msg=>", e);
 		}
 		return NONE;

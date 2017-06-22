@@ -8,8 +8,8 @@ import com.myjs.sys.user.model.VEIPMemdb;
 
 public interface userService {
 
-	public List<LSysUser> findAll();
-	public List<VEIPMemdb> findAllMemdb();
-	public JsonObject findUserRolebyUserId(String userId);
-	public boolean saveOrUpdateUserRole(String userId, String[] saveselectRoleIds);
+	public List<LSysUser> findAll() throws Exception;
+	public List<VEIPMemdb> findAllMemdb() throws Exception;
+	public JsonObject findUserRolebyUserId(String userId) throws Exception;
+	public boolean saveOrUpdateUserRole(String userId, String[] saveselectRoleIds) throws Exception;
 }
