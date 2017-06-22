@@ -1,5 +1,6 @@
 package com.myjs.doc.documents.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.myjs.cek.recordcheckform.Dao.recordcheckformDao;
+import com.myjs.sys.user.model.VEIPMemdb;
 import com.myjs.sys.variable.Dao.variableDao;
 import com.myjs.sys.variable.model.LSysVariable;
 
@@ -92,15 +94,21 @@ public class docServiceImpl implements docService{
 		return jsonResponse.toString();
 	}
 	
-	public String saveaddDoc(String saveDocInfo, String saveOtherdoc) throws Exception{
-			Gson gson = new Gson();
-			
-			List<LDocOtherdocs> docsItems = gson.fromJson(saveOtherdoc, new TypeToken<List<LDocOtherdocs>>(){}.getType());
-	
-			for(int i = 0;i < docsItems.size();i ++){
-				System.out.println(docsItems.get(i).getBankName());
-			}
+	public String saveaddDoc(VEIPMemdb loginMemdb, String caseId, String saveDocInfo, String saveOtherdoc) throws Exception{
+		Date nowDatetime = new Date();
+		Gson gson = new Gson();
+		int case_id = Integer.parseInt(caseId);
+		
+		List<LDocOtherdocs> docsItems = gson.fromJson(saveOtherdoc, new TypeToken<List<LDocOtherdocs>>(){}.getType());
 
+		for(int i = 0;i < docsItems.size();i ++){
+			docsItems.get(i).setCreateDatetime(nowDatetime);
+			docsItems.get(i).setCreateUserId(loginMemdb.getMemno());
+			docsItems.get(i).setCaseId(case_id);
+			docDao.save(docsItems.get(i));
+		}
+
+		
 		return null;
 	}
 }

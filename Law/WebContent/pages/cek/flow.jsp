@@ -65,7 +65,7 @@ $(document).ready(function(){
 	</div>
 	
 　<div style="margin:5px 5px 5px 5px">
-		<table id="flowTable"  >
+		<table id="flowTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
                 <th>流程編號</th>
@@ -108,7 +108,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div >
-		<table id="flowsubTable"  class="ui-widget-content">
+		<table id="flowsubTable"  class="ui-widget-content" class="display" cellspacing="0" width="100%">
 		    <thead>
             <tr>
                 <th>順序</th>

@@ -54,7 +54,7 @@ $(document).ready(function(){
 		</table>
 	</div>
 　<div style="margin:5px 5px 5px 5px">
-		<table id="columnTable"  >
+		<table id="columnTable"  class="display" cellspacing="0" width="100%">
 		    <thead>
             <tr>
                 <th>欄位名稱</th>

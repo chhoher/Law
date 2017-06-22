@@ -914,7 +914,7 @@ var otherfilenum = 0;
 		<!-- 簽呈相關文件 -->
 		<div id="signedfileOther-dialog-form" title="新增文件">
 				<div id="signedfileOther">
-					<table id="signedfileOtherTable"  class="ui-widget-content">
+					<table id="signedfileOtherTable"  class="display" cellspacing="0" width="100%">
 					    <thead>
 				            <tr>
 				           	 	<th></th>

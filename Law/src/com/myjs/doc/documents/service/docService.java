@@ -3,6 +3,7 @@ package com.myjs.doc.documents.service;
 import java.util.List;
 
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
+import com.myjs.sys.user.model.VEIPMemdb;
 
 public interface docService {
 	public List<LCekSignedCaseInfo> findByProperty(String caseId, String debtorName, String debtorId, String docNo,
@@ -19,5 +20,5 @@ public interface docService {
 	 * 將文管新增的內容轉換後新增到DB
 	 * @throws Exception 
 	 */
-	public String saveaddDoc(String saveDocInfo, String saveOtherdoc) throws Exception;
+	public String saveaddDoc(VEIPMemdb loginMemdb, String caseId, String saveDocInfo, String saveOtherdoc) throws Exception;
 }

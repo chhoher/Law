@@ -121,7 +121,7 @@ $(document).ready(function(){
 	</div>
 	
 　<div style="margin:5px 5px 5px 5px">
-		<table id="recordcheckformTable"  >
+		<table id="recordcheckformTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
             	<th>案號</th>

@@ -48,7 +48,7 @@ public class docAction extends AbstractAction {
 			List<LCekSignedCaseInfo> LCekSignedCaseInfoList = docService.findByProperty(caseId, debtorName,
 					debtorId, docNo, legalCaseId);
 
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			JsonObject jsonResponse = new JsonObject();
 			jsonResponse.add("data", gson.toJsonTree(LCekSignedCaseInfoList));
 			String responseLCekSignedCaseInfoList = jsonResponse.toString();
@@ -87,12 +87,13 @@ public class docAction extends AbstractAction {
 	public String saveaddDoc(){
 		try{
 			log.debug("=====saveaddDoc start=====");
-			String docinfoJson = super.getRequest().getParameter("returnOther"),
+			String caseId = super.getRequest().getParameter("caseId"),
+					docinfoJson = super.getRequest().getParameter("returnOther"),
 					otherdocsJson = super.getRequest().getParameter("returnOther");
-
+			log.debug("caseId = {}", caseId);
 			log.debug("other = {}", otherdocsJson);
 			
-			String response = docService.saveaddDoc(docinfoJson, otherdocsJson);
+			String response = docService.saveaddDoc(getSessionLoginUser(), caseId, docinfoJson, otherdocsJson);
 			printToResponse(response);
 			
 		}catch(Exception e){

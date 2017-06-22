@@ -632,7 +632,10 @@ $(function() {
 		
 		$.ajax({
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',
-					data : {returnOther : returnOther},
+					data : {
+						caseId : law.addDoc.caseId,
+						returnOther : returnOther
+						},
 					type : "POST",
 					dataType : 'json',
 					success : function(response) {

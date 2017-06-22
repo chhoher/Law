@@ -83,7 +83,7 @@ $(document).ready(function(){
 		</table>
 	</div>
 　<div style="margin:5px 5px 5px 5px">
-		<table id="cekformTable"  >
+		<table id="cekformTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
             	<th></th>

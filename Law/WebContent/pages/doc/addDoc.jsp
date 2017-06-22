@@ -174,6 +174,9 @@
 					//設定收文日期為當日
 					$("#iptotherReceivedDate").val(response.nowDate);
 					
+					// 將當前caseId 存入
+					law.addDoc.caseId =  <%=request.getParameter("caseId")%>;
+					
 					// 初始化其他選項
 					law.addDoc.other.initothersubtab(response.nowDate, response.DocStatus, response.TypeOne, response.otherTypeTwo, response.BankName);
 				},
@@ -359,7 +362,7 @@
 <div>
 	
 　<div style="margin:5px 5px 5px 5px">
-		<table id="caseInfoTable"  >
+		<table id="caseInfoTable"  class="display" cellspacing="0" width="100%">
 		    <thead>
             <tr>
                 <th>委託公司</th>

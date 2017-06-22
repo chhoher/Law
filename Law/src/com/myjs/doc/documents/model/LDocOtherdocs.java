@@ -6,20 +6,22 @@ public class LDocOtherdocs {
 	private int otherdocsId;
 	private String infoId;
 	private int caseId;
-	private String receivedDate;
-	private String bankDate;
+	private Date receivedDate;
+	private Date bankDate;
 	private String docStatus;
 	private String typeOne;
 	private String typeTwo;
 	private String bankName;
 	private String receiptType;
 	private int receiptAmount;
-	private String courtDate;
+	private Date courtDate;
 	private String remark;
+	private Date createDatetime;
+	private String createUserId;
 	
-	public LDocOtherdocs(int otherdocsId, String infoId, int caseId, String receivedDate, String bankDate, String docStatus,
-			String typeOne, String typeTwo, String bankName, String receiptType, int receiptAmount, String courtDate,
-			String remark) {
+	public LDocOtherdocs(int otherdocsId, String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus,
+			String typeOne, String typeTwo, String bankName, String receiptType, int receiptAmount, Date courtDate,
+			String remark, Date createDatetime, String createUserId) {
 		this.otherdocsId = otherdocsId;
 		this.infoId = infoId;
 		this.caseId = caseId;
@@ -33,6 +35,8 @@ public class LDocOtherdocs {
 		this.receiptAmount = receiptAmount;
 		this.courtDate = courtDate;
 		this.remark = remark;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
 	}
 
 	public int getOtherdocsId() {
@@ -59,19 +63,19 @@ public class LDocOtherdocs {
 		this.caseId = caseId;
 	}
 
-	public String getReceivedDate() {
+	public Date getReceivedDate() {
 		return receivedDate;
 	}
 
-	public void setReceivedDate(String receivedDate) {
+	public void setReceivedDate(Date receivedDate) {
 		this.receivedDate = receivedDate;
 	}
 
-	public String getBankDate() {
+	public Date getBankDate() {
 		return bankDate;
 	}
 
-	public void setBankDate(String bankDate) {
+	public void setBankDate(Date bankDate) {
 		this.bankDate = bankDate;
 	}
 
@@ -123,11 +127,11 @@ public class LDocOtherdocs {
 		this.receiptAmount = receiptAmount;
 	}
 
-	public String getCourtDate() {
+	public Date getCourtDate() {
 		return courtDate;
 	}
 
-	public void setCourtDate(String courtDate) {
+	public void setCourtDate(Date courtDate) {
 		this.courtDate = courtDate;
 	}
 
@@ -137,6 +141,22 @@ public class LDocOtherdocs {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Date getCreateDatetime() {
+		return createDatetime;
+	}
+
+	public void setCreateDatetime(Date createDatetime) {
+		this.createDatetime = createDatetime;
+	}
+
+	public String getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
 	}
 	
 }

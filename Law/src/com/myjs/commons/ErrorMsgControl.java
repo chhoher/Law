@@ -24,7 +24,7 @@ public class ErrorMsgControl {
 		try{
 			String msg = getStackTrace(errorLog);
 			
-			File file = new File("law." + DateTimeFormat.getNowDateTime() + ".log");
+			File file = new File("law." + DateTimeFormat.getNowDateNum() + ".log");
 			PrintStream ps = new PrintStream(file);
 			errorLog.printStackTrace(ps);
 			ps.close();

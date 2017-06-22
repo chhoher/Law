@@ -92,7 +92,7 @@
 <div>
 	
 　<div style="margin:5px 5px 5px 5px">
-		<table id="docSystemcaseInfoTable"  >
+		<table id="docSystemcaseInfoTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
                 <th>委託公司</th>
@@ -127,7 +127,7 @@
 	</div>
 	
 	<div style="margin:5px 5px 5px 5px">
-		<table id="docSystemcaseInfoTable"  >
+		<table id="docSystemcaseInfoTable"  class="display" cellspacing="0" width="100%">
 		    <thead>
             <tr>
                 <th>申請借調</th>

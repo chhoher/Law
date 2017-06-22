@@ -109,7 +109,7 @@ $(document).ready(function(){
 	</div>
 	
 　<div style="margin:5px 5px 5px 5px">
-		<table id="recordcheckformCloseTable"  >
+		<table id="recordcheckformCloseTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
             	<th>案號</th>
