@@ -11,6 +11,7 @@ import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
+import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.google.gson.Gson;
@@ -82,6 +83,8 @@ public class docServiceImpl implements docService{
 		List<LSysVariable> LSysVariableListCourtYearCourt = (List<LSysVariable>) LSysVariableMap.get("list");//文件類別
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5ca5db32015ca5de11d00000");
 		List<LSysVariable> LSysVariableListOtherTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(其他)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5cd26484015cd2b513cf0003");
+		List<LSysVariable> LSysVariableListFileTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(卷宗)
 		Gson gson = new Gson();
 		JsonObject jsonResponse = new JsonObject();
 		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableListDocStatus));
@@ -91,25 +94,36 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("OldBankName", gson.toJsonTree(LSysVariableListOldBankName));
 		jsonResponse.add("CourtYearCourt", gson.toJsonTree(LSysVariableListCourtYearCourt));
 		jsonResponse.add("otherTypeTwo", gson.toJsonTree(LSysVariableListOtherTypeTwo));
+		jsonResponse.add("fileTypeTwo", gson.toJsonTree(LSysVariableListFileTypeTwo));
 		jsonResponse.addProperty("nowDate", DateTimeFormat.getNowDate());
 		return jsonResponse.toString();
 	}
 	
-	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo, String saveOtherdoc) throws Exception{
+	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo,
+			String saveFiledoc, String saveOtherdoc) throws Exception{
 		Date nowDatetime = new Date();
 		Gson gson = new Gson();
 		int case_id = Integer.parseInt(caseId);
 		
-		List<LDocOtherdocs> docsItems = gson.fromJson(saveOtherdoc, new TypeToken<List<LDocOtherdocs>>(){}.getType());
+		List<LDocOtherdocs> otherdocsItems = gson.fromJson(saveOtherdoc, new TypeToken<List<LDocOtherdocs>>(){}.getType());
 
-		for(int i = 0;i < docsItems.size();i ++){
-			docsItems.get(i).setInfoId(docInfoId);
-			docsItems.get(i).setCreateDatetime(nowDatetime);
-			docsItems.get(i).setCreateUserId(loginMemdb.getMemno());
-			docsItems.get(i).setCaseId(case_id);
-			docDao.save(docsItems.get(i));
+		for(int i = 0;i < otherdocsItems.size();i ++){
+			otherdocsItems.get(i).setInfoId(docInfoId);
+			otherdocsItems.get(i).setCreateDatetime(nowDatetime);
+			otherdocsItems.get(i).setCreateUserId(loginMemdb.getMemno());
+			otherdocsItems.get(i).setCaseId(case_id);
+			docDao.save(otherdocsItems.get(i));
 		}
+		
+		List<LDocFiledocs> filedocsItems = gson.fromJson(saveFiledoc, new TypeToken<List<LDocFiledocs>>(){}.getType());
 
+		for(int i = 0;i < filedocsItems.size();i ++){
+			filedocsItems.get(i).setInfoId(docInfoId);
+			filedocsItems.get(i).setCreateDatetime(nowDatetime);
+			filedocsItems.get(i).setCreateUserId(loginMemdb.getMemno());
+			filedocsItems.get(i).setCaseId(case_id);
+			docDao.save(filedocsItems.get(i));
+		}
 		
 		return null;
 	}

@@ -5,6 +5,8 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
 <!-- Add By Jia 2017-05-12 文管新增的JS功能 -->
 <script type="text/javascript" src="../legaljs/doc/docaddDoc.js"></script>
+<script type="text/javascript" src="../legaljs/doc/adddoc/docClaimsDoc.js"></script>
+<script type="text/javascript" src="../legaljs/doc/adddoc/docFile.js"></script>
 <script type="text/javascript" src="../legaljs/doc/adddoc/docOther.js"></script>
 <head>
 <title>文管新增</title>
@@ -12,13 +14,6 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			//將日期欄位格式化
-			$( "#iptotherReceivedDate" ).datepicker();
-		    $( "#iptotherReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-			$( "#iptotherBankDate" ).datepicker();
-		    $( "#iptotherBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-			$( "#iptotherCourtDate" ).datepicker();
-		    $( "#iptotherCourtDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 			
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
@@ -96,8 +91,9 @@
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
-					docStatus = response.DocStatus;
-					
+					var file = law.addDoc.file,
+						other = law.addDoc.other;
+										
 					//執行名義 文件狀態
 					$("#iptcentitlementDocStatus option").remove();
 					var docArray = response.DocStatus;
@@ -153,53 +149,32 @@
 					});
 					$("#iptcentitlementCourtYearCourt").append(seloption);
 					
-					//=====其他=====
-					//其他 文件狀態
-					$("#iptotherDocStatus option").remove();
-					docArray = response.DocStatus;
-					seloption = "";
-					$.each(docArray,function(i){
-						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-					});
-					$("#iptotherDocStatus").append(seloption);
-					$('#iptotherDocStatus option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
-					
-					//其他 文件類別
-					$("#iptotherTypeOne option").remove();
-					docArray = response.TypeOne;
-					seloption = "";
-					$.each(docArray,function(i){
-						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-					});
-					$("#iptotherTypeOne").append(seloption);
-					$('#iptotherTypeOne option[value=8aa2e72a5c812434015c81307418000a]').attr('selected', 'selected');
-					
-					//其他 文件項目
-					$("#iptotherTypeTwo option").remove();
-					docArray = response.otherTypeTwo;
-					seloption = "";
-					$.each(docArray,function(i){
-						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-					});
-					$("#iptotherTypeTwo").append(seloption);
-					
-					//其他 債權人
-					$("#iptotherBankName option").remove();
-					docArray = response.BankName;
-					seloption = "";
-					$.each(docArray,function(i){
-						seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-					});
-					$("#iptotherBankName").append(seloption);
-					
-					//設定收文日期為當日
-					$("#iptotherReceivedDate").val(response.nowDate);
-					
 					// 將當前caseId 存入
 					law.addDoc.caseId =  <%=request.getParameter("caseId")%>;
 					
+					// =====卷宗start=====
+					law.addDoc.file.initfilesubtab(response.nowDate, response.DocStatus, response.TypeOne, response.fileTypeTwo, response.BankName);
+					//設定收文日期為當日
+					$("#iptfileReceivedDate").val(response.nowDate);
+					//卷宗下拉選項
+					law.common.selectOption("#iptfileDocStatus", file.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
+					law.common.selectOption("#iptfileTypeOne", file.TypeOne, "8aa2e72a5c812434015c813055070009");
+					law.common.selectOption("#iptfileTypeTwo", file.TypeTwo);
+					law.common.selectOption("#iptfileBankName", file.BankName);
+					// =====卷宗end=====
+					
+					// =====其他start=====
 					// 初始化其他選項
 					law.addDoc.other.initothersubtab(response.nowDate, response.DocStatus, response.TypeOne, response.otherTypeTwo, response.BankName);
+
+					//設定收文日期為當日
+					$("#iptotherReceivedDate").val(response.nowDate);
+					//其他下拉選項
+					law.common.selectOption("#iptotherDocStatus", other.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
+					law.common.selectOption("#iptotherTypeOne", other.TypeOne, "8aa2e72a5c812434015c81307418000a");
+					law.common.selectOption("#iptotherTypeTwo", other.TypeTwo);
+					law.common.selectOption("#iptotherBankName", other.BankName);	
+					// =====其他end=====
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
@@ -967,11 +942,11 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocclaimsDoc">
-	債權文件<img alt="債權文件" src="../images/plus.png" onclick="addclaimsDocsubtab()">
+	債權文件<img alt="債權文件" src="../images/plus.png" onclick="law.addDoc.claimsDoc.addclaimsDocsubtab()">
 
         <div id="claimsDocsubtabs">
           <ul>
-            <li><a href="#claimsDocsubtabs-0">債權文件</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#claimsDocsubtabs-0">債權文件</a></li>
           </ul>
           <div id="claimsDocsubtabs-0">
             <div>
@@ -994,10 +969,15 @@
 					<td><label>原債權人</label></td>
 					<td><input id="iptclaimsDocOldBankName" ></input></td>
 				</tr>
-				<tr>
+			</table>
+			<table>
+				<tr id="iptclaimsDocRelationPersonTr">
 					<td><label>相對人</label></td>
-					<td><input id="iptclaimsDocrelationPerson" ></input></td>
+					<td><select id="iptclaimsDocRelationPerson-0_0"><option value="">請選擇</option></select></td>
+					<td><img src="../images/plus.png" onclick="law.addDoc.claimsDoc.addclaimsRelaTd(0)"></td>
 				</tr>
+			</table>
+			<table>
 				<tr>
 					<td><label>額度</label></td>
 					<td><input id="iptclaimsDocQuota" ></input></td>
@@ -1016,11 +996,11 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocfile">
-	卷宗<img alt="卷宗" src="../images/plus.png" onclick="addfilesubtab()">
+	卷宗<img alt="卷宗" src="../images/plus.png" onclick="law.addDoc.file.addfilesubtab()">
 
         <div id="filesubtabs">
           <ul>
-            <li><a href="#filesubtabs-0">卷宗</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#filesubtabs-0">卷宗</a></li>
           </ul>
           <div id="filesubtabs-0">
             <div>
@@ -1031,15 +1011,15 @@
 					<td><label>業主調件日</label></td>
 					<td><input id="iptfileBankDate" ></input></td>
 					<td><label>文件狀態</label></td>
-					<td><input id="iptfileDocStatus" ></input></td>
+					<td><select id="iptfileDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>文件類別</label></td>
-					<td><input id="iptfileTypeOne" ></input></td>
+					<td><select id="iptfileTypeOne" disabled><option value="">請選擇</option></select></td>
 					<td><label>文件項目</label></td>
-					<td><input id="iptfileTypeTwo" ></input></td>
+					<td><select id="iptfileTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><input id="iptfileBankName" ></input></td>
+					<td><select id="iptfileBankName"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>份數</label></td>

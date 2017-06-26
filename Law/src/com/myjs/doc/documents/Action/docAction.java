@@ -85,13 +85,16 @@ public class docAction extends AbstractAction {
 		try{
 			log.debug("=====saveaddDoc start=====");
 			String caseId = super.getRequest().getParameter("caseId"),
+					docInfoId = super.getRequest().getParameter("docInfoId"),
 					docinfoJson = super.getRequest().getParameter("returnOther"),
-					otherdocsJson = super.getRequest().getParameter("returnOther"),
-					docInfoId = super.getRequest().getParameter("docInfoId");
+					filedocsJson = super.getRequest().getParameter("returnFile"),
+					otherdocsJson = super.getRequest().getParameter("returnOther");
 			log.debug("caseId = {}, docInfoId = {}", caseId, docInfoId);
+			log.debug("file = {}", filedocsJson);
 			log.debug("other = {}", otherdocsJson);
 			
-			String response = docService.saveaddDoc(docInfoId, getSessionLoginUser(), caseId, docinfoJson, otherdocsJson);
+			String response = docService.saveaddDoc(docInfoId, getSessionLoginUser(), caseId, docinfoJson,
+					filedocsJson, otherdocsJson);
 			printToResponse(response);
 			
 		}catch(Exception e){

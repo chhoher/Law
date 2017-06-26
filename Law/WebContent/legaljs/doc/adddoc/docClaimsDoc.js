@@ -1,63 +1,77 @@
 /**
- * Add By Jia 2017-06-22 docOther.js 實作addDoc.jsp 其他的部分 
+ * Add By Jia 2017-06-22 docClaimsDoc.js 實作addDoc.jsp 債權文件的部分 
  */
  
-// 其它 start
-law.addDoc.other = {
-	othersubtabcount : 0,
-	otheractivesubtabcount : 0,
-	othersubtabs : $("#othersubtabs").tabs(),
-	otherexistsubtabs : [],
-	addothersubtab : function(){
-		var other = law.addDoc.other;
-		var othersubtabcount = other.othersubtabcount;
-		var otheractivesubtabcount = other.otheractivesubtabcount;
-		var othersubtabs = other.othersubtabs;
+// 債權文件 start
+law.addDoc.claimsDoc = {
+	claimsDocsubtabcount : 0,
+	claimsDocactivesubtabcount : 0,
+	claimsDocsubtabs : $("#claimsDocsubtabs").tabs(),
+	claimsDocexistsubtabs : [0,0,0,0],
+	claimsDocRelaNum : [],
+	// 新增相對人
+	addclaimsRelaTd : function(num){
+		var claimsDoc = law.addDoc.claimsDoc;
+		var claimsDocsubtabcount = claimsDoc.claimsDocsubtabcount;
+		var tdString = 	"<td><label>相對人</label></td>" +
+					"<td><select id='iptclaimsDocRelationPerson-" + num + "_" + claimsDoc.claimsDocRelaNum[0] + "'><option value=''>請選擇</option></select></td>";
+					
+		if(isNaN(claimsDoc.claimsDocRelaNum[claimsDocsubtabcount])){
+			claimsDoc.claimsDocRelaNum.push(0);
+		}
+		law.addDoc.claimsDoc.claimsDocRelaNum[0] ++ ;
+		$("#iptclaimsDocRelationPersonTr").append(tdString);
+	},
+	addclaimsDocsubtab : function(){
+		var claimsDoc = law.addDoc.claimsDoc;
+		var claimsDocsubtabcount = claimsDoc.claimsDocsubtabcount;
+		var claimsDocactivesubtabcount = claimsDoc.claimsDocactivesubtabcount;
+		var claimsDocsubtabs = claimsDoc.claimsDocsubtabs;
 		var tabTitle = "其它";
-		var tabId = "tabs-" + othersubtabcount;
-		var tabTemplate = "<li id='liothertab_" + othersubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
+		var tabId = "tabs-" + claimsDocsubtabcount;
+		var tabTemplate = "<li id='liothertab_" + claimsDocsubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
 					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptotherReceivedDate" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherReceivedDate" + claimsDocsubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
+					"<td><input id='iptotherBankDate" + claimsDocsubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
-					"<td><select id='iptotherDocStatus" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptotherDocStatus" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>文件類別</label></td>" +
-					"<td><select id='iptotherTypeOne" + othersubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptotherTypeOne" + claimsDocsubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 					"<td><label>文件項目</label></td>" +
-					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptotherTypeTwo" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
-					"<td><select id='iptotherBankName" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptotherBankName" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>收據種類</label></td>" +
-					"<td><input id='iptotherReceiptType" + othersubtabcount + "' ></input></td>" +
+					"<td><input id='iptotherReceiptType" + claimsDocsubtabcount + "' ></input></td>" +
 					"<td><label>收據金額</label></td>" +
-					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "' ></input></td>" +
+					"<td><input id='iptotherReceiptAmount" + claimsDocsubtabcount + "' ></input></td>" +
 					"<td><label>法院製發日</label></td>" +
-					"<td><input id='iptotherCourtDate" + othersubtabcount + "' ></input></td>" +
+					"<td><input id='iptotherCourtDate" + claimsDocsubtabcount + "' ></input></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>備註</label></td>" +
-					"<td><input id='iptotherRemark" + othersubtabcount + "' ></input></td>" +
+					"<td><input id='iptotherRemark" + claimsDocsubtabcount + "' ></input></td>" +
 				"</tr>" +
            	 "</table>";
        	 var docArray,seloption;
 		
-		other.othersubtabcount ++ ;
-		other.otheractivesubtabcount ++;
+		claimsDoc.claimsDocsubtabcount ++ ;
+		claimsDoc.claimsDocactivesubtabcount ++;
 		
-		other.othersubtabs.find(".ui-tabs-nav").append(li);
-		other.othersubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		other.othersubtabs.tabs("refresh");
-		other.othersubtabs.tabs({ active:other.otheractivesubtabcount});
+		claimsDoc.claimsDocsubtabs.find(".ui-tabs-nav").append(li);
+		claimsDoc.claimsDocsubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
+		claimsDoc.claimsDocsubtabs.tabs("refresh");
+		claimsDoc.claimsDocsubtabs.tabs({ active:claimsDoc.claimsDocactivesubtabcount});
            	 
-		other.otherexistsubtabs.push(true);
+		claimsDoc.claimsDocexistsubtabs.push(true);
 		// 開始初始化
 		
 		//將日期欄位格式化
@@ -78,8 +92,8 @@ law.addDoc.other = {
 			
 	},
 	// 初始化
-	initothersubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName){
-		var initsub = law.addDoc.other;
+	initclaimsDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName){
+		var initsub = law.addDoc.claimsDoc;
 		initsub.ReceivedDate = ReceivedDate;
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
@@ -89,10 +103,10 @@ law.addDoc.other = {
 	// 將所有頁籤內容帶出
 	returnAllsubtabJson : function(){
 		
-		var length = law.addDoc.other.othersubtabcount,
+		var length = law.addDoc.claimsDoc.claimsDocsubtabcount,
 			i = 0,
-			other = {},
-			returnOther = "";
+			claimsDoc = {},
+			returnClaimsDoc = "";
 			
 		var topItem = {
 			'receivedDate' : $("#iptotherReceivedDate").val(),
@@ -107,8 +121,8 @@ law.addDoc.other = {
 			'remark' : $("#iptotherRemark").val()
 		};
 			
-		other.subItems = [];
-		other.subItems.push(topItem);
+		claimsDoc.subItems = [];
+		claimsDoc.subItems.push(topItem);
 			
 		for ( ; i < length; i++ ) {
 				var subItems = {
@@ -123,24 +137,24 @@ law.addDoc.other = {
 					'courtDate' : $("#iptotherCourtDate" + i ).val(),
 					'remark' : $("#iptotherRemark" + i ).val()
 			};
-			other.subItems.push(subItems);
+			claimsDoc.subItems.push(subItems);
 		}
 
-		returnOther = JSON.stringify(other.subItems);
-		return returnOther;
+		returnClaimsDoc = JSON.stringify(claimsDoc.subItems);
+		return returnClaimsDoc;
 	}
 }
 	
 	// Close icon: removing the tab on click
 	$("#othersubtabs").tabs().on("click", "span.ui-icon-close", function() {
-		var other = law.addDoc.other;
+		var other = law.addDoc.claimsDoc;
 		var panelId = $(this).closest("li").remove().attr(
 				"aria-controls");
 		$("#" + panelId).remove();
 		var liid = $(this).closest("li")["0"].id;
-		other.otherexistsubtabs[liid.substring(liid.indexOf("_") + 1)] = false;
-		other.otheractivesubtabcount--;
-		other.othersubtabs.tabs({ active: other.otheractivesubtabcount});
+		claimsDoc.claimsDocexistsubtabs[liid.substring(liid.indexOf("_") + 1)] = false;
+		claimsDoc.claimsDocactivesubtabcount--;
+		claimsDoc.claimsDocsubtabs.tabs({ active: claimsDoc.claimsDocactivesubtabcount});
 	});
 	
  (function(){
@@ -152,5 +166,5 @@ law.addDoc.other = {
 	$( "#iptotherCourtDate" ).datepicker();
     $( "#iptotherCourtDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
  })();
-// 其它 end	
+// 債權文件 end	
 	

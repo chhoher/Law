@@ -75,8 +75,26 @@
 	 */
 	getObject = function(subName){
 		return law[subName];
+	},
+	
+	/*
+	 * add By Jia 2017-06-23
+	 * 帶入初始值(下拉選項)
+	 * 固定是L_SYS_VARIABLE裡面的
+	 */
+	selectOption = function(id, array, selectId){
+		var docArray = array,
+			seloption = "";
+		$(id + " option").remove();
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+		});
+		$(id).append(seloption);
+		if(selectId !== undefined){
+			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
+		}
 	};
- 	
+	
  	/*
  	 * 將所有物件塞入law
  	 */
@@ -98,6 +116,14 @@
  	law.addDoc = {};
  	
  	law.getObject = getObject;
+ 	
+ 	// 新增通用function
+ 	law.common = {
+ 		selectOption : selectOption
+ 	};
+ 	
+ 	// 新增regex
+ 	law.regex = {};
  	/*
  	 * 加入law到window裡
  	 */

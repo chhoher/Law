@@ -17,8 +17,6 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-
-
 	
 	<!-- Services -->
 	<bean id="docService"
