@@ -40,10 +40,11 @@
 		            ]
 		            };
 		    $("#caseInfoTable").dataTable(opt);
-		    
-		    var datatable = $("#caseInfoTable").dataTable();
-			datatable.fnClearTable();
-			var json = "";
+
+			var json = "", relajson = "";
+		    var datatable = "";
+			datatable = $("#caseInfoTable").dataTable();
+		    datatable.fnClearTable();
 			$.ajax({
 				url : '../pages/doc/documents/docAction!loadCaseInfo.action',
 				data : {
@@ -57,7 +58,7 @@
 					if (response.data != '') {
 						datatable.fnAddData(json);
 						
-						// Add By Jia 2017-06-22 初始話表單，若是新表單給予一個新的ID
+						// Add By Jia 2017-06-22 初始化表單，若是新表單給予一個新的ID
 						$.ajax({
 							url : '../pages/doc/documents/docAction!initaddDoc.action',
 							data : {
@@ -83,7 +84,24 @@
 				}
 			});
 		    
-			
+			// Add By Jia 2017-06-27 抓出該案件相對人資料
+			$.ajax({
+				url : '../pages/doc/documents/docAction!loadCaseRela.action',
+				data : {
+					'iptsearchcaseId' : <%=request.getParameter("caseId")%>
+				},
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					relajson = response.Reladata;
+					law.addDoc.rela = relajson;
+					law.common.selectRelaOption("#iptclaimsDocRelationPerson_0", law.addDoc.rela);
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
 			
 		    //Add By Jia 2017-06-07 初始化下拉選項的內容
 		    $.ajax({
@@ -91,7 +109,8 @@
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
-					var file = law.addDoc.file,
+					var claimsDoc = law.addDoc.claimsDoc,
+						file = law.addDoc.file,
 						other = law.addDoc.other;
 										
 					//執行名義 文件狀態
@@ -151,7 +170,20 @@
 					
 					// 將當前caseId 存入
 					law.addDoc.caseId =  <%=request.getParameter("caseId")%>;
-					
+
+					// =====債權文件start=====
+					law.addDoc.claimsDoc.initclaimsDocsubtab(response.nowDate, response.DocStatus, response.TypeOne, 
+							response.claimDocTypeTwo, response.BankName, response.OldBankName);
+					//設定收文日期為當日
+					$("#iptclaimsDocReceivedDate").val(response.nowDate);
+					//債權文件下拉選項
+					law.common.selectOption("#iptclaimsDocDocStatus", claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
+					law.common.selectOption("#iptclaimsDocTypeOne", claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006");
+					law.common.selectOption("#iptclaimsDocTypeTwo", claimsDoc.TypeTwo);
+					law.common.selectOption("#iptclaimsDocBankName", claimsDoc.BankName);
+					law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.OldBankName);
+					// =====債權文件end=====
+						
 					// =====卷宗start=====
 					law.addDoc.file.initfilesubtab(response.nowDate, response.DocStatus, response.TypeOne, response.fileTypeTwo, response.BankName);
 					//設定收文日期為當日
@@ -957,23 +989,23 @@
 					<td><label>業主調件日</label></td>
 					<td><input id="iptclaimsDocBankDate" ></input></td>
 					<td><label>文件狀態</label></td>
-					<td><input id="iptclaimsDocDocStatus" ></input></td>
+					<td><select id="iptclaimsDocDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>文件類別</label></td>
-					<td><input id="iptclaimsDocTypeOne" ></input></td>
+					<td><select id="iptclaimsDocTypeOne" disabled><option value="">請選擇</option></select></td>
 					<td><label>文件項目</label></td>
-					<td><input id="iptclaimsDocTypeTwo" ></input></td>
+					<td><select id="iptclaimsDocTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><input id="iptclaimsDocBankName" ></input></td>
+					<td><select id="iptclaimsDocBankName"><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
-					<td><input id="iptclaimsDocOldBankName" ></input></td>
+					<td><select id="iptclaimsDocOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
 			</table>
 			<table>
 				<tr id="iptclaimsDocRelationPersonTr">
 					<td><label>相對人</label></td>
-					<td><select id="iptclaimsDocRelationPerson-0_0"><option value="">請選擇</option></select></td>
+					<td><select id="iptclaimsDocRelationPerson_0"><option value="">請選擇</option></select></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.claimsDoc.addclaimsRelaTd(0)"></td>
 				</tr>
 			</table>

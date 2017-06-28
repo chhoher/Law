@@ -305,13 +305,15 @@ $(function() {
 	
 	function saveaddDoc(){
 		
-		var returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
+		var returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
+			returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
 			returnOther = law.addDoc.other.returnAllsubtabJson();// 儲存(其他)
-		
+			
 		$.ajax({
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',
 					data : {
 						caseId : law.addDoc.caseId,
+						returnClaim : returnClaim,
 						returnFile : returnFile,
 						returnOther : returnOther,
 						docInfoId : law.addDoc.docInfoId

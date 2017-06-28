@@ -9,7 +9,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.myjs.doc.documents.service.docService;
+import com.myjs.sys.user.model.VEIPMemdb;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
+import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.AbstractAction;
 
 public class docAction extends AbstractAction {
@@ -29,6 +31,11 @@ public class docAction extends AbstractAction {
 		this.docService = docService;
 	}
 
+	/**
+	 * add By Jia 2017-06-27
+	 * 讀取案件資料
+	 * @return
+	 */
 	public String loadCaseInfo() {
 		try {
 			log.debug("loadCaseInfo start");
@@ -55,6 +62,25 @@ public class docAction extends AbstractAction {
 		} catch (Exception e) {
 			sendException(e);
 			log.error("loadCaseInfo error ms=>", e);
+		}
+		return NONE;
+	}
+	
+	public String loadCaseRela(){
+		try{
+			log.debug("=====loadCaseRela start=====");
+			String caseId = super.getRequest().getParameter("iptsearchcaseId");
+			//用caseId 去查詢目前案件的關係人
+			List<LCekSignedRelaInfo> LCekSignedRelaInfo = docService.findRelaByCaseId(caseId);
+
+			JsonObject jsonResponse = new JsonObject();
+			Gson gson = new Gson();
+			jsonResponse.add("Reladata", gson.toJsonTree(LCekSignedRelaInfo));
+			log.debug("responsedata = {}", jsonResponse.toString());
+			printToResponse(jsonResponse.toString());
+		}catch(Exception e){
+			sendException(e);
+			log.error("loadCaseRela error msd=>", e);
 		}
 		return NONE;
 	}
@@ -87,14 +113,15 @@ public class docAction extends AbstractAction {
 			String caseId = super.getRequest().getParameter("caseId"),
 					docInfoId = super.getRequest().getParameter("docInfoId"),
 					docinfoJson = super.getRequest().getParameter("returnOther"),
+					claimsdocsJson = super.getRequest().getParameter("returnClaim"),
 					filedocsJson = super.getRequest().getParameter("returnFile"),
 					otherdocsJson = super.getRequest().getParameter("returnOther");
 			log.debug("caseId = {}, docInfoId = {}", caseId, docInfoId);
+			log.debug("claimsdocsJson = {}", claimsdocsJson);
 			log.debug("file = {}", filedocsJson);
 			log.debug("other = {}", otherdocsJson);
-			
 			String response = docService.saveaddDoc(docInfoId, getSessionLoginUser(), caseId, docinfoJson,
-					filedocsJson, otherdocsJson);
+					claimsdocsJson, claimsdocsJson, filedocsJson, otherdocsJson);
 			printToResponse(response);
 			
 		}catch(Exception e){

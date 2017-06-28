@@ -7,58 +7,80 @@ law.addDoc.claimsDoc = {
 	claimsDocsubtabcount : 0,
 	claimsDocactivesubtabcount : 0,
 	claimsDocsubtabs : $("#claimsDocsubtabs").tabs(),
-	claimsDocexistsubtabs : [0,0,0,0],
+	claimsDocexistsubtabs : [],
 	claimsDocRelaNum : [],
 	// 新增相對人
 	addclaimsRelaTd : function(num){
 		var claimsDoc = law.addDoc.claimsDoc;
 		var claimsDocsubtabcount = claimsDoc.claimsDocsubtabcount;
-		var tdString = 	"<td><label>相對人</label></td>" +
-					"<td><select id='iptclaimsDocRelationPerson-" + num + "_" + claimsDoc.claimsDocRelaNum[0] + "'><option value=''>請選擇</option></select></td>";
-					
-		if(isNaN(claimsDoc.claimsDocRelaNum[claimsDocsubtabcount])){
+		var tdString = ""; 
+		var displaynum = "";
+		
+		if(num !== 0 ){
+			displaynum = num - 1;	
+		}else{
+			displaynum = "";
+		}
+		
+		if(isNaN(claimsDoc.claimsDocRelaNum[num])){
 			claimsDoc.claimsDocRelaNum.push(0);
 		}
-		law.addDoc.claimsDoc.claimsDocRelaNum[0] ++ ;
-		$("#iptclaimsDocRelationPersonTr").append(tdString);
+		
+		law.addDoc.claimsDoc.claimsDocRelaNum[num] ++ ;
+		
+		tdString = "<td><label>相對人</label></td>" +
+				"<td><select id='iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+					
+		$("#iptclaimsDocRelationPersonTr" + displaynum ).append(tdString);
+		
+		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num], law.addDoc.rela);
 	},
 	addclaimsDocsubtab : function(){
 		var claimsDoc = law.addDoc.claimsDoc;
 		var claimsDocsubtabcount = claimsDoc.claimsDocsubtabcount;
 		var claimsDocactivesubtabcount = claimsDoc.claimsDocactivesubtabcount;
 		var claimsDocsubtabs = claimsDoc.claimsDocsubtabs;
-		var tabTitle = "其它";
+		var tabTitle = "債權文件";
 		var tabId = "tabs-" + claimsDocsubtabcount;
-		var tabTemplate = "<li id='liothertab_" + claimsDocsubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
+		var tabTemplate = "<li id='liclaimsDoctab_" + claimsDocsubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
 					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptotherReceivedDate" + claimsDocsubtabcount + "'></input></td>" +
+					"<td><input id='iptclaimsDocReceivedDate" + claimsDocsubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptotherBankDate" + claimsDocsubtabcount + "'></input></td>" +
+					"<td><input id='iptclaimsDocBankDate" + claimsDocsubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
-					"<td><select id='iptotherDocStatus" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptclaimsDocDocStatus" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>文件類別</label></td>" +
-					"<td><select id='iptotherTypeOne" + claimsDocsubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptclaimsDocTypeOne" + claimsDocsubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 					"<td><label>文件項目</label></td>" +
-					"<td><select id='iptotherTypeTwo" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptclaimsDocTypeTwo" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
-					"<td><select id='iptotherBankName" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptclaimsDocBankName" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><label>原債權人</label></td>" +
+					"<td><select id='iptclaimsDocOldBankName" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
+			"</table>" +
+			"<table>" +
+				"<tr id='iptclaimsDocRelationPersonTr" + claimsDocsubtabcount + "'>" +
+					"<td><label>相對人</label></td>" +
+					"<td><select id='iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+					"<td><img src='../images/plus.png' onclick='law.addDoc.claimsDoc.addclaimsRelaTd(" + (claimsDocsubtabcount + 1) + ")'></td>" +
+				"</tr>" +
+			"</table>" +
+			"<table>" +
 				"<tr>" +
-					"<td><label>收據種類</label></td>" +
-					"<td><input id='iptotherReceiptType" + claimsDocsubtabcount + "' ></input></td>" +
-					"<td><label>收據金額</label></td>" +
-					"<td><input id='iptotherReceiptAmount" + claimsDocsubtabcount + "' ></input></td>" +
-					"<td><label>法院製發日</label></td>" +
-					"<td><input id='iptotherCourtDate" + claimsDocsubtabcount + "' ></input></td>" +
+					"<td><label>額度</label></td>" +
+					"<td><input id='iptclaimsDocQuota" + claimsDocsubtabcount + "'></input></td>" +
+					"<td><label>利率</label></td>" +
+					"<td><input id='iptclaimsDocInterestRate" + claimsDocsubtabcount + "'></input></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>備註</label></td>" +
-					"<td><input id='iptotherRemark" + claimsDocsubtabcount + "' ></input></td>" +
+					"<td><input id='iptclaimsDocRemark" + claimsDocsubtabcount + "'></input></td>" +
 				"</tr>" +
            	 "</table>";
        	 var docArray,seloption;
@@ -75,30 +97,30 @@ law.addDoc.claimsDoc = {
 		// 開始初始化
 		
 		//將日期欄位格式化
-		$( "#iptotherReceivedDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherReceivedDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptotherBankDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherBankDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptotherCourtDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherCourtDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		$( "#iptclaimsDocReceivedDate" + claimsDocsubtabcount ).datepicker();
+	    $( "#iptclaimsDocReceivedDate" + claimsDocsubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		$( "#iptclaimsDocBankDate" + claimsDocsubtabcount ).datepicker();
+	    $( "#iptclaimsDocBankDate" + claimsDocsubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 	   
-		law.common.selectOption("#iptotherDocStatus" + othersubtabcount, other.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-		law.common.selectOption("#iptotherTypeOne" + othersubtabcount, other.TypeOne, "8aa2e72a5c812434015c81307418000a");
-		law.common.selectOption("#iptotherTypeTwo" + othersubtabcount, other.TypeTwo);
-		law.common.selectOption("#iptotherBankName" + othersubtabcount, other.BankName);
-		
+		law.common.selectOption("#iptclaimsDocDocStatus" + claimsDocsubtabcount, claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
+		law.common.selectOption("#iptclaimsDocTypeOne" + claimsDocsubtabcount, claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006");
+		law.common.selectOption("#iptclaimsDocTypeTwo" + claimsDocsubtabcount, claimsDoc.TypeTwo);
+		law.common.selectOption("#iptclaimsDocBankName" + claimsDocsubtabcount, claimsDoc.BankName);
+		law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.OldBankName);
+		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0", law.addDoc.rela);
 		//設定收文日期為當日
-		$("#iptotherReceivedDate" + othersubtabcount).val(other.ReceivedDate);
+		$("#iptclaimsDocReceivedDate" + claimsDocsubtabcount).val(claimsDoc.ReceivedDate);
 			
 	},
 	// 初始化
-	initclaimsDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName){
+	initclaimsDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, OldBankName){
 		var initsub = law.addDoc.claimsDoc;
 		initsub.ReceivedDate = ReceivedDate;
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
 		initsub.BankName = BankName;
+		initsub.OldBankName = OldBankName;
 	},
 	// 將所有頁籤內容帶出
 	returnAllsubtabJson : function(){
@@ -106,35 +128,43 @@ law.addDoc.claimsDoc = {
 		var length = law.addDoc.claimsDoc.claimsDocsubtabcount,
 			i = 0,
 			claimsDoc = {},
-			returnClaimsDoc = "";
+			returnClaimsDoc = "",
+			returnClaimsDocRelas_0 = [];
+			
+		for( ; i < law.addDoc.claimsDoc.claimsDocRelaNum[0]; i++){
+			returnClaimsDocRelas_0.push($("#iptclaimsDocRelationPerson_" + i).find('option:selected').text());
+		}
 			
 		var topItem = {
-			'receivedDate' : $("#iptotherReceivedDate").val(),
-			'bankDate' : $("#iptotherBankDate").val(),
-			'docStatus' : $("#iptotherDocStatus").find('option:selected').val(),
-			'typeOne' : $("#iptotherTypeOne").find('option:selected').val(),
-			'typeTwo' : $("#iptotherTypeTwo").find('option:selected').val(),
-			'bankName' : $("#iptotherBankName").find('option:selected').val(),
-			'receiptType' : $("#iptotherReceiptType").val(),
-			'receiptAmount' : $("#iptotherReceiptAmount").val(),
-			'courtDate' : $("#iptotherCourtDate").val(),
-			'remark' : $("#iptotherRemark").val()
+			'receivedDate' : $("#iptclaimsDocReceivedDate").val(),
+			'bankDate' : $("#iptclaimsDocBankDate").val(),
+			'docStatus' : $("#iptclaimsDocDocStatus").find('option:selected').val(),
+			'typeOne' : $("#iptclaimsDocTypeOne").find('option:selected').val(),
+			'typeTwo' : $("#iptclaimsDocTypeTwo").find('option:selected').val(),
+			'bankName' : $("#iptclaimsDocBankName").find('option:selected').val(),
+			'oldBankName' : $("#iptclaimsDocOldBankName").find('option:selected').val(),
+			'claimsRelationPerson' : returnClaimsDocRelas_0,
+			'quota' : $("#iptclaimsDocQuota").val(),
+			'interestRate' : $("#iptclaimsDocInterestRate").val(),
+			'remark' : $("#iptclaimsDocRemark").val()
 		};
 			
 		claimsDoc.subItems = [];
 		claimsDoc.subItems.push(topItem);
 			
+		i = 0;
 		for ( ; i < length; i++ ) {
 				var subItems = {
-					'receivedDate' : $("#iptotherReceivedDate" + i ).val(),
-					'bankDate' : $("#iptotherBankDate" + i ).val(),
-					'docStatus' : $("#iptotherDocStatus" + i ).find('option:selected').val(),
-					'typeOne' : $("#iptotherTypeOne" + i ).find('option:selected').val(),
-					'typeTwo' : $("#iptotherTypeTwo" + i ).find('option:selected').val(),
-					'bankName' : $("#iptotherBankName" + i ).find('option:selected').val(),
-					'receiptType' : $("#iptotherReceiptType" + i ).val(),
-					'receiptAmount' : $("#iptotherReceiptAmount" + i ).val(),
-					'courtDate' : $("#iptotherCourtDate" + i ).val(),
+					'receivedDate' : $("#iptclaimsDocReceivedDate" + i ).val(),
+					'bankDate' : $("#iptclaimsDocBankDate" + i ).val(),
+					'docStatus' : $("#iptclaimsDocDocStatus" + i ).find('option:selected').val(),
+					'typeOne' : $("#iptclaimsDocTypeOne" + i ).find('option:selected').val(),
+					'typeTwo' : $("#iptclaimsDocTypeTwo" + i ).find('option:selected').val(),
+					'bankName' : $("#iptclaimsDocBankName" + i ).find('option:selected').val(),
+					'oldBankName' : $("#iptclaimsDocOldBankName" + i ).find('option:selected').val(),
+//					'relationPerson' : returnClaimsDocRelas_0,
+					'quota' : $("#iptclaimsDocQuota" + i ).val(),
+					'interestRate' : $("#iptclaimsDocInterestRate" + i ).val(),
 					'remark' : $("#iptotherRemark" + i ).val()
 			};
 			claimsDoc.subItems.push(subItems);
@@ -146,8 +176,8 @@ law.addDoc.claimsDoc = {
 }
 	
 	// Close icon: removing the tab on click
-	$("#othersubtabs").tabs().on("click", "span.ui-icon-close", function() {
-		var other = law.addDoc.claimsDoc;
+	$("#claimsDocsubtabs").tabs().on("click", "span.ui-icon-close", function() {
+		var claimsDoc = law.addDoc.claimsDoc;
 		var panelId = $(this).closest("li").remove().attr(
 				"aria-controls");
 		$("#" + panelId).remove();
@@ -159,12 +189,10 @@ law.addDoc.claimsDoc = {
 	
  (function(){
 	//將日期欄位格式化
-	$( "#iptotherReceivedDate" ).datepicker();
-    $( "#iptotherReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptotherBankDate" ).datepicker();
-    $( "#iptotherBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptotherCourtDate" ).datepicker();
-    $( "#iptotherCourtDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#iptclaimsDocReceivedDate" ).datepicker();
+    $( "#iptclaimsDocReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#iptclaimsDocBankDate" ).datepicker();
+    $( "#iptclaimsDocBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
  })();
 // 債權文件 end	
 	

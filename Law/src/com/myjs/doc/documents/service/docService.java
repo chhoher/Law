@@ -3,6 +3,7 @@ package com.myjs.doc.documents.service;
 import java.util.List;
 
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
+import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.sys.user.model.VEIPMemdb;
 
 public interface docService {
@@ -21,7 +22,7 @@ public interface docService {
 	 * @throws Exception 
 	 */
 	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo,
-			String saveFiledoc, String saveOtherdoc) throws Exception;
+			String saveClaimsdoc, String saveClaimsRelas, String saveFiledoc, String saveOtherdoc) throws Exception;
 	
 	/**
 	 * add By Jia 2017-06-22
@@ -29,4 +30,11 @@ public interface docService {
 	 * @throws Exception
 	 */
 	public String saveaddDocInfo(VEIPMemdb loginUser, String caseId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-06-27
+	 * 查詢相關人by caseId
+	 * @throws Exception
+	 */
+	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId) throws Exception;
 }

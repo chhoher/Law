@@ -93,6 +93,23 @@
 		if(selectId !== undefined){
 			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
 		}
+	},
+	
+	/*
+	 * add By Jia 2017-06-27
+	 * 帶入相對人
+	 */
+	selectRelaOption = function(id, array, selectId){
+		var docArray = array,
+			seloption = "";
+		$(id + " option").remove();
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].Row_ID+'">'+docArray[i].Name+'</option>'; 
+		});
+		$(id).append(seloption);
+		if(selectId !== undefined){
+			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
+		}
 	};
 	
  	/*
@@ -119,7 +136,8 @@
  	
  	// 新增通用function
  	law.common = {
- 		selectOption : selectOption
+ 		selectOption : selectOption,
+ 		selectRelaOption : selectRelaOption
  	};
  	
  	// 新增regex
