@@ -104,7 +104,7 @@
 			seloption = "";
 		$(id + " option").remove();
 		$.each(docArray,function(i){
-			seloption += '<option value="'+docArray[i].Row_ID+'">'+docArray[i].Name+'</option>'; 
+			seloption += '<option value="'+docArray[i].ID+'">'+docArray[i].Name+'</option>'; 
 		});
 		$(id).append(seloption);
 		if(selectId !== undefined){

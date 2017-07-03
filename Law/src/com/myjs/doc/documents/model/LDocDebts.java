@@ -3,9 +3,8 @@ package com.myjs.doc.documents.model;
 import java.util.Date;
 import java.util.List;
 
-public class LDocClaimsdocs {
-	
-	private int claimsdocsId;
+public class LDocDebts {
+	private int debtsId;
 	private String infoId;
 	private int caseId;
 	private Date receivedDate;
@@ -16,21 +15,24 @@ public class LDocClaimsdocs {
 	private String bankName;
 	private String oldBankName;
 	private String relationPerson;
-	private int quota;
-	private int interestRate;
+	private String courtYearCourt;
+	private int courtYearYear;
+	private String courtYearTxt;
+	private String courtYearShare;
+	private int courtYearCaseId;
+	private Date debtsDate;
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
 	
 	// add By Jia 2017-06-28 Vo
-	private List<LDocClaimsdocsRela> claimsRelationPerson;
-	
-	public LDocClaimsdocs(int claimsdocsId, String infoId, int caseId, Date receivedDate, Date bankDate,
-			String docStatus, String typeOne, String typeTwo, String bankName, String oldBankName,
-			String relationPerson, int quota, int interestRate, String remark, Date createDatetime,
-			String createUserId) {
-		super();
-		this.claimsdocsId = claimsdocsId;
+	private List<LDocDebtsRela> debtsRelationPerson;
+
+	public LDocDebts(int debtsId, String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus,
+			String typeOne, String typeTwo, String bankName, String oldBankName, String relationPerson,
+			String courtYearCourt, int courtYearYear, String courtYearTxt, String courtYearShare,
+			int courtYearCaseId, Date debtsDate, String remark, Date createDatetime, String createUserId) {
+		this.debtsId = debtsId;
 		this.infoId = infoId;
 		this.caseId = caseId;
 		this.receivedDate = receivedDate;
@@ -41,19 +43,23 @@ public class LDocClaimsdocs {
 		this.bankName = bankName;
 		this.oldBankName = oldBankName;
 		this.relationPerson = relationPerson;
-		this.quota = quota;
-		this.interestRate = interestRate;
+		this.courtYearCourt = courtYearCourt;
+		this.courtYearYear = courtYearYear;
+		this.courtYearTxt = courtYearTxt;
+		this.courtYearShare = courtYearShare;
+		this.courtYearCaseId = courtYearCaseId;
+		this.debtsDate = debtsDate;
 		this.remark = remark;
 		this.createDatetime = createDatetime;
 		this.createUserId = createUserId;
 	}
 
-	public int getClaimsdocsId() {
-		return claimsdocsId;
+	public int getDebtsId() {
+		return debtsId;
 	}
 
-	public void setClaimsdocsId(int claimsdocsId) {
-		this.claimsdocsId = claimsdocsId;
+	public void setDebtsId(int debtsId) {
+		this.debtsId = debtsId;
 	}
 
 	public String getInfoId() {
@@ -136,20 +142,52 @@ public class LDocClaimsdocs {
 		this.relationPerson = relationPerson;
 	}
 
-	public int getQuota() {
-		return quota;
+	public String getCourtYearCourt() {
+		return courtYearCourt;
 	}
 
-	public void setQuota(int quota) {
-		this.quota = quota;
+	public void setCourtYearCourt(String courtYearCourt) {
+		this.courtYearCourt = courtYearCourt;
 	}
 
-	public int getInterestRate() {
-		return interestRate;
+	public int getCourtYearYear() {
+		return courtYearYear;
 	}
 
-	public void setInterestRate(int interestRate) {
-		this.interestRate = interestRate;
+	public void setCourtYearYear(int courtYearYear) {
+		this.courtYearYear = courtYearYear;
+	}
+
+	public String getCourtYearTxt() {
+		return courtYearTxt;
+	}
+
+	public void setCourtYearTxt(String courtYearTxt) {
+		this.courtYearTxt = courtYearTxt;
+	}
+
+	public String getCourtYearShare() {
+		return courtYearShare;
+	}
+
+	public void setCourtYearShare(String courtYearShare) {
+		this.courtYearShare = courtYearShare;
+	}
+
+	public int getCourtYearCaseId() {
+		return courtYearCaseId;
+	}
+
+	public void setCourtYearCaseId(int courtYearCaseId) {
+		this.courtYearCaseId = courtYearCaseId;
+	}
+
+	public Date getDebtsDate() {
+		return debtsDate;
+	}
+
+	public void setDebtsDate(Date debtsDate) {
+		this.debtsDate = debtsDate;
 	}
 
 	public String getRemark() {
@@ -176,13 +214,13 @@ public class LDocClaimsdocs {
 		this.createUserId = createUserId;
 	}
 
-	public List<LDocClaimsdocsRela> getClaimsRelationPerson() {
-		return claimsRelationPerson;
+	public List<LDocDebtsRela> getDebtsRelationPerson() {
+		return debtsRelationPerson;
 	}
 
-	public void setClaimsRelationPerson(List<LDocClaimsdocsRela> claimsRelationPerson) {
-		this.claimsRelationPerson = claimsRelationPerson;
+	public void setDebtsRelationPerson(List<LDocDebtsRela> debtsRelationPerson) {
+		this.debtsRelationPerson = debtsRelationPerson;
 	}
 
-
+	
 }

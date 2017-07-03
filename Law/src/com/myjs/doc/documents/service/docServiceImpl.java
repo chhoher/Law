@@ -12,7 +12,9 @@ import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
+import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
+import com.myjs.doc.documents.model.LDocDebts;
 import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
@@ -82,13 +84,17 @@ public class docServiceImpl implements docService{
 //		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
 //		List<LSysVariable> LSysVariableListTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//相對人
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9528290012");
-		List<LSysVariable> LSysVariableListCourtYearCourt = (List<LSysVariable>) LSysVariableMap.get("list");//文件類別
-		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5ca5db32015ca5de11d00000");
-		List<LSysVariable> LSysVariableListOtherTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(其他)
-		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5cd26484015cd2b513cf0003");
-		List<LSysVariable> LSysVariableListFileTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(卷宗)
+		List<LSysVariable> LSysVariableListCourtYearCourt = (List<LSysVariable>) LSysVariableMap.get("list");//地院
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5cf6c4f2015cf6d2cec1000a");
+		List<LSysVariable> LSysVariableListCashierCheckTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(本票)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9baa8103002e");
+		List<LSysVariable> LSysVariableListDebtsTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(債讓)
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5ce6dd58015ce76baff80008");
 		List<LSysVariable> LSysVariableListClaimDocTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(債權文件)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5cd26484015cd2b513cf0003");
+		List<LSysVariable> LSysVariableListFileTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(卷宗)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5ca5db32015ca5de11d00000");
+		List<LSysVariable> LSysVariableListOtherTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(其他)
 		Gson gson = new Gson();
 		JsonObject jsonResponse = new JsonObject();
 		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableListDocStatus));
@@ -97,6 +103,8 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("BankName", gson.toJsonTree(LSysVariableListBankName));
 		jsonResponse.add("OldBankName", gson.toJsonTree(LSysVariableListOldBankName));
 		jsonResponse.add("CourtYearCourt", gson.toJsonTree(LSysVariableListCourtYearCourt));
+		jsonResponse.add("cashierCheckTypeTwo", gson.toJsonTree(LSysVariableListCashierCheckTypeTwo));
+		jsonResponse.add("debtsTypeTwo", gson.toJsonTree(LSysVariableListDebtsTypeTwo));
 		jsonResponse.add("claimDocTypeTwo", gson.toJsonTree(LSysVariableListClaimDocTypeTwo));
 		jsonResponse.add("fileTypeTwo", gson.toJsonTree(LSysVariableListFileTypeTwo));
 		jsonResponse.add("otherTypeTwo", gson.toJsonTree(LSysVariableListOtherTypeTwo));
@@ -105,11 +113,48 @@ public class docServiceImpl implements docService{
 	}
 	
 	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo,
-			String saveClaimsdoc, String saveClaimsRelas, String saveFiledoc, String saveOtherdoc) throws Exception{
+			String saveCashierCheck, String saveDebts, String saveClaimsdoc, String saveFiledoc, String saveOtherdoc) throws Exception{
 		Date nowDatetime = new Date();
 		Gson gson = new Gson();
 		int case_id = Integer.parseInt(caseId);
 
+		// 本票儲存start
+		List<LDocCashiercheck> cashiercheckItems = gson.fromJson(saveCashierCheck, new TypeToken<List<LDocCashiercheck>>(){}.getType());
+
+		for(int i = 0;i < cashiercheckItems.size();i ++){
+			cashiercheckItems.get(i).setInfoId(docInfoId);
+			cashiercheckItems.get(i).setCreateDatetime(nowDatetime);
+			cashiercheckItems.get(i).setCreateUserId(loginMemdb.getMemno());
+			cashiercheckItems.get(i).setCaseId(case_id);
+			
+			docDao.save(cashiercheckItems.get(i));
+			
+			for(int j = 0;j < cashiercheckItems.get(i).getCashiercheckRelationPerson().size();j ++){
+				cashiercheckItems.get(i).getCashiercheckRelationPerson().get(j).setCashiercheckId(cashiercheckItems.get(i).getCashiercheckId());
+				docDao.save(cashiercheckItems.get(i).getCashiercheckRelationPerson().get(j));
+			}
+		}
+		// 本票儲存end
+		
+		// 債讓儲存start
+		List<LDocDebts> debtsItems = gson.fromJson(saveDebts, new TypeToken<List<LDocDebts>>(){}.getType());
+
+		for(int i = 0;i < debtsItems.size();i ++){
+			debtsItems.get(i).setInfoId(docInfoId);
+			debtsItems.get(i).setCreateDatetime(nowDatetime);
+			debtsItems.get(i).setCreateUserId(loginMemdb.getMemno());
+			debtsItems.get(i).setCaseId(case_id);
+			
+			docDao.save(debtsItems.get(i));
+			
+			for(int j = 0;j < debtsItems.get(i).getDebtsRelationPerson().size();j ++){
+				debtsItems.get(i).getDebtsRelationPerson().get(j).setDebtsId(debtsItems.get(i).getDebtsId());
+				docDao.save(debtsItems.get(i).getDebtsRelationPerson().get(j));
+			}
+		}
+		// 債讓儲存end
+		
+		// 債權文件儲存start
 		List<LDocClaimsdocs> claimsdocsItems = gson.fromJson(saveClaimsdoc, new TypeToken<List<LDocClaimsdocs>>(){}.getType());
 
 		for(int i = 0;i < claimsdocsItems.size();i ++){
@@ -117,11 +162,17 @@ public class docServiceImpl implements docService{
 			claimsdocsItems.get(i).setCreateDatetime(nowDatetime);
 			claimsdocsItems.get(i).setCreateUserId(loginMemdb.getMemno());
 			claimsdocsItems.get(i).setCaseId(case_id);
-			claimsdocsItems.get(i).setRelationPerson("111");
-			claimsdocsItems.get(i).setRemark("111");
+			
 			docDao.save(claimsdocsItems.get(i));
+			
+			for(int j = 0;j < claimsdocsItems.get(i).getClaimsRelationPerson().size();j ++){
+				claimsdocsItems.get(i).getClaimsRelationPerson().get(j).setClaimsdocsId(claimsdocsItems.get(i).getClaimsdocsId());
+				docDao.save(claimsdocsItems.get(i).getClaimsRelationPerson().get(j));
+			}
 		}
+		// 債權文件儲存end
 		
+		// 卷宗儲存start
 		List<LDocFiledocs> filedocsItems = gson.fromJson(saveFiledoc, new TypeToken<List<LDocFiledocs>>(){}.getType());
 
 		for(int i = 0;i < filedocsItems.size();i ++){
@@ -131,7 +182,9 @@ public class docServiceImpl implements docService{
 			filedocsItems.get(i).setCaseId(case_id);
 			docDao.save(filedocsItems.get(i));
 		}
-
+		// 卷宗儲存end
+		
+		// 其他儲存start
 		List<LDocOtherdocs> otherdocsItems = gson.fromJson(saveOtherdoc, new TypeToken<List<LDocOtherdocs>>(){}.getType());
 
 		for(int i = 0;i < otherdocsItems.size();i ++){
@@ -141,6 +194,7 @@ public class docServiceImpl implements docService{
 			otherdocsItems.get(i).setCaseId(case_id);
 			docDao.save(otherdocsItems.get(i));
 		}
+		// 其他儲存end
 		
 		return null;
 	}

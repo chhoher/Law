@@ -3,9 +3,8 @@ package com.myjs.doc.documents.model;
 import java.util.Date;
 import java.util.List;
 
-public class LDocClaimsdocs {
-	
-	private int claimsdocsId;
+public class LDocCashiercheck {
+	private int cashiercheckId;
 	private String infoId;
 	private int caseId;
 	private Date receivedDate;
@@ -16,21 +15,21 @@ public class LDocClaimsdocs {
 	private String bankName;
 	private String oldBankName;
 	private String relationPerson;
-	private int quota;
-	private int interestRate;
+	private Date startDate;
+	private int amount;
+	private Date endDate;
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
 	
 	// add By Jia 2017-06-28 Vo
-	private List<LDocClaimsdocsRela> claimsRelationPerson;
-	
-	public LDocClaimsdocs(int claimsdocsId, String infoId, int caseId, Date receivedDate, Date bankDate,
+	private List<LDocCashiercheckRela> cashiercheckRelationPerson;
+
+	public LDocCashiercheck(int cashiercheckId, String infoId, int caseId, Date receivedDate, Date bankDate,
 			String docStatus, String typeOne, String typeTwo, String bankName, String oldBankName,
-			String relationPerson, int quota, int interestRate, String remark, Date createDatetime,
+			String relationPerson, Date startDate, int amount, Date endDate, String remark, Date createDatetime,
 			String createUserId) {
-		super();
-		this.claimsdocsId = claimsdocsId;
+		this.cashiercheckId = cashiercheckId;
 		this.infoId = infoId;
 		this.caseId = caseId;
 		this.receivedDate = receivedDate;
@@ -41,19 +40,20 @@ public class LDocClaimsdocs {
 		this.bankName = bankName;
 		this.oldBankName = oldBankName;
 		this.relationPerson = relationPerson;
-		this.quota = quota;
-		this.interestRate = interestRate;
+		this.startDate = startDate;
+		this.amount = amount;
+		this.endDate = endDate;
 		this.remark = remark;
 		this.createDatetime = createDatetime;
 		this.createUserId = createUserId;
 	}
 
-	public int getClaimsdocsId() {
-		return claimsdocsId;
+	public int getCashiercheckId() {
+		return cashiercheckId;
 	}
 
-	public void setClaimsdocsId(int claimsdocsId) {
-		this.claimsdocsId = claimsdocsId;
+	public void setCashiercheckId(int cashiercheckId) {
+		this.cashiercheckId = cashiercheckId;
 	}
 
 	public String getInfoId() {
@@ -136,20 +136,28 @@ public class LDocClaimsdocs {
 		this.relationPerson = relationPerson;
 	}
 
-	public int getQuota() {
-		return quota;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setQuota(int quota) {
-		this.quota = quota;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public int getInterestRate() {
-		return interestRate;
+	public int getAmount() {
+		return amount;
 	}
 
-	public void setInterestRate(int interestRate) {
-		this.interestRate = interestRate;
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getRemark() {
@@ -176,13 +184,13 @@ public class LDocClaimsdocs {
 		this.createUserId = createUserId;
 	}
 
-	public List<LDocClaimsdocsRela> getClaimsRelationPerson() {
-		return claimsRelationPerson;
+	public List<LDocCashiercheckRela> getCashiercheckRelationPerson() {
+		return cashiercheckRelationPerson;
 	}
 
-	public void setClaimsRelationPerson(List<LDocClaimsdocsRela> claimsRelationPerson) {
-		this.claimsRelationPerson = claimsRelationPerson;
+	public void setCashiercheckRelationPerson(List<LDocCashiercheckRela> cashiercheckRelationPerson) {
+		this.cashiercheckRelationPerson = cashiercheckRelationPerson;
 	}
-
-
+	
+	
 }

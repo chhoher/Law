@@ -113,15 +113,19 @@ public class docAction extends AbstractAction {
 			String caseId = super.getRequest().getParameter("caseId"),
 					docInfoId = super.getRequest().getParameter("docInfoId"),
 					docinfoJson = super.getRequest().getParameter("returnOther"),
+					cashiercheckJson = super.getRequest().getParameter("returnCashierCheck"),
+					debtsJson = super.getRequest().getParameter("returnDebts"),
 					claimsdocsJson = super.getRequest().getParameter("returnClaim"),
 					filedocsJson = super.getRequest().getParameter("returnFile"),
 					otherdocsJson = super.getRequest().getParameter("returnOther");
 			log.debug("caseId = {}, docInfoId = {}", caseId, docInfoId);
+			log.debug("cashiercheckJson = {}", cashiercheckJson);
+			log.debug("debtsJson = {}", debtsJson);
 			log.debug("claimsdocsJson = {}", claimsdocsJson);
 			log.debug("file = {}", filedocsJson);
 			log.debug("other = {}", otherdocsJson);
 			String response = docService.saveaddDoc(docInfoId, getSessionLoginUser(), caseId, docinfoJson,
-					claimsdocsJson, claimsdocsJson, filedocsJson, otherdocsJson);
+					cashiercheckJson, debtsJson, claimsdocsJson, filedocsJson, otherdocsJson);
 			printToResponse(response);
 			
 		}catch(Exception e){

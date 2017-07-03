@@ -23,7 +23,8 @@ law.addDoc.claimsDoc = {
 		}
 		
 		if(isNaN(claimsDoc.claimsDocRelaNum[num])){
-			claimsDoc.claimsDocRelaNum.push(0);
+//			claimsDoc.claimsDocRelaNum.push(0);
+			claimsDoc.claimsDocRelaNum[num] = 0;
 		}
 		
 		law.addDoc.claimsDoc.claimsDocRelaNum[num] ++ ;
@@ -32,7 +33,6 @@ law.addDoc.claimsDoc = {
 				"<td><select id='iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
 					
 		$("#iptclaimsDocRelationPersonTr" + displaynum ).append(tdString);
-		
 		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num], law.addDoc.rela);
 	},
 	addclaimsDocsubtab : function(){
@@ -110,7 +110,9 @@ law.addDoc.claimsDoc = {
 		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0", law.addDoc.rela);
 		//設定收文日期為當日
 		$("#iptclaimsDocReceivedDate" + claimsDocsubtabcount).val(claimsDoc.ReceivedDate);
-			
+		
+		//設定相對人 = 0
+		law.addDoc.claimsDoc.claimsDocRelaNum[(claimsDocsubtabcount+1)] = 0;
 	},
 	// 初始化
 	initclaimsDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, OldBankName){
@@ -126,13 +128,18 @@ law.addDoc.claimsDoc = {
 	returnAllsubtabJson : function(){
 		
 		var length = law.addDoc.claimsDoc.claimsDocsubtabcount,
-			i = 0,
+			i = 0,j = 0,displayNum = 0,
 			claimsDoc = {},
 			returnClaimsDoc = "",
-			returnClaimsDocRelas_0 = [];
+			returnClaimsDocRelas_0 = [],
+			relainfo = {};
 			
-		for( ; i < law.addDoc.claimsDoc.claimsDocRelaNum[0]; i++){
-			returnClaimsDocRelas_0.push($("#iptclaimsDocRelationPerson_" + i).find('option:selected').text());
+		for( ; i <= law.addDoc.claimsDoc.claimsDocRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptclaimsDocRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptclaimsDocRelationPerson_" + i).find('option:selected').text()
+				};
+			returnClaimsDocRelas_0.push(relainfo);
 		}
 			
 		var topItem = {
@@ -144,6 +151,7 @@ law.addDoc.claimsDoc = {
 			'bankName' : $("#iptclaimsDocBankName").find('option:selected').val(),
 			'oldBankName' : $("#iptclaimsDocOldBankName").find('option:selected').val(),
 			'claimsRelationPerson' : returnClaimsDocRelas_0,
+			'relationPerson' : $("#iptclaimsDocRelationPerson_0").find('option:selected').val(),
 			'quota' : $("#iptclaimsDocQuota").val(),
 			'interestRate' : $("#iptclaimsDocInterestRate").val(),
 			'remark' : $("#iptclaimsDocRemark").val()
@@ -154,6 +162,17 @@ law.addDoc.claimsDoc = {
 			
 		i = 0;
 		for ( ; i < length; i++ ) {
+			returnClaimsDocRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.claimsDoc.claimsDocRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returnClaimsDocRelas_0.push(relainfo);
+			}
+			
 				var subItems = {
 					'receivedDate' : $("#iptclaimsDocReceivedDate" + i ).val(),
 					'bankDate' : $("#iptclaimsDocBankDate" + i ).val(),
@@ -162,10 +181,11 @@ law.addDoc.claimsDoc = {
 					'typeTwo' : $("#iptclaimsDocTypeTwo" + i ).find('option:selected').val(),
 					'bankName' : $("#iptclaimsDocBankName" + i ).find('option:selected').val(),
 					'oldBankName' : $("#iptclaimsDocOldBankName" + i ).find('option:selected').val(),
-//					'relationPerson' : returnClaimsDocRelas_0,
+					'claimsRelationPerson' : returnClaimsDocRelas_0,
+					'relationPerson' : $("#iptclaimsDocRelationPerson_0").find('option:selected').val(),
 					'quota' : $("#iptclaimsDocQuota" + i ).val(),
 					'interestRate' : $("#iptclaimsDocInterestRate" + i ).val(),
-					'remark' : $("#iptotherRemark" + i ).val()
+					'remark' : $("#iptclaimsDocRemark" + i ).val()
 			};
 			claimsDoc.subItems.push(subItems);
 		}

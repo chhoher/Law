@@ -223,96 +223,24 @@ var cashierChecksubtabs = $("#cashierChecksubtabs").tabs();
 	});
 // 本票 end
 	
-// 債讓 start
-var debtssubtabcount = 0;
-var debtsactivesubtabcount = 0;
-var debtssubtabs = $("#debtssubtabs").tabs();
-	function adddebtssubtab() {
-		debtssubtabcount ++ ;
-		debtsactivesubtabcount ++;
-		
-		var tabTitle = "債讓";
-		var tabId = "tabs-" + debtssubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>" +
-           	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptdebtsReceivedDate" + debtssubtabcount + "'></input></td>" +
-					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptdebtsBankDate" + debtssubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
-					"<td><input id='iptdebtsDocStatus" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>文件類別</label></td>" +
-					"<td><input id='iptdebtsTypeOne" + debtssubtabcount + "'></input></td>" +
-					"<td><label>文件項目</label></td>" +
-					"<td><input id='iptdebtsTypeTwo" + debtssubtabcount + "'></input></td>" +
-					"<td><label>債權人</label></td>" +
-					"<td><input id='iptdebtsBankName" + debtssubtabcount + "'></input></td>" +
-					"<td><label>原債權人</label></td>" +
-					"<td><input id='iptdebtsOldBankName" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>相對人</label></td>" +
-					"<td><input id='iptdebtsRelationPerson" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>法院年字案股</label></td>" +
-					"<td><input id='iptdebtsCourtYearCourt" + debtssubtabcount + "'></input></td>" +
-					"<td><label>年度</label></td>" +
-					"<td><input id='iptdebtsCourtYearYear" + debtssubtabcount + "'></input></td>" +
-					"<td><label>字</label></td>" +
-					"<td><input id='iptdebtsCourtYearTxt" + debtssubtabcount + "'></input></td>" +
-					"<td><label>股別</label></td>" +
-					"<td><input id='iptdebtsCourtYearShare" + debtssubtabcount + "'></input></td>" +
-					"<td><label>案號</label></td>" +
-					"<td><input id='iptdebtsCourtYearCaseId" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>債讓日</label></td>" +
-					"<td><input id='iptdebtsDate" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>備註</label></td>" +
-					"<td><input id='iptdebtsRemark" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-           	 "</table>";
-		
-		debtssubtabs.find(".ui-tabs-nav").append(li);
-		debtssubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		debtssubtabs.tabs("refresh");
-		debtssubtabs.tabs({ active: debtsactivesubtabcount});
-	}
-	
-	// Close icon: removing the tab on click
-	debtssubtabs.on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		debtsactivesubtabcount--;
-		debtssubtabs.tabs({ active: debtsactivesubtabcount});
-	});
-// 債讓 end
-
 $(function() {
 	
 	// ===== function start =====
 	
 	function saveaddDoc(){
 		
-		var returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
+		var returnCashierCheck = law.addDoc.cashierCheck.returnAllsubtabJson(),// 儲存(本票)
+			returnDebts = law.addDoc.debts.returnAllsubtabJson(),// 儲存(債讓)
+			returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
 			returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
 			returnOther = law.addDoc.other.returnAllsubtabJson();// 儲存(其他)
-			
+
 		$.ajax({
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',
 					data : {
 						caseId : law.addDoc.caseId,
+						returnCashierCheck : returnCashierCheck,
+						returnDebts : returnDebts,
 						returnClaim : returnClaim,
 						returnFile : returnFile,
 						returnOther : returnOther,

@@ -5,6 +5,8 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
 <!-- Add By Jia 2017-05-12 文管新增的JS功能 -->
 <script type="text/javascript" src="../legaljs/doc/docaddDoc.js"></script>
+<script type="text/javascript" src="../legaljs/doc/adddoc/docCashierCheck.js"></script>
+<script type="text/javascript" src="../legaljs/doc/adddoc/docDebts.js"></script>
 <script type="text/javascript" src="../legaljs/doc/adddoc/docClaimsDoc.js"></script>
 <script type="text/javascript" src="../legaljs/doc/adddoc/docFile.js"></script>
 <script type="text/javascript" src="../legaljs/doc/adddoc/docOther.js"></script>
@@ -95,7 +97,19 @@
 				success : function(response) {
 					relajson = response.Reladata;
 					law.addDoc.rela = relajson;
+					
+					// 本票相對人初始化
+					law.common.selectRelaOption("#iptcashierCheckRelationPerson_0", law.addDoc.rela);
+					law.addDoc.cashierCheck.cashierCheckRelaNum[0] = 0;
+					
+					// 債讓相對人初始化
+					law.common.selectRelaOption("#iptdebtsRelationPerson_0", law.addDoc.rela);
+					law.addDoc.debts.debtsRelaNum[0] = 0;
+					
+					// 債權文件相對人初始化
 					law.common.selectRelaOption("#iptclaimsDocRelationPerson_0", law.addDoc.rela);
+					law.addDoc.claimsDoc.claimsDocRelaNum[0] = 0;
+					
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
@@ -109,7 +123,9 @@
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
-					var claimsDoc = law.addDoc.claimsDoc,
+					var cashierCheck = law.addDoc.cashierCheck,
+						debts = law.addDoc.debts,
+						claimsDoc = law.addDoc.claimsDoc,
 						file = law.addDoc.file,
 						other = law.addDoc.other;
 										
@@ -171,6 +187,33 @@
 					// 將當前caseId 存入
 					law.addDoc.caseId =  <%=request.getParameter("caseId")%>;
 
+					// =====本票start=====
+					law.addDoc.cashierCheck.initcashierChecksubtab(response.nowDate, response.DocStatus, response.TypeOne, 
+							response.cashierCheckTypeTwo, response.BankName, response.OldBankName);
+					//設定收文日期為當日
+					$("#iptcashierCheckReceivedDate").val(response.nowDate);
+					//債讓下拉選項
+					law.common.selectOption("#iptcashierCheckDocStatus", cashierCheck.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
+					law.common.selectOption("#iptcashierCheckTypeOne", cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007");
+					law.common.selectOption("#iptcashierCheckTypeTwo", cashierCheck.TypeTwo);
+					law.common.selectOption("#iptcashierCheckBankName", cashierCheck.BankName);
+					law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.OldBankName);
+					// =====本票end=====
+					
+					// =====債讓start=====
+					law.addDoc.debts.initdebtssubtab(response.nowDate, response.DocStatus, response.TypeOne, 
+							response.debtsTypeTwo, response.BankName, response.OldBankName, response.CourtYearCourt);
+					//設定收文日期為當日
+					$("#iptdebtsReceivedDate").val(response.nowDate);
+					//債讓下拉選項
+					law.common.selectOption("#iptdebtsDocStatus", debts.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
+					law.common.selectOption("#iptdebtsTypeOne", debts.TypeOne, "8aa2e72a5c812434015c81303cbf0008");
+					law.common.selectOption("#iptdebtsTypeTwo", debts.TypeTwo);
+					law.common.selectOption("#iptdebtsBankName", debts.BankName);
+					law.common.selectOption("#iptdebtsOldBankName", debts.OldBankName);
+					law.common.selectOption("#iptdebtsCourtYearCourt", debts.CourtYearCourt);
+					// =====債讓end=====
+						
 					// =====債權文件start=====
 					law.addDoc.claimsDoc.initclaimsDocsubtab(response.nowDate, response.DocStatus, response.TypeOne, 
 							response.claimDocTypeTwo, response.BankName, response.OldBankName);
@@ -864,11 +907,11 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccashierCheck">
-	本票<img alt="新增本票" src="../images/plus.png" onclick="addcashierChecksubtab()">
+	本票<img alt="新增本票" src="../images/plus.png" onclick="law.addDoc.cashierCheck.addcashierChecksubtab()">
 
         <div id="cashierChecksubtabs">
           <ul>
-            <li><a href="#cashierChecksubtabs-0">本票</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#cashierChecksubtabs-0">本票</a></li>
           </ul>
           <div id="cashierChecksubtabs-0">
             <div>
@@ -879,22 +922,27 @@
 					<td><label>業主調件日</label></td>
 					<td><input id="iptcashierCheckBankDate" ></input></td>
 					<td><label>文件狀態</label></td>
-					<td><input id="iptcashierCheckDocStatus" ></input></td>
+					<td><select id="iptcashierCheckDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>文件類別</label></td>
-					<td><input id="iptcashierCheckTypeOne" ></input></td>
+					<td><select id="iptcashierCheckTypeOne" disabled><option value="">請選擇</option></select></td>
 					<td><label>文件項目</label></td>
-					<td><input id="iptcashierCheckTypeTwo" ></input></td>
+					<td><select id="iptcashierCheckTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><input id="iptcashierCheckBankName" ></input></td>
+					<td><select id="iptcashierCheckBankName"><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
-					<td><input id="iptcashierCheckOldBankName" ></input></td>
+					<td><select id="iptcashierCheckOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
-				<tr>
+			</table>
+			<table>
+				<tr id="iptcashierCheckRelationPersonTr">
 					<td><label>相對人</label></td>
-					<td><input id="iptcashierCheckRelationPerson" ></input></td>
+					<td><select id="iptcashierCheckRelationPerson_0"><option value="">請選擇</option></select></td>
+					<td><img src="../images/plus.png" onclick="law.addDoc.cashierCheck.addcashierCheckRelaTd(0)"></td>
 				</tr>
+			</table>
+			<table>
 				<tr>
 					<td><label>本票發票日</label></td>
 					<td><input id="iptcashierCheckStartDate" ></input></td>
@@ -915,11 +963,11 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocdebts">
-	債讓<img alt="債讓" src="../images/plus.png" onclick="adddebtssubtab()">
+	債讓<img alt="債讓" src="../images/plus.png" onclick="law.addDoc.debts.adddebtssubtab()">
 
         <div id="debtssubtabs">
           <ul>
-            <li><a href="#debtssubtabs-0">債讓</a><span	class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <li><a href="#debtssubtabs-0">債讓</a></li>
           </ul>
           <div id="debtssubtabs-0">
 
@@ -931,25 +979,30 @@
 					<td><label>業主調件日</label></td>
 					<td><input id="iptdebtsBankDate" ></input></td>
 					<td><label>文件狀態</label></td>
-					<td><input id="iptdebtsDocStatus" ></input></td>
+					<td><select id="iptdebtsDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>文件類別</label></td>
-					<td><input id="iptdebtsTypeOne" ></input></td>
+					<td><select id="iptdebtsTypeOne" disabled><option value="">請選擇</option></select></td>
 					<td><label>文件項目</label></td>
-					<td><input id="iptdebtsTypeTwo" ></input></td>
+					<td><select id="iptdebtsTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><input id="iptdebtsBankName" ></input></td>
+					<td><select id="iptdebtsBankName"><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
-					<td><input id="iptdebtsOldBankName" ></input></td>
+					<td><select id="iptdebtsOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
-				<tr>
+			</table>
+			<table>
+				<tr id="iptdebtsRelationPersonTr">
 					<td><label>相對人</label></td>
-					<td><input id="iptdebtsRelationPerson" ></input></td>
+					<td><select id="iptdebtsRelationPerson_0"><option value="">請選擇</option></select></td>
+					<td><img src="../images/plus.png" onclick="law.addDoc.debts.adddebtsRelaTd(0)"></td>
 				</tr>
+			</table>
+			<table>
 				<tr>
 					<td><label>法院年字案股</label></td>
-					<td><input id="iptdebtsCourtYearCourt" ></input></td>
+					<td><select id="iptdebtsCourtYearCourt"><option value="">請選擇</option></select></td>
 					<td><label>年度</label></td>
 					<td><input id="iptdebtsCourtYearYear" ></input></td>
 					<td><label>字</label></td>

@@ -22,7 +22,7 @@ public interface docService {
 	 * @throws Exception 
 	 */
 	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo,
-			String saveClaimsdoc, String saveClaimsRelas, String saveFiledoc, String saveOtherdoc) throws Exception;
+			String saveCashierCheck, String saveDebts, String saveClaimsdoc, String saveFiledoc, String saveOtherdoc) throws Exception;
 	
 	/**
 	 * add By Jia 2017-06-22

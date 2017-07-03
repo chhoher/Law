@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- add By Jia 2017-06-29 文管新增的債讓 -->
+<hibernate-mapping>
+    <class name="com.myjs.doc.documents.model.LDocDebts" table="L_DOC_DEBTS" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="debtsId" type="int">
+            <column name="debts_id"/>
+            <generator class="identity" />
+        </id>
+		<property name="infoId" type="string">
+			<column name="info_id" length="50" />
+		</property>
+		<property name="caseId" type="int">
+			<column name="case_id" not-null="true"/>
+		</property>
+		<property name="createDatetime" type="timestamp">
+            <column name="create_datetime" length="23" not-null="true" />
+		</property>
+		<property name="createUserId" type="string">
+			<column name="create_user_id" length="50" not-null="true"/>
+		</property>
+		<property name="receivedDate" type="timestamp">
+			<column name="received_date" length="23" not-null="true"/>
+		</property>
+		<property name="bankDate" type="timestamp">
+			<column name="bank_date" length="23" not-null="true" />
+		</property>
+		<property name="docStatus" type="string">
+			<column name="doc_status" length="50" not-null="true" />
+		</property>
+		<property name="typeOne" type="string">
+			<column name="type_one" length="50" not-null="true" />
+		</property>
+		<property name="typeTwo" type="string">
+			<column name="type_two" length="50" not-null="true" />
+		</property>
+		<property name="bankName" type="string">
+			<column name="bank_name" length="50" not-null="true" />
+		</property>
+		<property name="oldBankName" type="string">
+			<column name="old_bank_name" length="50" not-null="true" />
+		</property>
+		<property name="relationPerson" type="string">
+			<column name="relation_person" length="50" not-null="true"/>
+		</property>		
+		<property name="courtYearCourt" type="string">
+			<column name="court_year_court" length="50" not-null="true"/>
+		</property>
+		<property name="courtYearYear" type="int">
+			<column name="court_year_year" not-null="true"/>
+		</property>
+		<property name="courtYearTxt" type="string">
+			<column name="court_year_txt" length="50" not-null="true"/>
+		</property>
+		<property name="courtYearShare" type="string">
+			<column name="court_year_share" length="50" not-null="true"/>
+		</property>
+		<property name="courtYearCaseId" type="int">
+			<column name="court_year_case_id" not-null="true"/>
+		</property>
+		<property name="debtsDate" type="timestamp">
+			<column name="debts_date" length="23" not-null="true" />
+		</property>
+		<property name="remark" type="string">
+			<column name="remark" />
+		</property>	
+	</class>
+</hibernate-mapping>
