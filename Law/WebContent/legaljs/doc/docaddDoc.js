@@ -272,3 +272,175 @@ $(function() {
 	// ===== 功能列按鈕 end =====
 	
 });
+
+(function(){
+	 //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 start
+		    $("#ckbaddDocAll").on( "click", function(){
+		    	if($("#ckbaddDocAll").is(':checked')){
+		    		$("#ckbaddDocentitlementForeclosure").prop("checked", false);
+		    		$("#ckbaddDoccourtDoc").prop("checked", false);
+		    		$("#ckbaddDoccashierCheck").prop("checked", false);
+		    		$("#ckbaddDocdebts").prop("checked", false);
+		    		$("#ckbaddDocclaimsDoc").prop("checked", false);
+		    		$("#ckbaddDocfile").prop("checked", false);
+		    		$("#ckbaddDocother").prop("checked", false);
+		    		
+		    		$("#divaddDocentitlementForeclosure").show();
+		    		$("#divaddDoccourtDoc").show();
+		    		$("#divaddDoccashierCheck").show();
+		    		$("#divaddDocdebts").show();
+		    		$("#divaddDocclaimsDoc").show();
+		    		$("#divaddDocfile").show();
+		    		$("#divaddDocother").show();
+		    	}else{
+		    		$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+		    	}
+		    });
+		    $("#ckbaddDocentitlementForeclosure").on( "click", function(){
+		    	if($("#ckbaddDocentitlementForeclosure").is(':checked')){
+		    		
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+		    		
+		    		$("#divaddDocentitlementForeclosure").show();
+		    	}else{
+		    		$("#divaddDocentitlementForeclosure").hide();
+		    	}
+		    });
+		    $("#ckbaddDoccourtDoc").on( "click", function(){
+		    	if($("#ckbaddDoccourtDoc").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+		    		
+		    		$("#divaddDoccourtDoc").show();
+		    	}else{
+		    		$("#divaddDoccourtDoc").hide();
+		    	}
+		    });
+		    $("#ckbaddDoccashierCheck").on( "click", function(){
+		    	if($("#ckbaddDoccashierCheck").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+		    		
+		    		$("#divaddDoccashierCheck").show();
+		    	}else{
+		    		$("#divaddDoccashierCheck").hide();
+		    	}
+		    });
+		    $("#ckbaddDocdebts").on( "click", function(){
+		    	if($("#ckbaddDocdebts").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocdebts").show();
+		    	}else{
+		    		$("#divaddDocdebts").hide();
+		    	}
+		    });
+		    $("#ckbaddDocclaimsDoc").on( "click", function(){
+		    	if($("#ckbaddDocclaimsDoc").is(':checked')){
+		    		
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocclaimsDoc").show();
+		    	}else{
+		    		$("#divaddDocclaimsDoc").hide();
+		    	}
+		    });
+		    $("#ckbaddDocfile").on( "click", function(){
+		    	if($("#ckbaddDocfile").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocfile").show();
+		    	}else{
+		    		$("#divaddDocfile").hide();
+		    	}
+		    });
+		    $("#ckbaddDocother").on( "click", function(){
+		    	if($("#ckbaddDocother").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocother").show();
+		    	}else{
+		    		$("#divaddDocother").hide();
+		    	}
+		    });
+		  //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 end
+})();
