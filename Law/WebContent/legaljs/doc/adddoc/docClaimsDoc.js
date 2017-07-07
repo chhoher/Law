@@ -97,10 +97,8 @@ law.addDoc.claimsDoc = {
 		// 開始初始化
 		
 		//將日期欄位格式化
-		$( "#iptclaimsDocReceivedDate" + claimsDocsubtabcount ).datepicker();
-	    $( "#iptclaimsDocReceivedDate" + claimsDocsubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptclaimsDocBankDate" + claimsDocsubtabcount ).datepicker();
-	    $( "#iptclaimsDocBankDate" + claimsDocsubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+ 		law.common.formatInputItemToDate("#iptclaimsDocReceivedDate" + claimsDocsubtabcount, "yy-mm-dd");
+ 		law.common.formatInputItemToDate("#iptclaimsDocBankDate" + claimsDocsubtabcount, "yy-mm-dd");
 	   
 		law.common.selectOption("#iptclaimsDocDocStatus" + claimsDocsubtabcount, claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 		law.common.selectOption("#iptclaimsDocTypeOne" + claimsDocsubtabcount, claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006");
@@ -209,10 +207,8 @@ law.addDoc.claimsDoc = {
 	
  (function(){
 	//將日期欄位格式化
-	$( "#iptclaimsDocReceivedDate" ).datepicker();
-    $( "#iptclaimsDocReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptclaimsDocBankDate" ).datepicker();
-    $( "#iptclaimsDocBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+ 		law.common.formatInputItemToDate("#iptclaimsDocReceivedDate", "yy-mm-dd");
+ 		law.common.formatInputItemToDate("#iptclaimsDocBankDate", "yy-mm-dd");
  })();
 // 債權文件 end	
 	

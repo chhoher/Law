@@ -18,8 +18,12 @@ function login(){
 			type : "POST",
 			dataType : 'json',
 			success : function(response){
-				if (response.success == "success") {
-					document.location.href='../index.html';
+				if (response.success === "success") {
+					if(response.LoginInSigned === "true"){
+						document.location.href=response.LoginInSignedHref;
+					}else{
+						document.location.href='../index.html';
+					}
 				} else {
 					alert(response.msg);
 				}

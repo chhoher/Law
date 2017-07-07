@@ -13,11 +13,9 @@ $(document).ready(function(){
 		else
 		return paddingLeft("0" +str,lenght);
 	}
-	
-	$( "#iptsearchrecordcheckformCloseCreateDateS" ).datepicker();
-    $( "#iptsearchrecordcheckformCloseCreateDateS" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-    $( "#iptsearchrecordcheckformCloseCreateDateE" ).datepicker();
-    $( "#iptsearchrecordcheckformCloseCreateDateE" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+	law.common.formatInputItemToDate( "#iptsearchrecordcheckformCloseCreateDateS", "yy-mm-dd");
+	law.common.formatInputItemToDate( "#iptsearchrecordcheckformCloseCreateDateE", "yy-mm-dd");
     var opt={
     		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	

@@ -110,6 +110,16 @@
 		if(selectId !== undefined){
 			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
 		}
+	},
+	
+	/*
+	 * add By Jia 2017-07-04
+	 * 將日期輸入欄格式化
+	 */
+	formatInputItemToDate = function(id, formatType){
+		$( id ).datepicker();
+    	$( id ).datepicker( "option", "dateFormat", formatType );
+    	$( id ).datepicker( "option", $.datepicker.regional[ "zh-TW" ] );
 	};
 	
  	/*
@@ -137,7 +147,8 @@
  	// 新增通用function
  	law.common = {
  		selectOption : selectOption,
- 		selectRelaOption : selectRelaOption
+ 		selectRelaOption : selectRelaOption,
+ 		formatInputItemToDate : formatInputItemToDate
  	};
  	
  	// 新增regex

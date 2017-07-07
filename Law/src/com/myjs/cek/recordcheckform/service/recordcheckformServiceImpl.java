@@ -92,19 +92,12 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 	}
 	
 	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform, 
-			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles, String[] stepPay) throws Exception{
+			String type, List<LCekRecordFile> LCekRecordFile, VEIPMemdb loginUser, String[] saveselectOhterFiles, String[] stepPay) throws Exception{
 		//type = 1 表示暫存
 		if(type.equals("1")){ 
 			
 			LCekRecordCheckform.setStatus(Integer.valueOf(type));
 			LCekRecordSigned.setStatus(Integer.valueOf(type));
-			
-			VEIPMemdb applyUser = memdbDao.findbyuserId(LCekRecordSigned.getApplyUserId());// 申請人
-			
-			LCekRecordSigned.setApplyUserId(applyUser.getMemno());
-			LCekRecordSigned.setApplyUserName(applyUser.getMemnm());
-			LCekRecordSigned.setReceivedUserId(applyUser.getMemno());
-			LCekRecordSigned.setReceivedUserName(applyUser.getMemnm());
 			
 			if(LCekRecordSigned.getSignedId() != null && !LCekRecordSigned.getSignedId().equals("null")){
 				recordcheckformDao.merge(LCekRecordSigned);
@@ -121,13 +114,10 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			}
 			
 			LCekRecordCheckform.setMappingtableId(LCekRecordSigned.getSignedId());
-			LCekRecordCheckform.setReceivedUserId(LCekRecordSigned.getApplyUserId());
-			LCekRecordCheckform.setModifyUserId(LCekRecordSigned.getApplyUserId());
 			recordcheckformDao.save(LCekRecordCheckform);
 			
 			for(int i = 0; i < LCekRecordFile.size(); i ++){
 				LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-				LCekRecordFile.get(i).setModifyUserId(LCekRecordSigned.getApplyUserId());
 				recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
 			}
 			
@@ -146,11 +136,8 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordCheckform.setStatus(Integer.valueOf(type));
 			LCekRecordSigned.setStatus(Integer.valueOf(type));
 			
-			VEIPMemdb applyUser = memdbDao.findbyuserId(LCekRecordSigned.getApplyUserId());// 申請人
-			VEIPMemdb adminUser = memdbDao.findbyMemno(applyUser.getAdmno1());// 申請人的主管
+			VEIPMemdb adminUser = memdbDao.findbyMemno(loginUser.getAdmno1());// 申請人的主管
 			
-			LCekRecordSigned.setApplyUserId(applyUser.getMemno());
-			LCekRecordSigned.setApplyUserName(applyUser.getMemnm());
 			LCekRecordSigned.setReceivedUserId(adminUser.getMemno());//送至主管，receivedUser須改為主管
 			LCekRecordSigned.setReceivedUserName(adminUser.getMemnm());//送至主管，receivedUser須改為主管
 			LCekRecordCheckform.setReceivedUserId(adminUser.getMemno());
@@ -182,7 +169,6 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			if(LCekRecordFile.size() > 0){
 				for(int i = 0; i < LCekRecordFile.size(); i ++){
 					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					LCekRecordFile.get(i).setModifyUserId(LCekRecordSigned.getApplyUserId());
 					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
 					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
 //					fileNames[i] = LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName();
@@ -212,8 +198,12 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			//寄送Mail start
 			 
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
-					"簽呈信件", "鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + adminUser.getUserID() + "&type=2&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), null, loginUser.getMemmail(), null, "", 
+					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
+					" 簽呈申請待簽核通知函", "主管，您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
+					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
+					"】簽呈，目前簽呈已送您簽核中，</br>煩請審核，謝謝！</br><a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" +
+					LCekRecordSigned.getSignedId()+ "&type=2&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
 		
@@ -223,15 +213,13 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordCheckform.setStatus(Integer.valueOf(type));
 			LCekRecordSigned.setStatus(Integer.valueOf(type));
 			VEIPMemdb applyUser = memdbDao.findbyMemno(LCekRecordSigned.getApplyUserId());// 申請人
-			VEIPMemdb adminUser = memdbDao.findbyMemno(applyUser.getAdmno1());// 申請人的主管
 			
 			//退回至申請人，receivedUser須改為申請人
 			LCekRecordSigned.setApplyUserId(applyUser.getMemno());
 			LCekRecordSigned.setApplyUserName(applyUser.getMemnm());
-			LCekRecordSigned.setReceivedUserId(applyUser.getMemno());//送至主管，receivedUser須改為主管
-			LCekRecordSigned.setReceivedUserName(applyUser.getMemnm());//送至主管，receivedUser須改為主管
+			LCekRecordSigned.setReceivedUserId(applyUser.getMemno());//退回申請人，receivedUser須改為申請人
+			LCekRecordSigned.setReceivedUserName(applyUser.getMemnm());//退回申請人，receivedUser須改為申請人
 			LCekRecordCheckform.setReceivedUserId(applyUser.getMemno());
-			LCekRecordCheckform.setModifyUserId(adminUser.getMemno());
 			
 			log.debug("LCekRecordSigned.getSignedId() = {}", LCekRecordSigned.getSignedId());
 			if(LCekRecordSigned.getSignedId() != null && !LCekRecordSigned.getSignedId().equals("null")){
@@ -257,7 +245,6 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			if(LCekRecordFile.size() > 0){
 				for(int i = 0; i < LCekRecordFile.size(); i ++){
 					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					LCekRecordFile.get(i).setModifyUserId(adminUser.getMemno());
 					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
 					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
 				}
@@ -286,12 +273,15 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			//寄送Mail start
 			 
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", applyUser.getMemmail(), "劉家嘉", 
-					"簽呈信件", "退回簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + applyUser.getUserID() + "&type=3&caseId="+ LCekRecordSigned.getCaseId() +">"+"退回簽呈", null);
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", applyUser.getMemmail(), null, loginUser.getMemmail(), null, "", 
+					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
+					" 簽呈退回通知函", "您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
+					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
+					"】簽呈，主管審核不通過-" + LCekRecordSigned.getBackMark() + "，</br>，謝謝！</br><a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + 
+					LCekRecordSigned.getSignedId()+ "&type=3&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
-		
-			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈由" + adminUser.getMemnm() + "退回 =====退回原因:" + LCekRecordSigned.getBackMark() + "=====");
+			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈由" + loginUser.getMemnm() + "主管退回，退回原因:" + LCekRecordSigned.getBackMark());
 			
 		//type = 4 表示主管審核，業主審核中
 		}else if(type.equals("4")){ 
@@ -300,7 +290,6 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSigned.setStatus(Integer.valueOf(type));
 			VEIPMemdb applyUser = memdbDao.findbyMemno(LCekRecordSigned.getApplyUserId());// 申請人
 			VEIPMemdb contactPerson = memdbDao.findContactPersonByBankName(LCekRecordSigned.getBankName());// 客戶關係科
-			VEIPMemdb adminUser = memdbDao.findbyMemno(applyUser.getAdmno1());// 申請人的主管
 			
 			LCekRecordSigned.setApplyUserId(applyUser.getMemno());
 			LCekRecordSigned.setApplyUserName(applyUser.getMemnm());
@@ -308,7 +297,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSigned.setReceivedUserId(contactPerson.getMemno());
 			LCekRecordSigned.setReceivedUserName(contactPerson.getMemnm());
 			LCekRecordCheckform.setReceivedUserId(contactPerson.getMemno());
-			LCekRecordCheckform.setModifyUserId(adminUser.getMemno());
+			LCekRecordCheckform.setModifyUserId(loginUser.getMemno());
 			
 			log.debug("LCekRecordSigned.getSignedId() = {}", LCekRecordSigned.getSignedId());
 			if(LCekRecordSigned.getSignedId() != null && !LCekRecordSigned.getSignedId().equals("null")){
@@ -334,7 +323,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			if(LCekRecordFile.size() > 0){
 				for(int i = 0; i < LCekRecordFile.size(); i ++){
 					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					LCekRecordFile.get(i).setModifyUserId(adminUser.getMemno());
+					LCekRecordFile.get(i).setModifyUserId(loginUser.getMemno());
 					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
 					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
 				}
@@ -360,15 +349,18 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 				}
 			}
 			
-			//寄送Mail start
+			//寄送Mail start 
 			 
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", contactPerson.getMemmail(), "劉家嘉", 
-					"簽呈信件", "核准簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + contactPerson.getUserID() + "&type=4&caseId="+ LCekRecordSigned.getCaseId() +">"+"核准簽呈", null);
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", contactPerson.getMemmail(), null, loginUser.getMemmail(), applyUser.getMemmail(), "", 
+					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
+					" 簽呈送業主審核通知函", "客服窗口，您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
+					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
+					"】簽呈，主管已簽准，</br>煩請協助送業主審核，謝謝！</br><a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
+					"&type=4&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
-
-			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈由" + adminUser.getMemnm() + "審核通過，已轉由" + contactPerson.getMemnm() + "處理中");
+			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈由" + loginUser.getMemnm() + "主管審核通過，已轉由" + contactPerson.getMemnm() + "窗口處理中");
 			
 		//type = 5 表示結案，看業主審核結果為何，更改備註，以及業主同意不同意。
 		}else if(type.equals("5")){ 
@@ -376,7 +368,6 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordCheckform.setStatus(Integer.valueOf(type));
 			LCekRecordSigned.setStatus(Integer.valueOf(type));
 			VEIPMemdb applyUser = memdbDao.findbyMemno(LCekRecordSigned.getApplyUserId());// 申請人
-			VEIPMemdb contactPerson = memdbDao.findContactPersonByBankName(LCekRecordSigned.getBankName());// 客戶關係科
 			
 			LCekRecordSigned.setApplyUserId(applyUser.getMemno());
 			LCekRecordSigned.setApplyUserName(applyUser.getMemnm());
@@ -384,7 +375,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSigned.setReceivedUserId(applyUser.getMemno());
 			LCekRecordSigned.setReceivedUserName(applyUser.getMemnm());
 			LCekRecordCheckform.setReceivedUserId(applyUser.getMemno());
-			LCekRecordCheckform.setModifyUserId(contactPerson.getMemno());
+			LCekRecordCheckform.setModifyUserId(loginUser.getMemno());
 			
 			log.debug("LCekRecordSigned.getSignedId() = {}", LCekRecordSigned.getSignedId());
 			if(LCekRecordSigned.getSignedId() != null && !LCekRecordSigned.getSignedId().equals("null")){
@@ -410,7 +401,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			if(LCekRecordFile.size() > 0){
 				for(int i = 0; i < LCekRecordFile.size(); i ++){
 					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					LCekRecordFile.get(i).setModifyUserId(contactPerson.getMemno());
+					LCekRecordFile.get(i).setModifyUserId(loginUser.getMemno());
 					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
 					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
 				}
@@ -437,17 +428,34 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			}
 			
 			//寄送Mail start
-			 
+			String bankResult = "";
+			String smartNote = "";
+			if(LCekRecordSigned.getOwnerAgree().equals("Y")){
+				bankResult = "業主同意";
+				smartNote = "簽呈業主同意：" + LCekRecordSigned.getPaytimeEnd() + "前，以總金額" + LCekRecordSigned.getAmmountSum() + "，" + LCekRecordSigned.getType();
+			}else{
+				bankResult = "業主不同意-" + LCekRecordSigned.getRemark();
+				smartNote = "簽呈業主不同意：退件原因" + LCekRecordSigned.getRemark();
+			}
+			
 			MailUtil sendMail = new MailUtil();
-			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
-					"簽呈信件", "結案簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + applyUser.getUserID() + "&type=5&caseId="+ LCekRecordSigned.getCaseId() +">"+"結案簽呈", null);
+			MailSenderInfo sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), applyUser.getMemmail(), null, null, "劉家嘉", 
+					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
+					" 送簽結果通知函", "您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
+					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
+					"】簽呈，" + bankResult + "，</br>謝謝！</br><a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
+					"&type=5&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
-			sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
-					"簽呈信件", "結案簽呈 鏈接地址：<a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ "&userId=" + adminUser.getUserID() + "&type=5&caseId="+ LCekRecordSigned.getCaseId() +">"+"結案簽呈", null);
-			sendMail.sendHtmlMail(sendMailcontent, fileNames);
+//			sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
+//					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
+//					" 送簽結果通知函", "您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
+//					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
+//					"】簽呈，" + bankResult + "，</br>謝謝！</br><a href=http://jsam08:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
+//					"&userId=" + adminUser.getUserID() + "&type=5&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
+//			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
-		
-			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), "簽呈已知會" + LCekRecordSigned.getBankName() + " =====" + LCekRecordSigned.getRemark() + "減免=====");
+			
+			recordcheckformDao.insertCaseNote(LCekRecordSigned.getCaseId(), smartNote);
 			
 		}
 		return "";

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <meta  http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
@@ -8,12 +8,15 @@
 <link rel="stylesheet" href="../../js/themes/default/style.min.css" />
 <script type="text/javascript" src="../../js/external/jquery/jquery.js"></script>
 <script src="../../js/jquery-ui.js"></script>
+<script src="../../i18n/datepicker-zh-TW.js"></script>
 <link href="../../js/jquery.dataTables.css" rel="stylesheet">
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <!-- Add By Jia 2017-04-11 多檔上傳JS引用 -->
 <script src="../../js/vendor/jquery.ui.widget.js"></script>
 <script src="../../js/jquery.iframe-transport.js"></script>
 <script src="../../js/jquery.fileupload.js"></script>
+<!-- Add By Jia 2017-07-04 引用自定義的js -->
+<script type="text/javascript" src="../../legaljs/law.js"></script>
 <style type="text/css">
 	
 .bar {
@@ -50,16 +53,11 @@ var otherfilenum = 0;
 		
 	    $("#signedfileOtherTable").dataTable(opt);
 		
-		//alert('<%=request.getParameter("userId")%>');
 		$( function() {
-		    $( "#iptcasePayStartDate" ).datepicker();
-		    $( "#iptcasePayStartDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		    $( "#iptcasePayEndDate" ).datepicker();
-		    $( "#iptcasePayEndDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		    $( "#iptcaseStepPayStartDate" ).datepicker();
-		    $( "#iptcaseStepPayStartDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		    $( "#iptcaseStepPayEndDate" ).datepicker();
-		    $( "#iptcaseStepPayEndDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+			law.common.formatInputItemToDate( "#iptcasePayStartDate", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcasePayEndDate", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate", "yy-mm-dd");
 		  } );
 
 		var fileIds = [];
@@ -71,14 +69,17 @@ var otherfilenum = 0;
 				url : 'pages/cek/recordcheckform/recordcheckformAction!initSignedForm.action',
 				data : {
 					'caseId' : '<%=request.getParameter("caseId")%>',
-					'userId' : '<%=request.getParameter("userId")%>',
 					'signedId' : '<%=request.getParameter("signedId")%>'
 				},
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
 					json = response.data;
-					if(json != null){
+					// 若沒有權限直接隱藏按鈕
+					if(response.otherInfo.canUse !== true){
+						$("#trsubmitSigned").hide();
+					}
+					if(json !== null){
 						$("#iptcaseId").val(paddingLeft(json.Case_ID,8));
 						$("#iptcaseCreateDate").val(response.otherInfo.nowDate);
 						$("#iptcaseBankName").val(json.Bank_alias);
@@ -104,6 +105,9 @@ var otherfilenum = 0;
 						});
 						$("#iptcaseType").append(caseTypeseloption);
 						$("#iptcasePeriods").val(1);
+					}else if(response.recordSigned === null){
+							alert("查無此案件，請重新輸入案號");
+							window.close();
 					}
 					//當是已經存在DB的資料時
 					if(response.otherInfo.hasOldRecord){
@@ -185,6 +189,25 @@ var otherfilenum = 0;
 						$( "#btnbackSigned" ).button( "disable" );
 						$( "#btncheckedSubmitSigned" ).button( "disable" );
 					}
+					// 控制若是一次清償，鎖定繳費迄日
+					if($("#iptcaseType").val() == 0){
+						$("#iptcasePeriods").val(1);
+						$("#iptcasePeriods").attr("disabled", true);
+						$("#iptcasePayEndDate").attr("disabled", true);
+					}else if($("#iptcaseType").val() == 1){
+						$("#iptcasePeriods").val(4);
+						$("#iptcasePeriods").attr("disabled", false);
+						$("#iptcasePayEndDate").attr("disabled", false);
+					}else if($("#iptcaseType").val() == 2){
+						$("#iptcasePeriods").val(12);
+						$("#iptcasePeriods").attr("disabled", false);
+						$("#iptcasePayEndDate").attr("disabled", false);
+					}else{
+						//dialogstepPay.dialog("open");
+						$("#iptcasePeriods").attr("disabled", true);
+						$("#iptcasePayEndDate").attr("disabled", true);
+					}
+					
 				},
 				error : function(xhr, ajaxOptions,thrownError) {
 					alert(xhr.status);
@@ -199,15 +222,27 @@ var otherfilenum = 0;
 			$( "#iptcaseType" ).change(function(i) {
 				if($("#iptcaseType").val() == 0){
 					$("#iptcasePeriods").val(1);
+					$("#iptcasePeriods").attr("disabled", true);
+					$("#iptcasePayEndDate").attr("disabled", true);
 				}else if($("#iptcaseType").val() == 1){
 					$("#iptcasePeriods").val(4);
+					$("#iptcasePeriods").attr("disabled", false);
+					$("#iptcasePayEndDate").attr("disabled", false);
 				}else if($("#iptcaseType").val() == 2){
 					$("#iptcasePeriods").val(12);
+					$("#iptcasePeriods").attr("disabled", false);
+					$("#iptcasePayEndDate").attr("disabled", false);
 				}else{
 					//dialogstepPay.dialog("open");
+					$("#iptcasePeriods").attr("disabled", true);
+					$("#iptcasePayEndDate").attr("disabled", true);
 				}
 				if($("#iptcasePayStartDate").val() != ""){
-					$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
+					if($("#iptcaseType").val() == 0){
+						$("#iptcasePayEndDate").val($("#iptcasePayStartDate").val());
+					}else{
+						$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
+					}
 				}
 				if($("#iptcaseAmount").val() != ""){
 					$("#iptcaseSumAmount").val(amountSum(parseInt($("#iptcaseAmount").val()),parseInt($("#iptcasePeriods").val())));
@@ -224,7 +259,11 @@ var otherfilenum = 0;
 			
 			//根據選擇起日及期數帶出迄日
 			$("#iptcasePayStartDate").change(function(i){
-				$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
+				if($("#iptcaseType").val() == 0){
+					$("#iptcasePayEndDate").val($("#iptcasePayStartDate").val());
+				}else{
+					$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
+				}
 			});
 			
 			//根據選擇起日及期數帶出迄日
@@ -270,7 +309,6 @@ var otherfilenum = 0;
 						'savecasePayEndDate' : $("#iptcasePayEndDate").val(),
 						'savecaseAmount' : $("#iptcaseAmount").val(),
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
-						'userId' : '<%=request.getParameter("userId")%>',
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'savecaseCreateDate' : $("#iptcaseCreateDate").val(),
 						'savepayerID' : relaArray[$("#iptcaseRela option:selected").val()].ID
@@ -309,7 +347,6 @@ var otherfilenum = 0;
 						data : {
 							'selectedcaseId' : $("#iptcaseId").val(),
 							'type' : '<%=request.getParameter("type")%>',
-							'userId' : '<%=request.getParameter("userId")%>',
 							'signedId' : signedId
 						},
 						type : "POST",
@@ -353,7 +390,6 @@ var otherfilenum = 0;
 						'savecaseAmount' : $("#iptcaseAmount").val(),
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '1',
-						'userId' : '<%=request.getParameter("userId")%>',
 						'signedId' : signedId,
 						'filepathdate' : filepathdate,
 						'signedfileuploadName' : fileName,
@@ -416,7 +452,6 @@ var otherfilenum = 0;
 						'savecaseAmount' : $("#iptcaseAmount").val(),
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '2',
-						'userId' : '<%=request.getParameter("userId") %>',
 						'signedId' : signedId,
 						'filepathdate' : filepathdate,
 						'signedfileuploadName' : fileName,
@@ -475,7 +510,6 @@ var otherfilenum = 0;
 						'savecaseAmount' : $("#iptcaseAmount").val(),
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '3',
-						'userId' : '<%=request.getParameter("userId") %>',
 						'signedId' : signedId,
 						'filepathdate' : filepathdate,
 						'signedfileuploadName' : fileName,
@@ -533,7 +567,6 @@ var otherfilenum = 0;
 						'savecaseAmount' : $("#iptcaseAmount").val(),
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '4',
-						'userId' : '<%=request.getParameter("userId") %>',
 						'signedId' : signedId,
 						'filepathdate' : filepathdate,
 						'signedfileuploadName' : fileName,
@@ -589,7 +622,6 @@ var otherfilenum = 0;
 						'savecaseAmount' : $("#iptcaseAmount").val(),
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '5',
-						'userId' : '<%=request.getParameter("userId") %>',
 						'signedId' : signedId,
 						'filepathdate' : filepathdate,
 						'signedfileuploadName' : fileName,
@@ -786,7 +818,7 @@ var otherfilenum = 0;
 		<div style="overflow: auto; margin: 5px 5px 5px 5px"
 			class="ui-widget-content">
 			<table>
-				<tr>
+				<tr id = "trsubmitSigned">
 					<td>
 						<%
 						if(request.getParameter("type") != null){

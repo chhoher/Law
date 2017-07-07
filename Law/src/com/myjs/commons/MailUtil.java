@@ -50,8 +50,23 @@ public class MailUtil {
 			mailMessage.setFrom(from);
 			// 創建郵件的接收者地址，並設置到郵件消息中
 			Address to = new InternetAddress(mailInfo.getToAddress());
+			Address to2 = null;
+			Address cc = null;
+			Address cc2 = null;
+			if(mailInfo.getCcAddress() != null){
+				cc = new InternetAddress(mailInfo.getCcAddress());
+				mailMessage.addRecipient(Message.RecipientType.CC, cc);
+			}
+			if(mailInfo.getCcAddress2() != null){
+				cc2 = new InternetAddress(mailInfo.getCcAddress2());
+				mailMessage.addRecipient(Message.RecipientType.CC, cc2);
+			}
 			// Message.RecipientType.TO屬性表示接收者的類型為TO
-			mailMessage.setRecipient(Message.RecipientType.TO, to);
+			mailMessage.addRecipient(Message.RecipientType.TO, to);
+			if(mailInfo.getToAddress2() != null){
+				to2 = new InternetAddress(mailInfo.getToAddress2());
+				mailMessage.addRecipient(Message.RecipientType.TO, to2);
+			}
 			// 設置郵件消息的主題
 //			setFileName(MimeUtility.encodeText(f.getName(),"MS950","B"));
 			mailMessage.setSubject(MimeUtility.encodeText(mailInfo.getSubject(),"utf-8","B"));
@@ -96,8 +111,23 @@ public class MailUtil {
 			mailMessage.setFrom(from);
 			// 創建郵件的接收者地址，並設置到郵件消息中
 			Address to = new InternetAddress(mailInfo.getToAddress());
+			Address to2 = null;
+			Address cc = null;
+			Address cc2 = null;
+			if(mailInfo.getCcAddress() != null){
+				cc = new InternetAddress(mailInfo.getCcAddress());
+				mailMessage.addRecipient(Message.RecipientType.CC, cc);
+			}
+			if(mailInfo.getCcAddress2() != null){
+				cc2 = new InternetAddress(mailInfo.getCcAddress2());
+				mailMessage.addRecipient(Message.RecipientType.CC, cc2);
+			}
 			// Message.RecipientType.TO屬性表示接收者的類型為TO
-			mailMessage.setRecipient(Message.RecipientType.TO, to);
+			mailMessage.addRecipient(Message.RecipientType.TO, to);
+			if(mailInfo.getToAddress2() != null){
+				to2 = new InternetAddress(mailInfo.getToAddress2());
+				mailMessage.addRecipient(Message.RecipientType.TO, to2);
+			}
 			// 設置郵件消息的主題
 //			setFileName(MimeUtility.encodeText(f.getName(),"MS950","B"));
 			mailMessage.setSubject(MimeUtility.encodeText(mailInfo.getSubject(),"utf-8","B"));

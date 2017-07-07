@@ -52,11 +52,26 @@ public class loginAction extends AbstractAction {
 			
 			String result = "";
 			if (isLogin) {
-				result = JsonUtil.ajaxResultSuccess("登入成功").toString();
+				JsonObject json = new JsonObject();
+				json.addProperty("success", "success");
+				json.addProperty("msg", "登入成功");
+				if(AbstractAction.getAttribute("signed") != null && AbstractAction.getAttribute("signed").equals("true")){
+					String signedId = super.getAttribute("signedId");
+					String type = super.getAttribute("type");
+					String caseId = super.getAttribute("caseId");
+					json.addProperty("LoginInSigned", "true");
+					json.addProperty("LoginInSignedHref", "../cek/signedform.jsp?signedId=" + signedId + "&type=" + type + "&caseId=" + caseId + "&LoginInSigned=true");
+					
+					AbstractAction.setAttribute("signed", null);
+					AbstractAction.setAttribute("caseId", null);
+					AbstractAction.setAttribute("type", null);
+					AbstractAction.setAttribute("signedId", null);
+				}
+				result = json.toString();
 			} else {
 				result = JsonUtil.ajaxResultFalse("登入失敗").toString();
 			}
-			log.debug("deleteCekFlow end {}", result);
+			log.debug("login result = {}", result);
 			printToResponse(result);
 		}catch(Exception e){
 			sendException(e);

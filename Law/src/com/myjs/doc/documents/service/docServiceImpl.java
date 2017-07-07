@@ -81,10 +81,10 @@ public class docServiceImpl implements docService{
 		List<LSysVariable> LSysVariableListBankName = (List<LSysVariable>) LSysVariableMap.get("list");//債權人
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9274670009");
 		List<LSysVariable> LSysVariableListOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");//原債權人
-//		LSysVariableMap = (Map) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
-//		List<LSysVariable> LSysVariableListTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//相對人
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9528290012");
 		List<LSysVariable> LSysVariableListCourtYearCourt = (List<LSysVariable>) LSysVariableMap.get("list");//地院
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d0bba28015d0bc3ae4a0002");
+		List<LSysVariable> LSysVariableListCentitlementTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(執行名義)
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5cf6c4f2015cf6d2cec1000a");
 		List<LSysVariable> LSysVariableListCashierCheckTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(本票)
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9baa8103002e");
@@ -95,6 +95,8 @@ public class docServiceImpl implements docService{
 		List<LSysVariable> LSysVariableListFileTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(卷宗)
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5ca5db32015ca5de11d00000");
 		List<LSysVariable> LSysVariableListOtherTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(其他)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d0bcf99015d0bd2563b0001");
+		List<LSysVariable> LSysVariableListSourceDoc = (List<LSysVariable>) LSysVariableMap.get("list");//原始憑證項目(all)
 		Gson gson = new Gson();
 		JsonObject jsonResponse = new JsonObject();
 		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableListDocStatus));
@@ -103,11 +105,13 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("BankName", gson.toJsonTree(LSysVariableListBankName));
 		jsonResponse.add("OldBankName", gson.toJsonTree(LSysVariableListOldBankName));
 		jsonResponse.add("CourtYearCourt", gson.toJsonTree(LSysVariableListCourtYearCourt));
+		jsonResponse.add("centitlementTypeTwo", gson.toJsonTree(LSysVariableListCentitlementTypeTwo));
 		jsonResponse.add("cashierCheckTypeTwo", gson.toJsonTree(LSysVariableListCashierCheckTypeTwo));
 		jsonResponse.add("debtsTypeTwo", gson.toJsonTree(LSysVariableListDebtsTypeTwo));
 		jsonResponse.add("claimDocTypeTwo", gson.toJsonTree(LSysVariableListClaimDocTypeTwo));
 		jsonResponse.add("fileTypeTwo", gson.toJsonTree(LSysVariableListFileTypeTwo));
 		jsonResponse.add("otherTypeTwo", gson.toJsonTree(LSysVariableListOtherTypeTwo));
+		jsonResponse.add("SourceDoc", gson.toJsonTree(LSysVariableListSourceDoc));
 		jsonResponse.addProperty("nowDate", DateTimeFormat.getNowDate());
 		return jsonResponse.toString();
 	}

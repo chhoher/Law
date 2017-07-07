@@ -61,12 +61,9 @@ law.addDoc.other = {
 		// 開始初始化
 		
 		//將日期欄位格式化
-		$( "#iptotherReceivedDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherReceivedDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptotherBankDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherBankDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptotherCourtDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherCourtDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		law.common.formatInputItemToDate( "#iptotherReceivedDate" + othersubtabcount , "yy-mm-dd");
+		law.common.formatInputItemToDate( "#iptotherBankDate" + othersubtabcount , "yy-mm-dd");
+		law.common.formatInputItemToDate( "#iptotherCourtDate" + othersubtabcount , "yy-mm-dd");
 	   
 		law.common.selectOption("#iptotherDocStatus" + othersubtabcount, other.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 		law.common.selectOption("#iptotherTypeOne" + othersubtabcount, other.TypeOne, "8aa2e72a5c812434015c81307418000a");
@@ -145,12 +142,9 @@ law.addDoc.other = {
 	
  (function(){
 	//將日期欄位格式化
-	$( "#iptotherReceivedDate" ).datepicker();
-    $( "#iptotherReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptotherBankDate" ).datepicker();
-    $( "#iptotherBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptotherCourtDate" ).datepicker();
-    $( "#iptotherCourtDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	law.common.formatInputItemToDate( "#iptotherReceivedDate", "yy-mm-dd");
+	law.common.formatInputItemToDate( "#iptotherBankDate", "yy-mm-dd");
+	law.common.formatInputItemToDate( "#iptotherCourtDate", "yy-mm-dd");
  })();
 // 其它 end	
 	

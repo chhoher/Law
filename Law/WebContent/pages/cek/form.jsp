@@ -9,8 +9,7 @@
 
 $(document).ready(function(){ 
 	$( function() {
-	    $( "#iptsearchformDate" ).datepicker();
-	    $( "#iptsearchformDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		law.common.formatInputItemToDate( "#iptsearchformDate", "yy-mm-dd");
 	  } );
 	
     var opt={

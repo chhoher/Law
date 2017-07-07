@@ -99,14 +99,10 @@ law.addDoc.cashierCheck = {
 		// 開始初始化
 		
 		//將日期欄位格式化
-		$( "#iptcashierCheckReceivedDate" + cashierChecksubtabcount ).datepicker();
-	    $( "#iptcashierCheckReceivedDate" + cashierChecksubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptcashierCheckBankDate" + cashierChecksubtabcount ).datepicker();
-	    $( "#iptcashierCheckBankDate" + cashierChecksubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptcashierCheckStartDate" + cashierChecksubtabcount ).datepicker();
-	    $( "#iptcashierCheckStartDate" + cashierChecksubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptcashierCheckEndDate" + cashierChecksubtabcount ).datepicker();
-	    $( "#iptcashierCheckEndDate" + cashierChecksubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	 	law.common.formatInputItemToDate("#iptcashierCheckReceivedDate" + cashierChecksubtabcount, "yy-mm-dd");
+	 	law.common.formatInputItemToDate("#iptcashierCheckBankDate" + cashierChecksubtabcount, "yy-mm-dd");
+	 	law.common.formatInputItemToDate("#iptcashierCheckStartDate" + cashierChecksubtabcount, "yy-mm-dd");
+	 	law.common.formatInputItemToDate("#iptcashierCheckEndDate" + cashierChecksubtabcount, "yy-mm-dd");
 	   
 		law.common.selectOption("#iptcashierCheckDocStatus" + cashierChecksubtabcount, cashierCheck.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 		law.common.selectOption("#iptcashierCheckTypeOne" + cashierChecksubtabcount, cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007");
@@ -217,14 +213,10 @@ law.addDoc.cashierCheck = {
 	
  (function(){
 	//將日期欄位格式化
-	$( "#iptcashierCheckReceivedDate" ).datepicker();
-    $( "#iptcashierCheckReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptcashierCheckBankDate" ).datepicker();
-    $( "#iptcashierCheckBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptcashierCheckStartDate" ).datepicker();
-    $( "#iptcashierCheckStartDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptcashierCheckEndDate" ).datepicker();
-    $( "#iptcashierCheckEndDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+ 	law.common.formatInputItemToDate("#iptcashierCheckReceivedDate", "yy-mm-dd");
+ 	law.common.formatInputItemToDate("#iptcashierCheckBankDate", "yy-mm-dd");
+ 	law.common.formatInputItemToDate("#iptcashierCheckStartDate", "yy-mm-dd");
+ 	law.common.formatInputItemToDate("#iptcashierCheckEndDate", "yy-mm-dd");
  })();
 // 債讓 end	
 	

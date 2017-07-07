@@ -81,21 +81,21 @@ $(function() {
 				var signedType = 4;
 				if(response.data.memadm == "Y" && datatable.fnGetData('.selected').status == 2){
 					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-							'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
+							'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 				}else if(response.data.memadm == "N" && datatable.fnGetData('.selected').status == 2){
 					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-						'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
+						'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
 				}else if(datatable.fnGetData('.selected').status == 4){
 					if(datatable.fnGetData('.selected').receivedUserId == response.data.memno){
 						window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-								'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
+								'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 					}else{
 						window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-								'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
+								'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
 					}
 				}else{
 					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-							'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
+							'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 				}
 			},
 			error : function(xhr, ajaxOptions, thrownError){

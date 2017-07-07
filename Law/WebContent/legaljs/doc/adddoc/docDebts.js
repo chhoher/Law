@@ -106,12 +106,9 @@ law.addDoc.debts = {
 		// 開始初始化
 		
 		//將日期欄位格式化
-		$( "#iptdebtsReceivedDate" + debtssubtabcount ).datepicker();
-	    $( "#iptdebtsReceivedDate" + debtssubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptdebtsBankDate" + debtssubtabcount ).datepicker();
-	    $( "#iptdebtsBankDate" + debtssubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptdebtsDate" + debtssubtabcount ).datepicker();
-	    $( "#iptdebtsDate" + debtssubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+ 		law.common.formatInputItemToDate("#iptdebtsReceivedDate" + debtssubtabcount, "yy-mm-dd");
+ 		law.common.formatInputItemToDate("#iptdebtsBankDate" + debtssubtabcount, "yy-mm-dd");
+ 		law.common.formatInputItemToDate("#iptdebtsDate" + debtssubtabcount, "yy-mm-dd");
 	   
 		law.common.selectOption("#iptdebtsDocStatus" + debtssubtabcount, debts.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 		law.common.selectOption("#iptdebtsTypeOne" + debtssubtabcount, debts.TypeOne, "8aa2e72a5c812434015c81303cbf0008");
@@ -230,12 +227,9 @@ law.addDoc.debts = {
 	
  (function(){
 	//將日期欄位格式化
-	$( "#iptdebtsReceivedDate" ).datepicker();
-    $( "#iptdebtsReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptdebtsBankDate" ).datepicker();
-    $( "#iptdebtsBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptdebtsDate" ).datepicker();
-    $( "#iptdebtsDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	law.common.formatInputItemToDate("#iptdebtsReceivedDate", "yy-mm-dd");
+	law.common.formatInputItemToDate("#iptdebtsBankDate", "yy-mm-dd");
+	law.common.formatInputItemToDate("#iptdebtsDate", "yy-mm-dd");
  })();
 // 債讓 end	
 	

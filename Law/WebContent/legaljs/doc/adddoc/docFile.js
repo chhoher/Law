@@ -59,10 +59,8 @@ law.addDoc.file = {
 		file.filesubtabs.tabs({ active: file.fileactivesubtabcount});
 		
 		//將日期欄位格式化
-		$( "#iptfileReceivedDate" + filesubtabcount).datepicker();
-		$( "#iptfileReceivedDate" + filesubtabcount).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptfileBankDate" + filesubtabcount).datepicker();
-		$( "#iptfileBankDate" + filesubtabcount).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		law.common.formatInputItemToDate("#iptfileReceivedDate" + filesubtabcount, "yy-mm-dd");
+		law.common.formatInputItemToDate("#iptfileBankDate" + filesubtabcount, "yy-mm-dd");
 		
 		//卷宗下拉選項
 		law.common.selectOption("#iptfileDocStatus" + filesubtabcount, file.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
@@ -138,9 +136,7 @@ law.addDoc.file = {
 	
 (function(){
 	//將日期欄位格式化
-	$( "#iptfileReceivedDate" ).datepicker();
-	$( "#iptfileReceivedDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	$( "#iptfileBankDate" ).datepicker();
-	$( "#iptfileBankDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	law.common.formatInputItemToDate("#iptfileReceivedDate", "yy-mm-dd");
+	law.common.formatInputItemToDate("#iptfileBankDate", "yy-mm-dd");
  })();
 // 卷宗 end	

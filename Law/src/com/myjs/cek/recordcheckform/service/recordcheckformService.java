@@ -17,7 +17,7 @@ public interface recordcheckformService {
 	public LCekSignedCaseInfo findCaseByCaseId(String caseId) throws Exception;
 	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId) throws Exception;
 	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform,
-			String type, List<LCekRecordFile> LCekRecordFile, String userId, String[] saveselectOhterFiles, String[] stepPay) throws Exception;
+			String type, List<LCekRecordFile> LCekRecordFile, VEIPMemdb loginUser, String[] saveselectOhterFiles, String[] stepPay) throws Exception;
 	public LCekRecordSigned findRecordSignedById(String signedId) throws Exception;
 	public LCekRecordSignedStep findRecordSignedStepById(String signedId) throws Exception;
 	public JsonObject downloadSignedFile(String fileTypeOne, String fileTypeTwo, String signedId, LCekRecordSigned lcs) throws Exception;
