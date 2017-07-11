@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.myjs.sys.file.model.LSysFile;
 import com.myjs.sys.file.service.fileService;
+import com.myjs.sys.user.model.VEIPMemdb;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -238,14 +239,13 @@ public class fileAction extends AbstractAction {
 			String iptaddfileName = uploadFileName;
 			String signedpath = "/modify";
 			log.debug("path = {} , iptaddfileName = {} , signedpath = {}", path, iptaddfileName, signedpath);
-			String uploadpath = fileService.uploadFile(upload, path, iptaddfileName, signedpath);
+			
+			VEIPMemdb loginUser = getSessionLoginUser();
+			
+			String uploadpath = fileService.uploadFileForSigned(upload, path, iptaddfileName, signedpath, loginUser);
 
-			JsonObject json = new JsonObject();
-			json.addProperty("success", "success");
-			json.addProperty("fileuploadDatetime", uploadpath);
-			json.addProperty("fileuploadName", iptaddfileName);
-			printToResponse(json.toString());
-			log.debug("fileUpload end {}", json);
+			printToResponse(uploadpath);
+			log.debug("fileUpload end {}", uploadpath);
 
 		} catch (Exception e) {
 			sendException(e);

@@ -120,6 +120,31 @@
 		$( id ).datepicker();
     	$( id ).datepicker( "option", "dateFormat", formatType );
     	$( id ).datepicker( "option", $.datepicker.regional[ "zh-TW" ] );
+	},
+	
+	deleteFunctionForRecordFile = function(data, datatableId, removeNum){
+		// add by Jia 2017-07-11 刪除是將is_delete改成Y
+		$.ajax({
+			url : 'pages/cek/recordcheckform/recordcheckformAction!deleteSelectSignedFile.action',
+			data : {
+				'recordFileId' : data
+			},
+			type : "POST",
+			dataType : 'json',
+			success : function(response) {
+				if (response.success) {
+					var datatable = $(datatableId).dataTable();
+					datatable.fnDeleteRow(removeNum);
+					alert(response.msg);
+				} else {
+					alert(response.msg);
+				}
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert(xhr.status);
+				alert(thrownError);
+			}
+		});
 	};
 	
  	/*
@@ -149,6 +174,11 @@
  		selectOption : selectOption,
  		selectRelaOption : selectRelaOption,
  		formatInputItemToDate : formatInputItemToDate
+ 	};
+ 	
+ 	// 新增簽核系統類function
+ 	law.cek = {
+ 		deleteFunctionForRecordFile : deleteFunctionForRecordFile
  	};
  	
  	// 新增regex

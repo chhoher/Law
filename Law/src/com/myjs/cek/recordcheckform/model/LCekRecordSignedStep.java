@@ -1,5 +1,9 @@
 package com.myjs.cek.recordcheckform.model;
 
+import java.util.Date;
+
+import com.myjs.commons.DateTimeFormat;
+
 public class LCekRecordSignedStep implements java.io.Serializable {
 
 	/**
@@ -19,15 +23,44 @@ public class LCekRecordSignedStep implements java.io.Serializable {
 	private int stepPay10;
 	private int stepPay11;
 	private int stepPay12;
+	private Date stepPayStartDate1;
+	private Date stepPayEndDate1;
+	private Date stepPayStartDate2;
+	private Date stepPayEndDate2;
+	private Date stepPayStartDate3;
+	private Date stepPayEndDate3;
+	private Date stepPayStartDate4;
+	private Date stepPayEndDate4;
+	private Date stepPayStartDate5;
+	private Date stepPayEndDate5;
+	private Date stepPayStartDate6;
+	private Date stepPayEndDate6;
+	private Date stepPayStartDate7;
+	private Date stepPayEndDate7;
+	private Date stepPayStartDate8;
+	private Date stepPayEndDate8;
+	private Date stepPayStartDate9;
+	private Date stepPayEndDate9;
+	private Date stepPayStartDate10;
+	private Date stepPayEndDate10;
+	private Date stepPayStartDate11;
+	private Date stepPayEndDate11;
+	private Date stepPayStartDate12;
+	private Date stepPayEndDate12;
 	
 
 	public LCekRecordSignedStep() {
 
 	}
 
-	public LCekRecordSignedStep(String signedId, int stepPay1, int stepPay2, int stepPay3, int stepPay4,
-			int stepPay5, int stepPay6, int stepPay7, int stepPay8, int stepPay9, int stepPay10,
-			int stepPay11, int stepPay12) {
+	public LCekRecordSignedStep(String signedId, int stepPay1, int stepPay2, int stepPay3, int stepPay4, int stepPay5,
+			int stepPay6, int stepPay7, int stepPay8, int stepPay9, int stepPay10, int stepPay11, int stepPay12,
+			Date stepPayStartDate1, Date stepPayEndDate1, Date stepPayStartDate2, Date stepPayEndDate2,
+			Date stepPayStartDate3, Date stepPayEndDate3, Date stepPayStartDate4, Date stepPayEndDate4,
+			Date stepPayStartDate5, Date stepPayEndDate5, Date stepPayStartDate6, Date stepPayEndDate6,
+			Date stepPayStartDate7, Date stepPayEndDate7, Date stepPayStartDate8, Date stepPayEndDate8,
+			Date stepPayStartDate9, Date stepPayEndDate9, Date stepPayStartDate10, Date stepPayEndDate10,
+			Date stepPayStartDate11, Date stepPayEndDate11, Date stepPayStartDate12, Date stepPayEndDate12) {
 		this.signedId = signedId;
 		this.stepPay1 = stepPay1;
 		this.stepPay2 = stepPay2;
@@ -41,6 +74,30 @@ public class LCekRecordSignedStep implements java.io.Serializable {
 		this.stepPay10 = stepPay10;
 		this.stepPay11 = stepPay11;
 		this.stepPay12 = stepPay12;
+		this.stepPayStartDate1 = stepPayStartDate1;
+		this.stepPayEndDate1 = stepPayEndDate1;
+		this.stepPayStartDate2 = stepPayStartDate2;
+		this.stepPayEndDate2 = stepPayEndDate2;
+		this.stepPayStartDate3 = stepPayStartDate3;
+		this.stepPayEndDate3 = stepPayEndDate3;
+		this.stepPayStartDate4 = stepPayStartDate4;
+		this.stepPayEndDate4 = stepPayEndDate4;
+		this.stepPayStartDate5 = stepPayStartDate5;
+		this.stepPayEndDate5 = stepPayEndDate5;
+		this.stepPayStartDate6 = stepPayStartDate6;
+		this.stepPayEndDate6 = stepPayEndDate6;
+		this.stepPayStartDate7 = stepPayStartDate7;
+		this.stepPayEndDate7 = stepPayEndDate7;
+		this.stepPayStartDate8 = stepPayStartDate8;
+		this.stepPayEndDate8 = stepPayEndDate8;
+		this.stepPayStartDate9 = stepPayStartDate9;
+		this.stepPayEndDate9 = stepPayEndDate9;
+		this.stepPayStartDate10 = stepPayStartDate10;
+		this.stepPayEndDate10 = stepPayEndDate10;
+		this.stepPayStartDate11 = stepPayStartDate11;
+		this.stepPayEndDate11 = stepPayEndDate11;
+		this.stepPayStartDate12 = stepPayStartDate12;
+		this.stepPayEndDate12 = stepPayEndDate12;
 	}
 
 	public String getSignedId() {
@@ -147,47 +204,312 @@ public class LCekRecordSignedStep implements java.io.Serializable {
 		this.stepPay12 = stepPay12;
 	}
 
-	public void setNumStepPay(String[] Listnum){
+	public Date getStepPayStartDate1() {
+		return stepPayStartDate1;
+	}
+
+	public void setStepPayStartDate1(Date stepPayStartDate1) {
+		this.stepPayStartDate1 = stepPayStartDate1;
+	}
+
+	public Date getStepPayEndDate1() {
+		return stepPayEndDate1;
+	}
+
+	public void setStepPayEndDate1(Date stepPayEndDate1) {
+		this.stepPayEndDate1 = stepPayEndDate1;
+	}
+
+	public Date getStepPayStartDate2() {
+		return stepPayStartDate2;
+	}
+
+	public void setStepPayStartDate2(Date stepPayStartDate2) {
+		this.stepPayStartDate2 = stepPayStartDate2;
+	}
+
+	public Date getStepPayEndDate2() {
+		return stepPayEndDate2;
+	}
+
+	public void setStepPayEndDate2(Date stepPayEndDate2) {
+		this.stepPayEndDate2 = stepPayEndDate2;
+	}
+
+	public Date getStepPayStartDate3() {
+		return stepPayStartDate3;
+	}
+
+	public void setStepPayStartDate3(Date stepPayStartDate3) {
+		this.stepPayStartDate3 = stepPayStartDate3;
+	}
+
+	public Date getStepPayEndDate3() {
+		return stepPayEndDate3;
+	}
+
+	public void setStepPayEndDate3(Date stepPayEndDate3) {
+		this.stepPayEndDate3 = stepPayEndDate3;
+	}
+
+	public Date getStepPayStartDate4() {
+		return stepPayStartDate4;
+	}
+
+	public void setStepPayStartDate4(Date stepPayStartDate4) {
+		this.stepPayStartDate4 = stepPayStartDate4;
+	}
+
+	public Date getStepPayEndDate4() {
+		return stepPayEndDate4;
+	}
+
+	public void setStepPayEndDate4(Date stepPayEndDate4) {
+		this.stepPayEndDate4 = stepPayEndDate4;
+	}
+
+	public Date getStepPayStartDate5() {
+		return stepPayStartDate5;
+	}
+
+	public void setStepPayStartDate5(Date stepPayStartDate5) {
+		this.stepPayStartDate5 = stepPayStartDate5;
+	}
+
+	public Date getStepPayEndDate5() {
+		return stepPayEndDate5;
+	}
+
+	public void setStepPayEndDate5(Date stepPayEndDate5) {
+		this.stepPayEndDate5 = stepPayEndDate5;
+	}
+
+	public Date getStepPayStartDate6() {
+		return stepPayStartDate6;
+	}
+
+	public void setStepPayStartDate6(Date stepPayStartDate6) {
+		this.stepPayStartDate6 = stepPayStartDate6;
+	}
+
+	public Date getStepPayEndDate6() {
+		return stepPayEndDate6;
+	}
+
+	public void setStepPayEndDate6(Date stepPayEndDate6) {
+		this.stepPayEndDate6 = stepPayEndDate6;
+	}
+
+	public Date getStepPayStartDate7() {
+		return stepPayStartDate7;
+	}
+
+	public void setStepPayStartDate7(Date stepPayStartDate7) {
+		this.stepPayStartDate7 = stepPayStartDate7;
+	}
+
+	public Date getStepPayEndDate7() {
+		return stepPayEndDate7;
+	}
+
+	public void setStepPayEndDate7(Date stepPayEndDate7) {
+		this.stepPayEndDate7 = stepPayEndDate7;
+	}
+
+	public Date getStepPayStartDate8() {
+		return stepPayStartDate8;
+	}
+
+	public void setStepPayStartDate8(Date stepPayStartDate8) {
+		this.stepPayStartDate8 = stepPayStartDate8;
+	}
+
+	public Date getStepPayEndDate8() {
+		return stepPayEndDate8;
+	}
+
+	public void setStepPayEndDate8(Date stepPayEndDate8) {
+		this.stepPayEndDate8 = stepPayEndDate8;
+	}
+
+	public Date getStepPayStartDate9() {
+		return stepPayStartDate9;
+	}
+
+	public void setStepPayStartDate9(Date stepPayStartDate9) {
+		this.stepPayStartDate9 = stepPayStartDate9;
+	}
+
+	public Date getStepPayEndDate9() {
+		return stepPayEndDate9;
+	}
+
+	public void setStepPayEndDate9(Date stepPayEndDate9) {
+		this.stepPayEndDate9 = stepPayEndDate9;
+	}
+
+	public Date getStepPayStartDate10() {
+		return stepPayStartDate10;
+	}
+
+	public void setStepPayStartDate10(Date stepPayStartDate10) {
+		this.stepPayStartDate10 = stepPayStartDate10;
+	}
+
+	public Date getStepPayEndDate10() {
+		return stepPayEndDate10;
+	}
+
+	public void setStepPayEndDate10(Date stepPayEndDate10) {
+		this.stepPayEndDate10 = stepPayEndDate10;
+	}
+
+	public Date getStepPayStartDate11() {
+		return stepPayStartDate11;
+	}
+
+	public void setStepPayStartDate11(Date stepPayStartDate11) {
+		this.stepPayStartDate11 = stepPayStartDate11;
+	}
+
+	public Date getStepPayEndDate11() {
+		return stepPayEndDate11;
+	}
+
+	public void setStepPayEndDate11(Date stepPayEndDate11) {
+		this.stepPayEndDate11 = stepPayEndDate11;
+	}
+
+	public Date getStepPayStartDate12() {
+		return stepPayStartDate12;
+	}
+
+	public void setStepPayStartDate12(Date stepPayStartDate12) {
+		this.stepPayStartDate12 = stepPayStartDate12;
+	}
+
+	public Date getStepPayEndDate12() {
+		return stepPayEndDate12;
+	}
+
+	public void setStepPayEndDate12(Date stepPayEndDate12) {
+		this.stepPayEndDate12 = stepPayEndDate12;
+	}
+	
+	public void setNumStepPay(String[] Listnum, String[] ListStartDate, String[] ListEndDate) throws Exception{
 		for(int i = 0; i < Listnum.length; i ++){
 			switch(i){
 				case 0 :
 					this.stepPay1 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate1 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate1 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 1 :
 					this.stepPay2 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate2 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate2 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 2 :
 					this.stepPay3 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate3 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate3 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 3 :
 					this.stepPay4 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate4 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate4 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 4 :
 					this.stepPay5 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate5 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate5 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 5 :
 					this.stepPay6 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate6 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate6 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 6 :
 					this.stepPay7 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate7 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate7 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 7 :
 					this.stepPay8 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate8 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate8 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 8 :
 					this.stepPay9 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate9 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate9 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 9 :
 					this.stepPay10 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate10 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate10 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 10 :
 					this.stepPay11 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate11 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate11 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 				case 11 :
 					this.stepPay12 = Integer.valueOf(Listnum[i]);
+					if(ListStartDate[i] != null && !ListStartDate[i].equals("")){
+						this.stepPayStartDate12 = DateTimeFormat.getTime(ListStartDate[i] + " 00:00:00");
+					}
+					if(ListEndDate[i] != null && !ListEndDate[i].equals("")){
+						this.stepPayEndDate12 = DateTimeFormat.getTime(ListEndDate[i] + " 00:00:00");
+					}
 					break;
 			}
 		}
 	}
+
 	
 }

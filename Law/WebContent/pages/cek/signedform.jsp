@@ -15,17 +15,10 @@
 <script src="../../js/vendor/jquery.ui.widget.js"></script>
 <script src="../../js/jquery.iframe-transport.js"></script>
 <script src="../../js/jquery.fileupload.js"></script>
+<link href="../../js/css/jquery.fileupload-ui.css" rel="stylesheet">
+<link href="../../js/css/jquery.fileupload.css" rel="stylesheet">
 <!-- Add By Jia 2017-07-04 引用自定義的js -->
 <script type="text/javascript" src="../../legaljs/law.js"></script>
-<style type="text/css">
-	
-.bar {
-	height: 18px;
-	background: red;
-	text-align: center;
-	font-weight: bold;
-}
-</style>
 <script type="text/javascript" charset="UTF-8">
 var signedId;
 var otherfilenum = 0;
@@ -49,21 +42,65 @@ var otherfilenum = 0;
 	                // Set the checked state of the checkbox in the table
 	                $('input.editor-active', row).prop( 'checked', data.v == 1 );
 	            }
-	            };
+	    };
+		
+		var fileopt2={
+	    		"oLanguage":{"sUrl":"../../i18n/Chinese-traditional.json"},
+	    		"bJQueryUI":true,	
+	    		"columns": [
+	                { "data" : "fileName" },
+	                { "data" : "voPathName",
+	                	"render": function ( data, type, full, meta ) {
+	                		var pathAndName = "../../" + data.substring(data.indexOf("upload"));
+	                		var downloadRecordFile = "<button onclick=\"window.open('" + pathAndName + "')\">下載</button>";
+	                		
+	                		return  downloadRecordFile;
+	                	} 
+	                },
+	                { "data" : "recordFileId" ,
+	                	"render" : function ( data, type, full, meta ){
+	                		var datatableid = "#signedfilefileUploadTable";
+	                		var deleteRecordFileButton = "<button onclick=\" law.cek.deleteFunctionForRecordFile('" + data + "', '" + datatableid + "','" + meta.row + "')\">刪除</button>";
+	                		return deleteRecordFileButton;
+	                	}	
+	                }
+	            ]
+	    };
 		
 	    $("#signedfileOtherTable").dataTable(opt);
 		
+	    $("#signedfilefileUploadTable").dataTable(fileopt2);
+	    
 		$( function() {
 			law.common.formatInputItemToDate( "#iptcasePayStartDate", "yy-mm-dd");
 			law.common.formatInputItemToDate( "#iptcasePayEndDate", "yy-mm-dd");
-			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate", "yy-mm-dd");
-			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate1", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate1", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate2", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate2", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate3", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate3", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate4", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate4", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate5", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate5", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate6", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate6", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate7", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate7", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate8", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate8", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate9", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate9", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate10", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate10", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate11", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate11", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayStartDate12", "yy-mm-dd");
+			law.common.formatInputItemToDate( "#iptcaseStepPayEndDate12", "yy-mm-dd");
 		  } );
 
-		var fileIds = [];
-		var stepPay = [];
-		var fileName;
-		var filepathdate;
+		var stepPay = [], stepPayStartDate = [], stepPayEndDate = [];
 		var relaArray;
 			$.ajax({
 				url : 'pages/cek/recordcheckform/recordcheckformAction!initSignedForm.action',
@@ -78,6 +115,10 @@ var otherfilenum = 0;
 					// 若沒有權限直接隱藏按鈕
 					if(response.otherInfo.canUse !== true){
 						$("#trsubmitSigned").hide();
+						var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
+						datatablesignedFiles.fnSetColumnVis( 2, false );
+						
+						$("#tdsignedfileupload").hide();
 					}
 					if(json !== null){
 						$("#iptcaseId").val(paddingLeft(json.Case_ID,8));
@@ -175,9 +216,58 @@ var otherfilenum = 0;
 							$("#iptcaseStepPeriods11").val(response.recordSignedStep.stepPay11);
 							$("#iptcaseStepPeriods12").val(response.recordSignedStep.stepPay12);
 							$("#iptcaseStepPeriods").val(response.recordSigned.periods);
-							$("#iptcaseStepPayStartDate").val(response.recordSigned.paytimeStart);
-							$("#iptcaseStepPayEndDate").val(response.recordSigned.paytimeEnd);
+							$("#iptcaseStepPayStartDate1").val(response.recordSignedStep.stepPayStartDate1);
+							$("#iptcaseStepPayEndDate1").val(response.recordSignedStep.stepPayEndDate1);
+							$("#iptcaseStepPayStartDate2").val(response.recordSignedStep.stepPayStartDate2);
+							$("#iptcaseStepPayEndDate2").val(response.recordSignedStep.stepPayEndDate2);
+							$("#iptcaseStepPayStartDate3").val(response.recordSignedStep.stepPayStartDate3);
+							$("#iptcaseStepPayEndDate3").val(response.recordSignedStep.stepPayEndDate3);
+							$("#iptcaseStepPayStartDate4").val(response.recordSignedStep.stepPayStartDate4);
+							$("#iptcaseStepPayEndDate4").val(response.recordSignedStep.stepPayEndDate4);
+							$("#iptcaseStepPayStartDate5").val(response.recordSignedStep.stepPayStartDate5);
+							$("#iptcaseStepPayEndDate5").val(response.recordSignedStep.stepPayEndDate5);
+							$("#iptcaseStepPayStartDate6").val(response.recordSignedStep.stepPayStartDate6);
+							$("#iptcaseStepPayEndDate6").val(response.recordSignedStep.stepPayEndDate6);
+							$("#iptcaseStepPayStartDate7").val(response.recordSignedStep.stepPayStartDate7);
+							$("#iptcaseStepPayEndDate7").val(response.recordSignedStep.stepPayEndDate7);
+							$("#iptcaseStepPayStartDate8").val(response.recordSignedStep.stepPayStartDate8);
+							$("#iptcaseStepPayEndDate8").val(response.recordSignedStep.stepPayEndDate8);
+							$("#iptcaseStepPayStartDate9").val(response.recordSignedStep.stepPayStartDate9);
+							$("#iptcaseStepPayEndDate9").val(response.recordSignedStep.stepPayEndDate9);
+							$("#iptcaseStepPayStartDate10").val(response.recordSignedStep.stepPayStartDate10);
+							$("#iptcaseStepPayEndDate10").val(response.recordSignedStep.stepPayEndDate10);
+							$("#iptcaseStepPayStartDate11").val(response.recordSignedStep.stepPayStartDate11);
+							$("#iptcaseStepPayEndDate11").val(response.recordSignedStep.stepPayEndDate11);
+							$("#iptcaseStepPayStartDate12").val(response.recordSignedStep.stepPayStartDate12);
+							$("#iptcaseStepPayEndDate12").val(response.recordSignedStep.stepPayEndDate12);
 						}
+						
+						var datatablesigned = "";
+						datatablesigned = $("#signedfilefileUploadTable").dataTable();
+					    
+						//從L_CEK_RECORD_FILE抓取檔案
+						$.ajax({
+							url : 'pages/cek/recordcheckform/recordcheckformAction!selectSignedFile.action',
+							data : {
+								'signedId' : "<%=request.getParameter("signedId")%>"
+							},
+							type : "POST",
+							dataType : 'json',
+							success : function(response) {
+								json = response.MapFileList;
+								if (json.length !== 0) {
+									datatablesigned.fnClearTable();
+									datatablesigned.fnAddData(json);
+								}
+							},
+							error : function(xhr, ajaxOptions, thrownError) {
+								alert(xhr.status);
+								alert(thrownError);
+							}
+						});
+						
+					}else{
+						$("#iptapplyUserId").val(response.loginUserInfo.memno);
 					}
 					signedId = "<%=request.getParameter("signedId")%>";
 					if(response.recordSigned != null && 
@@ -205,7 +295,9 @@ var otherfilenum = 0;
 					}else{
 						//dialogstepPay.dialog("open");
 						$("#iptcasePeriods").attr("disabled", true);
+						$("#iptcasePayStartDate").attr("disabled", true);
 						$("#iptcasePayEndDate").attr("disabled", true);
+						$("#iptcaseAmount").attr("disabled", true);
 					}
 					
 				},
@@ -235,7 +327,9 @@ var otherfilenum = 0;
 				}else{
 					//dialogstepPay.dialog("open");
 					$("#iptcasePeriods").attr("disabled", true);
+					$("#iptcasePayStartDate").attr("disabled", true);
 					$("#iptcasePayEndDate").attr("disabled", true);
+					$("#iptcaseAmount").attr("disabled", true);
 				}
 				if($("#iptcasePayStartDate").val() != ""){
 					if($("#iptcaseType").val() == 0){
@@ -251,8 +345,15 @@ var otherfilenum = 0;
 			
 			//根據分階段還款的期數跑出格子
 			$("#iptcaseStepPeriods").change(function(i){
-				var stepnum = $("#iptcaseStepPeriods").val();
-				for (var i = 1; i <= stepnum; i++) {
+				var stepnum = "";
+				var i = 1;
+				for (i = 1; i <= 12; i++) {
+					$("#trstep"+ i).hide();
+				} 
+				
+				stepnum = $("#iptcaseStepPeriods").val();
+				
+				for (i = 1; i <= stepnum; i++) {
 					$("#trstep"+ i).show();
 				} 
 			});
@@ -264,11 +365,6 @@ var otherfilenum = 0;
 				}else{
 					$("#iptcasePayEndDate").val(dateAddMonth($("#iptcasePayStartDate").val(),parseInt($("#iptcasePeriods").val())));
 				}
-			});
-			
-			//根據選擇起日及期數帶出迄日
-			$("#iptcaseStepPayStartDate").change(function(i){
-				$("#iptcaseStepPayEndDate").val(dateAddMonth($("#iptcaseStepPayStartDate").val(),parseInt($("#iptcaseStepPeriods").val())));
 			});
 			
 			//根據每期金額及期數帶出總金額
@@ -288,11 +384,17 @@ var otherfilenum = 0;
 			
 			$("#btnopenSignedFile").button().on("click",function(e){
 				e.preventDefault();  //stop the browser from following
+				
+				dialog.dialog("open");
+			});
+			
+			// 簽呈套印按鈕
+			$("#btnoverPrintSigned").button().on("click",function(e){
+				e.preventDefault();  //stop the browser from following
 
-				// TODO 這裡之後要記得改成可以套表的 
-				//從L_SYS_FILE抓取檔案
+				//從L_SYS_FILE抓取並將相對應欄位套印
 				$.ajax({
-					url : 'pages/cek/recordcheckform/recordcheckformAction!downloadSignedFile.action',
+					url : 'pages/cek/recordcheckform/recordcheckformAction!downloadOverPrintSignedFile.action',
 					data : {
 						'fileTypeOne' : $("#iptcaseType").find('option:selected').text(),
 						'fileTypeTwo' : $("#iptcaseBankName").val(),
@@ -319,7 +421,7 @@ var otherfilenum = 0;
 						for(var i = 0; i < response.MapFileList.length; i++){
 							var path = response.MapFileList[i].filePath;
 							path = path.substring(path.indexOf("upload"));
-							fileIds.push(response.MapFileList[i].fileId);   
+							//fileIds.push(response.MapFileList[i].fileId);   
 							window.open("../../" + path + "/" + encodeURIComponent(response.MapFileList[i].fileName)); // add by Jia download配對後的文件
 						}
 					},
@@ -330,9 +432,9 @@ var otherfilenum = 0;
 				});
 				
 			    //window.location.href = '../../test.xls';
-				dialog.dialog("open");
 			});
 			
+			// 查看相關文件
 			$("#btnselectedSmartFile").button().on("click",function(){
 				otherfilenum++;
 				dialogother.dialog("open");
@@ -375,6 +477,14 @@ var otherfilenum = 0;
 					saveselectOhterFiles.push($(this).val());
 				});
 				
+				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
+				var uploadFilesIds = [], uploadFilesPathName = [];
+				var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
+				$(datatablesignedFiles.fnGetData()).each(function(){
+					uploadFilesIds.push($(this).get(0).recordFileId);
+					uploadFilesPathName.push($(this).get(0).voPathName);
+				});
+				
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!saveSigned.action',
 					data : {
@@ -391,16 +501,17 @@ var otherfilenum = 0;
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '1',
 						'signedId' : signedId,
-						'filepathdate' : filepathdate,
-						'signedfileuploadName' : fileName,
-						'fileIds' : fileIds,
 						'savecaseBackmark' : $("#iptcaseBackMark").val(),
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
 						'saveRemark' : $("#iptcaseRemark").val(),
 						'saveselectOhterFiles' : saveselectOhterFiles,
-						'stepPay' : stepPay
+						'saveUploadFilesIds' : uploadFilesIds,
+						'saveUploadFilesPathName' : uploadFilesPathName,
+						'stepPay' : stepPay,
+						'stepPayStartDate' : stepPayStartDate,
+						'stepPayEndDate' : stepPayEndDate
 					},
 					type : "POST",
 					dataType : 'json',
@@ -437,6 +548,14 @@ var otherfilenum = 0;
 					saveselectOhterFiles.push($(this).val());
 				});
 				
+				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
+				var uploadFilesIds = [], uploadFilesPathName = [];
+				var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
+				$(datatablesignedFiles.fnGetData()).each(function(){
+					uploadFilesIds.push($(this).get(0).recordFileId);
+					uploadFilesPathName.push($(this).get(0).voPathName);
+				});
+				
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!submitSigned.action',
 					data : {
@@ -453,15 +572,14 @@ var otherfilenum = 0;
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '2',
 						'signedId' : signedId,
-						'filepathdate' : filepathdate,
-						'signedfileuploadName' : fileName,
-						'fileIds' : fileIds,
 						'savecaseBackmark' : $("#iptcaseBackMark").val(),
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
 						'saveRemark' : $("#iptcaseRemark").val(),
-						'saveselectOhterFiles' : saveselectOhterFiles
+						'saveselectOhterFiles' : saveselectOhterFiles,
+						'saveUploadFilesIds' : uploadFilesIds,
+						'saveUploadFilesPathName' : uploadFilesPathName
 					},
 					type : "POST",
 					dataType : 'json',
@@ -495,6 +613,15 @@ var otherfilenum = 0;
 			
 			//退件按鈕
 			$("#btnbackSigned").button().on("click",function(){
+				
+				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
+				var uploadFilesIds = [], uploadFilesPathName = [];
+				var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
+				$(datatablesignedFiles.fnGetData()).each(function(){
+					uploadFilesIds.push($(this).get(0).recordFileId);
+					uploadFilesPathName.push($(this).get(0).voPathName);
+				});
+				
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!backSigned.action',
 					data : {
@@ -511,14 +638,13 @@ var otherfilenum = 0;
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '3',
 						'signedId' : signedId,
-						'filepathdate' : filepathdate,
-						'signedfileuploadName' : fileName,
-						'fileIds' : fileIds,
 						'savecaseBackmark' : $("#iptcaseBackMark").val(),
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
-						'saveRemark' : $("#iptcaseRemark").val()
+						'saveRemark' : $("#iptcaseRemark").val(),
+						'saveUploadFilesIds' : uploadFilesIds,
+						'saveUploadFilesPathName' : uploadFilesPathName
 					},
 					type : "POST",
 					dataType : 'json',
@@ -552,6 +678,15 @@ var otherfilenum = 0;
 			
 			//主管核准按鈕
 			$("#btncheckedSubmitSigned").button().on("click",function(){
+				
+				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
+				var uploadFilesIds = [], uploadFilesPathName = [];
+				var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
+				$(datatablesignedFiles.fnGetData()).each(function(){
+					uploadFilesIds.push($(this).get(0).recordFileId);
+					uploadFilesPathName.push($(this).get(0).voPathName);
+				});
+				
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!backSigned.action',
 					data : {
@@ -568,14 +703,13 @@ var otherfilenum = 0;
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '4',
 						'signedId' : signedId,
-						'filepathdate' : filepathdate,
-						'signedfileuploadName' : fileName,
-						'fileIds' : fileIds,
 						'savecaseBackmark' : $("#iptcaseBackMark").val(),
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
-						'saveRemark' : $("#iptcaseRemark").val()
+						'saveRemark' : $("#iptcaseRemark").val(),
+						'saveUploadFilesIds' : uploadFilesIds,
+						'saveUploadFilesPathName' : uploadFilesPathName
 					},
 					type : "POST",
 					dataType : 'json',
@@ -607,6 +741,15 @@ var otherfilenum = 0;
 			
 			//窗口回應儲存按鈕
 			$("#btnendSubmitSigned").button().on("click",function(){
+				
+				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
+				var uploadFilesIds = [], uploadFilesPathName = [];
+				var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
+				$(datatablesignedFiles.fnGetData()).each(function(){
+					uploadFilesIds.push($(this).get(0).recordFileId);
+					uploadFilesPathName.push($(this).get(0).voPathName);
+				});
+				
 				$.ajax({
 					url : 'pages/cek/recordcheckform/recordcheckformAction!backSigned.action',
 					data : {
@@ -623,14 +766,13 @@ var otherfilenum = 0;
 						'savecaseSumAmount' : $("#iptcaseSumAmount").val(),
 						'type' : '5',
 						'signedId' : signedId,
-						'filepathdate' : filepathdate,
-						'signedfileuploadName' : fileName,
-						'fileIds' : fileIds,
 						'savecaseBackmark' : $("#iptcaseBackMark").val(),
 						'saveapplyUserId' : $("#iptapplyUserId").val(),
 						'saveownerAgree1' : $("#iptcaseownerAgree1:checked").val(),
 						'saveownerAgree2' : $("#iptcaseownerAgree2:checked").val(),
-						'saveRemark' : $("#iptcaseRemark").val()
+						'saveRemark' : $("#iptcaseRemark").val(),
+						'saveUploadFilesIds' : uploadFilesIds,
+						'saveUploadFilesPathName' : uploadFilesPathName
 					},
 					type : "POST",
 					dataType : 'json',
@@ -696,9 +838,10 @@ var otherfilenum = 0;
 		      }
 		      
 		    //add by Jia ===== 定義新增時彈跳的視窗 start =====
+		    	//點選簽呈打開的簽呈Table
 		    	var dialog = $("#signedfile-dialog-form").dialog({
 		    		autoOpen : false,
-		    		height : 120,
+		    		height : 565,
 		    		width : 500,
 		    		modal : true
 		    	});
@@ -713,7 +856,7 @@ var otherfilenum = 0;
 		    	var dialogstepPay = $("#stepPay-dialog-form").dialog({
 		    		autoOpen : false,
 		    		height : 565,
-		    		width : 500,
+		    		width : 900,
 		    		modal : true,
 		    		buttons : {
 		    			'新增' : addstepPay,
@@ -730,17 +873,13 @@ var otherfilenum = 0;
 					singleFileUploads:false,
 					//maxNumberOfFiles: 6,
 					//將要上傳的資料顯示
-					add : function(e, data) {
+					send : function(e, data) {
 						$("#tpldiv").remove();
 						$(".item").empty();
 						var tpl = $('<div id="tpldiv" class="working"><span class="pro" /><span class="info"></span></div>');
 						tpl.find('.info').text(data.files[0].name);
 						//fileName = data.files[0].name;
 						data.context = tpl.appendTo($(".item"));
-						//執行 data.submit() 開始上傳
-						$("#signedstart").click(function() {
-							var jqXHR = data.submit();
-						});
 						$("#signedfileupload").attr("disabled", true);
 					},	
 					//單一檔案進度
@@ -753,9 +892,6 @@ var otherfilenum = 0;
 					},
 					//整體進度
 					progressall : function(e, data) {
-						var progress = parseInt(data.loaded/ data.total* 100, 10);
-						$('#progress .bar').css('width',	progress + '%');
-						$('#progress .bar').text(progress + '%');
 					},
 					//上傳失敗
 					fail : function(e, data) {
@@ -763,11 +899,12 @@ var otherfilenum = 0;
 					},
 					//單一檔案上傳完成
 					done : function(e, data) {
-						filepathdate = data.result.fileuploadDatetime;
-						fileName = data.result.fileuploadName;
 						var tmp = data.context.find('.pro').text();
 						data.context.find('.pro').text(tmp + data.result.status + "　　");
-						//alert(data.result.fileuploadName);
+						
+						var datatable = "";
+						datatable = $("#signedfilefileUploadTable").dataTable();
+						datatable.fnAddData(data.result.recordFile);
 					},
 					//全部上傳完畢
 					stop : function(e) {
@@ -786,23 +923,36 @@ var otherfilenum = 0;
 		    	
 		    	//點選後將總額帶入框框內
 		    	function addstepPay(){
+		    		var newstepPay = [], newstepPayStartDate = [], newstepPayEndDate = [];
 					var stepnum = $("#iptcaseStepPeriods").val();
 					var sumamount = 0;
 		    		for (var i = 1; i <= stepnum; i++) {
 		    			if(isInteger($("#iptcaseStepPeriods"+ i).val())){
-		    				if($("#iptcaseStepPeriods"+ i).val() != ""){
-		    				sumamount += parseInt($("#iptcaseStepPeriods"+ i).val());
-		    				stepPay.push($("#iptcaseStepPeriods"+ i).val());
+		    				if($("#iptcaseStepPeriods"+ i).val() !== ""){
+			    				sumamount += parseInt($("#iptcaseStepPeriods"+ i).val());
+			    				newstepPay.push($("#iptcaseStepPeriods"+ i).val());
+			    				newstepPayStartDate.push($("#iptcaseStepPayStartDate"+ i).val());
+			    				newstepPayEndDate.push($("#iptcaseStepPayEndDate"+ i).val());
+		    				}
+		    				if($("#iptcaseStepPayEndDate" + i).val() !== ""){
+		    		    		$("#iptcasePayEndDate").val($("#iptcaseStepPayEndDate" + i ).val());
 		    				}
 		    			}
 					} 
+		    		stepPay = newstepPay;
+		    		stepPayStartDate = newstepPayStartDate;
+		    		stepPayEndDate = newstepPayEndDate;
+		    		
 		    		$("#iptcasePeriods").val(stepnum);
 		    		$("#iptcaseSumAmount").val(sumamount);
 		    		$("#iptcaseAmount").val($("#iptcaseStepPeriods1").val());
-		    		$("#iptcasePayStartDate").val($("#iptcaseStepPayStartDate").val());
-		    		$("#iptcasePayEndDate").val($("#iptcaseStepPayEndDate").val());
+		    		$("#iptcasePayStartDate").val($("#iptcaseStepPayStartDate1").val());
 		    		
 		    		$('#iptcaseType option[value='+3+']').attr('selected', 'selected');
+					$("#iptcasePeriods").attr("disabled", true);
+					$("#iptcasePayStartDate").attr("disabled", true);
+					$("#iptcasePayEndDate").attr("disabled", true);
+					$("#iptcaseAmount").attr("disabled", true);
 		    		dialogstepPay.dialog("close");
 		    	}
 		    	
@@ -934,17 +1084,37 @@ var otherfilenum = 0;
 		</div>
 
 		<!-- 簽呈主畫面 end -->
-		<div id="signedfile-dialog-form" title="新增文件">
-				<div id="progress">
-					<input id="signedfileupload" name="upload" type="file" multiple ><input id="signedstart" value="上傳" type="button">
-	
-					<div class="bar" style="width: 0%;"></div>
-					<div class="item"></div>
-				</div>
+		
+		<div id="signedfile-dialog-form" title="新增簽呈">
+			<table>
+				<tr>
+					<td>
+						<button class="ui-button ui-widget ui-corner-all" id ="btnoverPrintSigned">
+						    <span class="ui-icon ui-icon-gear"></span> 套印簽呈
+						</button>
+					</td>
+					<td id = "tdsignedfileupload">
+						<span class="btn btn-success fileinput-button ui-button ui-widget ui-corner-all">
+						<span class="ui-icon ui-icon-plus"></span>選擇檔案
+						<input id="signedfileupload" name="upload" type="file" multiple >
+						</span>
+					</td>
+				</tr>
+			</table>	
+				<table id="signedfilefileUploadTable"  class="display" cellspacing="0" width="100%">
+				    <thead>
+			            <tr>
+			                <th>檔案名稱</th>
+			                <th></th>
+			                <th></th>
+			            </tr>
+			        </thead>
+			    </table>
+			    
 		</div>
 		
 		<!-- 簽呈相關文件 -->
-		<div id="signedfileOther-dialog-form" title="新增文件">
+		<div id="signedfileOther-dialog-form" title="新增相關文件">
 				<div id="signedfileOther">
 					<table id="signedfileOtherTable"  class="display" cellspacing="0" width="100%">
 					    <thead>
@@ -965,60 +1135,100 @@ var otherfilenum = 0;
 							<td><label>期數</label></td>
 							<td><input id="iptcaseStepPeriods"></input></td>
 						</tr>
-						<tr>
-							<td><label>繳款起日</label></td>
-							<td><input id="iptcaseStepPayStartDate"></input></td>
-						</tr>
-						<tr>
-							<td><label>繳款迄日</label></td>
-							<td><input id="iptcaseStepPayEndDate"></input></td>
-						</tr>
 						<tr id="trstep1" style="display:none">
-							<td><label>第一期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate1"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate1"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods1"></input></td>
 						</tr>
 						<tr id="trstep2"  style="display:none">
-							<td><label>第二期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate2"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate2"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods2"></input></td>
 						</tr>
 						<tr id="trstep3" style="display:none">
-							<td><label>第三期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate3"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate3"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods3"></input></td>
 						</tr>
 						<tr id="trstep4" style="display:none">
-							<td><label>第四期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate4"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate4"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods4"></input></td>
 						</tr>
 						<tr id="trstep5" style="display:none">
-							<td><label>第五期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate5"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate5"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods5"></input></td>
 						</tr>
 						<tr id="trstep6" style="display:none">
-							<td><label>第六期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate6"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate6"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods6"></input></td>
 						</tr>
 						<tr id="trstep7" style="display:none">
-							<td><label>第七期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate7"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate7"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods7"></input></td>
 						</tr>
 						<tr id="trstep8" style="display:none">
-							<td><label>第八期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate8"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate8"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods8"></input></td>
 						</tr>
 						<tr id="trstep9" style="display:none">
-							<td><label>第九期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate9"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate9"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods9"></input></td>
 						</tr>
 						<tr id="trstep10" style="display:none">
-							<td><label>第十期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate10"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate10"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods10"></input></td>
 						</tr>
 						<tr id="trstep11" style="display:none">
-							<td><label>第十一期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate11"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate11"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods11"></input></td>
 						</tr>
 						<tr id="trstep12" style="display:none">
-							<td><label>第十二期</label></td>
+							<td><label>繳款起日</label></td>
+							<td><input id="iptcaseStepPayStartDate12"></input></td>
+							<td><label>繳款迄日</label></td>
+							<td><input id="iptcaseStepPayEndDate12"></input></td>
+							<td><label>每期金額</label></td>
 							<td><input id="iptcaseStepPeriods12"></input></td>
 						</tr>
 					</table>

@@ -22,6 +22,7 @@ public class LSysFile implements java.io.Serializable {
 	
 	//add by Jia 2017-05-19 VO
 	private String v;
+	private String voPathName;
 
 	public LSysFile() {
 
@@ -161,6 +162,14 @@ public class LSysFile implements java.io.Serializable {
 
 	public void setV(String v) {
 		this.v = v;
+	}
+
+	public String getVoPathName() {
+		return voPathName;
+	}
+
+	public void setVoPathName(String voPathName) {
+		this.voPathName = voPathName;
 	}
 
 	

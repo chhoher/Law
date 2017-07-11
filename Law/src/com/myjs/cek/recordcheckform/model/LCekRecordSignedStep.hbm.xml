@@ -5,7 +5,7 @@
 <hibernate-mapping>
     <class name="com.myjs.cek.recordcheckform.model.LCekRecordSignedStep" table="L_CEK_RECORD_SIGNED_STEP" schema="dbo" catalog="Legal" optimistic-lock="version">
 		<id name="signedId" type="string">
-            <column name="signed_id" length="50" />
+            <column name="signed_id" length="50" not-null="true" />
         </id>
         <property name="stepPay1" type="int">
             <column name="step_pay_1" not-null="true" />
@@ -42,6 +42,78 @@
         </property>
         <property name="stepPay12" type="int">
             <column name="step_pay_12" not-null="true" />
+        </property>
+        <property name="stepPayStartDate1" type="timestamp">
+            <column name="step_pay_start_date_1" length="23" />
+        </property>
+        <property name="stepPayEndDate1" type="timestamp">
+            <column name="step_pay_end_date_1" length="23" />
+        </property>
+        <property name="stepPayStartDate2" type="timestamp">
+            <column name="step_pay_start_date_2" length="23" />
+        </property>
+        <property name="stepPayEndDate2" type="timestamp">
+            <column name="step_pay_end_date_2" length="23" />
+        </property>
+        <property name="stepPayStartDate3" type="timestamp">
+            <column name="step_pay_start_date_3" length="23" />
+        </property>
+        <property name="stepPayEndDate3" type="timestamp">
+            <column name="step_pay_end_date_3" length="23" />
+        </property>
+        <property name="stepPayStartDate4" type="timestamp">
+            <column name="step_pay_start_date_4" length="23" />
+        </property>
+        <property name="stepPayEndDate4" type="timestamp">
+            <column name="step_pay_end_date_4" length="23" />
+        </property>
+        <property name="stepPayStartDate5" type="timestamp">
+            <column name="step_pay_start_date_5" length="23" />
+        </property>
+        <property name="stepPayEndDate5" type="timestamp">
+            <column name="step_pay_end_date_5" length="23" />
+        </property>
+        <property name="stepPayStartDate6" type="timestamp">
+            <column name="step_pay_start_date_6" length="23" />
+        </property>
+        <property name="stepPayEndDate6" type="timestamp">
+            <column name="step_pay_end_date_6" length="23" />
+        </property>
+        <property name="stepPayStartDate7" type="timestamp">
+            <column name="step_pay_start_date_7" length="23" />
+        </property>
+        <property name="stepPayEndDate7" type="timestamp">
+            <column name="step_pay_end_date_7" length="23" />
+        </property>
+        <property name="stepPayStartDate8" type="timestamp">
+            <column name="step_pay_start_date_8" length="23" />
+        </property>
+        <property name="stepPayEndDate8" type="timestamp">
+            <column name="step_pay_end_date_8" length="23" />
+        </property>
+        <property name="stepPayStartDate9" type="timestamp">
+            <column name="step_pay_start_date_9" length="23" />
+        </property>
+        <property name="stepPayEndDate9" type="timestamp">
+            <column name="step_pay_end_date_9" length="23" />
+        </property>
+        <property name="stepPayStartDate10" type="timestamp">
+            <column name="step_pay_start_date_10" length="23" />
+        </property>
+        <property name="stepPayEndDate10" type="timestamp">
+            <column name="step_pay_end_date_10" length="23" />
+        </property>
+        <property name="stepPayStartDate11" type="timestamp">
+            <column name="step_pay_start_date_11" length="23" />
+        </property>
+        <property name="stepPayEndDate11" type="timestamp">
+            <column name="step_pay_end_date_11" length="23" />
+        </property>
+        <property name="stepPayStartDate12" type="timestamp">
+            <column name="step_pay_start_date_12" length="23" />
+        </property>
+        <property name="stepPayEndDate12" type="timestamp">
+            <column name="step_pay_end_date_12" length="23" />
         </property>
     </class>
 </hibernate-mapping>

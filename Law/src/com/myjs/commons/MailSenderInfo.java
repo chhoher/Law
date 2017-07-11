@@ -22,7 +22,7 @@ public class MailSenderInfo {
 	private String toAddress2 = null;
 	// 郵件副本接收者的地址
 	private String ccAddress = null;
-	private String ccAddress2 = "2354@mytf.com.tw";
+	private String ccAddress2 = null;
 	// 登陸郵件發送服務器的用戶名和密碼
 	private String userName = "劉家嘉";
 	private String password = "";

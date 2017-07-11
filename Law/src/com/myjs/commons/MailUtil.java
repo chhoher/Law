@@ -28,7 +28,8 @@ public class MailUtil {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MailSenderInfo test = new MailSenderInfo();
-		sendHtmlMail(test);
+		boolean testmail = sendHtmlMail(test);
+		System.out.println("end" + testmail);
 	}
 
 	/**

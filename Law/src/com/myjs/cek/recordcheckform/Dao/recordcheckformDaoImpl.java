@@ -340,15 +340,10 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		return flag;
 	}
 	
-	public boolean save(LCekRecordSignedStep transientInstance) throws Exception {
+	public void save(LCekRecordSignedStep transientInstance) throws Exception {
 		log.debug("saving LCekRecordSignedStep instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 		log.debug("save successful");
-		return flag;
 	}
 	
 	public LCekRecordSigned findRecordSignedById(String SignedId) throws Exception{
@@ -468,7 +463,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 	}
 	
 	public boolean insertCaseNote(int caseId,String notes) throws Exception {
-		log.debug("updateRemoveColumns start");
+		log.debug("insertCaseNote start");
 		boolean flag = false;
 		StringBuffer queryString=new StringBuffer("INSERT INTO O_CaseNotes (");
 		queryString.append(" Case_ID,Record_class,Record_type,");
@@ -495,5 +490,37 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
         });
 		log.debug("findLCekRecordOtherfileById end");
         return (List<LCekRecordOtherfile>)execute;
+	}
+	
+	/**
+	 * add By Jia 2017-07-11
+	 * 新增update LCekRecordFile 狀態和所屬表單
+	 */
+	public boolean updateLCekRecordFile(String recordCheckformId, String recordFileIds) throws Exception {
+		log.debug("updateLCekRecordFile start");
+		boolean flag = false;
+		StringBuffer updateString=new StringBuffer("UPDATE L_CEK_RECORD_FILE SET  record_checkform_id = '");
+		updateString.append(recordCheckformId + "'");
+		updateString.append(" WHERE record_file_id in (" + recordFileIds + ")");
+		this.jdbcTemplate.execute(updateString.toString());
+		log.debug("updateString = {}",updateString);
+		flag = true;
+		return flag;
+	}
+
+	/**
+	 * add By Jia 2017-07-11
+	 * 刪除選擇LCekRecordFile
+	 * isDelete = 'Y'
+	 */
+	public boolean deleteLCekRecordFile(String recordFileId) throws Exception{
+		log.debug("deleteLCekRecordFile start");
+		boolean flag = false;
+		StringBuffer deleteString=new StringBuffer("UPDATE L_CEK_RECORD_FILE SET  is_delete = 'Y'");
+		deleteString.append(" WHERE record_file_id = '" + recordFileId + "'");
+		this.jdbcTemplate.execute(deleteString.toString());
+		log.debug("delete Query = {}",deleteString);
+		flag = true;
+		return flag;
 	}
 }

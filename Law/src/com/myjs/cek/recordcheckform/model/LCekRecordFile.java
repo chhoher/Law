@@ -20,13 +20,17 @@ public class LCekRecordFile implements java.io.Serializable {
 	private Date modifyDatetime;
 	private String modifyUserId;
 	private String recordCheckformId;
+	private String isDelete;
+	
+	// add By Jia 2017-07-10 Vo
+	private String voPathName;
 
 	public LCekRecordFile() {
 
 	}
 
 	public LCekRecordFile(String recordFileId, String fileId, String fileName, String filePath, Date modifyDatetime,
-			String modifyUserId, String recordCheckformId) {
+			String modifyUserId, String recordCheckformId, String isDelete) {
 		this.recordFileId = recordFileId;
 		this.fileId = fileId;
 		this.fileName = fileName;
@@ -34,6 +38,7 @@ public class LCekRecordFile implements java.io.Serializable {
 		this.modifyDatetime = modifyDatetime;
 		this.modifyUserId = modifyUserId;
 		this.recordCheckformId = recordCheckformId;
+		this.isDelete = isDelete;
 	}
 
 	public String getRecordFileId() {
@@ -90,6 +95,22 @@ public class LCekRecordFile implements java.io.Serializable {
 
 	public void setRecordCheckformId(String recordCheckformId) {
 		this.recordCheckformId = recordCheckformId;
+	}
+
+	public String getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	public String getVoPathName() {
+		return voPathName;
+	}
+
+	public void setVoPathName(String voPathName) {
+		this.voPathName = voPathName;
 	}
 
 	

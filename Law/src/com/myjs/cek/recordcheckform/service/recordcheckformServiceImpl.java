@@ -30,6 +30,7 @@ import com.myjs.cek.recordcheckform.model.LCekRecordSignedStep;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.FilesUploads;
+import com.myjs.commons.JsonUtil;
 import com.myjs.commons.MailSenderInfo;
 import com.myjs.commons.MailUtil;
 import com.myjs.commons.NumberUtil;
@@ -92,7 +93,8 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 	}
 	
 	public String saveSignedform(LCekRecordSigned LCekRecordSigned, LCekRecordCheckform LCekRecordCheckform, 
-			String type, List<LCekRecordFile> LCekRecordFile, VEIPMemdb loginUser, String[] saveselectOhterFiles, String[] stepPay) throws Exception{
+			String type, VEIPMemdb loginUser, String[] saveselectOhterFiles, String[] stepPay, String[] stepPayStartDate, 
+			String[] stepPayEndDate, String[] saveUploadFilesIds, String[] saveUploadFilesPathName) throws Exception{
 		//type = 1 表示暫存
 		if(type.equals("1")){ 
 			
@@ -109,16 +111,20 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
 			
 			if(stepPay != null){
-				LCekRecordSignedStep.setNumStepPay(stepPay);
+				LCekRecordSignedStep.setNumStepPay(stepPay, stepPayStartDate, stepPayEndDate);
 				recordcheckformDao.save(LCekRecordSignedStep);
 			}
 			
 			LCekRecordCheckform.setMappingtableId(LCekRecordSigned.getSignedId());
 			recordcheckformDao.save(LCekRecordCheckform);
 			
-			for(int i = 0; i < LCekRecordFile.size(); i ++){
-				LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-				recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
+			String updatefileIds = "";
+			if(saveUploadFilesIds != null){
+				for(int i = 0; i < saveUploadFilesIds.length; i ++){
+					updatefileIds += ("'" + saveUploadFilesIds[i] + "',");
+				}
+				updatefileIds = updatefileIds.substring(0,updatefileIds.length()-1);
+				recordcheckformDao.updateLCekRecordFile(LCekRecordCheckform.getRecordCheckformId(), updatefileIds);
 			}
 			
 			if(saveselectOhterFiles != null){
@@ -153,7 +159,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
 			
 			if(stepPay != null){
-				LCekRecordSignedStep.setNumStepPay(stepPay);
+				LCekRecordSignedStep.setNumStepPay(stepPay, stepPayStartDate, stepPayEndDate);
 				recordcheckformDao.save(LCekRecordSignedStep);
 			}
 			
@@ -166,17 +172,18 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 //			String[] fileNames = new String[LCekRecordFile.size()];
 			ArrayList<String> fileNames = new ArrayList<String>();
 					
-			if(LCekRecordFile.size() > 0){
-				for(int i = 0; i < LCekRecordFile.size(); i ++){
-					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
-					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
-//					fileNames[i] = LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName();
+			String updatefileIds = "";
+			if(saveUploadFilesIds != null){
+				for(int i = 0; i < saveUploadFilesIds.length; i ++){
+					updatefileIds += ("'" + saveUploadFilesIds[i] + "',");
 				}
-			}else{
-				List<LCekRecordFile> LCekRecordFileList = recordcheckformDao.findbysignedId(LCekRecordSigned.getSignedId());
-				for(int i = 0;i < LCekRecordFileList.size();i++){
-					fileNames.add(LCekRecordFileList.get(i).getFilePath() + "\\" + LCekRecordFileList.get(i).getFileName());
+				updatefileIds = updatefileIds.substring(0,updatefileIds.length()-1);
+				recordcheckformDao.updateLCekRecordFile(LCekRecordCheckform.getRecordCheckformId(), updatefileIds);
+			}
+			
+			if(saveUploadFilesPathName != null){
+				for(int i = 0; i < saveUploadFilesPathName.length; i++){
+					fileNames.add(saveUploadFilesPathName[i]);
 				}
 			}
 			
@@ -232,7 +239,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
 			
 			if(stepPay != null){
-				LCekRecordSignedStep.setNumStepPay(stepPay);
+				LCekRecordSignedStep.setNumStepPay(stepPay, stepPayStartDate, stepPayEndDate);
 				recordcheckformDao.save(LCekRecordSignedStep);
 			}
 			
@@ -242,16 +249,18 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 
 			ArrayList<String> fileNames = new ArrayList<String>();
 			
-			if(LCekRecordFile.size() > 0){
-				for(int i = 0; i < LCekRecordFile.size(); i ++){
-					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
-					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
+			String updatefileIds = "";
+			if(saveUploadFilesIds != null){
+				for(int i = 0; i < saveUploadFilesIds.length; i ++){
+					updatefileIds += ("'" + saveUploadFilesIds[i] + "',");
 				}
-			}else{
-				List<LCekRecordFile> LCekRecordFileList = recordcheckformDao.findbysignedId(LCekRecordSigned.getSignedId());
-				for(int i = 0;i < LCekRecordFileList.size();i++){
-					fileNames.add(LCekRecordFileList.get(i).getFilePath() + "\\" + LCekRecordFileList.get(i).getFileName());
+				updatefileIds = updatefileIds.substring(0,updatefileIds.length()-1);
+				recordcheckformDao.updateLCekRecordFile(LCekRecordCheckform.getRecordCheckformId(), updatefileIds);
+			}
+			
+			if(saveUploadFilesPathName != null){
+				for(int i = 0; i < saveUploadFilesPathName.length; i++){
+					fileNames.add(saveUploadFilesPathName[i]);
 				}
 			}
 			
@@ -310,7 +319,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
 			
 			if(stepPay != null){
-				LCekRecordSignedStep.setNumStepPay(stepPay);
+				LCekRecordSignedStep.setNumStepPay(stepPay, stepPayStartDate, stepPayEndDate);
 				recordcheckformDao.save(LCekRecordSignedStep);
 			}
 			
@@ -320,17 +329,18 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			
 			ArrayList<String> fileNames = new ArrayList<String>();
 			
-			if(LCekRecordFile.size() > 0){
-				for(int i = 0; i < LCekRecordFile.size(); i ++){
-					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					LCekRecordFile.get(i).setModifyUserId(loginUser.getMemno());
-					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
-					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
+			String updatefileIds = "";
+			if(saveUploadFilesIds != null){
+				for(int i = 0; i < saveUploadFilesIds.length; i ++){
+					updatefileIds += ("'" + saveUploadFilesIds[i] + "',");
 				}
-			}else{
-				List<LCekRecordFile> LCekRecordFileList = recordcheckformDao.findbysignedId(LCekRecordSigned.getSignedId());
-				for(int i = 0;i < LCekRecordFileList.size();i++){
-					fileNames.add(LCekRecordFileList.get(i).getFilePath() + "\\" + LCekRecordFileList.get(i).getFileName());
+				updatefileIds = updatefileIds.substring(0,updatefileIds.length()-1);
+				recordcheckformDao.updateLCekRecordFile(LCekRecordCheckform.getRecordCheckformId(), updatefileIds);
+			}
+			
+			if(saveUploadFilesPathName != null){
+				for(int i = 0; i < saveUploadFilesPathName.length; i++){
+					fileNames.add(saveUploadFilesPathName[i]);
 				}
 			}
 			
@@ -388,7 +398,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			LCekRecordSignedStep.setSignedId(LCekRecordSigned.getSignedId());
 			
 			if(stepPay != null){
-				LCekRecordSignedStep.setNumStepPay(stepPay);
+				LCekRecordSignedStep.setNumStepPay(stepPay, stepPayStartDate, stepPayEndDate);
 				recordcheckformDao.save(LCekRecordSignedStep);
 			}
 			
@@ -398,17 +408,18 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			recordcheckformDao.save(LCekRecordCheckform);
 			ArrayList<String> fileNames = new ArrayList<String>();
 			
-			if(LCekRecordFile.size() > 0){
-				for(int i = 0; i < LCekRecordFile.size(); i ++){
-					LCekRecordFile.get(i).setRecordCheckformId(LCekRecordCheckform.getRecordCheckformId());
-					LCekRecordFile.get(i).setModifyUserId(loginUser.getMemno());
-					recordcheckformDao.saveRecordFile(LCekRecordFile.get(i));
-					fileNames.add(LCekRecordFile.get(i).getFilePath() + "\\" + LCekRecordFile.get(i).getFileName());
+			String updatefileIds = "";
+			if(saveUploadFilesIds != null){
+				for(int i = 0; i < saveUploadFilesIds.length; i ++){
+					updatefileIds += ("'" + saveUploadFilesIds[i] + "',");
 				}
-			}else{
-				List<LCekRecordFile> LCekRecordFileList = recordcheckformDao.findbysignedId(LCekRecordSigned.getSignedId());
-				for(int i = 0;i < LCekRecordFileList.size();i++){
-					fileNames.add(LCekRecordFileList.get(i).getFilePath() + "\\" + LCekRecordFileList.get(i).getFileName());
+				updatefileIds = updatefileIds.substring(0,updatefileIds.length()-1);
+				recordcheckformDao.updateLCekRecordFile(LCekRecordCheckform.getRecordCheckformId(), updatefileIds);
+			}
+			
+			if(saveUploadFilesPathName != null){
+				for(int i = 0; i < saveUploadFilesPathName.length; i++){
+					fileNames.add(saveUploadFilesPathName[i]);
 				}
 			}
 
@@ -507,7 +518,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 //							250000, new Date(), 0, "", "00345",
 //							"123124", new Date(),"jia","jia",
 //							"y", "");
-				VEIPMemdb applyUser = memdbDao.findbyuserId(lcs.getApplyUserId());// 申請人
+				VEIPMemdb applyUser = memdbDao.findbyMemno(lcs.getApplyUserId());// 申請人
 				lcs.setApplyUserName(applyUser.getMemnm());
 				lcs.setCaseNo(NumberUtil.addZeroForNum(lcs.getCaseId() + "", 8));
 				LCekRecordSigned.add(lcs);
@@ -530,6 +541,84 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
 		return jsonResponse;
 	}
+	
+	// add By Jia 2017-07-07
+	// 回傳需套印檔案路徑提供下載
+	public JsonObject downloadOverPrintSignedFile(String fileTypeOne,String fileTypeTwo, String signedId, LCekRecordSigned lcs) throws Exception{
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		JsonObject jsonResponse = new JsonObject();
+		log.debug("===== downloadSignedFile =====");
+		List<LSysFile> MapFileList = new ArrayList<LSysFile>();
+		List<Map<String, Object>> fileList = fileDao.findfilePathByTypes(fileTypeOne, fileTypeTwo);
+		
+		for (Map<?, ?> map : fileList) {
+
+			LSysFile lcekfile = new LSysFile();
+			lcekfile.setFileId((String) map.get("file_id"));
+			lcekfile.setFileName((String) map.get("file_name"));
+			lcekfile.setFilePath((String) map.get("file_path"));
+
+			// 進行套表
+			log.debug("套表開始");
+			log.debug("檔案路徑 = {}", lcekfile.getFilePath() + "\\" + lcekfile.getFileName());
+			List<LCekRecordSigned> LCekRecordSigned = new ArrayList<LCekRecordSigned>();
+//						LCekRecordSigned LCekRecordSigned1 = new LCekRecordSigned(null , 2740584, "京城銀行", "京城銀行信用卡_Y2", "張淑茹",
+//								"CM", "分期清償", 10, new Date(), new Date(), 25000,
+//								250000, new Date(), 0, "", "00345",
+//								"123124", new Date(),"jia","jia",
+//								"y", "");
+			VEIPMemdb applyUser = memdbDao.findbyMemno(lcs.getApplyUserId());// 申請人
+			lcs.setApplyUserName(applyUser.getMemnm());
+			lcs.setCaseNo(NumberUtil.addZeroForNum(lcs.getCaseId() + "", 8));
+			LCekRecordSigned.add(lcs);
+	        try(InputStream is = new FileInputStream(lcekfile.getFilePath() + "\\" + lcekfile.getFileName())) {
+	        	log.debug("is = {}", is);
+	            try (OutputStream os = new FileOutputStream(lcekfile.getFilePath() + "/New" + lcekfile.getFileName())) {
+	                Context context = new Context();
+	                context.putVar("LCekRecordSigned", LCekRecordSigned);
+	                JxlsHelper.getInstance().processTemplate(is, os, context);
+	            }
+	        }
+	        
+			lcekfile.setFileId((String) map.get("file_id"));
+			lcekfile.setFileName("New" + lcekfile.getFileName());
+			lcekfile.setFilePath((String) map.get("file_path"));
+
+			MapFileList.add(lcekfile);
+		}
+	
+		jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
+		return jsonResponse;
+	}
+	
+	// add By Jia 2017-07-10
+		// 查詢已上傳檔案
+		public JsonObject selectedSignedFiles(String signedId) throws Exception{
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			JsonObject jsonResponse = new JsonObject();
+			log.debug("===== downloadSignedFile =====");
+			List<LCekRecordFile> MapFileList = new ArrayList<LCekRecordFile>();
+			if(signedId != null && !signedId.equals("") && !signedId.equals("null")){
+				List<Map<String, Object>> fileList = fileDao.findfilePathBySignedId(signedId);
+				for (Map<?, ?> map : fileList) {
+
+					LCekRecordFile lcekfile = new LCekRecordFile();
+					lcekfile.setRecordFileId((String) map.get("record_file_id"));
+					lcekfile.setFileName((String) map.get("file_name"));
+					lcekfile.setFilePath((String) map.get("file_path"));
+					
+					String pathAndName = (String) map.get("file_path") + "\\" + (String) map.get("file_name");
+					pathAndName = pathAndName.replace("\\", "/");
+					
+					lcekfile.setVoPathName(pathAndName);
+
+					MapFileList.add(lcekfile);
+
+				}
+			}
+			jsonResponse.add("MapFileList", gson.toJsonTree(MapFileList));
+			return jsonResponse;
+		}
 	
 	public JsonObject findOtherFilesByCaseId(String signedId,String caseId,String type, String userId) throws Exception{
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -564,5 +653,20 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		}
 		jsonResponse.add("data", gson.toJsonTree(MapFileList));
 		return jsonResponse;
+	}
+
+	@Override
+	public String deleteSelectSignedFile(String recordFileId) throws Exception {
+		String result = "";
+		log.debug("===== deleteSelectSignedFile =====");
+		if(recordFileId != null && !recordFileId.equals("") && !recordFileId.equals("null")){
+			boolean flag = recordcheckformDao.deleteLCekRecordFile(recordFileId);
+			if (flag) {
+				result = JsonUtil.ajaxResultSuccess("已刪除簽呈").toString();
+			} else {
+				result = JsonUtil.ajaxResultSuccess("刪除簽呈失敗").toString();
+			}
+		}
+		return result;
 	}
 }
