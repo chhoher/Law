@@ -29,6 +29,7 @@ import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
 import com.myjs.cek.recordcheckform.model.LCekRecordSignedStep;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
+import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.FilesUploads;
 import com.myjs.commons.JsonUtil;
 import com.myjs.commons.MailSenderInfo;
@@ -442,8 +443,9 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 			String bankResult = "";
 			String smartNote = "";
 			if(LCekRecordSigned.getOwnerAgree().equals("Y")){
+				String dateTime = DateTimeFormat.getDateTimeString(LCekRecordSigned.getPaytimeEnd(),"yyyy-MM-dd");
 				bankResult = "業主同意";
-				smartNote = "簽呈業主同意：" + LCekRecordSigned.getPaytimeEnd() + "前，以總金額" + LCekRecordSigned.getAmmountSum() + "，" + LCekRecordSigned.getType();
+				smartNote = "簽呈業主同意：" + dateTime + "前，以總金額" + LCekRecordSigned.getAmmountSum() + "，" + LCekRecordSigned.getType() + "。" + LCekRecordSigned.getRemark();
 			}else{
 				bankResult = "業主不同意-" + LCekRecordSigned.getRemark();
 				smartNote = "簽呈業主不同意：退件原因" + LCekRecordSigned.getRemark();

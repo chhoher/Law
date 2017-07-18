@@ -56,4 +56,14 @@ public class DateTimeFormat {
 		sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
 		return (sdf.format(new java.util.Date()));
 	}
+	
+	/**
+	 * 將輸入日期格式化 "yyyy-MM-dd"
+	 * @return
+	 */
+	public static String getDateTimeString(Date datetime, String format) throws Exception {
+		java.text.SimpleDateFormat sdf;
+		sdf = new java.text.SimpleDateFormat(format);
+		return (sdf.format(datetime));
+	}
 }

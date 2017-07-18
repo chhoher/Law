@@ -2,87 +2,15 @@
  * Add By Jia 2017-05-11 docaddDoc.js 實作addDoc.jsp 
  */
  
-// 法院文 start
-var courtDocsubtabcount = 0;
-var courtDocactivesubtabcount = 0;
-var courtDocsubtabs = $("#courtDocsubtabs").tabs();
-	function addcourtDocsubtab() {
-		courtDocsubtabcount ++ ;
-		courtDocactivesubtabcount ++;
-		
-		var tabTitle = "執行名義";
-		var tabId = "tabs-" + courtDocsubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>"+
-           	 	"<tr>"+
-					"<td><label>共用案號</label></td>"+
-					"<td><input id='iptcentitlementShareCaseId"+courtDocsubtabcount+"'></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>業主調件日</label></td>"+
-					"<td><input id='iptcentitlementBankDate"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*收文日期</label></td>"+
-					"<td><input id='iptcentitlementreceivedDate"+courtDocsubtabcount+"' ></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>*文件類別</label></td>"+
-					"<td><input id='iptcentitlementTypeOne"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*文件項目</label></td>"+
-					"<td><input id='iptcentitlementTypeTwo"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*債權人</label></td>"+
-					"<td><input id='iptcentitlementBankName"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>原債權人</label></td>"+
-					"<td><input id='iptcentitlementOldBankName"+courtDocsubtabcount+"' ></input></td>"+
-				"</tr>"+
-					"<td><label>*法院年字案股</label></td>"+
-					"<td><input id='iptcentitlementCourtYearCourt"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>年度</label></td>"+
-					"<td><input id='iptcentitlementCourtYearYear"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>字</label></td>"+
-					"<td><input id='iptcentitlementCourtYearTxt"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>股別</label></td>"+
-					"<td><input id='iptcentitlementCourtYearShare"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>案號</label></td>"+
-					"<td><input id='iptcentitlementCourtYearCaseId"+courtDocsubtabcount+"' ></input></td>"+
-				"<tr>"+
-					"<td><label>*發文日期</label></td>"+
-					"<td><input id='iptcentitlementSendDate"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*最近執行日期</label></td>"+
-					"<td><input id='iptcentitlementNewSendDate"+courtDocsubtabcount+"' ></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>備註</label></td>"+
-					"<td><input id='iptcentitlementRemark"+courtDocsubtabcount+"'></input></td>"+
-				"</tr>"+
-           	" </table>";
-		
-		courtDocsubtabs.find(".ui-tabs-nav").append(li);
-		courtDocsubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		courtDocsubtabs.tabs("refresh");
-		courtDocsubtabs.tabs({ active: courtDocactivesubtabcount});
-	}
-	
-	// Close icon: removing the tab on click
-	courtDocsubtabs.on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		courtDocactivesubtabcount--;
-		courtDocsubtabs.tabs({ active: courtDocactivesubtabcount});
-	});
-// 法院文 end
-	
 $(function() {
 	
 	// ===== function start =====
 	
 	function saveaddDoc(){
 		
-		var returnCashierCheck = law.addDoc.cashierCheck.returnAllsubtabJson(),// 儲存(本票)
+		var returnCentitlement = law.addDoc.centitlement.returnAllsubtabJson(),// 儲存(執行名義)
+			returnCourtDoc = law.addDoc.courtDoc.returnAllsubtabJson(),// 儲存(法院文)
+			returnCashierCheck = law.addDoc.cashierCheck.returnAllsubtabJson(),// 儲存(本票)
 			returnDebts = law.addDoc.debts.returnAllsubtabJson(),// 儲存(債讓)
 			returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
 			returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
@@ -92,6 +20,8 @@ $(function() {
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',
 					data : {
 						caseId : law.addDoc.caseId,
+						returnCentitlement : returnCentitlement,
+						returnCourtDoc : returnCourtDoc,
 						returnCashierCheck : returnCashierCheck,
 						returnDebts : returnDebts,
 						returnClaim : returnClaim,

@@ -1,5 +1,6 @@
 package com.myjs.doc.documents.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,9 @@ import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
 import com.myjs.doc.documents.model.LDocCashiercheck;
+import com.myjs.doc.documents.model.LDocCentitlement;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
+import com.myjs.doc.documents.model.LDocCourtDoc;
 import com.myjs.doc.documents.model.LDocDebts;
 import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocInfo;
@@ -75,8 +78,30 @@ public class docServiceImpl implements docService{
 		List<LSysVariable> LSysVariableListDocStatus = (List<LSysVariable>) LSysVariableMap.get("list"); //文件狀態
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
 		List<LSysVariable> LSysVariableListTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//文件類別
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f763e015d4f872ea90004");
+		List<LSysVariable> LSysVariableListCourtDocTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//法院文文件類別
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c8a7b56015c8aa8dfed0000");
 		List<LSysVariable> LSysVariableListTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目
+		
+		List<LSysVariable> LSysVariableListCourtDocTypeTwo = new ArrayList<LSysVariable>();//02法院文文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4f94c99f0000");
+		List<LSysVariable> LSysVariableListCourtDocImmovablesTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-不動產 文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4fbcecff000a");
+		List<LSysVariable> LSysVariableListCourtDocCenTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-取執 文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4fc47fb5000e");
+		List<LSysVariable> LSysVariableListCourtDocDebtTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-金錢債權 文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4fc5a22f0013");
+		List<LSysVariable> LSysVariableListCourtDocCommonsTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-共用 文件項目
+		
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocImmovablesTypeTwo);
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocCenTypeTwo);
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocDebtTypeTwo);
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		
+		LSysVariableListCourtDocImmovablesTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		LSysVariableListCourtDocCenTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		LSysVariableListCourtDocDebtTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b8eee900000");
 		List<LSysVariable> LSysVariableListBankName = (List<LSysVariable>) LSysVariableMap.get("list");//債權人
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9274670009");
@@ -97,11 +122,20 @@ public class docServiceImpl implements docService{
 		List<LSysVariable> LSysVariableListOtherTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(其他)
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d0bcf99015d0bd2563b0001");
 		List<LSysVariable> LSysVariableListSourceDoc = (List<LSysVariable>) LSysVariableMap.get("list");//原始憑證項目(all)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d53321f015d53527af30004");
+		List<LSysVariable> LSysVariableListPublishObject = (List<LSysVariable>) LSysVariableMap.get("list");//登報內外
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d53321f015d5353656c0007");
+		List<LSysVariable> LSysVariableListPublishThings = (List<LSysVariable>) LSysVariableMap.get("list");//登報項目
 		Gson gson = new Gson();
 		JsonObject jsonResponse = new JsonObject();
 		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableListDocStatus));
 		jsonResponse.add("TypeOne", gson.toJsonTree(LSysVariableListTypeOne));
+		jsonResponse.add("courtDocTypeOne", gson.toJsonTree(LSysVariableListCourtDocTypeOne));// 法院文-文件類型
 		jsonResponse.add("TypeTwo", gson.toJsonTree(LSysVariableListTypeTwo));
+		jsonResponse.add("courtDocTypeTwo", gson.toJsonTree(LSysVariableListCourtDocTypeTwo));// 法院文All
+		jsonResponse.add("courtDocImmovablesTypeTwo", gson.toJsonTree(LSysVariableListCourtDocImmovablesTypeTwo));// 法院文不動產
+		jsonResponse.add("courtDocCenTypeTwo", gson.toJsonTree(LSysVariableListCourtDocCenTypeTwo));// 法院文取執
+		jsonResponse.add("courtDocDebtTypeTwo", gson.toJsonTree(LSysVariableListCourtDocDebtTypeTwo));// 法院文金錢債權
 		jsonResponse.add("BankName", gson.toJsonTree(LSysVariableListBankName));
 		jsonResponse.add("OldBankName", gson.toJsonTree(LSysVariableListOldBankName));
 		jsonResponse.add("CourtYearCourt", gson.toJsonTree(LSysVariableListCourtYearCourt));
@@ -112,16 +146,236 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("fileTypeTwo", gson.toJsonTree(LSysVariableListFileTypeTwo));
 		jsonResponse.add("otherTypeTwo", gson.toJsonTree(LSysVariableListOtherTypeTwo));
 		jsonResponse.add("SourceDoc", gson.toJsonTree(LSysVariableListSourceDoc));
+		jsonResponse.add("PublishObject", gson.toJsonTree(LSysVariableListPublishObject));
+		jsonResponse.add("PublishThings", gson.toJsonTree(LSysVariableListPublishThings));
 		jsonResponse.addProperty("nowDate", DateTimeFormat.getNowDate());
 		return jsonResponse.toString();
 	}
 	
 	public String saveaddDoc(String docInfoId, VEIPMemdb loginMemdb, String caseId, String saveDocInfo,
-			String saveCashierCheck, String saveDebts, String saveClaimsdoc, String saveFiledoc, String saveOtherdoc) throws Exception{
+			String centitlementJson, String courtDocJson, String saveCashierCheck, String saveDebts, 
+			String saveClaimsdoc, String saveFiledoc, String saveOtherdoc) throws Exception{
 		Date nowDatetime = new Date();
 		Gson gson = new Gson();
 		int case_id = Integer.parseInt(caseId);
 
+		// 執行名義儲存start
+		List<LDocCentitlement> centitlementItems = gson.fromJson(centitlementJson, new TypeToken<List<LDocCentitlement>>(){}.getType());
+
+		for(int i = 0;i < centitlementItems.size();i ++){
+			centitlementItems.get(i).setInfoId(docInfoId);
+			centitlementItems.get(i).setCreateDatetime(nowDatetime);
+			centitlementItems.get(i).setCreateUserId(loginMemdb.getMemno());
+			centitlementItems.get(i).setCaseId(case_id);
+			
+			docDao.save(centitlementItems.get(i));
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementSourceDoc().size();j ++){
+				centitlementItems.get(i).getCentitlementSourceDoc().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementSourceDoc().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementTranscriptsRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementTranscriptsRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementCoOwnedTranscriptsRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementCoOwnedTranscriptsRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementCoOwnedTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementMortgageeTranscriptsRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementMortgageeTranscriptsRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementMortgageeTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementLawTranscriptsRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementLawTranscriptsRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementLawTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementHeirTranscriptsRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementHeirTranscriptsRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementHeirTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementDirtTranscriptsRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementDirtTranscriptsRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementDirtTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementBuiltTranscriptsRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementBuiltTranscriptsRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementBuiltTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementDistributionRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementDistributionRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementDistributionRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementThingThirdRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementThingThirdRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementThingThirdRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementThingDebtRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementThingDebtRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementThingDebtRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementCoOwnedRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementCoOwnedRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementCoOwnedRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementDebtDocRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementDebtDocRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementDebtDocRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementDetailRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementDetailRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementDetailRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementFileRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementFileRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementFileRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementDebtContinueRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementDebtContinueRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementDebtContinueRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementCashierCheckRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementCashierCheckRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementCashierCheckRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < centitlementItems.get(i).getCentitlementOtherRelationPerson().size();j ++){
+				centitlementItems.get(i).getCentitlementOtherRelationPerson().get(j).setCentitlementId(centitlementItems.get(i).getCentitlementId());
+				docDao.save(centitlementItems.get(i).getCentitlementOtherRelationPerson().get(j));
+			}
+		}
+		// 執行名義儲存end
+		
+		// 法院文儲存start
+		List<LDocCourtDoc> courtDocItems = gson.fromJson(courtDocJson, new TypeToken<List<LDocCourtDoc>>(){}.getType());
+
+		for(int i = 0;i < courtDocItems.size();i ++){
+			courtDocItems.get(i).setInfoId(docInfoId);
+			courtDocItems.get(i).setCreateDatetime(nowDatetime);
+			courtDocItems.get(i).setCreateUserId(loginMemdb.getMemno());
+			courtDocItems.get(i).setCaseId(case_id);
+			
+			docDao.save(courtDocItems.get(i));
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocTranscriptsRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocTranscriptsRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocCoOwnedTranscriptsRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocCoOwnedTranscriptsRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocCoOwnedTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocMortgageeTranscriptsRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocMortgageeTranscriptsRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocMortgageeTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocLawTranscriptsRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocLawTranscriptsRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocLawTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocHeirTranscriptsRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocHeirTranscriptsRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocHeirTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocDirtTranscriptsRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocDirtTranscriptsRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocDirtTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocBuiltTranscriptsRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocBuiltTranscriptsRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocBuiltTranscriptsRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocDistributionRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocDistributionRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocDistributionRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocThingThirdRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocThingThirdRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocThingThirdRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocThingDebtRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocThingDebtRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocThingDebtRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocCoOwnedRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocCoOwnedRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocCoOwnedRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocDebtDocRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocDebtDocRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocDebtDocRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocDetailRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocDetailRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocDetailRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocFileRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocFileRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocFileRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocDebtContinueRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocDebtContinueRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocDebtContinueRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocCashierCheckRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocCashierCheckRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocCashierCheckRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocRecoveryRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocRecoveryRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocRecoveryRelationPerson().get(j));
+			}
+			
+			for(int j = 0;j < courtDocItems.get(i).getCourtDocOtherRelationPerson().size();j ++){
+				courtDocItems.get(i).getCourtDocOtherRelationPerson().get(j).setCourtDocId(courtDocItems.get(i).getCourtDocId());
+				docDao.save(courtDocItems.get(i).getCourtDocOtherRelationPerson().get(j));
+			}
+		}
+		// 執行名義儲存end
+		
+		
 		// 本票儲存start
 		List<LDocCashiercheck> cashiercheckItems = gson.fromJson(saveCashierCheck, new TypeToken<List<LDocCashiercheck>>(){}.getType());
 
@@ -200,7 +454,10 @@ public class docServiceImpl implements docService{
 		}
 		// 其他儲存end
 		
-		return null;
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("success", "success");
+		jsonResponse.addProperty("msg", "儲存成功");
+		return jsonResponse.toString();
 	}
 
 	public String saveaddDocInfo(VEIPMemdb loginUser, String caseId) throws Exception{

@@ -1119,8 +1119,8 @@ law.addDoc.centitlement = {
 			"</table>" +
 			"<table>" +
            	 	"<tr>" +
-					"<td><input type='radio' name='centitlementShadow" + centitlementsubtabcount + "' value='all' id='rdocentitlementShadow" + centitlementsubtabcount + "' checked>影本</td>" +
-					"<td><input type='radio' name='centitlementShadow" + centitlementsubtabcount + "' value='all' id='rdocentitlementShadowBank" + centitlementsubtabcount + "' >業主收文僅提供影本</td>" +
+					"<td><input type='radio' name='centitlementShadow" + centitlementsubtabcount + "' value='0' id='rdocentitlementShadow" + centitlementsubtabcount + "' checked>影本</td>" +
+					"<td><input type='radio' name='centitlementShadow" + centitlementsubtabcount + "' value='1' id='rdocentitlementShadowBank" + centitlementsubtabcount + "' >業主收文僅提供影本</td>" +
 					"<td><label>文件狀態</label></td>" +
 					"<td><select id='iptcentitlementDocStatus" + centitlementsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
@@ -1190,8 +1190,8 @@ law.addDoc.centitlement = {
 				"</tr>" +
            	 "</table>" +
 			"<div style='overflow: auto;margin:5px 5px 5px 5px' class='ui-widget-content'>" +
+			"<div style='overflow: auto;margin:5px 5px 5px 5px;background-color:#90EE90;font-weight:bold;' align='center'>補正</div>" +
            	 "<table>" +
-           	 	"<tr bgcolor='#90EE90'><td style='font-weight:bold;' align='center'>補正</td></tr>" +
            	 	"<tr>" +
            	 		"<td>" +
            	 			"<div style='overflow: auto;margin:5px 5px 5px 5px' class='ui-widget-content'>" +
@@ -1480,7 +1480,26 @@ law.addDoc.centitlement = {
 			centitlement = {},
 			returncentitlement = "",
 			returncentitlementRelas_0 = [],
-			relainfo = {};
+			relainfo = {},
+			//補正相關人
+			returncentitlementTranscriptsRelas_0 = [],
+			returncentitlementCoOwnedTranscriptsRelas_0 = [],
+			returncentitlementMortgageeTranscriptsRelas_0 = [],
+			returncentitlementLawTranscriptsRelas_0 = [],
+			returncentitlementHeirTranscriptsRelas_0 = [],
+			returncentitlementDirtTranscriptsRelas_0 = [],
+			returncentitlementBuiltTranscriptsRelas_0 = [],
+			returncentitlementDistributionRelas_0 = [],
+			returncentitlementThingThirdRelas_0 = [],
+			returncentitlementThingDebtRelas_0 = [],
+			returncentitlementCoOwnedRelas_0 = [],
+			returncentitlementDebtDocRelas_0 = [],
+			returncentitlementDetailRelas_0 = [],
+			returncentitlementFileRelas_0 = [],
+			returncentitlementDebtContinueRelas_0 = [],
+			returncentitlementCashierCheckRelas_0 = [],
+			returncentitlementOtherRelas_0 = [],
+			returncentitlementSourceDoc_0 = [];// 原始憑證
 			
 		for( ; i <= law.addDoc.centitlement.centitlementRelaNum[0]; i++){
 			relainfo = { 
@@ -1490,61 +1509,633 @@ law.addDoc.centitlement = {
 			returncentitlementRelas_0.push(relainfo);
 		}
 		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementTranscriptsRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementTranscriptsRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementTranscriptsRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementTranscriptsRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementCoOwnedTranscriptsRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementCoOwnedTranscriptsRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementCoOwnedTranscriptsRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementCoOwnedTranscriptsRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementMortgageeTranscriptsRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementMortgageeTranscriptsRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementMortgageeTranscriptsRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementMortgageeTranscriptsRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementLawTranscriptsRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementLawTranscriptsRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementLawTranscriptsRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementLawTranscriptsRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementHeirTranscriptsRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementHeirTranscriptsRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementHeirTranscriptsRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementHeirTranscriptsRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementDirtTranscriptsRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementDirtTranscriptsRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementDirtTranscriptsRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementDirtTranscriptsRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementBuiltTranscriptsRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementBuiltTranscriptsRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementBuiltTranscriptsRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementBuiltTranscriptsRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementDistributionRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementDistributionRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementDistributionRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementDistributionRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementThingThirdRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementThingThirdRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementThingThirdRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementThingThirdRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementThingDebtRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementThingDebtRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementThingDebtRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementThingDebtRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementCoOwnedRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementCoOwnedRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementCoOwnedRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementCoOwnedRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementDebtDocRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementDebtDocRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementDebtDocRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementDebtDocRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementDetailRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementDetailRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementDetailRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementDetailRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementFileRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementFileRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementFileRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementFileRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementDebtContinueRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementDebtContinueRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementDebtContinueRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementDebtContinueRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementCashierCheckRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementCashierCheckRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementCashierCheckRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementCashierCheckRelas_0.push(relainfo);
+		}
+		
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementOtherRelaNum[0]; i++){
+			relainfo = { 
+				"ID" : $("#iptcentitlementOtherRelationPerson_" + i).find('option:selected').val(),
+				"name"	: $("#iptcentitlementOtherRelationPerson_" + i).find('option:selected').text()
+				};
+			returncentitlementOtherRelas_0.push(relainfo);
+		}
+		
+		// 原始憑證
+		i = 0;
+		for( ; i <= law.addDoc.centitlement.centitlementSourceDocNum[0]; i++){
+			relainfo = { 
+				"centitlementSourceDoc" : $("#iptcentitlementSourceDoc_" + i).find('option:selected').val(),
+				"centitlementSourceDocName" : $("#iptcentitlementSourceDoc_" + i).find('option:selected').text(),
+				"courtYearCourt"	: $("#iptcentitlementSourceDocCourtYearCourt_" + i).find('option:selected').val(),
+				"courtYearCourtName"	: $("#iptcentitlementSourceDocCourtYearCourt_" + i).find('option:selected').text(),
+				"courtYearYear"	: $("#iptcentitlementSourceDocCourtYearYear_" + i).val(),
+				"courtYearTxt"	: $("#iptcentitlementSourceDocCourtYearTxt_" + i).val(),
+				"courtYearShare"	: $("#iptcentitlementSourceDocCourtYearShare_" + i).val(),
+				"courtYearCaseId"	: $("#iptcentitlementSourceDocCourtYearCaseId_" + i).val()
+				};
+			returncentitlementSourceDoc_0.push(relainfo);
+		}
+		
 		var topItem = {
-			'receivedDate' : $("#iptcashierCheckReceivedDate").val(),
-			'bankDate' : $("#iptcashierCheckBankDate").val(),
-			'docStatus' : $("#iptcashierCheckDocStatus").find('option:selected').val(),
-			'typeOne' : $("#iptcashierCheckTypeOne").find('option:selected').val(),
-			'typeTwo' : $("#iptcashierCheckTypeTwo").find('option:selected').val(),
-			'bankName' : $("#iptcashierCheckBankName").find('option:selected').val(),
-			'oldBankName' : $("#iptcashierCheckOldBankName").find('option:selected').val(),
-			'cashiercheckRelationPerson' : returncashierCheckRelas_0,
-			'relationPerson' : $("#iptcashierCheckRelationPerson_0").find('option:selected').val(),
-			'startDate' : $("#iptcashierCheckStartDate").val(),
-			'amount' : $("#iptcashierCheckAmount").val(),
-			'endDate' : $("#iptcashierCheckEndDate").val(),
-			'remark' : $("#iptcashierCheckRemark").val()
+			'shareCaseId0' : $("#iptcentitlementShareCaseId_0").val(),
+			'shareCaseId1' : $("#iptcentitlementShareCaseId_1").val(),
+			'shareCaseId2' : $("#iptcentitlementShareCaseId_2").val(),
+			'shareCaseId3' : $("#iptcentitlementShareCaseId_3").val(),
+			'shadow' : $("#rdocentitlementShadow:checked").val(),
+			'receivedDate' : $("#iptcentitlementReceivedDate").val(),
+			'bankDate' : $("#iptcentitlementBankDate").val(),
+			'docStatus' : $("#iptcentitlementDocStatus").find('option:selected').val(),
+			'typeOne' : $("#iptcentitlementTypeOne").find('option:selected').val(),
+			'typeTwo' : $("#iptcentitlementTypeTwo").find('option:selected').val(),
+			'bankName' : $("#iptcentitlementBankName").find('option:selected').val(),
+			'oldBankName' : $("#iptcentitlementOldBankName").find('option:selected').val(),
+			'centitlementRelationPerson' : returncentitlementRelas_0,
+			'relationPerson' : $("#iptcentitlementRelationPerson_0").find('option:selected').val(),
+			'courtYearCourt' : $("#iptcentitlementCourtYearCourt").find('option:selected').val(),
+			'courtYearYear' : $("#iptcentitlementCourtYearYear").val(),
+			'courtYearTxt' : $("#iptcentitlementCourtYearTxt").val(),
+			'courtYearShare' : $("#iptcentitlementCourtYearShare").val(),
+			'courtYearCaseId' : $("#iptcentitlementCourtYearCaseId").val(),
+			'sendDate' : $("#iptcentitlementSendDate").val(),
+			'newSendDate' : $("#iptcentitlementNewSendDate").val(),
+			'remark' : $("#iptcentitlementRemark").val(),
+			//補正內容 戶謄
+			'transcriptsDays' : $("#iptcentitlementTranscriptsDays").val(),
+			'transcriptsRemark' : $("#iptcentitlementTranscriptsRemark").val(),
+			'centitlementTranscriptsRelationPerson' : returncentitlementTranscriptsRelas_0,
+			'transcriptsRelationPerson' : $("#iptcentitlementTranscriptsRelationPerson_0").find('option:selected').val(),
+			// 共有人戶謄
+			'coOwnedTranscriptsDays' : $("#iptcentitlementCoOwnedTranscriptsDays").val(),
+			'coOwnedTranscriptsRemark' : $("#iptcentitlementCoOwnedTranscriptsRemark").val(),
+			'centitlementCoOwnedTranscriptsRelationPerson' : returncentitlementCoOwnedTranscriptsRelas_0,
+			'coOwnedTranscriptsRelationPerson' : $("#iptcentitlementCoOwnedTranscriptsRelationPerson_0").find('option:selected').val(),
+			// 抵押權人戶謄
+			'mortgageeTranscriptsDays' : $("#iptcentitlementMortgageeTranscriptsDays").val(),
+			'mortgageeTranscriptsRemark' : $("#iptcentitlementMortgageeTranscriptsRemark").val(),
+			'centitlementMortgageeTranscriptsRelationPerson' : returncentitlementMortgageeTranscriptsRelas_0,
+			'mortgageeTranscriptsRelationPerson' : $("#iptcentitlementMortgageeTranscriptsRelationPerson_0").find('option:selected').val(),
+			// 法代戶謄
+			'lawTranscriptsDays' : $("#iptcentitlementLawTranscriptsDays").val(),
+			'lawTranscriptsRemark' : $("#iptcentitlementLawTranscriptsRemark").val(),
+			'centitlementLawTranscriptsRelationPerson' : returncentitlementLawTranscriptsRelas_0,
+			'lawTranscriptsRelationPerson' : $("#iptcentitlementLawTranscriptsRelationPerson_0").find('option:selected').val(),
+			// 繼承人戶謄
+			'heirTranscriptsDays' : $("#iptcentitlementHeirTranscriptsDays").val(),
+			'heirTranscriptsRemark' : $("#iptcentitlementHeirTranscriptsRemark").val(),
+			'centitlementHeirTranscriptsRelationPerson' : returncentitlementHeirTranscriptsRelas_0,
+			'heirTranscriptsRelationPerson' : $("#iptcentitlementHeirTranscriptsRelationPerson_0").find('option:selected').val(),
+			// 土謄
+			'dirtTranscriptsDays' : $("#iptcentitlementDirtTranscriptsDays").val(),
+			'dirtTranscriptsRemark' : $("#iptcentitlementDirtTranscriptsRemark").val(),
+			'centitlementDirtTranscriptsRelationPerson' : returncentitlementDirtTranscriptsRelas_0,
+			'dirtTranscriptsRelationPerson' : $("#iptcentitlementDirtTranscriptsRelationPerson_0").find('option:selected').val(),
+			// 建謄
+			'builtTranscriptsDays' : $("#iptcentitlementBuiltTranscriptsDays").val(),
+			'builtTranscriptsRemark' : $("#iptcentitlementBuiltTranscriptsRemark").val(),
+			'centitlementBuiltTranscriptsRelationPerson' : returncentitlementBuiltTranscriptsRelas_0,
+			'builtTranscriptsRelationPerson' : $("#iptcentitlementBuiltTranscriptsRelationPerson_0").find('option:selected').val(),
+			// 分配表
+			'distributionDays' : $("#iptcentitlementDistributionDays").val(),
+			'distributionRemark' : $("#iptcentitlementDistributionRemark").val(),
+			'centitlementDistributionRelationPerson' : returncentitlementDistributionRelas_0,
+			'distributionRelationPerson' : $("#iptcentitlementDistributionRelationPerson_0").find('option:selected').val(),
+			// 事項表(第三人)
+			'thingThirdDays' : $("#iptcentitlementThingThirdDays").val(),
+			'thingThirdRemark' : $("#iptcentitlementThingThirdRemark").val(),
+			'centitlementThingThirdRelationPerson' : returncentitlementThingThirdRelas_0,
+			'thingThirdRelationPerson' : $("#iptcentitlementThingThirdRelationPerson_0").find('option:selected').val(),
+			// 事項表(債權人)
+			'thingDebtDays' : $("#iptcentitlementThingDebtDays").val(),
+			'thingDebtRemark' : $("#iptcentitlementThingDebtRemark").val(),
+			'centitlementThingDebtRelationPerson' : returncentitlementThingDebtRelas_0,
+			'thingDebtRelationPerson' : $("#iptcentitlementThingDebtRelationPerson_0").find('option:selected').val(),
+			// 共有人名冊
+			'coOwnedDays' : $("#iptcentitlementCoOwnedDays").val(),
+			'coOwnedRemark' : $("#iptcentitlementCoOwnedRemark").val(),
+			'centitlementCoOwnedRelationPerson' : returncentitlementCoOwnedRelas_0,
+			'coOwnedRelationPerson' : $("#iptcentitlementCoOwnedRelationPerson_0").find('option:selected').val(),
+			// 債權文件
+			'debtDocDays' : $("#iptcentitlementDebtDocDays").val(),
+			'debtDocRemark' : $("#iptcentitlementDebtDocRemark").val(),
+			'centitlementDebtDocRelationPerson' : returncentitlementDebtDocRelas_0,
+			'debtDocRelationPerson' : $("#iptcentitlementDebtDocRelationPerson_0").find('option:selected').val(),
+			// 帳務明細
+			'detailDays' : $("#iptcentitlementDetailDays").val(),
+			'detailRemark' : $("#iptcentitlementDetailRemark").val(),
+			'centitlementDetailRelationPerson' : returncentitlementDetailRelas_0,
+			'detailRelationPerson' : $("#iptcentitlementDetailRelationPerson_0").find('option:selected').val(),
+			// 執行名義
+			'fileDays' : $("#iptcentitlementFileDays").val(),
+			'fileRemark' : $("#iptcentitlementFileRemark").val(),
+			'centitlementFileRelationPerson' : returncentitlementFileRelas_0,
+			'fileRelationPerson' : $("#iptcentitlementFileRelationPerson_0").find('option:selected').val(),
+			// 債證續行表
+			'debtContinueDays' : $("#iptcentitlementDebtContinueDays").val(),
+			'debtContinueRemark' : $("#iptcentitlementDebtContinueRemark").val(),
+			'centitlementDebtContinueRelationPerson' : returncentitlementDebtContinueRelas_0,
+			'debtContinueRelationPerson' : $("#iptcentitlementDebtContinueRelationPerson_0").find('option:selected').val(),
+			// 本票
+			'cashierCheckDays' : $("#iptcentitlementCashierCheckDays").val(),
+			'cashierCheckRemark' : $("#iptcentitlementCashierCheckRemark").val(),
+			'centitlementCashierCheckRelationPerson' : returncentitlementCashierCheckRelas_0,
+			'cashierCheckRelationPerson' : $("#iptcentitlementCashierCheckRelationPerson_0").find('option:selected').val(),
+			// 其他
+			'otherValues' : $("#iptcentitlementOtherName").val(),
+			'otherDays' : $("#iptcentitlementOtherDays").val(),
+			'otherRemark' : $("#iptcentitlementOtherRemark").val(),
+			'centitlementOtherRelationPerson' : returncentitlementOtherRelas_0,
+			'otherRelationPerson' : $("#iptcentitlementOtherRelationPerson_0").find('option:selected').val(),
+			'edit' : $("#iptcentitlementEdit").val(),
+			// 原始憑證
+			'sourceDoc' : $("#iptcentitlementSourceDoc_0").find('option:selected').val(),
+			'centitlementSourceDoc' : returncentitlementSourceDoc_0
 		};
 			
-		cashierCheck.subItems = [];
-		cashierCheck.subItems.push(topItem);
+		centitlement.subItems = [];
+		centitlement.subItems.push(topItem);
 			
 		i = 0;
 		for ( ; i < length; i++ ) {
-			returncashierCheckRelas_0 = [];
+			returncentitlementRelas_0 = [];
 			displayNum = i + 1;
 			j = 0;
-			for( ; j <= law.addDoc.cashierCheck.cashierCheckRelaNum[displayNum]; j++){
+			for( ; j <= law.addDoc.centitlement.centitlementRelaNum[displayNum]; j++){
 				relainfo = { 
-					"ID" : $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').val(),
-					"name"	: $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').text()
+					"ID" : $("#iptcentitlementRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementRelationPerson" + i + "_" + j).find('option:selected').text()
 					};
-				returncashierCheckRelas_0.push(relainfo);
+				returncentitlementRelas_0.push(relainfo);
+			}
+			
+			returncentitlementTranscriptsRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementTranscriptsRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementTranscriptsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementTranscriptsRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementTranscriptsRelas_0.push(relainfo);
+			}
+			
+			returncentitlementCoOwnedTranscriptsRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementCoOwnedTranscriptsRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementCoOwnedTranscriptsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementCoOwnedTranscriptsRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementCoOwnedTranscriptsRelas_0.push(relainfo);
+			}
+			
+			returncentitlementMortgageeTranscriptsRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementMortgageeTranscriptsRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementMortgageeTranscriptsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementMortgageeTranscriptsRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementMortgageeTranscriptsRelas_0.push(relainfo);
+			}
+			
+			returncentitlementLawTranscriptsRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementLawTranscriptsRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementLawTranscriptsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementLawTranscriptsRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementLawTranscriptsRelas_0.push(relainfo);
+			}
+			
+			returncentitlementHeirTranscriptsRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementHeirTranscriptsRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementHeirTranscriptsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementHeirTranscriptsRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementHeirTranscriptsRelas_0.push(relainfo);
+			}
+			
+			returncentitlementDirtTranscriptsRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementDirtTranscriptsRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementDirtTranscriptsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementDirtTranscriptsRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementDirtTranscriptsRelas_0.push(relainfo);
+			}
+			
+			returncentitlementBuiltTranscriptsRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementBuiltTranscriptsRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementBuiltTranscriptsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementBuiltTranscriptsRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementBuiltTranscriptsRelas_0.push(relainfo);
+			}
+			
+			returncentitlementDistributionRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementDistributionRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementDistributionRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementDistributionRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementDistributionRelas_0.push(relainfo);
+			}
+			
+			returncentitlementThingThirdRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementThingThirdRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementThingThirdRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementThingThirdRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementThingThirdRelas_0.push(relainfo);
+			}
+			
+			returncentitlementThingDebtRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementThingDebtRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementThingDebtRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementThingDebtRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementThingDebtRelas_0.push(relainfo);
+			}
+			
+			returncentitlementCoOwnedRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementCoOwnedRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementCoOwnedRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementCoOwnedRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementCoOwnedRelas_0.push(relainfo);
+			}
+			
+			returncentitlementDebtDocRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementDebtDocRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementDebtDocRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementDebtDocRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementDebtDocRelas_0.push(relainfo);
+			}
+			
+			returncentitlementDetailRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementDetailRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementDetailRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementDetailRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementDetailRelas_0.push(relainfo);
+			}
+			
+			returncentitlementFileRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementFileRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementFileRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementFileRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementFileRelas_0.push(relainfo);
+			}
+			
+			returncentitlementDebtContinueRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementDebtContinueRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementDebtContinueRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementDebtContinueRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementDebtContinueRelas_0.push(relainfo);
+			}
+			
+			returncentitlementCashierCheckRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementCashierCheckRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementCashierCheckRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementCashierCheckRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementCashierCheckRelas_0.push(relainfo);
+			}
+			
+			returncentitlementOtherRelas_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementOtherRelaNum[displayNum]; j++){
+				relainfo = { 
+					"ID" : $("#iptcentitlementOtherRelationPerson" + i + "_" + j).find('option:selected').val(),
+					"name"	: $("#iptcentitlementOtherRelationPerson" + i + "_" + j).find('option:selected').text()
+					};
+				returncentitlementOtherRelas_0.push(relainfo);
+			}
+			
+			// 原始憑證
+			returncentitlementSourceDoc_0 = [];
+			displayNum = i + 1;
+			j = 0;
+			for( ; j <= law.addDoc.centitlement.centitlementSourceDocNum[displayNum]; j++){
+				relainfo = { 
+					"centitlementSourceDoc" : $("#iptcentitlementSourceDoc" + i + "_" + j).find('option:selected').val(),
+					"centitlementSourceDocName" : $("#iptcentitlementSourceDoc" + i + "_" + j).find('option:selected').text(),
+					"courtYearCourt"	: $("#iptcentitlementSourceDocCourtYearCourt" + i + "_" + j).find('option:selected').val(),
+					"courtYearCourtName"	: $("#iptcentitlementSourceDocCourtYearCourt" + i + "_" + j).find('option:selected').text(),
+					"courtYearYear"	: $("#iptcentitlementSourceDocCourtYearYear" + i + "_" + j).val(),
+					"courtYearTxt"	: $("#iptcentitlementSourceDocCourtYearTxt" + i + "_" + j).val(),
+					"courtYearShare"	: $("#iptcentitlementSourceDocCourtYearShare" + i + "_" + j).val(),
+					"courtYearCaseId"	: $("#iptcentitlementSourceDocCourtYearCaseId" + i + "_" + j).val()
+				};
+				returncentitlementSourceDoc_0.push(relainfo);
 			}
 			
 				var subItems = {
-					'receivedDate' : $("#iptcashierCheckReceivedDate" + i ).val(),
-					'bankDate' : $("#iptcashierCheckBankDate" + i ).val(),
-					'docStatus' : $("#iptcashierCheckDocStatus" + i ).find('option:selected').val(),
-					'typeOne' : $("#iptcashierCheckTypeOne" + i ).find('option:selected').val(),
-					'typeTwo' : $("#iptcashierCheckTypeTwo" + i ).find('option:selected').val(),
-					'bankName' : $("#iptcashierCheckBankName" + i ).find('option:selected').val(),
-					'oldBankName' : $("#iptcashierCheckOldBankName" + i ).find('option:selected').val(),
-					'cashiercheckRelationPerson' : returncashierCheckRelas_0,
-					'relationPerson' : $("#iptcashierCheckRelationPerson_0").find('option:selected').val(),
-					'startDate' : $("#iptcashierCheckStartDate" + i ).val(),
-					'amount' : $("#iptcashierCheckAmount" + i ).val(),
-					'endDate' : $("#iptcashierCheckEndDate" + i ).val(),
-					'remark' : $("#iptcashierCheckRemark" + i ).val()
+					'shareCaseId0' : $("#iptcentitlementShareCaseId" + i + "_0").val(),
+					'shareCaseId1' : $("#iptcentitlementShareCaseId" + i + "_1").val(),
+					'shareCaseId2' : $("#iptcentitlementShareCaseId" + i + "_2").val(),
+					'shareCaseId3' : $("#iptcentitlementShareCaseId" + i + "_3").val(),
+					'shadow' : $("#rdocentitlementShadow" + i + ":checked").val(),
+					'receivedDate' : $("#iptcentitlementReceivedDate" + i ).val(),
+					'bankDate' : $("#iptcentitlementBankDate" + i ).val(),
+					'docStatus' : $("#iptcentitlementDocStatus" + i ).find('option:selected').val(),
+					'typeOne' : $("#iptcentitlementTypeOne" + i ).find('option:selected').val(),
+					'typeTwo' : $("#iptcentitlementTypeTwo" + i ).find('option:selected').val(),
+					'bankName' : $("#iptcentitlementBankName" + i ).find('option:selected').val(),
+					'oldBankName' : $("#iptcentitlementOldBankName" + i ).find('option:selected').val(),
+					'centitlementRelationPerson' : returncentitlementRelas_0,
+					'relationPerson' : $("#iptcentitlementRelationPerson_0").find('option:selected').val(),
+					'courtYearCourt' : $("#iptcentitlementCourtYearCourt" + i ).find('option:selected').val(),
+					'courtYearYear' : $("#iptcentitlementCourtYearYear" + i ).val(),
+					'courtYearTxt' : $("#iptcentitlementCourtYearTxt" + i ).val(),
+					'courtYearShare' : $("#iptcentitlementCourtYearShare" + i ).val(),
+					'courtYearCaseId' : $("#iptcentitlementCourtYearCaseId" + i ).val(),
+					'sendDate' : $("#iptcentitlementSendDate" + i ).val(),
+					'newSendDate' : $("#iptcentitlementNewSendDate" + i ).val(),
+					'remark' : $("#iptcentitlementRemark" + i ).val(),
+					//補正戶謄
+					'transcriptsDays' : $("#iptcentitlementTranscriptsDays" + i ).val(),
+					'transcriptsRemark' : $("#iptcentitlementTranscriptsRemark" + i ).val(),
+					'centitlementTranscriptsRelationPerson' : returncentitlementTranscriptsRelas_0,
+					'transcriptsRelationPerson' : $("#iptcentitlementTranscriptsRelationPerson_0").find('option:selected').val(),
+					// 共有人戶謄
+					'coOwnedTranscriptsDays' : $("#iptcentitlementCoOwnedTranscriptsDays" + i ).val(),
+					'coOwnedTranscriptsRemark' : $("#iptcentitlementCoOwnedTranscriptsRemark" + i ).val(),
+					'centitlementCoOwnedTranscriptsRelationPerson' : returncentitlementCoOwnedTranscriptsRelas_0,
+					'coOwnedTranscriptsRelationPerson' : $("#iptcentitlementCoOwnedTranscriptsRelationPerson_0").find('option:selected').val(),
+					// 抵押權人戶謄
+					'mortgageeTranscriptsDays' : $("#iptcentitlementMortgageeTranscriptsDays" + i ).val(),
+					'mortgageeTranscriptsRemark' : $("#iptcentitlementMortgageeTranscriptsRemark" + i ).val(),
+					'centitlementMortgageeTranscriptsRelationPerson' : returncentitlementMortgageeTranscriptsRelas_0,
+					'mortgageeTranscriptsRelationPerson' : $("#iptcentitlementMortgageeTranscriptsRelationPerson_0").find('option:selected').val(),
+					// 法代戶謄
+					'lawTranscriptsDays' : $("#iptcentitlementLawTranscriptsDays" + i ).val(),
+					'lawTranscriptsRemark' : $("#iptcentitlementLawTranscriptsRemark" + i ).val(),
+					'centitlementLawTranscriptsRelationPerson' : returncentitlementLawTranscriptsRelas_0,
+					'lawTranscriptsRelationPerson' : $("#iptcentitlementLawTranscriptsRelationPerson_0").find('option:selected').val(),
+					// 繼承人戶謄
+					'heirTranscriptsDays' : $("#iptcentitlementHeirTranscriptsDays" + i ).val(),
+					'heirTranscriptsRemark' : $("#iptcentitlementHeirTranscriptsRemark" + i ).val(),
+					'centitlementHeirTranscriptsRelationPerson' : returncentitlementHeirTranscriptsRelas_0,
+					'heirTranscriptsRelationPerson' : $("#iptcentitlementHeirTranscriptsRelationPerson_0").find('option:selected').val(),
+					// 土謄
+					'dirtTranscriptsDays' : $("#iptcentitlementDirtTranscriptsDays" + i ).val(),
+					'dirtTranscriptsRemark' : $("#iptcentitlementDirtTranscriptsRemark" + i ).val(),
+					'centitlementDirtTranscriptsRelationPerson' : returncentitlementDirtTranscriptsRelas_0,
+					'dirtTranscriptsRelationPerson' : $("#iptcentitlementDirtTranscriptsRelationPerson_0").find('option:selected').val(),
+					// 建謄
+					'builtTranscriptsDays' : $("#iptcentitlementBuiltTranscriptsDays" + i ).val(),
+					'builtTranscriptsRemark' : $("#iptcentitlementBuiltTranscriptsRemark" + i ).val(),
+					'centitlementBuiltTranscriptsRelationPerson' : returncentitlementBuiltTranscriptsRelas_0,
+					'builtTranscriptsRelationPerson' : $("#iptcentitlementBuiltTranscriptsRelationPerson_0").find('option:selected').val(),
+					// 分配表
+					'distributionDays' : $("#iptcentitlementDistributionDays" + i ).val(),
+					'distributionRemark' : $("#iptcentitlementDistributionRemark" + i ).val(),
+					'centitlementDistributionRelationPerson' : returncentitlementDistributionRelas_0,
+					'distributionRelationPerson' : $("#iptcentitlementDistributionRelationPerson_0").find('option:selected').val(),
+					// 事項表(第三人)
+					'thingThirdDays' : $("#iptcentitlementThingThirdDays" + i ).val(),
+					'thingThirdRemark' : $("#iptcentitlementThingThirdRemark" + i ).val(),
+					'centitlementThingThirdRelationPerson' : returncentitlementThingThirdRelas_0,
+					'thingThirdRelationPerson' : $("#iptcentitlementThingThirdRelationPerson_0").find('option:selected').val(),
+					// 事項表(債權人)
+					'thingDebtDays' : $("#iptcentitlementThingDebtDays" + i ).val(),
+					'thingDebtRemark' : $("#iptcentitlementThingDebtRemark" + i ).val(),
+					'centitlementThingDebtRelationPerson' : returncentitlementThingDebtRelas_0,
+					'thingDebtRelationPerson' : $("#iptcentitlementThingDebtRelationPerson_0").find('option:selected').val(),
+					// 共有人名冊
+					'coOwnedDays' : $("#iptcentitlementCoOwnedDays" + i ).val(),
+					'coOwnedRemark' : $("#iptcentitlementCoOwnedRemark" + i ).val(),
+					'centitlementCoOwnedRelationPerson' : returncentitlementCoOwnedRelas_0,
+					'coOwnedRelationPerson' : $("#iptcentitlementCoOwnedRelationPerson_0").find('option:selected').val(),
+					// 債權文件
+					'debtDocDays' : $("#iptcentitlementDebtDocDays" + i ).val(),
+					'debtDocRemark' : $("#iptcentitlementDebtDocRemark" + i ).val(),
+					'centitlementDebtDocRelationPerson' : returncentitlementDebtDocRelas_0,
+					'debtDocRelationPerson' : $("#iptcentitlementDebtDocRelationPerson_0").find('option:selected').val(),
+					// 帳務明細
+					'detailDays' : $("#iptcentitlementDetailDays" + i ).val(),
+					'detailRemark' : $("#iptcentitlementDetailRemark" + i ).val(),
+					'centitlementDetailRelationPerson' : returncentitlementDetailRelas_0,
+					'detailRelationPerson' : $("#iptcentitlementDetailRelationPerson_0").find('option:selected').val(),
+					// 執行名義
+					'fileDays' : $("#iptcentitlementFileDays" + i ).val(),
+					'fileRemark' : $("#iptcentitlementFileRemark" + i ).val(),
+					'centitlementFileRelationPerson' : returncentitlementFileRelas_0,
+					'fileRelationPerson' : $("#iptcentitlementFileRelationPerson_0").find('option:selected').val(),
+					// 債證續行表
+					'debtContinueDays' : $("#iptcentitlementDebtContinueDays" + i ).val(),
+					'debtContinueRemark' : $("#iptcentitlementDebtContinueRemark" + i ).val(),
+					'centitlementDebtContinueRelationPerson' : returncentitlementDebtContinueRelas_0,
+					'debtContinueRelationPerson' : $("#iptcentitlementDebtContinueRelationPerson_0").find('option:selected').val(),
+					// 本票
+					'cashierCheckDays' : $("#iptcentitlementCashierCheckDays" + i ).val(),
+					'cashierCheckRemark' : $("#iptcentitlementCashierCheckRemark" + i ).val(),
+					'centitlementCashierCheckRelationPerson' : returncentitlementCashierCheckRelas_0,
+					'cashierCheckRelationPerson' : $("#iptcentitlementCashierCheckRelationPerson_0").find('option:selected').val(),
+					// 其他
+					'otherValues' : $("#iptcentitlementOtherName" + i).val(),
+					'otherDays' : $("#iptcentitlementOtherDays" + i ).val(),
+					'otherRemark' : $("#iptcentitlementOtherRemark" + i ).val(),
+					'centitlementOtherRelationPerson' : returncentitlementOtherRelas_0,
+					'otherRelationPerson' : $("#iptcentitlementOtherRelationPerson_0").find('option:selected').val(),
+					'edit' : $("#iptcentitlementEdit" + i ).val(),
+					// 原始憑證
+					'sourceDoc' : $("#iptcentitlementSourceDoc_0").find('option:selected').val(),
+					'centitlementSourceDoc' : returncentitlementSourceDoc_0
 			};
-			cashierCheck.subItems.push(subItems);
+			centitlement.subItems.push(subItems);
 		}
 
-		returncashierCheck = JSON.stringify(cashierCheck.subItems);
-		return returncashierCheck;
+		returncentitlement = JSON.stringify(centitlement.subItems);
+		return returncentitlement;
 	}
 }
-	
+
 	// Close icon: removing the tab on click
 	$("#censubtabs").tabs().on("click", "span.ui-icon-close", function() {
 		var centitlement = law.addDoc.centitlement;
@@ -1565,6 +2156,6 @@ law.addDoc.centitlement = {
  	law.common.formatInputItemToDate("#iptcentitlementNewSendDate", "yy-mm-dd");
     
  	law.addDoc.centitlement.controlcentitlementEditCKB(0);
- })();
-// 債讓 end	
+})();
+// 執行名義 end	
 	

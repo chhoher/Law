@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +19,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.myjs.cek.checkform.model.LCekColumn;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
+import com.myjs.commons.DateTimeFormat;
 import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.myjs.sys.module.model.LSysMenu;
+import com.myjs.sys.variable.model.LSysVariable;
 
 public class testGson {
 	private static final Logger log = LogManager.getLogger(testGson.class);
@@ -35,9 +38,23 @@ public class testGson {
 	}
 	
 	public static void main(String[] args){
+		List<LSysVariable> la = new ArrayList<LSysVariable>();
+		List<LSysVariable> lb = new ArrayList<LSysVariable>();
+		LSysVariable a = new LSysVariable();
+		LSysVariable b = new LSysVariable();
+		LSysVariable c = new LSysVariable();
+		la.add(a);
+		lb.add(b);
+		la.addAll(lb);
+		lb.add(c);
+		System.out.println(la.get(2));
+		System.out.println(lb.get(1));
+	}
+	
+	public static void maintest(String[] args) throws Exception{
 		String test = "💋👍🗿💕";
 		System.out.println(test);
-		
+		System.out.println(DateTimeFormat.getDateTimeString(new Date(),"yyyy-MM-dd"));
 //		String a = "[{\"menuId\":\"ROOT\","menuPid":"#","moduleId":"moduleROOT","menuName":"文管法務系統","menuLevel":0,"isOpen":"N","isDelete":"N"},{"menuId":"0001","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"系統管理","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0002","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"表單流程","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0003","menuPid":"ROOT","moduleId":"moduleROOT","menuName":"文件管理","menuLevel":1,"isOpen":"N","isDelete":"N"},{"menuId":"0004","menuPid":"0001","moduleId":"moduleROOT","menuName":"部門設定","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0005","menuPid":"0001","moduleId":"moduleROOT","menuName":"使用者設定","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0006","menuPid":"0001","moduleId":"moduleROOT","menuName":"系統參數","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/sys/variable.jsp"},{"menuId":"0007","menuPid":"0001","moduleId":"moduleROOT","menuName":"附件管理","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/sys/file.jsp"},{"menuId":"0008","menuPid":"0002","moduleId":"moduleROOT","menuName":"表單設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/form.jsp"},{"menuId":"0009","menuPid":"0002","moduleId":"moduleROOT","menuName":"欄位設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/column.jsp"},{"menuId":"0010","menuPid":"0002","moduleId":"moduleROOT","menuName":"流程設定","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/flow.jsp"},{"menuId":"0011","menuPid":"0002","moduleId":"moduleROOT","menuName":"窗口對應業主","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/contactPerson.jsp"},{"menuId":"0012","menuPid":"0002","moduleId":"moduleROOT","menuName":"表單申請","menuLevel":2,"isOpen":"N","isDelete":"N"},{"menuId":"0013","menuPid":"0012","moduleId":"moduleROOT","menuName":"簽呈申請","menuLevel":3,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/cek/checkform.jsp"},{"menuId":"0014","menuPid":"0003","moduleId":"moduleROOT","menuName":"文管新增","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/doc/addDoc.jsp"},{"menuId":"0015","menuPid":"0003","moduleId":"moduleROOT","menuName":"案件查詢","menuLevel":2,"isOpen":"N","isDelete":"N","menuUrl":"/Law/pages/doc/queryCase.jsp"}]";
 		
 		String other = "[{\"receivedDate\":\"2017-06-21\""

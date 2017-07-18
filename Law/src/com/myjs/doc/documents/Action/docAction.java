@@ -1,5 +1,6 @@
 package com.myjs.doc.documents.Action;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -112,23 +113,36 @@ public class docAction extends AbstractAction {
 			String caseId = super.getRequest().getParameter("caseId"),
 					docInfoId = super.getRequest().getParameter("docInfoId"),
 					docinfoJson = super.getRequest().getParameter("returnOther"),
+					centitlementJson = super.getRequest().getParameter("returnCentitlement"),
+					courtDocJson = super.getRequest().getParameter("returnCourtDoc"),
 					cashiercheckJson = super.getRequest().getParameter("returnCashierCheck"),
 					debtsJson = super.getRequest().getParameter("returnDebts"),
 					claimsdocsJson = super.getRequest().getParameter("returnClaim"),
 					filedocsJson = super.getRequest().getParameter("returnFile"),
 					otherdocsJson = super.getRequest().getParameter("returnOther");
 			log.debug("caseId = {}, docInfoId = {}", caseId, docInfoId);
+			log.debug("centitlementJson = {}", centitlementJson);
+			log.debug("courtDocJson = {}", courtDocJson);
 			log.debug("cashiercheckJson = {}", cashiercheckJson);
 			log.debug("debtsJson = {}", debtsJson);
 			log.debug("claimsdocsJson = {}", claimsdocsJson);
 			log.debug("file = {}", filedocsJson);
 			log.debug("other = {}", otherdocsJson);
 			String response = docService.saveaddDoc(docInfoId, getSessionLoginUser(), caseId, docinfoJson,
-					cashiercheckJson, debtsJson, claimsdocsJson, filedocsJson, otherdocsJson);
+					centitlementJson, courtDocJson, cashiercheckJson, debtsJson, claimsdocsJson, filedocsJson, otherdocsJson);
 			printToResponse(response);
 			
 		}catch(Exception e){
 			sendException(e);
+			JsonObject jsonResponse = new JsonObject();
+			jsonResponse.addProperty("success", "error");
+			jsonResponse.addProperty("msg", "儲存失敗");
+			try {
+				printToResponse(jsonResponse.toString());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			log.error("saveaddDoc error msg===>", e);
 		}
 		return NONE;

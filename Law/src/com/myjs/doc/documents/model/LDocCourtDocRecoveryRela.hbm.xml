@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- add By Jia 2017-07-18 文管新增法院文的回復所有權登記相對人 -->
+<hibernate-mapping>
+    <class name="com.myjs.doc.documents.model.LDocCourtDocBuiltTranscriptsRela" table="L_DOC_COURT_DOC_BUILT_TRANSCRIPTS_RELA" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="courtDocBuiltTranscriptsRelaId" type="string">
+            <column name="court_doc_built_transcripts_rela_id"/>
+            <generator class="uuid" />
+        </id>
+		<property name="ID" type="string">
+			<column name="ID" length="10" />
+		</property>
+		<property name="name" type="string">
+			<column name="name" length="15"/>
+		</property>
+		<property name="courtDocId" type="int">
+			<column name="court_doc_id" />
+		</property>
+	</class>
+</hibernate-mapping>

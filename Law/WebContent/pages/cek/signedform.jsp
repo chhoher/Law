@@ -279,6 +279,11 @@ var otherfilenum = 0;
 						$( "#btnbackSigned" ).button( "disable" );
 						$( "#btncheckedSubmitSigned" ).button( "disable" );
 					}
+					if(response.recordSigned != null && response.recordSigned.status === 5){
+						$("#tdsignedfileupload").hide();
+						var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
+						datatablesignedFiles.fnSetColumnVis( 2, false );
+					}
 					// 控制若是一次清償，鎖定繳費迄日
 					if($("#iptcaseType").val() == 0){
 						$("#iptcasePeriods").val(1);
@@ -471,6 +476,9 @@ var otherfilenum = 0;
 			
 			$("#btnsavetempSigned").button().on("click",function(){
 				
+				$("#btnsavetempSigned").button( "disable" );
+				$("#btnsubmitSigned").button( "disable" );
+				
 				var saveselectOhterFiles = [];
 				var datatable = $("#signedfileOtherTable").dataTable();
 				$("input:checked", datatable.fnGetNodes()).each(function(){
@@ -532,6 +540,8 @@ var otherfilenum = 0;
 						} else {
 							alert(response.msg);
 						}
+						$("#btnsavetempSigned").button( "enable" );
+						$("#btnsubmitSigned").button( "enable" );
 					},
 					error : function(xhr, ajaxOptions, thrownError) {
 						alert(xhr.status);
@@ -541,6 +551,9 @@ var otherfilenum = 0;
 			});
 			
 			$("#btnsubmitSigned").button().on("click",function(){
+
+				$("#btnsavetempSigned").button( "disable" );
+				$("#btnsubmitSigned").button( "disable" );
 				
 				var saveselectOhterFiles = [];
 				var datatable = $("#signedfileOtherTable").dataTable();
@@ -602,6 +615,8 @@ var otherfilenum = 0;
 						} else {
 							alert(response.msg);
 						}
+						$("#btnsavetempSigned").button( "enable" );
+						$("#btnsubmitSigned").button( "enable" );
 						window.close();
 					},
 					error : function(xhr, ajaxOptions,thrownError) {
@@ -613,7 +628,9 @@ var otherfilenum = 0;
 			
 			//退件按鈕
 			$("#btnbackSigned").button().on("click",function(){
-				
+
+				$("#btnbackSigned").button( "disable" );
+				$( "#btncheckedSubmitSigned" ).button( "disable" );
 				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
 				var uploadFilesIds = [], uploadFilesPathName = [];
 				var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
@@ -678,7 +695,9 @@ var otherfilenum = 0;
 			
 			//主管核准按鈕
 			$("#btncheckedSubmitSigned").button().on("click",function(){
-				
+
+				$("#btnbackSigned").button( "disable" );
+				$( "#btncheckedSubmitSigned" ).button( "disable" );
 				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
 				var uploadFilesIds = [], uploadFilesPathName = [];
 				var datatablesignedFiles = $("#signedfilefileUploadTable").dataTable();
@@ -741,6 +760,8 @@ var otherfilenum = 0;
 			
 			//窗口回應儲存按鈕
 			$("#btnendSubmitSigned").button().on("click",function(){
+
+				$( "#btnendSubmitSigned" ).button( "disable" );
 				
 				// add by Jia 2017-07-11 將上傳附件的recordFileId 儲存下來，傳到後端update recordcheckformId
 				var uploadFilesIds = [], uploadFilesPathName = [];
@@ -790,6 +811,7 @@ var otherfilenum = 0;
 								<%
 							}
 							%>
+							$( "#btnendSubmitSigned" ).button( "enable" );
 							window.close();
 						} else {
 							alert(response.msg);
@@ -859,7 +881,7 @@ var otherfilenum = 0;
 		    		width : 900,
 		    		modal : true,
 		    		buttons : {
-		    			'新增' : addstepPay,
+		    			'儲存' : addstepPay,
 		    			'取消' : function() {
 		    				dialogstepPay.dialog("close");
 		    			}
@@ -929,7 +951,8 @@ var otherfilenum = 0;
 		    		for (var i = 1; i <= stepnum; i++) {
 		    			if(isInteger($("#iptcaseStepPeriods"+ i).val())){
 		    				if($("#iptcaseStepPeriods"+ i).val() !== ""){
-			    				sumamount += parseInt($("#iptcaseStepPeriods"+ i).val());
+		    					var perAmount = (new Date($("#iptcaseStepPayEndDate" + i).val()).getMonth()-new Date($("#iptcaseStepPayStartDate" + i).val()).getMonth()+1) * parseInt($("#iptcaseStepPeriods"+ i).val())
+			    				sumamount += perAmount;
 			    				newstepPay.push($("#iptcaseStepPeriods"+ i).val());
 			    				newstepPayStartDate.push($("#iptcaseStepPayStartDate"+ i).val());
 			    				newstepPayEndDate.push($("#iptcaseStepPayEndDate"+ i).val());
@@ -1132,7 +1155,7 @@ var otherfilenum = 0;
 				<div id="payTimesdiv">
 					<table>
 						<tr>
-							<td><label>期數</label></td>
+							<td><label>階段</label></td>
 							<td><input id="iptcaseStepPeriods"></input></td>
 						</tr>
 						<tr id="trstep1" style="display:none">
