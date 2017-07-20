@@ -30,9 +30,9 @@ $(document).ready(function(){
                 },
                 { "data": "Case_ID",
                 	"render": function ( data, type, full, meta ) {
-                		var todocSystem = "<button onclick=\"todocSystem("+data+")\">文管系統</button>";
-                		var toaddDoc = "<button onclick=\"toaddDoc("+data+")\">文管新增</button>";
-                		var toapplyLaw = "<button onclick=\"toapplyLaw("+data+")\">申請法務</button>";
+                		var todocSystem = "<button onclick=\"law.doc.todocSystem("+data+")\">文管系統</button>";
+                		var toaddDoc = "<button onclick=\"law.doc.toaddDoc("+data+")\">文管新增</button>";
+                		var toapplyLaw = "<button onclick=\"law.doc.toapplyLaw("+data+")\">申請法務</button>";
                 		return  todocSystem + "     " + toaddDoc + "     " ;
                 	} 
                 }
@@ -83,7 +83,7 @@ $(document).ready(function(){
 		</table>
 	</div>
 　<div style="margin:5px 5px 5px 5px">
-		<table id="queryCaseTable"  >
+		<table id="queryCaseTable" class="display" cellspacing="0" width="100%">
 		    <thead>
             <tr>
                 <th>委託公司</th>

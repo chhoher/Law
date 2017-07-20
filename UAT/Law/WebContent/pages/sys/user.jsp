@@ -74,7 +74,7 @@
 			</table>
 		</div>
 		<div style="margin: 5px 5px 5px 5px">
-			<table id="userTable">
+			<table id="userTable" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th>姓名</th>
@@ -94,7 +94,7 @@
 	<!-- 使用者選擇角色畫面 -->
 	<div id="setrole-dialog-form" title="選擇角色">
 				<div id="divsetRole">
-					<table id="setRoleTable"  class="ui-widget-content">
+					<table id="setRoleTable" class="display" cellspacing="0" width="100%">
 					    <thead>
 				            <tr>
 				           	 	<th></th>

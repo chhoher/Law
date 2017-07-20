@@ -22,6 +22,7 @@ import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.myjs.cek.recordcheckform.Dao.recordcheckformDao;
@@ -472,5 +473,13 @@ public class docServiceImpl implements docService{
 	
 	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId) throws Exception{
 		return recordcheckformDao.findRelaByCaseId(caseId);
+	}
+	
+	public String loadCaseDocsByCaseId(String caseId) throws Exception{
+		List<LDocInfo> ListLDocInfo = docDao.findDocByCaseId(caseId);
+		JsonObject jsonResponse = new JsonObject();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		jsonResponse.add("responseCaseInfo", gson.toJsonTree(ListLDocInfo));
+		return jsonResponse.toString();
 	}
 }

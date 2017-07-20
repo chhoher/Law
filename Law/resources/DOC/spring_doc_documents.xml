@@ -16,6 +16,9 @@
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
 	</bean>
 	
 	<!-- Services -->

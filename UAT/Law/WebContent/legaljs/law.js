@@ -75,8 +75,78 @@
 	 */
 	getObject = function(subName){
 		return law[subName];
+	},
+	
+	/*
+	 * add By Jia 2017-06-23
+	 * 帶入初始值(下拉選項)
+	 * 固定是L_SYS_VARIABLE裡面的
+	 */
+	selectOption = function(id, array, selectId){
+		var docArray = array,
+			seloption = "";
+		$(id + " option").remove();
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
+		});
+		$(id).append(seloption);
+		if(selectId !== undefined){
+			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
+		}
+	},
+	
+	/*
+	 * add By Jia 2017-06-27
+	 * 帶入相對人
+	 */
+	selectRelaOption = function(id, array, selectId){
+		var docArray = array,
+			seloption = "";
+		$(id + " option").remove();
+		$.each(docArray,function(i){
+			seloption += '<option value="'+docArray[i].ID+'">'+docArray[i].Name+'</option>'; 
+		});
+		$(id).append(seloption);
+		if(selectId !== undefined){
+			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
+		}
+	},
+	
+	/*
+	 * add By Jia 2017-07-04
+	 * 將日期輸入欄格式化
+	 */
+	formatInputItemToDate = function(id, formatType){
+		$( id ).datepicker();
+    	$( id ).datepicker( "option", "dateFormat", formatType );
+    	$( id ).datepicker( "option", $.datepicker.regional[ "zh-TW" ] );
+	},
+	
+	deleteFunctionForRecordFile = function(data, datatableId, removeNum){
+		// add by Jia 2017-07-11 刪除是將is_delete改成Y
+		$.ajax({
+			url : 'pages/cek/recordcheckform/recordcheckformAction!deleteSelectSignedFile.action',
+			data : {
+				'recordFileId' : data
+			},
+			type : "POST",
+			dataType : 'json',
+			success : function(response) {
+				if (response.success) {
+					var datatable = $(datatableId).dataTable();
+					datatable.fnDeleteRow(removeNum);
+					alert(response.msg);
+				} else {
+					alert(response.msg);
+				}
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert(xhr.status);
+				alert(thrownError);
+			}
+		});
 	};
- 	
+	
  	/*
  	 * 將所有物件塞入law
  	 */
@@ -96,8 +166,25 @@
  	
  	// addDoc物件
  	law.addDoc = {};
+ 	// doc物件
+ 	law.doc = {};
  	
  	law.getObject = getObject;
+ 	
+ 	// 新增通用function
+ 	law.common = {
+ 		selectOption : selectOption,
+ 		selectRelaOption : selectRelaOption,
+ 		formatInputItemToDate : formatInputItemToDate
+ 	};
+ 	
+ 	// 新增簽核系統類function
+ 	law.cek = {
+ 		deleteFunctionForRecordFile : deleteFunctionForRecordFile
+ 	};
+ 	
+ 	// 新增regex
+ 	law.regex = {};
  	/*
  	 * 加入law到window裡
  	 */

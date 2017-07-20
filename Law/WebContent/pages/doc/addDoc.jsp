@@ -765,7 +765,7 @@
 						<td><input id="iptcourtDocRuledDate" ></input></td>
 						<td><label>收到金額</label></td>
 						<td><input id="iptcourtDocRuledAmount" ></input></td>
-						<td><label>申請確證日</label></td>
+						<td><label>聲請確證日</label></td>
 						<td><input id="iptcourtDocApplyConfirmationDate" ></input></td>
 					</tr>
 					<tr>

@@ -7,7 +7,8 @@
     <package name="documents" namespace="/pages/doc"  extends="struts-default">  
         <action name="docAction!*"  method="{1}" class="docAction"  >		
         
-        	<allowed-methods>loadCaseInfo,initSelectOption,saveaddDoc</allowed-methods>
+        	<allowed-methods>loadCaseInfo,initSelectOption,saveaddDoc,initaddDoc,
+        		loadCaseRela,loadCaseDocs</allowed-methods>
         
         </action>
     </package>

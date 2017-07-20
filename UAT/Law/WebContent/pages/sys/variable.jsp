@@ -52,7 +52,7 @@ $(document).ready(function(){
 		</table>
 	</div>
 　<div style="margin:5px 5px 5px 5px">
-		<table id="variableTable"  >
+		<table id="variableTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
                 <th>資料名稱</th>
@@ -88,7 +88,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div >
-		<table id="variablesubTable"  class="ui-widget-content">
+		<table id="variablesubTable" class="display" cellspacing="0" width="100%">
 		    <thead>
             <tr>
                 <th>資料名稱</th>

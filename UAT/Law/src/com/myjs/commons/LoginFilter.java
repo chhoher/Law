@@ -114,6 +114,15 @@ public class LoginFilter extends OncePerRequestFilter {
 	 * @throws IOException
 	 */
 	private void responseLoginPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		log.debug("從簽呈連結進入 = {}", request.getParameter("LoginInSigned"));
+		String LoginInSigned = request.getParameter("LoginInSigned");
+		if(LoginInSigned != null && LoginInSigned.equals("true")){
+			// add By Jia 將簽呈內容帶入
+			AbstractAction.setAttribute("signed", "true");
+			AbstractAction.setAttribute("caseId", request.getParameter("caseId"));
+			AbstractAction.setAttribute("type", request.getParameter("type"));
+			AbstractAction.setAttribute("signedId", request.getParameter("signedId"));
+		}
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<html>");

@@ -9,7 +9,7 @@ $(function() {
 	// ===== function start =====
 	
 	// add by Jia 申請借調 function
-	function secondedDoc(iptsearchdebtorName, iptsearchdebtorID, iptsearchcaseId, iptsearchdocNo, iptsearchLawCaseId) {
+	function borrowDoc(iptsearchdebtorName, iptsearchdebtorID, iptsearchcaseId, iptsearchdocNo, iptsearchLawCaseId) {
 		var datatable = $("#queryCaseTable").dataTable();
 		datatable.fnClearTable();
 		var json = "";
@@ -43,8 +43,8 @@ $(function() {
 
 	// ===== 功能列按鈕 start =====
 	// 申請借調
-	$("#btnsecondedDoc").button().on("click",function() {
-//		secondedDoc();
+	$("#btnborrowDoc").button().on("click",function() {
+//		borrowDoc();
 		alert("已申請借調完成");
 	});
 	

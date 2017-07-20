@@ -1,638 +1,34 @@
 /**
- * Add By Jia 2017-05-11 docqueryCase.js 實作queryCase.jsp 
+ * Add By Jia 2017-05-11 docaddDoc.js 實作addDoc.jsp 
  */
  
- // 執行名義 start
-law.addDoc.cen = {
-	censubtabcount : 0,
-	censubtabs : $("#censubtabs").tabs(),
-	cenactivesubtabcount : 0,
-	addcensubtab : function (){
-		var cenactivesubtabcount = law.addDoc.cen.cenactivesubtabcount;
-		var censubtabcount = law.addDoc.cen.censubtabcount;
-		var censubtabs = law.addDoc.cen.censubtabs;
-		var tabTitle = "執行名義";
-		var tabId = "tabs-" + censubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>"+
-           	 	"<tr>"+
-					"<td><label>共用案號</label></td>"+
-					"<td><input id='iptcentitlementShareCaseId"+censubtabcount+"'></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>業主調件日</label></td>"+
-					"<td><input id='iptcentitlementBankDate"+censubtabcount+"' ></input></td>"+
-					"<td><label>*收文日期</label></td>"+
-					"<td><input id='iptcentitlementreceivedDate"+censubtabcount+"' ></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>*文件類別</label></td>"+
-					"<td><input id='iptcentitlementTypeOne"+censubtabcount+"' ></input></td>"+
-					"<td><label>*文件項目</label></td>"+
-					"<td><input id='iptcentitlementTypeTwo"+censubtabcount+"' ></input></td>"+
-					"<td><label>*債權人</label></td>"+
-					"<td><input id='iptcentitlementBankName"+censubtabcount+"' ></input></td>"+
-					"<td><label>原債權人</label></td>"+
-					"<td><input id='iptcentitlementOldBankName"+censubtabcount+"' ></input></td>"+
-				"</tr>"+
-					"<td><label>*法院年字案股</label></td>"+
-					"<td><input id='iptcentitlementCourtYearCourt"+censubtabcount+"' ></input></td>"+
-					"<td><label>年度</label></td>"+
-					"<td><input id='iptcentitlementCourtYearYear"+censubtabcount+"' ></input></td>"+
-					"<td><label>字</label></td>"+
-					"<td><input id='iptcentitlementCourtYearTxt"+censubtabcount+"' ></input></td>"+
-					"<td><label>股別</label></td>"+
-					"<td><input id='iptcentitlementCourtYearShare"+censubtabcount+"' ></input></td>"+
-					"<td><label>案號</label></td>"+
-					"<td><input id='iptcentitlementCourtYearCaseId"+censubtabcount+"' ></input></td>"+
-				"<tr>"+
-					"<td><label>*發文日期</label></td>"+
-					"<td><input id='iptcentitlementSendDate"+censubtabcount+"' ></input></td>"+
-					"<td><label>*最近執行日期</label></td>"+
-					"<td><input id='iptcentitlementNewSendDate"+censubtabcount+"' ></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>備註</label></td>"+
-					"<td><input id='iptcentitlementRemark"+censubtabcount+"'></input></td>"+
-				"</tr>"+
-           	" </table>";
-           	
-		law.addDoc.cen.censubtabcount ++ ;
-		law.addDoc.cen.cenactivesubtabcount ++;
-		
-		law.addDoc.cen.censubtabs.find(".ui-tabs-nav").append(li);
-		law.addDoc.cen.censubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		law.addDoc.cen.censubtabs.tabs("refresh");
-		law.addDoc.cen.censubtabs.tabs({ active: law.addDoc.cen.cenactivesubtabcount});
-	}
-};
-
-	// Close icon: removing the tab on click
-	$("#censubtabs").tabs().on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		law.addDoc.cen.cenactivesubtabcount--;
-		law.addDoc.cen.censubtabs.tabs({ active: law.addDoc.cen.cenactivesubtabcount});
-	});
-// 執行名義 end
-	
-// 法院文 start
-var courtDocsubtabcount = 0;
-var courtDocactivesubtabcount = 0;
-var courtDocsubtabs = $("#courtDocsubtabs").tabs();
-	function addcourtDocsubtab() {
-		courtDocsubtabcount ++ ;
-		courtDocactivesubtabcount ++;
-		
-		var tabTitle = "執行名義";
-		var tabId = "tabs-" + courtDocsubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>"+
-           	 	"<tr>"+
-					"<td><label>共用案號</label></td>"+
-					"<td><input id='iptcentitlementShareCaseId"+courtDocsubtabcount+"'></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>業主調件日</label></td>"+
-					"<td><input id='iptcentitlementBankDate"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*收文日期</label></td>"+
-					"<td><input id='iptcentitlementreceivedDate"+courtDocsubtabcount+"' ></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>*文件類別</label></td>"+
-					"<td><input id='iptcentitlementTypeOne"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*文件項目</label></td>"+
-					"<td><input id='iptcentitlementTypeTwo"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*債權人</label></td>"+
-					"<td><input id='iptcentitlementBankName"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>原債權人</label></td>"+
-					"<td><input id='iptcentitlementOldBankName"+courtDocsubtabcount+"' ></input></td>"+
-				"</tr>"+
-					"<td><label>*法院年字案股</label></td>"+
-					"<td><input id='iptcentitlementCourtYearCourt"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>年度</label></td>"+
-					"<td><input id='iptcentitlementCourtYearYear"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>字</label></td>"+
-					"<td><input id='iptcentitlementCourtYearTxt"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>股別</label></td>"+
-					"<td><input id='iptcentitlementCourtYearShare"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>案號</label></td>"+
-					"<td><input id='iptcentitlementCourtYearCaseId"+courtDocsubtabcount+"' ></input></td>"+
-				"<tr>"+
-					"<td><label>*發文日期</label></td>"+
-					"<td><input id='iptcentitlementSendDate"+courtDocsubtabcount+"' ></input></td>"+
-					"<td><label>*最近執行日期</label></td>"+
-					"<td><input id='iptcentitlementNewSendDate"+courtDocsubtabcount+"' ></input></td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td><label>備註</label></td>"+
-					"<td><input id='iptcentitlementRemark"+courtDocsubtabcount+"'></input></td>"+
-				"</tr>"+
-           	" </table>";
-		
-		courtDocsubtabs.find(".ui-tabs-nav").append(li);
-		courtDocsubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		courtDocsubtabs.tabs("refresh");
-		courtDocsubtabs.tabs({ active: courtDocactivesubtabcount});
-	}
-	
-	// Close icon: removing the tab on click
-	courtDocsubtabs.on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		courtDocactivesubtabcount--;
-		courtDocsubtabs.tabs({ active: courtDocactivesubtabcount});
-	});
-// 法院文 end
-	
-// 本票 start
-var cashierChecksubtabcount = 0;
-var cashierCheckactivesubtabcount = 0;
-var cashierChecksubtabs = $("#cashierChecksubtabs").tabs();
-	function addcashierChecksubtab() {
-		cashierChecksubtabcount ++ ;
-		cashierCheckactivesubtabcount ++;
-		
-		var tabTitle = "本票";
-		var tabId = "tabs-" + cashierChecksubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>" +
-           	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptcashierCheckReceivedDate" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptcashierCheckBankDate" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
-					"<td><input id='iptcashierCheckDocStatus" + cashierChecksubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>文件類別</label></td>" +
-					"<td><input id='iptcashierCheckTypeOne" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>文件項目</label></td>" +
-					"<td><input id='iptcashierCheckTypeTwo" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>債權人</label></td>" +
-					"<td><input id='iptcashierCheckBankName" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>原債權人</label></td>" +
-					"<td><input id='iptcashierCheckOldBankName" + cashierChecksubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>相對人</label></td>" +
-					"<td><input id='iptcashierCheckRelationPerson" + cashierChecksubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>本票發票日</label></td>" +
-					"<td><input id='iptcashierCheckStartDate" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>本票金額</label></td>" +
-					"<td><input id='iptcashierCheckAmount" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>本票到期日</label></td>" +
-					"<td><input id='iptcashierCheckEndDate" + cashierChecksubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>備註</label></td>" +
-					"<td><input id='iptcashierCheckRemark" + cashierChecksubtabcount + "'></input></td>" +
-				"</tr>" +
-           	 "</table>";
-		
-		cashierChecksubtabs.find(".ui-tabs-nav").append(li);
-		cashierChecksubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		cashierChecksubtabs.tabs("refresh");
-		cashierChecksubtabs.tabs({ active: cashierCheckactivesubtabcount});
-	}
-	
-	// Close icon: removing the tab on click
-	cashierChecksubtabs.on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		cashierCheckactivesubtabcount--;
-		cashierChecksubtabs.tabs({ active: cashierCheckactivesubtabcount});
-	});
-// 本票 end
-	
-// 債讓 start
-var debtssubtabcount = 0;
-var debtsactivesubtabcount = 0;
-var debtssubtabs = $("#debtssubtabs").tabs();
-	function adddebtssubtab() {
-		debtssubtabcount ++ ;
-		debtsactivesubtabcount ++;
-		
-		var tabTitle = "債讓";
-		var tabId = "tabs-" + debtssubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>" +
-           	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptdebtsReceivedDate" + debtssubtabcount + "'></input></td>" +
-					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptdebtsBankDate" + debtssubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
-					"<td><input id='iptdebtsDocStatus" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>文件類別</label></td>" +
-					"<td><input id='iptdebtsTypeOne" + debtssubtabcount + "'></input></td>" +
-					"<td><label>文件項目</label></td>" +
-					"<td><input id='iptdebtsTypeTwo" + debtssubtabcount + "'></input></td>" +
-					"<td><label>債權人</label></td>" +
-					"<td><input id='iptdebtsBankName" + debtssubtabcount + "'></input></td>" +
-					"<td><label>原債權人</label></td>" +
-					"<td><input id='iptdebtsOldBankName" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>相對人</label></td>" +
-					"<td><input id='iptdebtsRelationPerson" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>法院年字案股</label></td>" +
-					"<td><input id='iptdebtsCourtYearCourt" + debtssubtabcount + "'></input></td>" +
-					"<td><label>年度</label></td>" +
-					"<td><input id='iptdebtsCourtYearYear" + debtssubtabcount + "'></input></td>" +
-					"<td><label>字</label></td>" +
-					"<td><input id='iptdebtsCourtYearTxt" + debtssubtabcount + "'></input></td>" +
-					"<td><label>股別</label></td>" +
-					"<td><input id='iptdebtsCourtYearShare" + debtssubtabcount + "'></input></td>" +
-					"<td><label>案號</label></td>" +
-					"<td><input id='iptdebtsCourtYearCaseId" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>債讓日</label></td>" +
-					"<td><input id='iptdebtsDate" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>備註</label></td>" +
-					"<td><input id='iptdebtsRemark" + debtssubtabcount + "'></input></td>" +
-				"</tr>" +
-           	 "</table>";
-		
-		debtssubtabs.find(".ui-tabs-nav").append(li);
-		debtssubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		debtssubtabs.tabs("refresh");
-		debtssubtabs.tabs({ active: debtsactivesubtabcount});
-	}
-	
-	// Close icon: removing the tab on click
-	debtssubtabs.on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		debtsactivesubtabcount--;
-		debtssubtabs.tabs({ active: debtsactivesubtabcount});
-	});
-// 債讓 end
-
-// 債權文件 start
-var claimsDocsubtabcount = 0;
-var claimsDocactivesubtabcount = 0;
-var claimsDocsubtabs = $("#claimsDocsubtabs").tabs();
-	function addclaimsDocsubtab() {
-		claimsDocsubtabcount ++ ;
-		claimsDocactivesubtabcount ++;
-		
-		var tabTitle = "債權文件";
-		var tabId = "tabs-" + claimsDocsubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>" +
-           	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptclaimsDocReceivedDate" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptclaimsDocBankDate" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
-					"<td><input id='iptclaimsDocDocStatus" + claimsDocsubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>文件類別</label></td>" +
-					"<td><input id='iptclaimsDocTypeOne" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>文件項目</label></td>" +
-					"<td><input id='iptclaimsDocTypeTwo" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>債權人</label></td>" +
-					"<td><input id='iptclaimsDocBankName" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>原債權人</label></td>" +
-					"<td><input id='iptclaimsDocOldBankName" + claimsDocsubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>相對人</label></td>" +
-					"<td><input id='iptclaimsDocrelationPerson" + claimsDocsubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>額度</label></td>" +
-					"<td><input id='iptclaimsDocQuota" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>利率</label></td>" +
-					"<td><input id='iptclaimsDocInterestRate" + claimsDocsubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>備註</label></td>" +
-					"<td><input id='iptclaimsDocRemark" + claimsDocsubtabcount + "'></input></td>" +
-				"</tr>" +
-           	 "</table>";
-		
-		claimsDocsubtabs.find(".ui-tabs-nav").append(li);
-		claimsDocsubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		claimsDocsubtabs.tabs("refresh");
-		claimsDocsubtabs.tabs({ active: claimsDocactivesubtabcount});
-	}
-	
-	// Close icon: removing the tab on click
-	claimsDocsubtabs.on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		claimsDocactivesubtabcount--;
-		claimsDocsubtabs.tabs({ active: claimsDocactivesubtabcount});
-	});
-// 債權文件 end	
-	
-// 卷宗 start
-var filesubtabcount = 0;
-var fileactivesubtabcount = 0;
-var filesubtabs = $("#filesubtabs").tabs();
-	function addfilesubtab() {
-		filesubtabcount ++ ;
-		fileactivesubtabcount ++;
-		
-		var tabTitle = "卷宗";
-		var tabId = "tabs-" + filesubtabcount;
-		
-		var tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-
-		var subtabContentHtml = "<table>" +
-           	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptfileReceivedDate" + filesubtabcount + "'></input></td>" +
-					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptfileBankDate" + filesubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
-					"<td><input id='iptfileDocStatus" + filesubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>文件類別</label></td>" +
-					"<td><input id='iptfileTypeOne" + filesubtabcount + "'></input></td>" +
-					"<td><label>文件項目</label></td>" +
-					"<td><input id='iptfileTypeTwo" + filesubtabcount + "'></input></td>" +
-					"<td><label>債權人</label></td>" +
-					"<td><input id='iptfileBankName" + filesubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>份數</label></td>" +
-					"<td><input id='iptfileNums" + filesubtabcount + "'></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>備註</label></td>" +
-					"<td><input id='iptfileRemark" + "'></input></td>" +
-				"</tr>" +
-           	 "</table>";
-		
-		filesubtabs.find(".ui-tabs-nav").append(li);
-		filesubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		filesubtabs.tabs("refresh");
-		filesubtabs.tabs({ active: fileactivesubtabcount});
-	}
-	
-	// Close icon: removing the tab on click
-	filesubtabs.on("click", "span.ui-icon-close", function() {
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		fileactivesubtabcount--;
-		filesubtabs.tabs({ active: fileactivesubtabcount});
-	});
-// 卷宗 end	
-	
-// 其它 start
-law.addDoc.other = {
-	othersubtabcount : 0,
-	otheractivesubtabcount : 0,
-	othersubtabs : $("#othersubtabs").tabs(),
-	otherexistsubtabs : [],
-	addothersubtab : function(){
-		var other = law.addDoc.other;
-		var othersubtabcount = other.othersubtabcount;
-		var otheractivesubtabcount = other.otheractivesubtabcount;
-		var othersubtabs = other.othersubtabs;
-		var tabTitle = "其它";
-		var tabId = "tabs-" + othersubtabcount;
-		var tabTemplate = "<li id='liothertab_" + othersubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
-		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
-		var subtabContentHtml = "<table>" +
-           	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptotherReceivedDate" + othersubtabcount + "'></input></td>" +
-					"<td><label>業主調件日</label></td>" +
-					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
-					"<td><select id='iptotherDocStatus" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>文件類別</label></td>" +
-					"<td><select id='iptotherTypeOne" + othersubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
-					"<td><label>文件項目</label></td>" +
-					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
-					"<td><label>債權人</label></td>" +
-					"<td><select id='iptotherBankName" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>收據種類</label></td>" +
-					"<td><input id='iptotherReceiptType" + othersubtabcount + "' ></input></td>" +
-					"<td><label>收據金額</label></td>" +
-					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "' ></input></td>" +
-					"<td><label>法院製發日</label></td>" +
-					"<td><input id='iptotherCourtDate" + othersubtabcount + "' ></input></td>" +
-				"</tr>" +
-				"<tr>" +
-					"<td><label>備註</label></td>" +
-					"<td><input id='iptotherRemark" + othersubtabcount + "' ></input></td>" +
-				"</tr>" +
-           	 "</table>";
-       	 var docArray,seloption;
-		
-		other.othersubtabcount ++ ;
-		other.otheractivesubtabcount ++;
-		
-		other.othersubtabs.find(".ui-tabs-nav").append(li);
-		other.othersubtabs.append( "<div id='" + id + "'>" + subtabContentHtml + "</div>" );
-		other.othersubtabs.tabs("refresh");
-		other.othersubtabs.tabs({ active:other.otheractivesubtabcount});
-           	 
-		other.otherexistsubtabs.push(true);
-		// 開始初始化
-		
-		//將日期欄位格式化
-		$( "#iptotherReceivedDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherReceivedDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptotherBankDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherBankDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-		$( "#iptotherCourtDate" + othersubtabcount ).datepicker();
-	    $( "#iptotherCourtDate" + othersubtabcount ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	    
-		//其他 文件狀態
-		$("#iptotherDocStatus" + othersubtabcount + " option").remove();
-		docArray = other.DocStatus;
-		seloption = "";
-		$.each(docArray,function(i){
-			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-		});
-		$("#iptotherDocStatus" + othersubtabcount).append(seloption);
-		$('#iptotherDocStatus' + othersubtabcount + ' option[value=8aa2e72a5c8074d5015c8076cfe50001]').attr('selected', 'selected');
-		
-		//其他 文件類別
-		$("#iptotherTypeOne" + othersubtabcount + " option").remove();
-		docArray = other.TypeOne;
-		seloption = "";
-		$.each(docArray,function(i){
-			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-		});
-		$("#iptotherTypeOne" + othersubtabcount).append(seloption);
-		$('#iptotherTypeOne' + othersubtabcount + ' option[value=8aa2e72a5c812434015c81307418000a]').attr('selected', 'selected');
-		
-		//其他 文件項目
-		$("#iptotherTypeTwo" + othersubtabcount + " option").remove();
-		docArray = other.TypeTwo;
-		seloption = "";
-		$.each(docArray,function(i){
-			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-		});
-		$("#iptotherTypeTwo" + othersubtabcount).append(seloption);
-		
-		//其他 債權人
-		$("#iptotherBankName" + othersubtabcount + " option").remove();
-		docArray = other.BankName;
-		seloption = "";
-		$.each(docArray,function(i){
-			seloption += '<option value="'+docArray[i].variableId+'">'+docArray[i].variableName+'</option>'; 
-		});
-		$("#iptotherBankName" + othersubtabcount).append(seloption);
-		
-		//設定收文日期為當日
-		$("#iptotherReceivedDate" + othersubtabcount).val(other.ReceivedDate);
-			
-	},
-	// 初始化
-	initothersubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName){
-		var initsub = law.addDoc.other;
-		initsub.ReceivedDate = ReceivedDate;
-		initsub.DocStatus = DocStatus;
-		initsub.TypeOne = TypeOne;
-		initsub.TypeTwo = TypeTwo;
-		initsub.BankName = BankName;
-	}
-}
-	
-	// Close icon: removing the tab on click
-	$("#othersubtabs").tabs().on("click", "span.ui-icon-close", function() {
-		var other = law.addDoc.other;
-		var panelId = $(this).closest("li").remove().attr(
-				"aria-controls");
-		$("#" + panelId).remove();
-		var liid = $(this).closest("li")["0"].id;
-		other.otherexistsubtabs[liid.substring(liid.indexOf("_") + 1)] = false;
-		other.otheractivesubtabcount--;
-		other.othersubtabs.tabs({ active: other.otheractivesubtabcount});
-	});
-// 其它 end	
-	
 $(function() {
 	
 	// ===== function start =====
 	
 	function saveaddDoc(){
-		// 儲存(其他)
-//		"<table>" +
-//           	 	"<tr>" +
-//					"<td><label>收文日期</label></td>" +
-//					"<td><input id='iptotherReceivedDate" + othersubtabcount + "'></input></td>" +
-//					"<td><label>業主調件日</label></td>" +
-//					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
-//					"<td><label>文件狀態</label></td>" +
-//					"<td><select id='iptotherDocStatus" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
-//				"</tr>" +
-//				"<tr>" +
-//					"<td><label>文件類別</label></td>" +
-//					"<td><select id='iptotherTypeOne" + othersubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
-//					"<td><label>文件項目</label></td>" +
-//					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
-//					"<td><label>債權人</label></td>" +
-//					"<td><select id='iptotherBankName" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
-//				"</tr>" +
-//				"<tr>" +
-//					"<td><label>收據種類</label></td>" +
-//					"<td><input id='iptotherReceiptType" + othersubtabcount + "' ></input></td>" +
-//					"<td><label>收據金額</label></td>" +
-//					"<td><input id='iptotherReceiptAmount" + othersubtabcount + "' ></input></td>" +
-//					"<td><label>法院製發日</label></td>" +
-//					"<td><input id='iptotherCourtDate" + othersubtabcount + "' ></input></td>" +
-//				"</tr>" +
-//				"<tr>" +
-//					"<td><label>備註</label></td>" +
-//					"<td><input id='iptotherRemark" + othersubtabcount + "' ></input></td>" +
-//				"</tr>" +
-//           	 "</table>"
-		var length = law.addDoc.other.othersubtabcount,
-			i = 0,
-			other = {},
-			returnOther = "";
-			
-			var topItem = {
-				'receivedDate' : $("#iptotherReceivedDate").val(),
-				'bankDate' : $("#iptotherBankDate").val(),
-				'docStatus' : $("#iptotherDocStatus").find('option:selected').val(),
-				'typeOne' : $("#iptotherTypeOne").find('option:selected').val(),
-				'typeTwo' : $("#iptotherTypeTwo").find('option:selected').val(),
-				'bankName' : $("#iptotherBankName").find('option:selected').val(),
-				'receiptType' : $("#iptotherReceiptType").val(),
-				'receiptAmount' : $("#iptotherReceiptAmount").val(),
-				'courtDate' : $("#iptotherCourtDate").val(),
-				'remark' : $("#iptotherRemark").val()
-			};
-			
-			other.subItems = [];
-			other.subItems.push(topItem);
-		for ( ; i < length; i++ ) {
-				var subItems = {
-					'receivedDate' : $("#iptotherReceivedDate" + i ).val(),
-					'bankDate' : $("#iptotherBankDate" + i ).val(),
-					'docStatus' : $("#iptotherDocStatus" + i ).find('option:selected').val(),
-					'typeOne' : $("#iptotherTypeOne" + i ).find('option:selected').val(),
-					'typeTwo' : $("#iptotherTypeTwo" + i ).find('option:selected').val(),
-					'bankName' : $("#iptotherBankName" + i ).find('option:selected').val(),
-					'receiptType' : $("#iptotherReceiptType" + i ).val(),
-					'receiptAmount' : $("#iptotherReceiptAmount" + i ).val(),
-					'courtDate' : $("#iptotherCourtDate" + i ).val(),
-					'remark' : $("#iptotherRemark" + i ).val()
-			};
-			other.subItems.push(subItems);
-		}
 		
-		console.log(other);
-		returnOther = JSON.stringify(other.subItems);
-		
+		var returnCentitlement = law.addDoc.centitlement.returnAllsubtabJson(),// 儲存(執行名義)
+			returnCourtDoc = law.addDoc.courtDoc.returnAllsubtabJson(),// 儲存(法院文)
+			returnCashierCheck = law.addDoc.cashierCheck.returnAllsubtabJson(),// 儲存(本票)
+			returnDebts = law.addDoc.debts.returnAllsubtabJson(),// 儲存(債讓)
+			returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
+			returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
+			returnOther = law.addDoc.other.returnAllsubtabJson();// 儲存(其他)
+
 		$.ajax({
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',
-					data : {returnOther : returnOther},
+					data : {
+						caseId : law.addDoc.caseId,
+						returnCentitlement : returnCentitlement,
+						returnCourtDoc : returnCourtDoc,
+						returnCashierCheck : returnCashierCheck,
+						returnDebts : returnDebts,
+						returnClaim : returnClaim,
+						returnFile : returnFile,
+						returnOther : returnOther,
+						docInfoId : law.addDoc.docInfoId
+						},
 					type : "POST",
 					dataType : 'json',
 					success : function(response) {
@@ -659,3 +55,175 @@ $(function() {
 	// ===== 功能列按鈕 end =====
 	
 });
+
+(function(){
+	 //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 start
+		    $("#ckbaddDocAll").on( "click", function(){
+		    	if($("#ckbaddDocAll").is(':checked')){
+		    		$("#ckbaddDocentitlementForeclosure").prop("checked", false);
+		    		$("#ckbaddDoccourtDoc").prop("checked", false);
+		    		$("#ckbaddDoccashierCheck").prop("checked", false);
+		    		$("#ckbaddDocdebts").prop("checked", false);
+		    		$("#ckbaddDocclaimsDoc").prop("checked", false);
+		    		$("#ckbaddDocfile").prop("checked", false);
+		    		$("#ckbaddDocother").prop("checked", false);
+		    		
+		    		$("#divaddDocentitlementForeclosure").show();
+		    		$("#divaddDoccourtDoc").show();
+		    		$("#divaddDoccashierCheck").show();
+		    		$("#divaddDocdebts").show();
+		    		$("#divaddDocclaimsDoc").show();
+		    		$("#divaddDocfile").show();
+		    		$("#divaddDocother").show();
+		    	}else{
+		    		$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+		    	}
+		    });
+		    $("#ckbaddDocentitlementForeclosure").on( "click", function(){
+		    	if($("#ckbaddDocentitlementForeclosure").is(':checked')){
+		    		
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+		    		
+		    		$("#divaddDocentitlementForeclosure").show();
+		    	}else{
+		    		$("#divaddDocentitlementForeclosure").hide();
+		    	}
+		    });
+		    $("#ckbaddDoccourtDoc").on( "click", function(){
+		    	if($("#ckbaddDoccourtDoc").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+		    		
+		    		$("#divaddDoccourtDoc").show();
+		    	}else{
+		    		$("#divaddDoccourtDoc").hide();
+		    	}
+		    });
+		    $("#ckbaddDoccashierCheck").on( "click", function(){
+		    	if($("#ckbaddDoccashierCheck").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+		    		
+		    		$("#divaddDoccashierCheck").show();
+		    	}else{
+		    		$("#divaddDoccashierCheck").hide();
+		    	}
+		    });
+		    $("#ckbaddDocdebts").on( "click", function(){
+		    	if($("#ckbaddDocdebts").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocdebts").show();
+		    	}else{
+		    		$("#divaddDocdebts").hide();
+		    	}
+		    });
+		    $("#ckbaddDocclaimsDoc").on( "click", function(){
+		    	if($("#ckbaddDocclaimsDoc").is(':checked')){
+		    		
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocclaimsDoc").show();
+		    	}else{
+		    		$("#divaddDocclaimsDoc").hide();
+		    	}
+		    });
+		    $("#ckbaddDocfile").on( "click", function(){
+		    	if($("#ckbaddDocfile").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocfile").show();
+		    	}else{
+		    		$("#divaddDocfile").hide();
+		    	}
+		    });
+		    $("#ckbaddDocother").on( "click", function(){
+		    	if($("#ckbaddDocother").is(':checked')){
+
+		    		if($("#ckbaddDocAll").is(':checked')){
+		    			$("#ckbaddDocAll").prop("checked", false);
+			    		
+		    			$("#divaddDocentitlementForeclosure").hide();
+			    		$("#divaddDoccourtDoc").hide();
+			    		$("#divaddDoccashierCheck").hide();
+			    		$("#divaddDocdebts").hide();
+			    		$("#divaddDocclaimsDoc").hide();
+			    		$("#divaddDocfile").hide();
+			    		$("#divaddDocother").hide();
+			    	}
+
+		    		$("#divaddDocother").show();
+		    	}else{
+		    		$("#divaddDocother").hide();
+		    	}
+		    });
+		  //Add By Jia 2017-05-09 控制checkbox有沒有要顯示下列填寫項目 end
+})();

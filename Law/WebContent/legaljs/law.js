@@ -166,6 +166,8 @@
  	
  	// addDoc物件
  	law.addDoc = {};
+ 	// doc物件
+ 	law.doc = {};
  	
  	law.getObject = getObject;
  	

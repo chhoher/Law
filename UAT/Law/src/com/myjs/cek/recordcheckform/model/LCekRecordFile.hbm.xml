@@ -26,5 +26,8 @@
         <property name="recordCheckformId" type="string">
             <column name="record_checkform_id" length="50" />
         </property>
+        <property name="isDelete" type="string">
+            <column name="is_delete" length="1" />
+        </property>
     </class>
 </hibernate-mapping>

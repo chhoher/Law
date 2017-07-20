@@ -1,23 +1,7 @@
 /**
  * Add By Jia 2017-05-11 docqueryCase.js 實作queryCase.jsp 
  */
-
-// 表格中的超連結function
-	function todocSystem(data) {
-		//固定帶文管系統頁簽的資料
-		law.tabControl.addTabs("#tabs",'8aa2e72a5ca02291015ca0ae14e70001','文管系統','/Law/pages/doc/docSystem.jsp?caseId=' + data);
-		//window.open("../pages/doc/addDoc.jsp?caseId=" + data);
-	}
-	
-	function toaddDoc(data) {
-		//固定帶文管新增頁簽的資料
-		law.tabControl.addTabs("#tabs",'8aa2e72a5c5c9b6e015c5cb587cc0025','文管新增','/Law/pages/doc/addDoc.jsp?caseId=' + data);
-	}
-	
-	// TODO Add By Jia 2017-05-11 目前還沒有做到法務 連結到申請法務
-	function toapplyLaw(data) {
-		alert(data);
-	}
+ 
 
 $(function() {
 	
@@ -71,3 +55,22 @@ $(function() {
 	// ===== 功能列按鈕 end =====
 	
 });
+
+ (function(){
+	// 表格中的超連結function
+	law.doc.todocSystem = function todocSystem(data) {
+		//固定帶文管系統頁簽的資料
+		law.tabControl.addTabs("#tabs",'8aa2e72a5ca02291015ca0ae14e70001','文管系統','/Law/pages/doc/docSystem.jsp?caseId=' + data);
+		//window.open("../pages/doc/addDoc.jsp?caseId=" + data);
+	}
+	
+	law.doc.toaddDoc = function toaddDoc(data) {
+		//固定帶文管新增頁簽的資料
+		law.tabControl.addTabs("#tabs",'8aa2e72a5c5c9b6e015c5cb587cc0025','文管新增','/Law/pages/doc/addDoc.jsp?caseId=' + data);
+	}
+	
+	// TODO Add By Jia 2017-05-11 目前還沒有做到法務 連結到申請法務
+	law.doc.toapplyLaw = function toapplyLaw(data) {
+		alert(data);
+	}
+ })();

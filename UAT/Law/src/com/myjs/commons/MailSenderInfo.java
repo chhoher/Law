@@ -19,6 +19,10 @@ public class MailSenderInfo {
 	private String fromAddress = "legalServer@mytf.com.tw";
 	// 郵件接收者的地址
 	private String toAddress = "2354@mytf.com.tw";
+	private String toAddress2 = null;
+	// 郵件副本接收者的地址
+	private String ccAddress = null;
+	private String ccAddress2 = null;
 	// 登陸郵件發送服務器的用戶名和密碼
 	private String userName = "劉家嘉";
 	private String password = "";
@@ -39,8 +43,22 @@ public class MailSenderInfo {
 		
 	}
 	
-	public MailSenderInfo(String fromAddress, String toAddress, String userName, 
-			String subject, String content, String[] attachFileNames){
+	public MailSenderInfo(String fromAddress, String toAddress, String toAddress2, 
+			String ccAddress, String ccAddress2, String userName,	String subject, 
+			String content, String[] attachFileNames){
+		this.fromAddress = fromAddress;
+		this.toAddress = toAddress;
+		this.toAddress2 = toAddress2;
+		this.ccAddress = ccAddress;
+		this.ccAddress2 = ccAddress2;
+		this.userName = userName;
+		this.subject = subject;
+		this.content = content;
+		this.attachFileNames = attachFileNames;
+	}
+	
+	public MailSenderInfo(String fromAddress, String toAddress, 
+			String userName,	String subject, String content, String[] attachFileNames){
 		this.fromAddress = fromAddress;
 		this.toAddress = toAddress;
 		this.userName = userName;
@@ -96,6 +114,30 @@ public class MailSenderInfo {
 	
 	public void setToAddress(String toAddress) {
 		this.toAddress = toAddress;
+	}
+
+	public String getToAddress2() {
+		return toAddress2;
+	}
+	
+	public void setToAddress2(String toAddress2) {
+		this.toAddress2 = toAddress2;
+	}
+	
+	public String getCcAddress() {
+		return ccAddress;
+	}
+	
+	public void setCcAddress(String ccAddress) {
+		this.ccAddress = ccAddress;
+	}
+	
+	public String getCcAddress2() {
+		return ccAddress2;
+	}
+	
+	public void setCcAddress2(String ccAddress2) {
+		this.ccAddress2 = ccAddress2;
 	}
 	
 	public String getUserName() {

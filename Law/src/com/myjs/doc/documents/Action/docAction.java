@@ -169,4 +169,23 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-07-18
+	 * 載入該案件所有文件
+	 */
+	public String loadCaseDocs(){
+		try{
+			log.debug("loadCaseDocs start");
+			String caseId = super.getRequest().getParameter("caseId");
+			log.debug("caseId = {}", caseId);
+			String response = docService.loadCaseDocsByCaseId(caseId);
+			log.debug("responseString = {}", response);
+			printToResponse(response);
+		}catch(Exception e){
+			sendException(e);
+			log.error("loadCaseDocs error msg==>", e);
+		}
+		return NONE;
+	}
 }

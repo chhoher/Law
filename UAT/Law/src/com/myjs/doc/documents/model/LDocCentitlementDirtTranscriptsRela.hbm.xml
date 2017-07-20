@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- add By Jia 2017-07-13 文管新增執行名義的土謄相對人 -->
+<hibernate-mapping>
+    <class name="com.myjs.doc.documents.model.LDocCentitlementDirtTranscriptsRela" table="L_DOC_CENTITLEMENT_DIRT_TRANSCRIPTS_RELA" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="centitlementDirtTranscriptsRelaId" type="string">
+            <column name="centitlement_dirt_transcripts_rela_id"/>
+            <generator class="uuid" />
+        </id>
+		<property name="ID" type="string">
+			<column name="ID" length="10" />
+		</property>
+		<property name="name" type="string">
+			<column name="name" length="15"/>
+		</property>
+		<property name="centitlementId" type="int">
+			<column name="centitlement_id" />
+		</property>
+	</class>
+</hibernate-mapping>

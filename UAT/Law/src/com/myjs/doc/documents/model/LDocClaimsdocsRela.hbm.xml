@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- add By Jia 2017-06-29 文管新增債權文件的相對人 -->
+<hibernate-mapping>
+    <class name="com.myjs.doc.documents.model.LDocClaimsdocsRela" table="L_DOC_CLAIMSDOC_RELA" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="claimsdocsRelaId" type="string">
+            <column name="claimsdocs_rela_id"/>
+            <generator class="uuid" />
+        </id>
+		<property name="ID" type="string">
+			<column name="ID" length="10" />
+		</property>
+		<property name="name" type="string">
+			<column name="name" length="15"/>
+		</property>
+		<property name="claimsdocsId" type="int">
+			<column name="claimsdocs_id" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -38,4 +38,11 @@ public interface docService {
 	 * @throws Exception
 	 */
 	public List<LCekSignedRelaInfo> findRelaByCaseId(String caseId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-07-18
+	 * 用案號查詢該案件的文件
+	 * @throws Exception
+	 */
+	public String loadCaseDocsByCaseId(String caseId) throws Exception;
 }

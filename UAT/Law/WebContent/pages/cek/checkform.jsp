@@ -13,11 +13,9 @@ $(document).ready(function(){
 		else
 		return paddingLeft("0" +str,lenght);
 	}
-	
-	$( "#iptsearchrecordcheckformCreateDateS" ).datepicker();
-    $( "#iptsearchrecordcheckformCreateDateS" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-    $( "#iptsearchrecordcheckformCreateDateE" ).datepicker();
-    $( "#iptsearchrecordcheckformCreateDateE" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+	law.common.formatInputItemToDate( "#iptsearchrecordcheckformCreateDateS", "yy-mm-dd");
+	law.common.formatInputItemToDate( "#iptsearchrecordcheckformCreateDateE", "yy-mm-dd");
     var opt={
     		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
     		"bJQueryUI":true,	
@@ -121,7 +119,7 @@ $(document).ready(function(){
 	</div>
 	
 　<div style="margin:5px 5px 5px 5px">
-		<table id="recordcheckformTable"  >
+		<table id="recordcheckformTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
             	<th>案號</th>

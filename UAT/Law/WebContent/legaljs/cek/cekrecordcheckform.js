@@ -33,8 +33,8 @@ $(function() {
 	function addRecCheckform() {
 		var valid = true;// 看輸入的格式對不對
 		allFields.removeClass("ui-state-error");
-		valid = valid && checkLength(tips, iptsignedCaseNo, "表單編號", 3, 10);
-		valid = valid	&& checkRegexp(tips, iptsignedCaseNo,/^([0-9a-z_\s])+$/i, "表單編號必須為 a-z 0-9");
+		valid = valid && checkLength(tips, iptsignedCaseNo, "表單編號", 8, 8);
+		valid = valid	&& checkRegexp(tips, iptsignedCaseNo,/^([0-9])+$/i, "表單編號必須為數字8碼");
 		if (valid) {
 			var useruserID = "";
 			$.ajax({
@@ -46,7 +46,7 @@ $(function() {
 					var opencaseId = iptsignedCaseNo.val();
 					dialog.dialog("close");
 					window.open('../pages/cek/signedform.jsp?caseId=' + opencaseId + '' +
-							'&userId=' + useruserID + '&type=1');
+							'&type=1');
 				},
 				error : function(xhr, ajaxOptions, thrownError){
 					alert(xhr.status);
@@ -186,21 +186,21 @@ $(function() {
 				var signedType = 4;
 				if(response.data.memadm == "Y" && datatable.fnGetData('.selected').status == 2){
 					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-							'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
+							'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 				}else if(response.data.memadm == "N" && datatable.fnGetData('.selected').status == 2){
 					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-						'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
+						'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
 				}else if(datatable.fnGetData('.selected').status == 4){
 					if(datatable.fnGetData('.selected').receivedUserId == response.data.memno){
 						window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-								'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
+								'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 					}else{
 						window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-								'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
+								'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + 5);
 					}
 				}else{
 					window.open('../pages/cek/signedform.jsp?caseId=' + datatable.fnGetData('.selected').caseId + '' +
-							'&userId=' + useruserID + '&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
+							'&signedId=' + datatable.fnGetData('.selected').signedId + '&type=' + datatable.fnGetData('.selected').status);
 				}
 			},
 			error : function(xhr, ajaxOptions, thrownError){

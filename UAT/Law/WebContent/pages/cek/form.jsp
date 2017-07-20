@@ -9,8 +9,7 @@
 
 $(document).ready(function(){ 
 	$( function() {
-	    $( "#iptsearchformDate" ).datepicker();
-	    $( "#iptsearchformDate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+		law.common.formatInputItemToDate( "#iptsearchformDate", "yy-mm-dd");
 	  } );
 	
     var opt={
@@ -83,7 +82,7 @@ $(document).ready(function(){
 		</table>
 	</div>
 　<div style="margin:5px 5px 5px 5px">
-		<table id="cekformTable"  >
+		<table id="cekformTable" class="display" cellspacing="0" width="100%" >
 		    <thead>
             <tr>
             	<th></th>

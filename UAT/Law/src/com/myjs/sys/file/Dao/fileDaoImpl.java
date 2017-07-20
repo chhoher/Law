@@ -101,9 +101,7 @@ public class fileDaoImpl extends DaoUtil implements fileDao{
 		queryString.append(" RIGHT JOIN L_CEK_RECORD_CHECKFORM LCRC");
 		queryString.append(" ON LCRF.record_checkform_id = LCRC.record_checkform_id");
 		queryString.append(" WHERE mappingtable_id = '" + signedId + "'");
-		queryString.append(" AND LCRF.modify_datetime = (");
-		queryString.append(" SELECT MAX(modify_datetime)");
-		queryString.append(" FROM L_CEK_RECORD_FILE )");
+		queryString.append(" AND LCRF.is_delete = 'N'");
 		log.debug("findfilePathByTypes queryString = {}",queryString);
 		fileList=this.jdbcTemplate.queryForList(queryString.toString());
 		return fileList;

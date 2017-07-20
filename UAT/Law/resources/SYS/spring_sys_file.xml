@@ -24,6 +24,9 @@
 		<property name="fileDao">
 			<ref bean="fileDao"/>
 		</property>
+		<property name="recordcheckformDao">
+			<ref bean="recordcheckformDao" />
+		</property>
 	</bean>
 
 	<!-- Action -->

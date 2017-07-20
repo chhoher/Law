@@ -113,7 +113,7 @@
 			</table>
 		</div>
 		<div style="margin: 5px 5px 5px 5px">
-			<table id="fileTable">
+			<table id="fileTable" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th>文件名稱</th>

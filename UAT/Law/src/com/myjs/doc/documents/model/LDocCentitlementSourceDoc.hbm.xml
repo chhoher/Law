@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- add By Jia 2017-07-14 文管新增執行名義原始憑證 -->
+<hibernate-mapping>
+
+    <class name="com.myjs.doc.documents.model.LDocCentitlementSourceDoc" table="L_DOC_CENTITLEMENT_SOURCE_DOC" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="centitlementSourceDocId" type="string">
+            <column name="centitlement_source_doc_id"/>
+            <generator class="uuid" />
+        </id>
+		<property name="centitlementSourceDoc" type="string">
+			<column name="centitlement_source_doc" length="50" />
+		</property>
+		<property name="centitlementSourceDocName" type="string">
+			<column name="centitlement_source_doc_name" length="50" />
+		</property>
+		<property name="courtYearCourt" type="string">
+			<column name="court_year_court" length="50"/>
+		</property>
+		<property name="courtYearCourtName" type="string">
+			<column name="court_year_court_name" length="50"/>
+		</property>
+		<property name="courtYearYear" type="int">
+			<column name="court_year_year"/>
+		</property>
+		<property name="courtYearTxt" type="string">
+			<column name="court_year_txt" length="50"/>
+		</property>
+		<property name="courtYearShare" type="string">
+			<column name="court_year_share" length="50"/>
+		</property>
+		<property name="courtYearCaseId" type="int">
+			<column name="court_year_case_id"/>
+		</property>
+		<property name="centitlementId" type="int">
+			<column name="centitlement_id" />
+		</property>
+	</class>
+</hibernate-mapping>

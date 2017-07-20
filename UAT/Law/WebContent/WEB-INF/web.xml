@@ -49,7 +49,7 @@
 
 		<init-param>
 			<param-name>loginPages</param-name>
-			<param-value>/pages/test/*.jsp,/pages/login/login.jsp,/login!*.action,/pages/cek/signedform.jsp,/pages/test/*.html</param-value>
+			<param-value>/pages/test/*.jsp,/pages/login/login.jsp,/login!*.action,/pages/test/*.html</param-value><!-- /pages/cek/signedform.jsp -->
 		</init-param>
 	    <init-param>
 			<param-name>forhiddenPages</param-name>
