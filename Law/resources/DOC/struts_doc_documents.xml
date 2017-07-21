@@ -8,7 +8,7 @@
         <action name="docAction!*"  method="{1}" class="docAction"  >		
         
         	<allowed-methods>loadCaseInfo,initSelectOption,saveaddDoc,initaddDoc,
-        		loadCaseRela,loadCaseDocs</allowed-methods>
+        		loadCaseRela,loadCaseDocs,initSelectedForDocSys,saveBorrowDocs</allowed-methods>
         
         </action>
     </package>

@@ -482,4 +482,22 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("responseCaseInfo", gson.toJsonTree(ListLDocInfo));
 		return jsonResponse.toString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public String findDocSysSelectOption() throws Exception{
+		Map<?, ?> LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d5efd74015d5f3c86c30001");
+		List<LSysVariable> LSysVariableListBackReason = (List<LSysVariable>) LSysVariableMap.get("list"); //退件原因
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9528290012");
+		List<LSysVariable> LSysVariableListCourt = (List<LSysVariable>) LSysVariableMap.get("list");//地院
+		
+		Gson gson = new Gson();
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.add("backReason", gson.toJsonTree(LSysVariableListBackReason));
+		jsonResponse.add("court", gson.toJsonTree(LSysVariableListCourt));
+		return jsonResponse.toString();
+	}
+
+	public String saveBorrowDocs(String saveBorrowString) throws Exception{
+		return "";
+	}
 }

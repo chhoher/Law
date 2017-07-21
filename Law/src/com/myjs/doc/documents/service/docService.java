@@ -45,4 +45,21 @@ public interface docService {
 	 * @throws Exception
 	 */
 	public String loadCaseDocsByCaseId(String caseId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-07-21
+	 * 初始話文管系統的下拉選項
+	 * @return
+	 * @throws Exception
+	 */
+	public String findDocSysSelectOption() throws Exception;
+	
+	/**
+	 * add By Jia 2017-07-21
+	 * 儲存申調紀錄
+	 * @param saveBorrowString
+	 * @return
+	 * @throws Exception
+	 */
+	public String saveBorrowDocs(String saveBorrowString) throws Exception;
 }

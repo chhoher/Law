@@ -50,5 +50,11 @@
 		<property name="remark" type="string">
 			<column name="remark" />
 		</property>	
+		<property name="borrowReason" type="string">
+			<column name="borrow_reason" length="50"/>
+		</property>	
+		<property name="borrowInfo" type="string">
+			<column name="borrow_info" />
+		</property>	
 	</class>
 </hibernate-mapping>

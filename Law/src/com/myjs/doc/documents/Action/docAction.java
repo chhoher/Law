@@ -188,4 +188,41 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-07-21
+	 * 將文管系統的下拉選項初始化
+	 */
+	public String initSelectedForDocSys(){
+		try{
+			log.debug("=====initSelectedForDocSys start=====");
+			String returnValue = docService.findDocSysSelectOption();
+			
+			log.debug("returnValue = {}", returnValue);
+			printToResponse(returnValue);
+		}catch(Exception e){
+			sendException(e);
+			log.error("initSelectedForDocSys error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-07-21
+	 * 申調文件
+	 */
+	public String saveBorrowDocs(){
+		try{
+			log.debug("=====saveBorrowDocs start=====");
+			String saveBorrowString = super.getRequest().getParameter("saveBorrowString");
+			String response = docService.saveBorrowDocs(saveBorrowString);
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+		}catch(Exception e){
+			sendException(e);
+			log.error("saveBorrowDocs error msg==>", e);
+		}
+		return NONE;
+	}
 }

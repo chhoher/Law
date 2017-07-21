@@ -208,4 +208,23 @@ public class variableAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * add By Jia 2017-07-21
+	 * 新增查詢Variable的子項目(直接抓出不查詢DB)
+	 * @return
+	 */
+	public String findVariableParameterByVariableId(){
+		try{
+			log.debug("findVariableParameterByVariableId start");
+			String variableId = super.getRequest().getParameter("variableId");
+			String responseString = variableService.findVariableParameterByVariableId(variableId);
+			log.debug("responseString = {}", responseString);
+			printToResponse(responseString);
+		}catch(Exception e){
+			sendException(e);
+			log.error("findVariableParameterByVariableId error msg=>", e);
+		}
+		return NONE;
+	}
 }

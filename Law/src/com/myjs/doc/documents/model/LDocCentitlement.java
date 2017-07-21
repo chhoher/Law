@@ -104,6 +104,8 @@ public class LDocCentitlement {
 	private String otherRemark;
 	private String otherRelationPerson;
 	private String edit;
+	private String borrowReason;
+	private String borrowInfo;
 	
 	// add By Jia 2017-07-13 Vo
 	private List<LDocCentitlementRela> centitlementRelationPerson;
@@ -964,6 +966,22 @@ public class LDocCentitlement {
 
 	public void setCentitlementSourceDoc(List<LDocCentitlementSourceDoc> centitlementSourceDoc) {
 		this.centitlementSourceDoc = centitlementSourceDoc;
+	}
+
+	public String getBorrowReason() {
+		return borrowReason;
+	}
+
+	public void setBorrowReason(String borrowReason) {
+		this.borrowReason = borrowReason;
+	}
+
+	public String getBorrowInfo() {
+		return borrowInfo;
+	}
+
+	public void setBorrowInfo(String borrowInfo) {
+		this.borrowInfo = borrowInfo;
 	}
 
 	

@@ -21,6 +21,8 @@ public class LDocCashiercheck {
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
+	private String borrowReason;
+	private String borrowInfo;
 	
 	// add By Jia 2017-06-28 Vo
 	private List<LDocCashiercheckRela> cashiercheckRelationPerson;
@@ -190,6 +192,22 @@ public class LDocCashiercheck {
 
 	public void setCashiercheckRelationPerson(List<LDocCashiercheckRela> cashiercheckRelationPerson) {
 		this.cashiercheckRelationPerson = cashiercheckRelationPerson;
+	}
+
+	public String getBorrowReason() {
+		return borrowReason;
+	}
+
+	public void setBorrowReason(String borrowReason) {
+		this.borrowReason = borrowReason;
+	}
+
+	public String getBorrowInfo() {
+		return borrowInfo;
+	}
+
+	public void setBorrowInfo(String borrowInfo) {
+		this.borrowInfo = borrowInfo;
 	}
 	
 	

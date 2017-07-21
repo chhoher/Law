@@ -629,6 +629,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	class LDocInfoMapper implements RowMapper {
 		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
 			LDocInfo LDocInfo = new LDocInfo();
+			LDocInfo.setDebtName("");
+			LDocInfo.setCaseId(rs.getInt("case_id"));
 			LDocInfo.setApplyBorrow(rs.getString("apply_borrow") == null ? "" : rs.getString("apply_borrow"));
 			LDocInfo.setEditDoc(rs.getString("edit_doc") == null ? "" : rs.getString("edit_doc"));
 			LDocInfo.setDocStatus(rs.getString("doc_status") == null ? "" : rs.getString("doc_status"));

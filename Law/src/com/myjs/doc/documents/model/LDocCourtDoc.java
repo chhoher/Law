@@ -182,6 +182,8 @@ public class LDocCourtDoc {
 	private String otherRemark;
 	private String otherRelationPerson;
 	private String edit;
+	private String borrowReason;
+	private String borrowInfo;
 	
 	// add By Jia 2017-07-13 Vo
 	private List<LDocCourtDocRela> courtDocRelationPerson;
@@ -1274,6 +1276,22 @@ public class LDocCourtDoc {
 	}
 	public void setCourtDocOtherRelationPerson(List<LDocCourtDocOtherRela> courtDocOtherRelationPerson) {
 		this.courtDocOtherRelationPerson = courtDocOtherRelationPerson;
+	}
+	
+	public String getBorrowReason() {
+		return borrowReason;
+	}
+	
+	public void setBorrowReason(String borrowReason) {
+		this.borrowReason = borrowReason;
+	}
+	
+	public String getBorrowInfo() {
+		return borrowInfo;
+	}
+	
+	public void setBorrowInfo(String borrowInfo) {
+		this.borrowInfo = borrowInfo;
 	}
 
 	

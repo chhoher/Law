@@ -14,4 +14,13 @@ public interface variableService {
 	 * 將所有子項目Variable讀出
 	 */
 	public List<LSysVariable> findAllsubVariable() throws Exception;
+	
+	/**
+	 * add By Jia 2017-07-21
+	 * 用variableId帶出子類
+	 * @param variableId
+	 * @return
+	 * @throws Exception
+	 */
+	public String findVariableParameterByVariableId(String variableId) throws Exception;
 }

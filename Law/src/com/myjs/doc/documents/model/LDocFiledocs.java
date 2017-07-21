@@ -16,6 +16,8 @@ public class LDocFiledocs {
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
+	private String borrowReason;
+	private String borrowInfo;
 	
 	public LDocFiledocs(int filedocsId, String infoId, int caseId, Date receivedDate, 
 			Date bankDate, String docStatus, String typeOne, String typeTwo, 
@@ -137,6 +139,22 @@ public class LDocFiledocs {
 
 	public void setCreateUserId(String createUserId) {
 		this.createUserId = createUserId;
+	}
+
+	public String getBorrowReason() {
+		return borrowReason;
+	}
+
+	public void setBorrowReason(String borrowReason) {
+		this.borrowReason = borrowReason;
+	}
+
+	public String getBorrowInfo() {
+		return borrowInfo;
+	}
+
+	public void setBorrowInfo(String borrowInfo) {
+		this.borrowInfo = borrowInfo;
 	}
 	
 }
