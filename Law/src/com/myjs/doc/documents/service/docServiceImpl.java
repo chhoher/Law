@@ -1,5 +1,9 @@
 package com.myjs.doc.documents.service;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,12 +11,17 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jxls.common.Context;
+import org.jxls.util.JxlsHelper;
 
+import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.DateTimeFormat;
+import com.myjs.commons.NumberUtil;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
+import com.myjs.doc.documents.model.LDocBorrowHistory;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCentitlement;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
@@ -498,6 +507,41 @@ public class docServiceImpl implements docService{
 	}
 
 	public String saveBorrowDocs(String saveBorrowString) throws Exception{
-		return "";
+		Gson gson = new Gson();
+		List<LDocBorrowHistory> LDocBorrowHistoryList = gson.fromJson(saveBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
+		for(int i = 0; i < LDocBorrowHistoryList.size();i ++){
+			docDao.save(LDocBorrowHistoryList.get(i));
+		}
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("success", "success");
+		jsonResponse.addProperty("msg", "申調成功");
+		return jsonResponse.toString();
+	}
+	
+	public String printBorrowDocs(String printBorrowString) throws Exception{
+		Gson gson = new Gson();
+		List<LDocBorrowHistory> LDocBorrowHistoryList = gson.fromJson(printBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
+		
+		// 進行套表
+		log.debug("套表開始");
+		log.debug("檔案路徑 = {}", lcekfile.getFilePath() + "\\" + lcekfile.getFileName());
+					List<LCekRecordSigned> LCekRecordSigned = new ArrayList<LCekRecordSigned>();
+					VEIPMemdb applyUser = memdbDao.findbyMemno(lcs.getApplyUserId());// 申請人
+					lcs.setApplyUserName(applyUser.getMemnm());
+					lcs.setCaseNo(NumberUtil.addZeroForNum(lcs.getCaseId() + "", 8));
+					LCekRecordSigned.add(lcs);
+			        try(InputStream is = new FileInputStream("路徑") {
+			        	log.debug("is = {}", is);
+			            try (OutputStream os = new FileOutputStream(lcekfile.getFilePath() + "/New" + lcekfile.getFileName())) {
+			                Context context = new Context();
+			                context.putVar("LCekRecordSigned", LCekRecordSigned);
+			                JxlsHelper.getInstance().processTemplate(is, os, context);
+			            }
+			        }
+		
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("success", "success");
+		jsonResponse.addProperty("msg", "匯出成功");
+		return jsonResponse.toString();
 	}
 }

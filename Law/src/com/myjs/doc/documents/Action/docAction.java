@@ -214,7 +214,10 @@ public class docAction extends AbstractAction {
 	public String saveBorrowDocs(){
 		try{
 			log.debug("=====saveBorrowDocs start=====");
-			String saveBorrowString = super.getRequest().getParameter("saveBorrowString");
+			String saveBorrowString = super.getRequest().getParameter("saveBorrowInfo"),
+					docCode = super.getRequest().getParameter("docCodes");
+			
+			log.debug("saveBorrowString = {}, docCode = {}", saveBorrowString, docCode);
 			String response = docService.saveBorrowDocs(saveBorrowString);
 			
 			log.debug("response = {}", response);
@@ -222,6 +225,27 @@ public class docAction extends AbstractAction {
 		}catch(Exception e){
 			sendException(e);
 			log.error("saveBorrowDocs error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-07-24
+	 * 匯出excel申調的資訊
+	 */
+	public String printBorrowDocs(){
+		try{
+			log.debug("printBorrowDocs start");
+			String printBorrowString = super.getRequest().getParameter("printBorrowInfo");
+			
+			log.debug("printBorrowString = {}", printBorrowString);
+			String response = docService.printBorrowDocs(printBorrowString);
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+		}catch(Exception e){
+			sendException(e);
+			log.error("printBorrowDocs error msg==>", e);
 		}
 		return NONE;
 	}

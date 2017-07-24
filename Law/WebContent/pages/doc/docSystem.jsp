@@ -74,6 +74,156 @@
 						datatable.fnAddData(json);
 						law.doc.debtName = json[0].name;
 						law.doc.caseId = json.Case_ID;
+						
+						var docSystemCaseDocsTableopt={
+					    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
+					    		"bJQueryUI":true,	
+					            "scrollX":        true,
+					            "scrollCollapse": true,
+				                "bAutoWidth":false,    
+				                "columnDefs": [{
+				                    targets: '_all',
+				                    className: 'MinWidth0 dt-center',
+				                }],
+					    		"aoColumns": [
+					                { "data": "applyBorrow" , "className" : "borrowWidth" ,
+					                	"render": function ( data, type, full, meta ) {
+					                		var checkBoxString = '<input id="ckbapplyBorrow_' + full.docCode + '" type="checkbox" value=' + full.docCode + ' class="editor-active">';
+					                		var returnString = "<select id='applyBorrow_" +  full.docCode + "'><option value=''>請選擇</option>" + borrowSelOption + "</select>";
+					                		var editString = "<div id='applyBorrowEdit_" + full.docCode + "'></div>";
+					                		
+					                		return checkBoxString + returnString + editString;
+					                	}   
+					                },
+					                { "data": "editDoc"},
+					                { "data": "docStatus" },
+					                { "data": "borrowInfo" },
+					                { "data": "progress" },
+					                { "data": "imgFiles" },
+					                { "data": "bankDate" },
+					                { "data": "receivedDate"},
+					                { "data": "docCode" },
+					                { "data": "caseId"},
+					                { "data": "debtName" , 
+					                	"render" : function (){
+					             			return law.doc.debtName;	
+					                }
+					                },
+					                { "data": "relaName" },
+					                { "data": "typeOne" },
+					                { "data": "typeTwo" },
+					                { "data": "courtYearCourt" },
+					                { "data": "courtYearYear" },
+					                { "data": "courtYearTxt" },
+					                { "data": "courtYearShare" },
+					                { "data": "courtYearCaseId" },
+					                { "data": "otherFile" },
+					                { "data": "bankName" },
+					                { "data": "oldBankName" },
+					                { "data": "sourceDoc" },
+					                { "data": "sourceDocInfo" },
+					                { "data": "shareCaseId0" },
+					                { "data": "sendDate" },
+					                { "data": "newSendDate" },
+					                { "data": "remark" },
+					                { "data": "shadow" },
+					                { "data": "modifyUserName" },
+					                { "data": "cashierCheckStartDate" },
+					                { "data": "cashierCheckAmount" },
+					                { "data": "ruledDate" },
+					                { "data": "ruledAmount" },
+					                { "data": "applyConfirmationDate" },
+					                { "data": "receivedConfirmationDate" },
+					                { "data": "failureDate" },
+					                { "data": "thirdName" },
+					                { "data": "thirdAddress" },
+					                { "data": "distributionAmount" },
+					                { "data": "approvedDelayDate" },
+					                { "data": "delayEndDate" },
+					                { "data": "sectorDate" },
+					                { "data": "measureDate" },
+					                { "data": "valuationDate" },
+					                { "data": "rebirthDate" },
+					                { "data": "surveyDate" },
+					                { "data": "inquiryDate" },
+					                { "data": "firstSaleDate" },
+					                { "data": "secondSaleDate" },
+					                { "data": "thirdSaleDate" },
+					                { "data": "postBuyDate" },
+					                { "data": "postEndDate" },
+					                { "data": "reduceSaleDate" },
+					                { "data": "destoryDate" },
+					                { "data": "realDistributionDate" },
+					                { "data": "edit" },
+					                { "data": "report" },
+					                { "data": "pay" },
+					                { "data": "sendReport" },
+					                { "data": "toCourtDate" },
+					                { "data": "toCourtTime" },
+					                { "data": "toCourtType" },
+					                { "data": "toCourtNotice" },
+					                { "data": "executionDate" },
+					                { "data": "executionDate" },
+					                { "data": "cashierCheckEndDate" },
+					                { "data": "courtYearInfo" },
+					                { "data": "debtsDate" },
+					                { "data": "claimsdocQuota" },
+					                { "data": "claimsDocInterestRate" },
+					            ]
+					            };
+						
+					    $("#docSystemCaseDocsTable").dataTable(docSystemCaseDocsTableopt);
+
+					    // 將文件資料帶入表格
+					    docsdatatable = $("#docSystemCaseDocsTable").dataTable();
+					    docsdatatable.fnClearTable();
+						var json = "";
+						$.ajax({
+							url : '../pages/doc/documents/docAction!loadCaseDocs.action',
+							data : {
+								'caseId' : <%=request.getParameter("caseId")%>
+							},
+							type : "POST",
+							dataType : 'json',
+							success : function(response) {
+								var json = response.responseCaseInfo;
+								docsdatatable.fnClearTable();
+								if (json.length !== 0) {
+									docsdatatable.fnAddData(json);
+								}
+								docsdatatable.fnDraw();
+								
+								// Add By Jia 2017-07-21 當選項變更時動態改變畫面
+					    		$(docsdatatable.fnGetData()).each(function(i){
+									$( "#applyBorrow_" + this.docCode ).change(function() {
+										$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).empty();
+										$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).append(law.doc.applyBorrowString($(this).val(), docsdatatable.fnGetData(i).docCode));
+										
+										//將地院的下拉選項帶進去
+										if($(this).val() === "8aa2e72a5d5efd74015d5f486f120004"){
+											law.common.selectOption("#applyBorrowCourtYearCourt_" + docsdatatable.fnGetData(i).docCode, law.doc.courtSelectOption);
+									 		law.common.formatInputItemToDate("#iptborrowDocToCourtDate_" + docsdatatable.fnGetData(i).docCode, "yy-mm-dd");
+										}else if($(this).val() === "8aa2e72a5d5efd74015d5f478ecc0003"){
+											law.common.formatInputItemToDate("#iptborrowDocBackDate_" + docsdatatable.fnGetData(i).docCode, "yy-mm-dd");
+										}
+										
+										// 勾勾控制
+										if($("#applyBorrow_" + docsdatatable.fnGetData(i).docCode).find('option:selected').val() === ''){
+											$("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).prop("checked", false);
+										}else{
+											$("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).prop("checked", true);								
+										}
+
+										
+									});
+								});
+							},
+							error : function(xhr, ajaxOptions, thrownError) {
+								alert(xhr.status);
+								alert(thrownError);
+							}
+						});
+						
 					}
 					datatable.fnDraw();
 				},
@@ -107,154 +257,7 @@
 				}
 			});
 			
-			var docSystemCaseDocsTableopt={
-		    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
-		    		"bJQueryUI":true,	
-		            "scrollX":        true,
-		            "scrollCollapse": true,
-	                "bAutoWidth":false,    
-	                "columnDefs": [{
-	                    targets: '_all',
-	                    className: 'MinWidth0 dt-center',
-	                }],
-		    		"aoColumns": [
-		                { "data": "applyBorrow" , "className" : "borrowWidth" ,
-		                	"render": function ( data, type, full, meta ) {
-		                		var checkBoxString = '<input id="ckbapplyBorrow_' + full.docCode + '" type="checkbox" value=' + full.docCode + ' class="editor-active">';
-		                		var returnString = "<select id='applyBorrow_" +  full.docCode + "'><option value=''>請選擇</option>" + borrowSelOption + "</select>";
-		                		var editString = "<div id='applyBorrowEdit_" + full.docCode + "'></div>";
-		                		
-		                		return checkBoxString + returnString + editString;
-		                	}   
-		                },
-		                { "data": "editDoc"},
-		                { "data": "docStatus" },
-		                { "data": "borrowInfo" },
-		                { "data": "progress" },
-		                { "data": "imgFiles" },
-		                { "data": "bankDate" },
-		                { "data": "receivedDate"},
-		                { "data": "docCode" },
-		                { "data": "caseId"},
-		                { "data": "debtName" , 
-		                	"render" : function (){
-		             			return law.doc.debtName;	
-		                }
-		                },
-		                { "data": "relaName" },
-		                { "data": "typeOne" },
-		                { "data": "typeTwo" },
-		                { "data": "courtYearCourt" },
-		                { "data": "courtYearYear" },
-		                { "data": "courtYearTxt" },
-		                { "data": "courtYearShare" },
-		                { "data": "courtYearCaseId" },
-		                { "data": "otherFile" },
-		                { "data": "bankName" },
-		                { "data": "oldBankName" },
-		                { "data": "sourceDoc" },
-		                { "data": "sourceDocInfo" },
-		                { "data": "shareCaseId0" },
-		                { "data": "sendDate" },
-		                { "data": "newSendDate" },
-		                { "data": "remark" },
-		                { "data": "shadow" },
-		                { "data": "modifyUserName" },
-		                { "data": "cashierCheckStartDate" },
-		                { "data": "cashierCheckAmount" },
-		                { "data": "ruledDate" },
-		                { "data": "ruledAmount" },
-		                { "data": "applyConfirmationDate" },
-		                { "data": "receivedConfirmationDate" },
-		                { "data": "failureDate" },
-		                { "data": "thirdName" },
-		                { "data": "thirdAddress" },
-		                { "data": "distributionAmount" },
-		                { "data": "approvedDelayDate" },
-		                { "data": "delayEndDate" },
-		                { "data": "sectorDate" },
-		                { "data": "measureDate" },
-		                { "data": "valuationDate" },
-		                { "data": "rebirthDate" },
-		                { "data": "surveyDate" },
-		                { "data": "inquiryDate" },
-		                { "data": "firstSaleDate" },
-		                { "data": "secondSaleDate" },
-		                { "data": "thirdSaleDate" },
-		                { "data": "postBuyDate" },
-		                { "data": "postEndDate" },
-		                { "data": "reduceSaleDate" },
-		                { "data": "destoryDate" },
-		                { "data": "realDistributionDate" },
-		                { "data": "edit" },
-		                { "data": "report" },
-		                { "data": "pay" },
-		                { "data": "sendReport" },
-		                { "data": "toCourtDate" },
-		                { "data": "toCourtTime" },
-		                { "data": "toCourtType" },
-		                { "data": "toCourtNotice" },
-		                { "data": "executionDate" },
-		                { "data": "executionDate" },
-		                { "data": "cashierCheckEndDate" },
-		                { "data": "courtYearInfo" },
-		                { "data": "debtsDate" },
-		                { "data": "claimsdocQuota" },
-		                { "data": "claimsDocInterestRate" },
-		            ]
-		            };
 			
-		    $("#docSystemCaseDocsTable").dataTable(docSystemCaseDocsTableopt);
-
-		    // 將文件資料帶入表格
-		    docsdatatable = $("#docSystemCaseDocsTable").dataTable();
-		    docsdatatable.fnClearTable();
-			var json = "";
-			$.ajax({
-				url : '../pages/doc/documents/docAction!loadCaseDocs.action',
-				data : {
-					'caseId' : <%=request.getParameter("caseId")%>
-				},
-				type : "POST",
-				dataType : 'json',
-				success : function(response) {
-					var json = response.responseCaseInfo;
-					docsdatatable.fnClearTable();
-					if (json.length !== 0) {
-						docsdatatable.fnAddData(json);
-					}
-					docsdatatable.fnDraw();
-					
-					// Add By Jia 2017-07-21 當選項變更時動態改變畫面
-		    		$(docsdatatable.fnGetData()).each(function(i){
-						$( "#applyBorrow_" + this.docCode ).change(function() {
-							$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).empty();
-							$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).append(law.doc.applyBorrowString($(this).val(), docsdatatable.fnGetData(i).docCode));
-							
-							//將地院的下拉選項帶進去
-							if($(this).val() === "8aa2e72a5d5efd74015d5f486f120004"){
-								law.common.selectOption("#applyBorrowCourtYearCourt_" + docsdatatable.fnGetData(i).docCode, law.doc.courtSelectOption);
-						 		law.common.formatInputItemToDate("#iptborrowDocToCourtDate_" + docsdatatable.fnGetData(i).docCode, "yy-mm-dd");
-							}else if($(this).val() === "8aa2e72a5d5efd74015d5f478ecc0003"){
-								law.common.formatInputItemToDate("#iptborrowDocBackDate_" + docsdatatable.fnGetData(i).docCode, "yy-mm-dd");
-							}
-							
-							// 勾勾控制
-							if($("#applyBorrow_" + docsdatatable.fnGetData(i).docCode).find('option:selected').val() === ''){
-								$("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).prop("checked", false);
-							}else{
-								$("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).prop("checked", true);								
-							}
-
-							
-						});
-					});
-				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert(xhr.status);
-					alert(thrownError);
-				}
-			});
 		    
 		});
 	</script>

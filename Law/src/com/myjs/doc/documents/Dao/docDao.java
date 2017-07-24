@@ -2,6 +2,7 @@ package com.myjs.doc.documents.Dao;
 
 import java.util.List;
 
+import com.myjs.doc.documents.model.LDocBorrowHistory;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCashiercheckRela;
 import com.myjs.doc.documents.model.LDocCentitlement;
@@ -457,4 +458,12 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public List<LDocInfo> findDocByCaseId(String caseId) throws Exception;
+	
+	/**
+	 * 文管歷史紀錄儲存
+	 * @param transientInstance
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean save(LDocBorrowHistory transientInstance) throws Exception;
 }

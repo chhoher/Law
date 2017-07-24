@@ -951,7 +951,12 @@ var otherfilenum = 0;
 		    		for (var i = 1; i <= stepnum; i++) {
 		    			if(isInteger($("#iptcaseStepPeriods"+ i).val())){
 		    				if($("#iptcaseStepPeriods"+ i).val() !== ""){
-		    					var perAmount = (new Date($("#iptcaseStepPayEndDate" + i).val()).getMonth()-new Date($("#iptcaseStepPayStartDate" + i).val()).getMonth()+1) * parseInt($("#iptcaseStepPeriods"+ i).val())
+		    					var dayPer,perAmount;
+		    					dayPer = new Date($("#iptcaseStepPayEndDate" + i).val()).getMonth()-new Date($("#iptcaseStepPayStartDate" + i).val()).getMonth();
+		    					if(dayPer === 0){
+		    						dayPer = 1;
+		    					}
+		    					perAmount = dayPer * parseInt($("#iptcaseStepPeriods"+ i).val())
 			    				sumamount += perAmount;
 			    				newstepPay.push($("#iptcaseStepPeriods"+ i).val());
 			    				newstepPayStartDate.push($("#iptcaseStepPayStartDate"+ i).val());

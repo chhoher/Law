@@ -62,4 +62,13 @@ public interface docService {
 	 * @throws Exception
 	 */
 	public String saveBorrowDocs(String saveBorrowString) throws Exception;
+	
+	/**
+	 * add By Jia 2017-07-24
+	 * 匯出excel
+	 * @param printBorrowString
+	 * @return
+	 * @throws Exception
+	 */
+	public String printBorrowDocs(String printBorrowString) throws Exception;
 }
