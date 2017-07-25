@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -518,30 +519,37 @@ public class docServiceImpl implements docService{
 		return jsonResponse.toString();
 	}
 	
-	public String printBorrowDocs(String printBorrowString) throws Exception{
+	public String printBorrowDocs(String printBorrowString, String uploadPath) throws Exception{
 		Gson gson = new Gson();
-		List<LDocBorrowHistory> LDocBorrowHistoryList = gson.fromJson(printBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
+		List<LDocBorrowHistory> LCekRecordSigned = gson.fromJson(printBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
 		
 		// 進行套表
 		log.debug("套表開始");
-		log.debug("檔案路徑 = {}", lcekfile.getFilePath() + "\\" + lcekfile.getFileName());
-					List<LCekRecordSigned> LCekRecordSigned = new ArrayList<LCekRecordSigned>();
-					VEIPMemdb applyUser = memdbDao.findbyMemno(lcs.getApplyUserId());// 申請人
-					lcs.setApplyUserName(applyUser.getMemnm());
-					lcs.setCaseNo(NumberUtil.addZeroForNum(lcs.getCaseId() + "", 8));
-					LCekRecordSigned.add(lcs);
-			        try(InputStream is = new FileInputStream("路徑") {
-			        	log.debug("is = {}", is);
-			            try (OutputStream os = new FileOutputStream(lcekfile.getFilePath() + "/New" + lcekfile.getFileName())) {
-			                Context context = new Context();
-			                context.putVar("LCekRecordSigned", LCekRecordSigned);
-			                JxlsHelper.getInstance().processTemplate(is, os, context);
-			            }
-			        }
+		Properties properties = new Properties();
+		String propertiesFile = "Law.properties";
+		ClassLoader classLoader = getClass().getClassLoader();
+		properties.load(classLoader.getResourceAsStream(propertiesFile));
+		String filePath = properties.getProperty("doc.docSystem.printexcel.path");
+		String fileName = properties.getProperty("doc.docSystem.printexcel.name");
+		String fileUrl = classLoader.getResource(filePath).getPath();
+		log.debug("檔案路徑 = {}", fileUrl + fileName);
 		
+		String outputDatetime = DateTimeFormat.getNowDateNum();
+		String outputString = uploadPath + "/docSys/" + outputDatetime + fileName;
+		log.debug("outputString = {}", outputString);
+		
+		try(InputStream is = new FileInputStream(fileUrl + fileName)) {
+        	log.debug("is = {}", is);
+            try (OutputStream os = new FileOutputStream(outputString)) {
+                Context context = new Context();
+                context.putVar("LCekRecordSigned", LCekRecordSigned);
+                JxlsHelper.getInstance().processTemplate(is, os, context);
+            }
+        }
+			        
 		JsonObject jsonResponse = new JsonObject();
 		jsonResponse.addProperty("success", "success");
-		jsonResponse.addProperty("msg", "匯出成功");
+		jsonResponse.addProperty("downloadPath", "../upload/docSys/" + outputDatetime +"docSystem.xls");
 		return jsonResponse.toString();
 	}
 }

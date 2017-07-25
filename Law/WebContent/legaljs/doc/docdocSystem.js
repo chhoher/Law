@@ -160,7 +160,9 @@ $(function() {
 			printBorrowInfo.push(printData);
 			printBorrowInfoString = JSON.stringify(printBorrowInfo); 
 			
-			$.ajax({
+		});
+		
+		$.ajax({
 				url : "../pages/doc/documents/docAction!printBorrowDocs.action",
 				data : {
 					"printBorrowInfo" : printBorrowInfoString
@@ -168,14 +170,13 @@ $(function() {
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
-					alert(response.msg);
+					window.open(response.downloadPath);
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
 					alert(thrownError);
 				}
 			});
-		});
 		
 	}
 	

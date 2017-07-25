@@ -6,7 +6,7 @@
     <session-factory name="Legal">
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
         <property name="hibernate.connection.password">1qaz@WSX</property>
-        <property name="hibernate.connection.url">jdbc:sqlserver://jsam08:1433;databaseName=Legal</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://jsam02:1433;databaseName=Legal</property>
         <!--  <property name="hibernate.connection.url">jdbc:sqlserver://localhost\\SQLEXPRESS:52551;DatabaseName=Legal</property>-->
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>

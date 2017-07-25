@@ -239,7 +239,7 @@ public class docAction extends AbstractAction {
 			String printBorrowString = super.getRequest().getParameter("printBorrowInfo");
 			
 			log.debug("printBorrowString = {}", printBorrowString);
-			String response = docService.printBorrowDocs(printBorrowString);
+			String response = docService.printBorrowDocs(printBorrowString, getpath());
 			
 			log.debug("response = {}", response);
 			printToResponse(response);

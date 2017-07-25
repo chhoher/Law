@@ -70,5 +70,5 @@ public interface docService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String printBorrowDocs(String printBorrowString) throws Exception;
+	public String printBorrowDocs(String printBorrowString, String uploadPath) throws Exception;
 }
