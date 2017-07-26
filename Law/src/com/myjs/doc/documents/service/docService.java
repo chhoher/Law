@@ -71,4 +71,10 @@ public interface docService {
 	 * @throws Exception
 	 */
 	public String printBorrowDocs(String printBorrowString, String uploadPath) throws Exception;
+	
+	/**
+	 * add By Jia 2017-07-26
+	 * 查詢文管總表
+	 */
+	public String querySumDocs() throws Exception;
 }

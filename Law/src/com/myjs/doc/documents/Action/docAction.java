@@ -249,4 +249,24 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-07-26
+	 * 查詢文管總表
+	 */
+	public String queryDocSumTable(){
+		try{
+			log.debug("queryDocSumTable start");
+			
+			String response = docService.querySumDocs();
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+			
+		}catch(Exception e){
+			sendException(e);
+			log.error("queryDocSumTable error msg==>", e);
+		}
+		return NONE;
+	}
 }

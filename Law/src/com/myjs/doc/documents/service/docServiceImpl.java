@@ -15,11 +15,9 @@ import org.apache.logging.log4j.Logger;
 import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
 
-import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.DateTimeFormat;
-import com.myjs.commons.NumberUtil;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
 import com.myjs.doc.documents.model.LDocBorrowHistory;
@@ -550,6 +548,14 @@ public class docServiceImpl implements docService{
 		JsonObject jsonResponse = new JsonObject();
 		jsonResponse.addProperty("success", "success");
 		jsonResponse.addProperty("downloadPath", "../upload/docSys/" + outputDatetime +"docSystem.xls");
+		return jsonResponse.toString();
+	}
+	
+	public String querySumDocs() throws Exception{
+		List<LDocInfo> ListLDocInfo = docDao.findSumDoc();
+		JsonObject jsonResponse = new JsonObject();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		jsonResponse.add("responseLDocSumInfo", gson.toJsonTree(ListLDocInfo));
 		return jsonResponse.toString();
 	}
 }

@@ -466,4 +466,6 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public boolean save(LDocBorrowHistory transientInstance) throws Exception;
+	
+	public List<LDocInfo> findSumDoc() throws Exception;
 }
