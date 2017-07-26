@@ -170,7 +170,8 @@ $(function() {
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
-					window.open(response.downloadPath);
+    				window.location.href = response.downloadPath;
+//					window.open(response.downloadPath);
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);

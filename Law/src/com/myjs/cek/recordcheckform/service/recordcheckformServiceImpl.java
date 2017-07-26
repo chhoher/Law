@@ -210,7 +210,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
 					" 簽呈申請待簽核通知函", "主管，您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
 					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
-					"】簽呈，目前簽呈已送您簽核中，</br>煩請審核，謝謝！</br><a href=http://jsam02:8080/Law/pages/cek/signedform.jsp?signedId=" +
+					"】簽呈，目前簽呈已送您簽核中，</br>煩請審核，謝謝！</br><a href=http://jsam01:8080/Law/pages/cek/signedform.jsp?signedId=" +
 					LCekRecordSigned.getSignedId()+ "&type=2&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
@@ -287,7 +287,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
 					" 簽呈退回通知函", "您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
 					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
-					"】簽呈，主管審核不通過-" + LCekRecordSigned.getBackMark() + "，</br>，謝謝！</br><a href=http://jsam02:8080/Law/pages/cek/signedform.jsp?signedId=" + 
+					"】簽呈，主管審核不通過-" + LCekRecordSigned.getBackMark() + "，</br>，謝謝！</br><a href=http://jsam01:8080/Law/pages/cek/signedform.jsp?signedId=" + 
 					LCekRecordSigned.getSignedId()+ "&type=3&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
@@ -367,7 +367,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
 					" 簽呈送業主審核通知函", "客服窗口，您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
 					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
-					"】簽呈，主管已簽准，</br>煩請協助送業主審核，謝謝！</br><a href=http://jsam02:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
+					"】簽呈，主管已簽准，</br>煩請協助送業主審核，謝謝！</br><a href=http://jsam01:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
 					"&type=4&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end
@@ -456,14 +456,14 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
 					" 送簽結果通知函", "您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
 					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
-					"】簽呈，" + bankResult + "，</br>謝謝！</br><a href=http://jsam02:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
+					"】簽呈，" + bankResult + "，</br>謝謝！</br><a href=http://jsam01:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
 					"&type=5&LoginInSigned=true&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 //			sendMailcontent = new MailSenderInfo("9999@mytf.com.tw", adminUser.getMemmail(), "劉家嘉", 
 //					"【" + LCekRecordSigned.getBankName() + "】" + NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + 
 //					" 送簽結果通知函", "您好：</br>" + LCekRecordSigned.getApplyUserName() + " 申請" + 
 //					NumberUtil.addZeroForNum(LCekRecordSigned.getCaseId() + "", 8) + " / " + LCekRecordSigned.getPayer() + "【" + LCekRecordSigned.getType() + 
-//					"】簽呈，" + bankResult + "，</br>謝謝！</br><a href=http://jsam02:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
+//					"】簽呈，" + bankResult + "，</br>謝謝！</br><a href=http://jsam01:8080/Law/pages/cek/signedform.jsp?signedId=" + LCekRecordSigned.getSignedId()+ 
 //					"&userId=" + adminUser.getUserID() + "&type=5&caseId="+ LCekRecordSigned.getCaseId() +">"+"減免簽呈連結", null);
 //			sendMail.sendHtmlMail(sendMailcontent, fileNames);
 			//寄送Mail end

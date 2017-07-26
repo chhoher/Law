@@ -521,7 +521,7 @@ public class docServiceImpl implements docService{
 	
 	public String printBorrowDocs(String printBorrowString, String uploadPath) throws Exception{
 		Gson gson = new Gson();
-		List<LDocBorrowHistory> LCekRecordSigned = gson.fromJson(printBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
+		List<LDocBorrowHistory> LDocBorrowHistory = gson.fromJson(printBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
 		
 		// 進行套表
 		log.debug("套表開始");
@@ -542,7 +542,7 @@ public class docServiceImpl implements docService{
         	log.debug("is = {}", is);
             try (OutputStream os = new FileOutputStream(outputString)) {
                 Context context = new Context();
-                context.putVar("LCekRecordSigned", LCekRecordSigned);
+                context.putVar("LDocBorrowHistory", LDocBorrowHistory);
                 JxlsHelper.getInstance().processTemplate(is, os, context);
             }
         }
