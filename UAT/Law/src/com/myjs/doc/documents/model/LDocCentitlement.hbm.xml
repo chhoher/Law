@@ -246,5 +246,11 @@
 		<property name="edit" type="string">
 			<column name="edit" length="50"></column>
 		</property>	
+		<property name="borrowReason" type="string">
+			<column name="borrow_reason" length="50"/>
+		</property>	
+		<property name="borrowInfo" type="string">
+			<column name="borrow_info" />
+		</property>	
 	</class>
 </hibernate-mapping>

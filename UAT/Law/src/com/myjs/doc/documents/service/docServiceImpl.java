@@ -1,18 +1,28 @@
 package com.myjs.doc.documents.service;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jxls.common.Context;
+import org.jxls.util.JxlsHelper;
 
+import com.myjs.cek.recordcheckform.model.LCekRecordSigned;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.DateTimeFormat;
+import com.myjs.commons.NumberUtil;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
+import com.myjs.doc.documents.model.LDocBorrowHistory;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCentitlement;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
@@ -476,10 +486,70 @@ public class docServiceImpl implements docService{
 	}
 	
 	public String loadCaseDocsByCaseId(String caseId) throws Exception{
-		List<LDocClaimsdocs> ListLDocClaimsdocs = docDao.findDocByCaseId(caseId);
+		List<LDocInfo> ListLDocInfo = docDao.findDocByCaseId(caseId);
 		JsonObject jsonResponse = new JsonObject();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		jsonResponse.add("responseCaseInfo", gson.toJsonTree(ListLDocClaimsdocs));
+		jsonResponse.add("responseCaseInfo", gson.toJsonTree(ListLDocInfo));
+		return jsonResponse.toString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String findDocSysSelectOption() throws Exception{
+		Map<?, ?> LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d5efd74015d5f3c86c30001");
+		List<LSysVariable> LSysVariableListBackReason = (List<LSysVariable>) LSysVariableMap.get("list"); //退件原因
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9528290012");
+		List<LSysVariable> LSysVariableListCourt = (List<LSysVariable>) LSysVariableMap.get("list");//地院
+		
+		Gson gson = new Gson();
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.add("backReason", gson.toJsonTree(LSysVariableListBackReason));
+		jsonResponse.add("court", gson.toJsonTree(LSysVariableListCourt));
+		return jsonResponse.toString();
+	}
+
+	public String saveBorrowDocs(String saveBorrowString) throws Exception{
+		Gson gson = new Gson();
+		List<LDocBorrowHistory> LDocBorrowHistoryList = gson.fromJson(saveBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
+		for(int i = 0; i < LDocBorrowHistoryList.size();i ++){
+			docDao.save(LDocBorrowHistoryList.get(i));
+		}
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("success", "success");
+		jsonResponse.addProperty("msg", "申調成功");
+		return jsonResponse.toString();
+	}
+	
+	public String printBorrowDocs(String printBorrowString, String uploadPath) throws Exception{
+		Gson gson = new Gson();
+		List<LDocBorrowHistory> LDocBorrowHistory = gson.fromJson(printBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
+		
+		// 進行套表
+		log.debug("套表開始");
+		Properties properties = new Properties();
+		String propertiesFile = "Law.properties";
+		ClassLoader classLoader = getClass().getClassLoader();
+		properties.load(classLoader.getResourceAsStream(propertiesFile));
+		String filePath = properties.getProperty("doc.docSystem.printexcel.path");
+		String fileName = properties.getProperty("doc.docSystem.printexcel.name");
+		String fileUrl = classLoader.getResource(filePath).getPath();
+		log.debug("檔案路徑 = {}", fileUrl + fileName);
+		
+		String outputDatetime = DateTimeFormat.getNowDateNum();
+		String outputString = uploadPath + "/docSys/" + outputDatetime + fileName;
+		log.debug("outputString = {}", outputString);
+		
+		try(InputStream is = new FileInputStream(fileUrl + fileName)) {
+        	log.debug("is = {}", is);
+            try (OutputStream os = new FileOutputStream(outputString)) {
+                Context context = new Context();
+                context.putVar("LDocBorrowHistory", LDocBorrowHistory);
+                JxlsHelper.getInstance().processTemplate(is, os, context);
+            }
+        }
+			        
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("success", "success");
+		jsonResponse.addProperty("downloadPath", "../upload/docSys/" + outputDatetime +"docSystem.xls");
 		return jsonResponse.toString();
 	}
 }

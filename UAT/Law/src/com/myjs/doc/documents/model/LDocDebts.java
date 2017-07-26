@@ -24,6 +24,8 @@ public class LDocDebts {
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
+	private String borrowReason;
+	private String borrowInfo;
 	
 	// add By Jia 2017-06-28 Vo
 	private List<LDocDebtsRela> debtsRelationPerson;
@@ -220,6 +222,22 @@ public class LDocDebts {
 
 	public void setDebtsRelationPerson(List<LDocDebtsRela> debtsRelationPerson) {
 		this.debtsRelationPerson = debtsRelationPerson;
+	}
+
+	public String getBorrowReason() {
+		return borrowReason;
+	}
+
+	public void setBorrowReason(String borrowReason) {
+		this.borrowReason = borrowReason;
+	}
+
+	public String getBorrowInfo() {
+		return borrowInfo;
+	}
+
+	public void setBorrowInfo(String borrowInfo) {
+		this.borrowInfo = borrowInfo;
 	}
 
 	

@@ -1,8 +1,12 @@
 package com.myjs.sys.variable.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.myjs.sys.variable.model.LSysVariable;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.myjs.commons.SaveParameter;
 import com.myjs.sys.variable.Dao.variableDao;
 
 public class variableServiceImpl implements variableService{
@@ -49,5 +53,15 @@ public class variableServiceImpl implements variableService{
 	 */
 	public List<LSysVariable> findAllsubVariable() throws Exception{
 		return variableDao.findVariablesubbyproperties(null);
+	}
+
+	@SuppressWarnings("unchecked")
+	public String findVariableParameterByVariableId(String variableId) throws Exception{
+		Map<?, ?> LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get(variableId);
+		List<LSysVariable> LSysVariableSubList = (List<LSysVariable>) LSysVariableMap.get("list"); //文件狀態
+		Gson gson = new Gson();
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.add("variableSubList", gson.toJsonTree(LSysVariableSubList));
+		return jsonResponse.toString();
 	}
 }

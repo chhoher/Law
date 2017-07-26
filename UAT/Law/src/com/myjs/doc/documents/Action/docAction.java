@@ -188,4 +188,65 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-07-21
+	 * 將文管系統的下拉選項初始化
+	 */
+	public String initSelectedForDocSys(){
+		try{
+			log.debug("=====initSelectedForDocSys start=====");
+			String returnValue = docService.findDocSysSelectOption();
+			
+			log.debug("returnValue = {}", returnValue);
+			printToResponse(returnValue);
+		}catch(Exception e){
+			sendException(e);
+			log.error("initSelectedForDocSys error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-07-21
+	 * 申調文件
+	 */
+	public String saveBorrowDocs(){
+		try{
+			log.debug("=====saveBorrowDocs start=====");
+			String saveBorrowString = super.getRequest().getParameter("saveBorrowInfo"),
+					docCode = super.getRequest().getParameter("docCodes");
+			
+			log.debug("saveBorrowString = {}, docCode = {}", saveBorrowString, docCode);
+			String response = docService.saveBorrowDocs(saveBorrowString);
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+		}catch(Exception e){
+			sendException(e);
+			log.error("saveBorrowDocs error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-07-24
+	 * 匯出excel申調的資訊
+	 */
+	public String printBorrowDocs(){
+		try{
+			log.debug("printBorrowDocs start");
+			String printBorrowString = super.getRequest().getParameter("printBorrowInfo");
+			
+			log.debug("printBorrowString = {}", printBorrowString);
+			String response = docService.printBorrowDocs(printBorrowString, getpath());
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+		}catch(Exception e){
+			sendException(e);
+			log.error("printBorrowDocs error msg==>", e);
+		}
+		return NONE;
+	}
 }

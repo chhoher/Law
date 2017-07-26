@@ -21,6 +21,8 @@ public class LDocClaimsdocs {
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
+	private String borrowReason;
+	private String borrowInfo;
 	
 	// add By Jia 2017-06-28 Vo
 	private List<LDocClaimsdocsRela> claimsRelationPerson;
@@ -186,6 +188,22 @@ public class LDocClaimsdocs {
 
 	public void setClaimsRelationPerson(List<LDocClaimsdocsRela> claimsRelationPerson) {
 		this.claimsRelationPerson = claimsRelationPerson;
+	}
+
+	public String getBorrowReason() {
+		return borrowReason;
+	}
+
+	public void setBorrowReason(String borrowReason) {
+		this.borrowReason = borrowReason;
+	}
+
+	public String getBorrowInfo() {
+		return borrowInfo;
+	}
+
+	public void setBorrowInfo(String borrowInfo) {
+		this.borrowInfo = borrowInfo;
 	}
 
 

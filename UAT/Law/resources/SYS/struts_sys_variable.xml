@@ -7,7 +7,8 @@
     <package name="variable" namespace="/pages/sys"  extends="struts-default">  
         <action name="variableAction!*"  method="{1}" class="variableAction"  >	
         
-        	<allowed-methods>findVariable,addVariable,deleteVariable,findVariableSub,addVariableSub</allowed-methods>
+        	<allowed-methods>findVariable,addVariable,deleteVariable,findVariableSub,
+        		addVariableSub,findVariableParameterByVariableId</allowed-methods>
         
         </action>
     </package>

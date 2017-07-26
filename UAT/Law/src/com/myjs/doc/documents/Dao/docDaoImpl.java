@@ -1,16 +1,17 @@
 package com.myjs.doc.documents.Dao;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import com.myjs.commons.DaoUtil;
+import com.myjs.doc.documents.model.LDocBorrowHistory;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCashiercheckRela;
 import com.myjs.doc.documents.model.LDocCentitlement;
@@ -614,45 +615,106 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		return flag;
 	}
 	
-	public List<LDocClaimsdocs> findDocByCaseId(String caseId) throws Exception{
-		log.debug("findDocByCaseId start");
-		StringBuffer queryString = new StringBuffer("SELECT '' AS apply_borrow,'' AS edit_doc,LSVDS.variable_name AS doc_status,");
-		queryString.append(" '' AS borrow_info,progress,'' AS img_files,bank_date,received_date,'' AS doc_code,'' AS debt_name,");
-		queryString.append(" '' AS rela_name,LSVTO.variable_name AS type_one,LSVTT.variable_name AS type_two,");
-		queryString.append(" LSVCY.variable_name AS court_year_court,court_year_year,court_year_txt,court_year_share,");
-		queryString.append(" court_year_case_id,'' AS other_file,LSVBN.variable_name  AS bank_name,LSVOBN.variable_name AS old_bank_name,");
-		queryString.append(" '' AS source_doc,'' AS source_doc_info,share_case_id_0,'' AS send_date,'' AS new_send_date,");
-		queryString.append(" remark,shadow,'' AS modify_user_name,'' AS cashier_check_start_date,'' AS cashier_check_amount,ruled_date,");
-		queryString.append(" ruled_amount,apply_confirmation_date,received_confirmation_date,failure_date,'' AS third_name,");
-		queryString.append(" '' AS third_address,distribution_amount,approved_delay_date,delay_end_date,sector_date,");
-		queryString.append(" measure_date,valuation_date,rebirth_date,survey_date,inquiry_date,first_sale_date,second_sale_date,");
-		queryString.append(" third_sale_date,post_buy_date,post_end_date,reduce_sale_date,destory_date,real_distribution_date,");
-		queryString.append(" edit,'' AS report,'' AS pay,'' AS send_report,to_court_date,to_court_time,to_court_type,to_court_notice,");
-		queryString.append(" execution_date,execution_date,'' AS cashier_check_end_date,'' AS court_year_info,'' AS debts_date,");
-		queryString.append(" '' AS claimsdoc_quota,'' AS claims_doc_interest_rate");
-		queryString.append(" FROM L_DOC_COURT_DOC LDCD");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVDS ON LDCD.doc_status = LSVDS.variable_id");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVTO ON LDCD.type_one = LSVTO.variable_id");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVTT ON LDCD.type_two = LSVTT.variable_id");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVCY ON LDCD.court_year_court = LSVCY.variable_id");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVBN ON LDCD.bank_name = LSVBN.variable_id");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVOBN ON LDCD.old_bank_name = LSVOBN.variable_id");
-		queryString.append(" WHERE case_id = " + caseId);
-		log.debug("queryString = {}", queryString);
-		List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
-		
-		int case_id = Integer.parseInt(caseId);
-		
-		List<LDocClaimsdocs> ListDocClaimsDoc = new ArrayList<LDocClaimsdocs>();
-		for (Map<?, ?> map : querylist) {
-			LDocClaimsdocs LDocClaimsdocs = new LDocClaimsdocs();
-			LDocClaimsdocs.setCaseId(case_id);
-			LDocClaimsdocs.setDocStatus((String)map.get("doc_status"));
-//			LDocClaimsdocs.setBrow
-			LDocClaimsdocs.setBankDate((Date)map.get("bank_date"));
-			LDocClaimsdocs.setReceivedDate((Date)map.get("received_date"));
-			ListDocClaimsDoc.add(LDocClaimsdocs);
+	public boolean save(LDocBorrowHistory transientInstance) throws Exception {
+		log.debug("saving LDocBorrowHistory instance");
+		boolean flag = false;
+		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
+		if(null!=lizable||!"".equals(lizable)){
+			flag=true;
 		}
-		return ListDocClaimsDoc;
+		log.debug("save successful");
+		return flag;
+	}
+	
+	public List<LDocInfo> findDocByCaseId(String caseId) throws Exception{
+		log.debug("findDocByCaseId start");
+		StringBuffer queryString = new StringBuffer("exec SP_finddocbycaseId " + caseId);
+		log.debug("queryString = {}", queryString);
+//		List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
+		
+		@SuppressWarnings("unchecked")
+		List<LDocInfo> ListDocInfo = jdbcTemplate.query(queryString.toString(), new LDocInfoMapper());
+		return ListDocInfo;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	class LDocInfoMapper implements RowMapper {
+		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
+			LDocInfo LDocInfo = new LDocInfo();
+			LDocInfo.setDebtName("");
+			LDocInfo.setCaseId(rs.getInt("case_id"));
+			LDocInfo.setApplyBorrow(rs.getString("apply_borrow") == null ? "" : rs.getString("apply_borrow"));
+			LDocInfo.setEditDoc(rs.getString("edit_doc") == null ? "" : rs.getString("edit_doc"));
+			LDocInfo.setDocStatus(rs.getString("doc_status") == null ? "" : rs.getString("doc_status"));
+			LDocInfo.setBorrowInfo(rs.getString("borrow_info") == null ? "" : rs.getString("borrow_info"));
+			LDocInfo.setProgress(rs.getString("progress") == null ? "" : rs.getString("progress"));
+		    LDocInfo.setImgFiles(rs.getString("img_files") == null ? "" : rs.getString("img_files"));
+		    LDocInfo.setBankDate(rs.getString("bank_date") == null ? "" : rs.getString("bank_date"));
+		    LDocInfo.setReceivedDate(rs.getString("received_date") == null ? "" : rs.getString("received_date"));
+		    LDocInfo.setDocCode(rs.getString("doc_code") == null ? "" : rs.getString("doc_code"));
+		    LDocInfo.setDebtName(rs.getString("debt_name") == null ? "" : rs.getString("debt_name"));
+		    LDocInfo.setRelaName(rs.getString("rela_name") == null ? "" : rs.getString("rela_name"));
+		    LDocInfo.setTypeOne(rs.getString("type_one") == null ? "" : rs.getString("type_one"));
+		    LDocInfo.setTypeTwo(rs.getString("type_two") == null ? "" : rs.getString("type_two"));
+		    LDocInfo.setCourtYearCourt(rs.getString("court_year_court") == null ? "" : rs.getString("court_year_court"));
+		    LDocInfo.setCourtYearYear(rs.getInt("court_year_year"));
+		    LDocInfo.setCourtYearTxt(rs.getString("court_year_txt") == null ? "" : rs.getString("court_year_txt"));
+		    LDocInfo.setCourtYearShare(rs.getString("court_year_share") == null ? "" : rs.getString("court_year_share"));
+		    LDocInfo.setCourtYearCaseId(rs.getString("court_year_case_id") == null ? "" : rs.getString("court_year_case_id"));
+		    LDocInfo.setOtherFile(rs.getString("other_file") == null ? "" : rs.getString("other_file"));
+		    LDocInfo.setBankName(rs.getString("bank_name") == null ? "" : rs.getString("bank_name"));
+		    LDocInfo.setOldBankName(rs.getString("old_bank_name") == null ? "" : rs.getString("old_bank_name"));
+		    LDocInfo.setSourceDoc(rs.getString("source_doc") == null ? "" : rs.getString("source_doc"));
+		    LDocInfo.setSourceDocInfo(rs.getString("source_doc_info") == null ? "" : rs.getString("source_doc_info"));
+		    LDocInfo.setShareCaseId0(rs.getString("share_case_id_0") == null ? "" : rs.getString("share_case_id_0"));
+		    LDocInfo.setSendDate(rs.getString("send_date") == null ? "" : rs.getString("send_date"));
+		    LDocInfo.setNewSendDate(rs.getString("new_send_date") == null ? "" : rs.getString("new_send_date"));
+		    LDocInfo.setRemark(rs.getString("remark") == null ? "" : rs.getString("remark"));
+		    LDocInfo.setShadow(rs.getString("shadow") == null ? "" : rs.getString("shadow"));
+		    LDocInfo.setModifyUserName(rs.getString("modify_user_name") == null ? "" : rs.getString("modify_user_name"));
+		    LDocInfo.setCashierCheckStartDate(rs.getString("cashier_check_start_date") == null ? "" : rs.getString("cashier_check_start_date"));
+		    LDocInfo.setCashierCheckAmount(rs.getInt("cashier_check_amount"));
+		    LDocInfo.setRuledDate(rs.getString("ruled_date") == null ? "" : rs.getString("ruled_date"));
+		    LDocInfo.setRuledAmount(rs.getInt("ruled_amount"));
+		    LDocInfo.setApplyConfirmationDate(rs.getString("apply_confirmation_date") == null ? "" : rs.getString("apply_confirmation_date"));
+		    LDocInfo.setReceivedConfirmationDate(rs.getString("received_confirmation_date") == null ? "" : rs.getString("received_confirmation_date"));
+		    LDocInfo.setFailureDate(rs.getString("failure_date") == null ? "" : rs.getString("failure_date"));
+		    LDocInfo.setThirdName(rs.getString("third_name") == null ? "" : rs.getString("third_name"));
+		    LDocInfo.setThirdAddress(rs.getString("third_address") == null ? "" : rs.getString("third_address"));
+		    LDocInfo.setDistributionAmount(rs.getInt("distribution_amount"));
+		    LDocInfo.setApprovedDelayDate(rs.getString("approved_delay_date") == null ? "" : rs.getString("approved_delay_date"));
+		    LDocInfo.setDelayEndDate(rs.getString("delay_end_date") == null ? "" : rs.getString("delay_end_date"));
+		    LDocInfo.setSectorDate(rs.getString("sector_date") == null ? "" : rs.getString("sector_date"));
+		    LDocInfo.setMeasureDate(rs.getString("measure_date") == null ? "" : rs.getString("measure_date"));
+		    LDocInfo.setValuationDate(rs.getString("valuation_date") == null ? "" : rs.getString("valuation_date"));
+		    LDocInfo.setRebirthDate(rs.getString("rebirth_date") == null ? "" : rs.getString("rebirth_date"));
+		    LDocInfo.setSurveyDate(rs.getString("survey_date") == null ? "" : rs.getString("survey_date"));
+		    LDocInfo.setInquiryDate(rs.getString("inquiry_date") == null ? "" : rs.getString("inquiry_date"));
+		    LDocInfo.setFirstSaleDate(rs.getString("first_sale_date") == null ? "" : rs.getString("first_sale_date"));
+		    LDocInfo.setSecondSaleDate(rs.getString("second_sale_date") == null ? "" : rs.getString("second_sale_date"));
+		    LDocInfo.setThirdSaleDate(rs.getString("third_sale_date") == null ? "" : rs.getString("third_sale_date"));
+		    LDocInfo.setPostBuyDate(rs.getString("post_buy_date") == null ? "" : rs.getString("post_buy_date"));
+		    LDocInfo.setPostEndDate(rs.getString("post_end_date") == null ? "" : rs.getString("post_end_date"));
+		    LDocInfo.setReduceSaleDate(rs.getString("reduce_sale_date") == null ? "" : rs.getString("reduce_sale_date"));
+		    LDocInfo.setDestoryDate(rs.getString("destory_date") == null ? "" : rs.getString("destory_date"));
+		    LDocInfo.setRealDistributionDate(rs.getString("real_distribution_date") == null ? "" : rs.getString("real_distribution_date"));
+		    LDocInfo.setEdit(rs.getString("edit") == null ? "" : rs.getString("edit"));
+		    LDocInfo.setReport(rs.getString("report") == null ? "" : rs.getString("report"));
+		    LDocInfo.setPay(rs.getString("pay") == null ? "" : rs.getString("pay"));
+		    LDocInfo.setSendReport(rs.getString("send_report") == null ? "" : rs.getString("send_report"));
+		    LDocInfo.setToCourtDate(rs.getString("to_court_date") == null ? "" : rs.getString("to_court_date"));
+		    LDocInfo.setToCourtTime(rs.getString("to_court_time") == null ? "" : rs.getString("to_court_time"));
+		    LDocInfo.setToCourtType(rs.getString("to_court_type") == null ? "" : rs.getString("to_court_type"));
+		    LDocInfo.setToCourtNotice(rs.getString("to_court_notice") == null ? "" : rs.getString("to_court_notice"));
+		    LDocInfo.setExecutionDate(rs.getString("execution_date") == null ? "" : rs.getString("execution_date"));
+		    LDocInfo.setExecutionTime(rs.getString("execution_time") == null ? "" : rs.getString("execution_time"));
+		    LDocInfo.setCashierCheckEndDate(rs.getString("cashier_check_end_date") == null ? "" : rs.getString("cashier_check_end_date"));
+		    LDocInfo.setCourtYearInfo(rs.getString("court_year_info") == null ? "" : rs.getString("court_year_info"));
+		    LDocInfo.setDebtsDate(rs.getString("debts_date") == null ? "" : rs.getString("debts_date"));
+		    LDocInfo.setClaimsdocQuota(rs.getString("claimsdoc_quota") == null ? "" : rs.getString("claimsdoc_quota"));
+		    LDocInfo.setClaimsDocInterestRate(rs.getString("claims_doc_interest_rate") == null ? "" : rs.getString("claims_doc_interest_rate"));
+			return LDocInfo;
+
+		}
 	}
 }
