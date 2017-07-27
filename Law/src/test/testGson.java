@@ -217,7 +217,6 @@ public class testGson {
 	 			}
 	            //System.out.println(rs.getString("column_id") + "," + rs.getString("column_name") + "," + rs.getString("checkform_column_id"));  
 	            //Gson的地方
-	 			//test
 	         }  
 
 	 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

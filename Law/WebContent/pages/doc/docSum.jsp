@@ -21,9 +21,48 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
-			var borrowReason = "",
-				borrowSelOption = "";
-			
+			//add by Jia 2017-07-27 初始化多選框
+			$.ajax({
+				url : '../pages/doc/documents/docAction!initdocSumSelectOption.action',
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					//文件類別
+					$("#selectedBox_docSumDocTypeOne option").remove();
+					var typeOneOption = "";
+					var typeOneObject = response.TypeOne;
+					$.each(typeOneObject,function(i){
+						var optionValue = typeOneObject[i].variableId;
+						typeOneOption += '<option value="'+optionValue+'">'+typeOneObject[i].variableName+'</option>'; 
+					});
+					$("#selectedBox_docSumDocTypeOne").append(typeOneOption);
+					
+					//文件狀態
+					$("#selectedBox_docSumStatus option").remove();
+					var docStatusOption = "";
+					var docStatusObject = response.DocStatus;
+					$.each(docStatusObject,function(i){
+						var optionValue = docStatusObject[i].variableId;
+						docStatusOption += '<option value="'+optionValue+'">'+docStatusObject[i].variableName+'</option>'; 
+					});
+					$("#selectedBox_docSumStatus").append(docStatusOption);
+					
+					//文件項目
+					$("#selectedBox_docSumTypeTwo option").remove();
+					var typeTwoOption = "";
+					var typeTwoObject = response.TypeTwo;
+					$.each(typeTwoObject,function(i){
+						var optionValue = typeTwoObject[i].variableId;
+						typeTwoOption += '<option value="'+optionValue+'">'+typeTwoObject[i].variableName+'</option>'; 
+					});
+					$("#selectedBox_docSumTypeTwo").append(typeTwoOption);
+					
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+			});
 			//文件資訊的表格
 			var docsdatatable;
 			
@@ -78,10 +117,10 @@
 			
 		    $("#docSumTable").dataTable(opt);
 		    
-		    var datatable = $("#docSumTable").dataTable();
-			datatable.fnClearTable();
-		    var datatable2 = $("#docSumTable").DataTable();
-			new $.fn.dataTable.FixedHeader( datatable2 );
+		    //var datatable = $("#docSumTable").dataTable();
+			//datatable.fnClearTable();
+		    //var datatable2 = $("#docSumTable").DataTable();
+			//new $.fn.dataTable.FixedHeader( datatable2 );
 		    
 		});
 	</script>
