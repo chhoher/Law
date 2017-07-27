@@ -269,4 +269,22 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-07-27 
+	 * 初始化文管總表下拉選單和複選
+	 */
+	public String initdocSumSelectOption(){
+		try{
+			log.debug("=====initdocSumSelectOption start=====");
+			String returnValue = docService.findDocSumSelectOption();
+			
+			log.debug("returnValue = {}", returnValue);
+			printToResponse(returnValue);
+		}catch(Exception e){
+			sendException(e);
+			log.error("initdocSumSelectOption error msg==>", e);
+		}
+		return NONE;
+	}
 }

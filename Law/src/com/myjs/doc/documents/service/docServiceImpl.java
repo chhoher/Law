@@ -558,4 +558,70 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("responseLDocSumInfo", gson.toJsonTree(ListLDocInfo));
 		return jsonResponse.toString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public String findDocSumSelectOption() throws Exception{
+		Map<?, ?> LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c8074d5015c8076afcd0000");
+		List<LSysVariable> LSysVariableListDocStatus = (List<LSysVariable>) LSysVariableMap.get("list"); //文件狀態
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
+		List<LSysVariable> LSysVariableListTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//文件類別
+		
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d0bba28015d0bc3ae4a0002");
+		List<LSysVariable> LSysVariableListCentitlementTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(執行名義)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5cf6c4f2015cf6d2cec1000a");
+		List<LSysVariable> LSysVariableListCashierCheckTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(本票)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9baa8103002e");
+		List<LSysVariable> LSysVariableListDebtsTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(債讓)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5ce6dd58015ce76baff80008");
+		List<LSysVariable> LSysVariableListClaimDocTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(債權文件)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5cd26484015cd2b513cf0003");
+		List<LSysVariable> LSysVariableListFileTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(卷宗)
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5ca5db32015ca5de11d00000");
+		List<LSysVariable> LSysVariableListOtherTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//文件項目(其他)
+
+		List<LSysVariable> LSysVariableListCourtDocTypeTwo = new ArrayList<LSysVariable>();//02法院文文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4f94c99f0000");
+		List<LSysVariable> LSysVariableListCourtDocImmovablesTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-不動產 文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4fbcecff000a");
+		List<LSysVariable> LSysVariableListCourtDocCenTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-取執 文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4fc47fb5000e");
+		List<LSysVariable> LSysVariableListCourtDocDebtTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-金錢債權 文件項目
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d4f8922015d4fc5a22f0013");
+		List<LSysVariable> LSysVariableListCourtDocCommonsTypeTwo = (List<LSysVariable>) LSysVariableMap.get("list");//法院文-共用 文件項目
+		
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocImmovablesTypeTwo);
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocCenTypeTwo);
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocDebtTypeTwo);
+		LSysVariableListCourtDocTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		
+		LSysVariableListCourtDocImmovablesTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		LSysVariableListCourtDocCenTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		LSysVariableListCourtDocDebtTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
+		
+		List<LSysVariable> LSysVariableListTypeTwo = new ArrayList<LSysVariable>();//All 文件項目
+		LSysVariableListTypeTwo.addAll(LSysVariableListCentitlementTypeTwo);
+		LSysVariableListTypeTwo.addAll(LSysVariableListCourtDocTypeTwo);
+		LSysVariableListTypeTwo.addAll(LSysVariableListCashierCheckTypeTwo);
+		LSysVariableListTypeTwo.addAll(LSysVariableListDebtsTypeTwo);
+		LSysVariableListTypeTwo.addAll(LSysVariableListClaimDocTypeTwo);
+		LSysVariableListTypeTwo.addAll(LSysVariableListFileTypeTwo);
+		LSysVariableListTypeTwo.addAll(LSysVariableListOtherTypeTwo);
+		
+		Gson gson = new Gson();
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.add("DocStatus", gson.toJsonTree(LSysVariableListDocStatus));
+		jsonResponse.add("TypeOne", gson.toJsonTree(LSysVariableListTypeOne));
+		jsonResponse.add("TypeTwo", gson.toJsonTree(LSysVariableListTypeTwo));
+		jsonResponse.add("courtDocTypeTwo", gson.toJsonTree(LSysVariableListCourtDocTypeTwo));// 法院文All
+		jsonResponse.add("courtDocImmovablesTypeTwo", gson.toJsonTree(LSysVariableListCourtDocImmovablesTypeTwo));// 法院文不動產
+		jsonResponse.add("courtDocCenTypeTwo", gson.toJsonTree(LSysVariableListCourtDocCenTypeTwo));// 法院文取執
+		jsonResponse.add("courtDocDebtTypeTwo", gson.toJsonTree(LSysVariableListCourtDocDebtTypeTwo));// 法院文金錢債權
+		jsonResponse.add("centitlementTypeTwo", gson.toJsonTree(LSysVariableListCentitlementTypeTwo));
+		jsonResponse.add("cashierCheckTypeTwo", gson.toJsonTree(LSysVariableListCashierCheckTypeTwo));
+		jsonResponse.add("debtsTypeTwo", gson.toJsonTree(LSysVariableListDebtsTypeTwo));
+		jsonResponse.add("claimDocTypeTwo", gson.toJsonTree(LSysVariableListClaimDocTypeTwo));
+		jsonResponse.add("fileTypeTwo", gson.toJsonTree(LSysVariableListFileTypeTwo));
+		jsonResponse.add("otherTypeTwo", gson.toJsonTree(LSysVariableListOtherTypeTwo));
+		return jsonResponse.toString();
+	}
 }

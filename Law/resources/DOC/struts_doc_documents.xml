@@ -9,8 +9,7 @@
         
         	<allowed-methods>loadCaseInfo,initSelectOption,saveaddDoc,initaddDoc,
         		loadCaseRela,loadCaseDocs,initSelectedForDocSys,saveBorrowDocs,
-        		printBorrowDocs,queryDocSumTable</allowed-methods>
-        
+        		printBorrowDocs,queryDocSumTable,initdocSumSelectOption</allowed-methods>
         </action>
     </package>
 </struts>
