@@ -276,7 +276,7 @@ public class docAction extends AbstractAction {
 	 */
 	public String initdocSumSelectOption(){
 		try{
-			log.debug("=====initdocSumSelectOption start=====");
+			log.debug("=====initdocSumSelectOption startss=====");
 			String returnValue = docService.findDocSumSelectOption();
 			
 			log.debug("returnValue = {}", returnValue);
