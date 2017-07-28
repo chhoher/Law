@@ -60,12 +60,14 @@ $(function() {
 	// 表格中的超連結function
 	law.doc.todocSystem = function todocSystem(data) {
 		//固定帶文管系統頁簽的資料
+		law.tabControl.closeTabs("#tabs-8aa2e72a5ca02291015ca0ae14e70001");
 		law.tabControl.addTabs("#tabs",'8aa2e72a5ca02291015ca0ae14e70001','文管系統','/Law/pages/doc/docSystem.jsp?caseId=' + data);
 		//window.open("../pages/doc/addDoc.jsp?caseId=" + data);
 	}
 	
 	law.doc.toaddDoc = function toaddDoc(data) {
 		//固定帶文管新增頁簽的資料
+		law.tabControl.closeTabs("#tabs-8aa2e72a5c5c9b6e015c5cb587cc0025");
 		law.tabControl.addTabs("#tabs",'8aa2e72a5c5c9b6e015c5cb587cc0025','文管新增','/Law/pages/doc/addDoc.jsp?caseId=' + data);
 	}
 	

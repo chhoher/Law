@@ -46,10 +46,10 @@ law.addDoc.claimsDoc = {
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptclaimsDocReceivedDate" + claimsDocsubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptclaimsDocBankDate" + claimsDocsubtabcount + "'></input></td>" +
+					"<td><label>收文日期</label></td>" +
+					"<td><input id='iptclaimsDocReceivedDate" + claimsDocsubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
 					"<td><select id='iptclaimsDocDocStatus" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +

@@ -507,13 +507,13 @@ law.addDoc.centitlement = {
 					"<td><select id='iptcentitlementSourceDoc" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "'><option value=''>請選擇</option></select>" +
 					"<select id='iptcentitlementSourceDocCourtYearCourt" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>年度</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearYear" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "'></input></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearYear" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "' style='width : 50px'></input></td>" +
 					"<td><label>字</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearTxt" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "'></input></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearTxt" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "' style='width : 50px'></input></td>" +
 					"<td><label>股別</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearShare" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "'></input></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearShare" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "' style='width : 50px'></input></td>" +
 					"<td><label>案號</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearCaseId" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "' ></input></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearCaseId" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "' style='width : 60px'></input></td>" +
 				"</tr>";
 					
 		$("#tcentitlementSourceDoc" + displaynum ).append(tdString);
@@ -1119,16 +1119,16 @@ law.addDoc.centitlement = {
 			"</table>" +
 			"<table>" +
            	 	"<tr>" +
-					"<td><input type='radio' name='centitlementShadow" + centitlementsubtabcount + "' value='0' id='rdocentitlementShadow" + centitlementsubtabcount + "' checked>影本</td>" +
+					"<td><input type='radio' name='centitlementShadow" + centitlementsubtabcount + "' value='0' id='rdocentitlementShadow" + centitlementsubtabcount + "' >影本</td>" +
 					"<td><input type='radio' name='centitlementShadow" + centitlementsubtabcount + "' value='1' id='rdocentitlementShadowBank" + centitlementsubtabcount + "' >業主收文僅提供影本</td>" +
 					"<td><label>文件狀態</label></td>" +
 					"<td><select id='iptcentitlementDocStatus" + centitlementsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptcentitlementReceivedDate" + centitlementsubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptcentitlementBankDate" + centitlementsubtabcount + "'></input></td>" +
+					"<td><label>收文日期</label></td>" +
+					"<td><input id='iptcentitlementReceivedDate" + centitlementsubtabcount + "'></input></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>文件類別</label></td>" +
@@ -1153,13 +1153,13 @@ law.addDoc.centitlement = {
 					"<td><label>法院年字案股</label></td>" +
 					"<td><select id='iptcentitlementCourtYearCourt" + centitlementsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>年度</label></td>" +
-					"<td><input id='iptcentitlementCourtYearYear" + centitlementsubtabcount + "' ></input></td>" +
+					"<td><input id='iptcentitlementCourtYearYear" + centitlementsubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>字</label></td>" +
-					"<td><input id='iptcentitlementCourtYearTxt" + centitlementsubtabcount + "' ></input></td>" +
+					"<td><input id='iptcentitlementCourtYearTxt" + centitlementsubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>股別</label></td>" +
-					"<td><input id='iptcentitlementCourtYearShare" + centitlementsubtabcount + "' ></input></td>" +
+					"<td><input id='iptcentitlementCourtYearShare" + centitlementsubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>案號</label></td>" +
-					"<td><input id='iptcentitlementCourtYearCaseId" + centitlementsubtabcount + "' ></input></td>" +
+					"<td><input id='iptcentitlementCourtYearCaseId" + centitlementsubtabcount + "' style='width : 60px'></input></td>" +
 				"</tr>" +
 			"</table>" +
 			"<table id='tcentitlementSourceDoc" + centitlementsubtabcount + "'>" +
@@ -1168,13 +1168,13 @@ law.addDoc.centitlement = {
 					"<td><select id='iptcentitlementSourceDoc" + centitlementsubtabcount + "_0'><option value=''>請選擇</option></select>" +
 					"<select id='iptcentitlementSourceDocCourtYearCourt" + centitlementsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
 					"<td><label>年度</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearYear" + centitlementsubtabcount + "_0' ></input></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearYear" + centitlementsubtabcount + "_0' style='width : 50px'></input></td>" +
 					"<td><label>字</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearTxt" + centitlementsubtabcount + "_0' ></input></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearTxt" + centitlementsubtabcount + "_0' style='width : 50px'></input></td>" +
 					"<td><label>股別</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearShare" + centitlementsubtabcount + "_0' ></input></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearShare" + centitlementsubtabcount + "_0' style='width : 50px'></input></td>" +
 					"<td><label>案號</label></td>" +
-					"<td><input id='iptcentitlementSourceDocCourtYearCaseId" + centitlementsubtabcount + "_0' ></input><img src='../images/plus.png' onclick='law.addDoc.centitlement.addcentitlementSourceDocT(" + (centitlementsubtabcount + 1) + ")'></td>" +
+					"<td><input id='iptcentitlementSourceDocCourtYearCaseId" + centitlementsubtabcount + "_0' style='width : 60px'></input><img src='../images/plus.png' onclick='law.addDoc.centitlement.addcentitlementSourceDocT(" + (centitlementsubtabcount + 1) + ")'></td>" +
 				"</tr>" +
 			"</table>" +
 			"<table>" +
@@ -1207,13 +1207,13 @@ law.addDoc.centitlement = {
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='distribution' id='ckbcentitlementDistribution" + centitlementsubtabcount + "'>分配表" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='thingThird' id='ckbcentitlementThingThird" + centitlementsubtabcount + "'>事項表(第三人)" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='thingDebt' id='ckbcentitlementThingDebt" + centitlementsubtabcount + "'>事項表(債權人)" +
+							"</div>" +
+							"<div>" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='coOwned' id='ckbcentitlementCoOwned" + centitlementsubtabcount + "'>共有人名冊" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='debtDoc' id='ckbcentitlementDebtDoc" + centitlementsubtabcount + "'>債權文件" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='detail' id='ckbcentitlementDetail" + centitlementsubtabcount + "'>帳務明細" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='file' id='ckbcentitlementFile" + centitlementsubtabcount + "'>執名附件" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='debtContinue' id='ckbcentitlementDebtContinue" + centitlementsubtabcount + "'>債證續行表" +
-							"</div>" +
-							"<div>" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='cashierCheck' id='ckbcentitlementCashierCheck" + centitlementsubtabcount + "'>本票" +
 								"<input type='checkbox' name='ckbcentitlement" + centitlementsubtabcount + "' value='other' id='ckbcentitlementOther" + centitlementsubtabcount + "'>其它" +
 							"</div>" +

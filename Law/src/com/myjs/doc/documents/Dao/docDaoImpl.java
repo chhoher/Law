@@ -61,9 +61,11 @@ import com.myjs.doc.documents.model.LDocDebtsRela;
 import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
+import com.myjs.sys.variable.model.LSysVariable;
 
 public class docDaoImpl extends DaoUtil implements docDao{
 	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate SMARTjdbcTemplate;
 	
 	
 	public JdbcTemplate getJdbcTemplate() {
@@ -72,6 +74,14 @@ public class docDaoImpl extends DaoUtil implements docDao{
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public JdbcTemplate getSMARTjdbcTemplate() {
+		return SMARTjdbcTemplate;
+	}
+
+	public void setSMARTjdbcTemplate(JdbcTemplate sMARTjdbcTemplate) {
+		SMARTjdbcTemplate = sMARTjdbcTemplate;
 	}
 
 	private static final Logger log = LogManager.getLogger(docDaoImpl.class);
@@ -626,6 +636,16 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		return flag;
 	}
 	
+	public List<LSysVariable> findAllBankName() throws Exception{
+		log.debug("findAllBankName start");
+		StringBuffer queryString = new StringBuffer("SELECT Bank_ID,Bank_name from Bank");
+		log.debug("queryString = {}", queryString);
+		
+		@SuppressWarnings("unchecked")
+		List<LSysVariable> ListLSysVariable = SMARTjdbcTemplate.query(queryString.toString(), new LSysVariableMapper());
+		return ListLSysVariable;
+	}
+	
 	public List<LDocInfo> findDocByCaseId(String caseId) throws Exception{
 		log.debug("findDocByCaseId start");
 		StringBuffer queryString = new StringBuffer("exec SP_finddocbycaseId " + caseId);
@@ -783,6 +803,16 @@ public class docDaoImpl extends DaoUtil implements docDao{
 			
 			return LDocInfo;
 
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	class LSysVariableMapper implements RowMapper {
+		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
+			LSysVariable LSysVariable = new LSysVariable();
+			LSysVariable.setVariableId(rs.getString("Bank_ID") == null ? "" : rs.getString("Bank_ID"));
+			LSysVariable.setVariableName(rs.getString("Bank_name") == null ? "" : rs.getString("Bank_name"));
+			return LSysVariable;
 		}
 	}
 }

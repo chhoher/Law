@@ -62,6 +62,24 @@
 				}
 				
 	},
+	/* 關閉頁籤
+ 	* tabsId 帶入需關閉頁簽的位置
+ 	* menname 帶入關閉頁簽的名稱
+ 	* menuUrl 打開頁簽的Url
+ 	* menuid 打開頁簽的ID
+ 	*/	
+	closeTabs = function(tabsId){
+		if($(tabsId).size() > 0){
+			var key = $(tabsId).closest("li")["0"].id;
+			law.tabControl.tabArr[key + "_loaded"] = { isOpened : false, tabindex : -1};
+			law.tabControl.tabcount--;
+			$("#tabs").tabs().tabs({
+				active : law.tabControl.activedNum
+			});
+			var panelId = $(tabsId).closest("li").remove().attr("aria-controls");
+				$("#" + panelId).remove();
+		}
+	},
 	
 	/*
 	 * 當remove tab的時候同時把該物件全部清空
@@ -145,7 +163,14 @@
 				alert(thrownError);
 			}
 		});
-	};
+	},
+	//左方補零到幾位數
+	paddingLeft = function (str,lenght){
+		if(str.length >= lenght)
+		return str;
+		else
+		return paddingLeft("0" +str,lenght);
+	}
 	
  	/*
  	 * 將所有物件塞入law
@@ -161,6 +186,7 @@
  		tabcount : tabcount,
  		activedNum : activedNum,
  		addTabs : addTabs,
+ 		closeTabs : closeTabs,
  		removeTabs : removeTabs
  	};
  	
@@ -175,7 +201,8 @@
  	law.common = {
  		selectOption : selectOption,
  		selectRelaOption : selectRelaOption,
- 		formatInputItemToDate : formatInputItemToDate
+ 		formatInputItemToDate : formatInputItemToDate,
+ 		paddingLeft : paddingLeft
  	};
  	
  	// 新增簽核系統類function

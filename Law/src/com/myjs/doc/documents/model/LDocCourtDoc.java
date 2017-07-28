@@ -15,7 +15,6 @@ public class LDocCourtDoc {
 	private Date receivedDate;
 	private Date bankDate;
 	private String docStatus;
-	private String appointmentLetterCode;
 	private String typeOne;
 	private String typeTwo;
 	private String bankName;
@@ -30,7 +29,6 @@ public class LDocCourtDoc {
 	private int ruledAmount;
 	private Date applyConfirmationDate;
 	private Date receivedConfirmationDate;
-	private Date courtDate;
 	private Date failureDate; 
 	private String applyLawThird;
 	private String addAddress;
@@ -272,12 +270,6 @@ public class LDocCourtDoc {
 	public void setDocStatus(String docStatus) {
 		this.docStatus = docStatus;
 	}
-	public String getAppointmentLetterCode() {
-		return appointmentLetterCode;
-	}
-	public void setAppointmentLetterCode(String appointmentLetterCode) {
-		this.appointmentLetterCode = appointmentLetterCode;
-	}
 	public String getTypeOne() {
 		return typeOne;
 	}
@@ -361,12 +353,6 @@ public class LDocCourtDoc {
 	}
 	public void setReceivedConfirmationDate(Date receivedConfirmationDate) {
 		this.receivedConfirmationDate = receivedConfirmationDate;
-	}
-	public Date getCourtDate() {
-		return courtDate;
-	}
-	public void setCourtDate(Date courtDate) {
-		this.courtDate = courtDate;
 	}
 	public Date getFailureDate() {
 		return failureDate;

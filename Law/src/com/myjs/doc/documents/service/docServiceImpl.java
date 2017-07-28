@@ -83,7 +83,33 @@ public class docServiceImpl implements docService{
 
 	@SuppressWarnings("unchecked")
 	public String findDocaddSelectOption() throws Exception{
-		Map<?, ?> LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c8074d5015c8076afcd0000");
+		
+		//查詢SMART DB 內的債權人
+		List<LSysVariable> LSysVariableListBankName = docDao.findAllBankName();//債權人
+		
+		//各分類原債權人
+		Map<?, ?> LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d8872216b0001");//原債權人 台新銀行
+		List<LSysVariable> LSysVariableListTSBOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d88729da50004");//原債權人 遠東銀行
+		List<LSysVariable> LSysVariableListFEIOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d8874c7650006");//原債權人 新光銀行
+		List<LSysVariable> LSysVariableListSKOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d8875cd9a0008");//原債權人 元大AMC
+		List<LSysVariable> LSysVariableListYTOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d8878932c001e");//原債權人 第一AMC
+		List<LSysVariable> LSysVariableListFIOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d887948d30021");//原債權人 台新資產
+		List<LSysVariable> LSysVariableListTSAOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d887bd4470035");//原債權人 台灣金聯
+		List<LSysVariable> LSysVariableListTAMCOOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d887eca64004f");//原債權人 歐力士AMC
+		List<LSysVariable> LSysVariableListORIXOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d887f349b0051");//原債權人 明台產險
+		List<LSysVariable> LSysVariableListMTOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d883098015d888026600058");//原債權人 旺旺友聯
+		List<LSysVariable> LSysVariableListUNOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");
+		
+		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c8074d5015c8076afcd0000");
 		List<LSysVariable> LSysVariableListDocStatus = (List<LSysVariable>) LSysVariableMap.get("list"); //文件狀態
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c812434015c812e92070000");
 		List<LSysVariable> LSysVariableListTypeOne = (List<LSysVariable>) LSysVariableMap.get("list");//文件類別
@@ -111,10 +137,6 @@ public class docServiceImpl implements docService{
 		LSysVariableListCourtDocCenTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
 		LSysVariableListCourtDocDebtTypeTwo.addAll(LSysVariableListCourtDocCommonsTypeTwo);
 		
-		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b8eee900000");
-		List<LSysVariable> LSysVariableListBankName = (List<LSysVariable>) LSysVariableMap.get("list");//債權人
-		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9274670009");
-		List<LSysVariable> LSysVariableListOldBankName = (List<LSysVariable>) LSysVariableMap.get("list");//原債權人
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5c9b8c95015c9b9528290012");
 		List<LSysVariable> LSysVariableListCourtYearCourt = (List<LSysVariable>) LSysVariableMap.get("list");//地院
 		LSysVariableMap = (Map<?, ?>) SaveParameter.AllParameter.get("8aa2e72a5d0bba28015d0bc3ae4a0002");
@@ -146,7 +168,16 @@ public class docServiceImpl implements docService{
 		jsonResponse.add("courtDocCenTypeTwo", gson.toJsonTree(LSysVariableListCourtDocCenTypeTwo));// 法院文取執
 		jsonResponse.add("courtDocDebtTypeTwo", gson.toJsonTree(LSysVariableListCourtDocDebtTypeTwo));// 法院文金錢債權
 		jsonResponse.add("BankName", gson.toJsonTree(LSysVariableListBankName));
-		jsonResponse.add("OldBankName", gson.toJsonTree(LSysVariableListOldBankName));
+		jsonResponse.add("TSBOldBankName", gson.toJsonTree(LSysVariableListTSBOldBankName));
+		jsonResponse.add("FEIOldBankName", gson.toJsonTree(LSysVariableListFEIOldBankName));
+		jsonResponse.add("SKOldBankName", gson.toJsonTree(LSysVariableListSKOldBankName));
+		jsonResponse.add("YTOldBankName", gson.toJsonTree(LSysVariableListYTOldBankName));
+		jsonResponse.add("FIOldBankName", gson.toJsonTree(LSysVariableListFIOldBankName));
+		jsonResponse.add("TSAOldBankName", gson.toJsonTree(LSysVariableListTSAOldBankName));
+		jsonResponse.add("TAMCOOldBankName", gson.toJsonTree(LSysVariableListTAMCOOldBankName));
+		jsonResponse.add("ORIXOldBankName", gson.toJsonTree(LSysVariableListORIXOldBankName));
+		jsonResponse.add("MTOldBankName", gson.toJsonTree(LSysVariableListMTOldBankName));
+		jsonResponse.add("UNOldBankName", gson.toJsonTree(LSysVariableListUNOldBankName));
 		jsonResponse.add("CourtYearCourt", gson.toJsonTree(LSysVariableListCourtYearCourt));
 		jsonResponse.add("centitlementTypeTwo", gson.toJsonTree(LSysVariableListCentitlementTypeTwo));
 		jsonResponse.add("cashierCheckTypeTwo", gson.toJsonTree(LSysVariableListCashierCheckTypeTwo));

@@ -25,10 +25,10 @@ law.addDoc.file = {
 
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptfileReceivedDate" + filesubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptfileBankDate" + filesubtabcount + "'></input></td>" +
+					"<td><label>收文日期</label></td>" +
+					"<td><input id='iptfileReceivedDate" + filesubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
 					"<td><select id='iptfileDocStatus" + filesubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +

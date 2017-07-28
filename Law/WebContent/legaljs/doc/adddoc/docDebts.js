@@ -45,10 +45,10 @@ law.addDoc.debts = {
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptdebtsReceivedDate" + debtssubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptdebtsBankDate" + debtssubtabcount + "' ></input></td>" +
+					"<td><label>收文日期</label></td>" +
+					"<td><input id='iptdebtsReceivedDate" + debtssubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
 					"<td><select id='iptdebtsDocStatus" + debtssubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
@@ -71,17 +71,17 @@ law.addDoc.debts = {
 				"</tr>" +
 			"</table>" +
 			"<table>" +
-				"<tr>" +
+				"<tr bgcolor='#FFEBCD' >" +
 					"<td><label>法院年字案股</label></td>" +
 					"<td><select id='iptdebtsCourtYearCourt" + debtssubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>年度</label></td>" +
-					"<td><input id='iptdebtsCourtYearYear" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearYear" + debtssubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>字</label></td>" +
-					"<td><input id='iptdebtsCourtYearTxt" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearTxt" + debtssubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>股別</label></td>" +
-					"<td><input id='iptdebtsCourtYearShare" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearShare" + debtssubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>案號</label></td>" +
-					"<td><input id='iptdebtsCourtYearCaseId" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearCaseId" + debtssubtabcount + "' style='width : 60px'></input></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>債讓日</label></td>" +
