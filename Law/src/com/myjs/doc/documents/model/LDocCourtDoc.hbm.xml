@@ -44,9 +44,6 @@
 		<property name="docStatus" type="string">
 			<column name="doc_status" length="50" not-null="true" />
 		</property>
-		<property name="appointmentLetterCode" type="string">
-			<column name="appointment_letter_code" length="50" />
-		</property>
 		<property name="typeOne" type="string">
 			<column name="type_one" length="50" not-null="true" />
 		</property>
@@ -88,9 +85,6 @@
 		</property>
 		<property name="receivedConfirmationDate" type="timestamp">
 			<column name="received_confirmation_date" length="23"/>
-		</property>
-		<property name="courtDate" type="timestamp">
-			<column name="court_date" length="23"/>
 		</property>
 		<property name="failureDate" type="timestamp">
 			<column name="failure_date" length="23"/>

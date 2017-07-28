@@ -56,5 +56,8 @@
 		<property name="borrowInfo" type="string">
 			<column name="borrow_info" />
 		</property>	
+		<property name="appointmentLetterCode" type="string">
+			<column name="appointment_letter_code" />
+		</property>	
 	</class>
 </hibernate-mapping>

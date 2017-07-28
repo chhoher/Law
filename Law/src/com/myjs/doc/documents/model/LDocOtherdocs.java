@@ -8,6 +8,7 @@ public class LDocOtherdocs {
 	private int caseId;
 	private Date receivedDate;
 	private Date bankDate;
+	private String appointmentLetterCode;
 	private String docStatus;
 	private String typeOne;
 	private String typeTwo;
@@ -175,6 +176,14 @@ public class LDocOtherdocs {
 
 	public void setBorrowInfo(String borrowInfo) {
 		this.borrowInfo = borrowInfo;
+	}
+
+	public String getAppointmentLetterCode() {
+		return appointmentLetterCode;
+	}
+
+	public void setAppointmentLetterCode(String appointmentLetterCode) {
+		this.appointmentLetterCode = appointmentLetterCode;
 	}
 	
 }

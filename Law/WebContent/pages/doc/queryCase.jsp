@@ -14,7 +14,10 @@ $(document).ready(function(){
     		"columns": [
                 { "data": "Bank_alias" },
                 { "data": "Prod_Name" },
-                { "data": "Case_ID" },
+                { "data": "Case_ID" ,
+                	"render": function ( data, type, full, meta ) {
+                		return law.common.paddingLeft(data,8);
+                }},
                 { "data": "name" },
                 { "data": "ID" },
                 { "data": "PriDebt_amount" },
