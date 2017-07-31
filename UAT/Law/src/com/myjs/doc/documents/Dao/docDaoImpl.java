@@ -61,9 +61,11 @@ import com.myjs.doc.documents.model.LDocDebtsRela;
 import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
+import com.myjs.sys.variable.model.LSysVariable;
 
 public class docDaoImpl extends DaoUtil implements docDao{
 	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate SMARTjdbcTemplate;
 	
 	
 	public JdbcTemplate getJdbcTemplate() {
@@ -72,6 +74,14 @@ public class docDaoImpl extends DaoUtil implements docDao{
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public JdbcTemplate getSMARTjdbcTemplate() {
+		return SMARTjdbcTemplate;
+	}
+
+	public void setSMARTjdbcTemplate(JdbcTemplate sMARTjdbcTemplate) {
+		SMARTjdbcTemplate = sMARTjdbcTemplate;
 	}
 
 	private static final Logger log = LogManager.getLogger(docDaoImpl.class);
@@ -626,6 +636,16 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		return flag;
 	}
 	
+	public List<LSysVariable> findAllBankName() throws Exception{
+		log.debug("findAllBankName start");
+		StringBuffer queryString = new StringBuffer("SELECT Bank_ID,Bank_name from Bank");
+		log.debug("queryString = {}", queryString);
+		
+		@SuppressWarnings("unchecked")
+		List<LSysVariable> ListLSysVariable = SMARTjdbcTemplate.query(queryString.toString(), new LSysVariableMapper());
+		return ListLSysVariable;
+	}
+	
 	public List<LDocInfo> findDocByCaseId(String caseId) throws Exception{
 		log.debug("findDocByCaseId start");
 		StringBuffer queryString = new StringBuffer("exec SP_finddocbycaseId " + caseId);
@@ -634,6 +654,16 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		
 		@SuppressWarnings("unchecked")
 		List<LDocInfo> ListDocInfo = jdbcTemplate.query(queryString.toString(), new LDocInfoMapper());
+		return ListDocInfo;
+	}
+	
+	public List<LDocInfo> findSumDoc() throws Exception{
+		log.debug("findSumDoc start");
+		StringBuffer queryString = new StringBuffer("exec SP_findsumdocs " + 0 + "," + 0);
+		log.debug("queryString = {}", queryString);
+		
+		@SuppressWarnings("unchecked")
+		List<LDocInfo> ListDocInfo = jdbcTemplate.query(queryString.toString(), new LDocInfoSumMapper());
 		return ListDocInfo;
 	}
 	
@@ -715,6 +745,74 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		    LDocInfo.setClaimsDocInterestRate(rs.getString("claims_doc_interest_rate") == null ? "" : rs.getString("claims_doc_interest_rate"));
 			return LDocInfo;
 
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	class LDocInfoSumMapper implements RowMapper {
+		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
+			LDocInfo LDocInfo = new LDocInfo();
+			LDocInfo.setRowNum(rs.getString("ROWNUM") == null ? "" : rs.getString("ROWNUM"));
+			LDocInfo.setBankName(rs.getString("bank_name") == null ? "" : rs.getString("bank_name"));
+			LDocInfo.setProdName(rs.getString("prod_name") == null ? "" : rs.getString("prod_name"));
+			LDocInfo.setCaseId(rs.getInt("case_id"));
+			LDocInfo.setDebtName(rs.getString("debt_name") == null ? "" : rs.getString("debt_name"));
+			LDocInfo.setID(rs.getString("ID") == null ? "" : rs.getString("ID"));
+			LDocInfo.setDocCode(rs.getString("doc_code") == null ? "" : rs.getString("doc_code"));
+		    LDocInfo.setTypeOne(rs.getString("type_one") == null ? "" : rs.getString("type_one"));
+		    LDocInfo.setTypeTwo(rs.getString("type_two") == null ? "" : rs.getString("type_two"));
+			LDocInfo.setDocStatus(rs.getString("doc_status") == null ? "" : rs.getString("doc_status"));
+		    LDocInfo.setCourtYearCourt(rs.getString("court_year_court") == null ? "" : rs.getString("court_year_court"));
+		    LDocInfo.setCourtYearYear(rs.getInt("court_year_year"));
+		    LDocInfo.setCourtYearTxt(rs.getString("court_year_txt") == null ? "" : rs.getString("court_year_txt"));
+		    LDocInfo.setCourtYearShare(rs.getString("court_year_share") == null ? "" : rs.getString("court_year_share"));
+		    LDocInfo.setCourtYearCaseId(rs.getString("court_year_case_id") == null ? "" : rs.getString("court_year_case_id"));
+		    LDocInfo.setSourceDoc(rs.getString("source_doc") == null ? "" : rs.getString("source_doc"));
+		    LDocInfo.setSourceDocInfo(rs.getString("source_doc_info") == null ? "" : rs.getString("source_doc_info"));
+		    LDocInfo.setSendDate(rs.getString("send_date") == null ? "" : rs.getString("send_date"));
+		    LDocInfo.setNewSendDate(rs.getString("new_send_date") == null ? "" : rs.getString("new_send_date"));
+		    LDocInfo.setRemark(rs.getString("remark") == null ? "" : rs.getString("remark"));
+		    LDocInfo.setReport(rs.getString("report") == null ? "" : rs.getString("report"));
+		    LDocInfo.setEdit(rs.getString("edit") == null ? "" : rs.getString("edit"));
+		    LDocInfo.setPay(rs.getString("pay") == null ? "" : rs.getString("pay"));
+		    LDocInfo.setSendReport(rs.getString("send_report") == null ? "" : rs.getString("send_report"));
+		    LDocInfo.setToCourtDate(rs.getString("to_court_date") == null ? "" : rs.getString("to_court_date"));
+		    LDocInfo.setToCourtTime(rs.getString("to_court_time") == null ? "" : rs.getString("to_court_time"));
+		    LDocInfo.setExecutionDate(rs.getString("execution_date") == null ? "" : rs.getString("execution_date"));
+		    LDocInfo.setExecutionTime(rs.getString("execution_time") == null ? "" : rs.getString("execution_time"));
+		    LDocInfo.setBorrowReason(rs.getString("borrow_reason") == null ? "" : rs.getString("borrow_reason"));
+			LDocInfo.setLawCode(rs.getString("law_code") == null ? "" : rs.getString("law_code"));
+			LDocInfo.setBorrowDatetime(rs.getString("borrow_datetime") == null ? "" : rs.getString("borrow_datetime"));
+			LDocInfo.setBorrowUserId(rs.getString("borrow_user_id") == null ? "" : rs.getString("borrow_user_id"));
+			LDocInfo.setBorrowUserName(rs.getString("borrow_user_name") == null ? "" : rs.getString("borrow_user_name"));
+			LDocInfo.setProgressDatetime(rs.getString("progress_datetime") == null ? "" : rs.getString("progress_datetime"));
+			LDocInfo.setProgressUserId(rs.getString("progress_user_id") == null ? "" : rs.getString("progress_user_id"));
+			LDocInfo.setProgressUserName(rs.getString("progress_user_name") == null ? "" : rs.getString("progress_user_name"));
+			LDocInfo.setCheckDatetime(rs.getString("check_datetime") == null ? "" : rs.getString("check_datetime"));
+			LDocInfo.setCheckUserId(rs.getString("check_user_id") == null ? "" : rs.getString("check_user_id"));
+			LDocInfo.setCheckUserName(rs.getString("check_user_name") == null ? "" : rs.getString("check_user_name"));
+			LDocInfo.setBackDatetime(rs.getString("back_datetime") == null ? "" : rs.getString("back_datetime"));
+			LDocInfo.setBackUserId(rs.getString("back_user_id") == null ? "" : rs.getString("back_user_id"));
+			LDocInfo.setBackUserName(rs.getString("back_user_name") == null ? "" : rs.getString("back_user_name"));
+			LDocInfo.setFinalDatetime(rs.getString("final_datetime") == null ? "" : rs.getString("final_datetime"));
+			LDocInfo.setFinalUserId(rs.getString("final_user_id") == null ? "" : rs.getString("final_user_id"));
+			LDocInfo.setFinalUserName(rs.getString("final_user_name") == null ? "" : rs.getString("final_user_name"));
+			LDocInfo.setBusinessAccount(rs.getString("business_account") == null ? "" : rs.getString("business_account"));
+			LDocInfo.setBusiness(rs.getString("business") == null ? "" : rs.getString("business"));
+		    
+			
+			return LDocInfo;
+
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	class LSysVariableMapper implements RowMapper {
+		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
+			LSysVariable LSysVariable = new LSysVariable();
+			LSysVariable.setVariableId(rs.getString("Bank_ID") == null ? "" : rs.getString("Bank_ID"));
+			LSysVariable.setVariableName(rs.getString("Bank_name") == null ? "" : rs.getString("Bank_name"));
+			return LSysVariable;
 		}
 	}
 }

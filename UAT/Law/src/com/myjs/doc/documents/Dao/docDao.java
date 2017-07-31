@@ -52,6 +52,7 @@ import com.myjs.doc.documents.model.LDocDebtsRela;
 import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
+import com.myjs.sys.variable.model.LSysVariable;
 
 /**
  * add By Jia 2017-06-30 文管新增相關DAO
@@ -466,4 +467,13 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public boolean save(LDocBorrowHistory transientInstance) throws Exception;
+	
+	public List<LDocInfo> findSumDoc() throws Exception;
+	
+	/**
+	 * 查詢SMART DB內所有的債權人
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LSysVariable> findAllBankName() throws Exception;
 }

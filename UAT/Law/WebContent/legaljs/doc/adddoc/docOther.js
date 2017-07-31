@@ -19,10 +19,12 @@ law.addDoc.other = {
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptotherReceivedDate" + othersubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
+					"<td><label>收文日期</label></td>" +
+					"<td><input id='iptotherReceivedDate" + othersubtabcount + "'></input></td>" +
+					"<td><label>委任狀編號</label></td>" +
+					"<td><input id='iptotherAppointmentLetterCode" + othersubtabcount + "' ></input></td>" +
 					"<td><label>文件狀態</label></td>" +
 					"<td><select id='iptotherDocStatus" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
@@ -94,6 +96,7 @@ law.addDoc.other = {
 		var topItem = {
 			'receivedDate' : $("#iptotherReceivedDate").val(),
 			'bankDate' : $("#iptotherBankDate").val(),
+			'appointmentLetterCode' : $("#iptotherAppointmentLetterCode").val(),
 			'docStatus' : $("#iptotherDocStatus").find('option:selected').val(),
 			'typeOne' : $("#iptotherTypeOne").find('option:selected').val(),
 			'typeTwo' : $("#iptotherTypeTwo").find('option:selected').val(),
@@ -111,6 +114,7 @@ law.addDoc.other = {
 				var subItems = {
 					'receivedDate' : $("#iptotherReceivedDate" + i ).val(),
 					'bankDate' : $("#iptotherBankDate" + i ).val(),
+					'appointmentLetterCode' : $("#iptotherAppointmentLetterCode" + i).val(),
 					'docStatus' : $("#iptotherDocStatus" + i ).find('option:selected').val(),
 					'typeOne' : $("#iptotherTypeOne" + i ).find('option:selected').val(),
 					'typeTwo' : $("#iptotherTypeTwo" + i ).find('option:selected').val(),

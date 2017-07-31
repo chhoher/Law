@@ -249,4 +249,42 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-07-26
+	 * 查詢文管總表
+	 */
+	public String queryDocSumTable(){
+		try{
+			log.debug("queryDocSumTable start");
+			
+			String response = docService.querySumDocs();
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+			
+		}catch(Exception e){
+			sendException(e);
+			log.error("queryDocSumTable error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-07-27 
+	 * 初始化文管總表下拉選單和複選
+	 */
+	public String initdocSumSelectOption(){
+		try{
+			log.debug("=====initdocSumSelectOption start=====");
+			String returnValue = docService.findDocSumSelectOption();
+			
+			log.debug("returnValue = {}", returnValue);
+			printToResponse(returnValue);
+		}catch(Exception e){
+			sendException(e);
+			log.error("initdocSumSelectOption error msg==>", e);
+		}
+		return NONE;
+	}
 }

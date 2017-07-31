@@ -1158,18 +1158,16 @@ law.addDoc.courtDoc = {
 				"</table>" +
 				"<table>" +
 	           	 	"<tr>" +
-						"<td><input type='radio' name='courtDocShadow" + courtDocsubtabcount + "' value='0' id='rdocourtDocShadow" + courtDocsubtabcount + "' checked>影本</td>" +
+						"<td><input type='radio' name='courtDocShadow" + courtDocsubtabcount + "' value='0' id='rdocourtDocShadow" + courtDocsubtabcount + "' >影本</td>" +
 						"<td><input type='radio' name='courtDocShadow" + courtDocsubtabcount + "' value='1' id='rdocourtDocShadowBank" + courtDocsubtabcount + "' >業主收文僅提供影本</td>" +
 						"<td><label>文件狀態</label></td>" +
 						"<td><select id='iptcourtDocDocStatus" + courtDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"</tr>" +
 					"<tr>" +
-						"<td><label>收文日期</label></td>" +
-						"<td><input id='iptcourtDocReceivedDate" + courtDocsubtabcount + "' ></input></td>" +
 						"<td><label>業主調件日</label></td>" +
 						"<td><input id='iptcourtDocBankDate" + courtDocsubtabcount + "' ></input></td>" +
-						"<td><label>委任狀編號</label></td>" +
-						"<td><input id='iptcourtDocAppointmentLetterCode" + courtDocsubtabcount + "' ></input></td>" +
+						"<td><label>收文日期</label></td>" +
+						"<td><input id='iptcourtDocReceivedDate" + courtDocsubtabcount + "' ></input></td>" +
 					"</tr>" +
 					"<tr>" +
 						"<td><label>文件類別</label></td>" +
@@ -1194,65 +1192,37 @@ law.addDoc.courtDoc = {
 						"<td><label>法院年字案股</label></td>" +
 						"<td><select id='iptcourtDocCourtYearCourt" + courtDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 						"<td><label>年度</label></td>" +
-						"<td><input id='iptcourtDocCourtYearYear" + courtDocsubtabcount + "' ></input></td>" +
+						"<td><input id='iptcourtDocCourtYearYear" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 						"<td><label>字</label></td>" +
-						"<td><input id='iptcourtDocCourtYearTxt" + courtDocsubtabcount + "' ></input></td>" +
+						"<td><input id='iptcourtDocCourtYearTxt" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 						"<td><label>股別</label></td>" +
-						"<td><input id='iptcourtDocCourtYearShare" + courtDocsubtabcount + "' ></input></td>" +
+						"<td><input id='iptcourtDocCourtYearShare" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 						"<td><label>案號</label></td>" +
-						"<td><input id='iptcourtDocCourtYearCaseId" + courtDocsubtabcount + "' ></input></td>" +
+						"<td><input id='iptcourtDocCourtYearCaseId" + courtDocsubtabcount + "' style='width : 60px'></input></td>" +
 					"</tr>" +
 				"</table>" +
 				"<table>" +
 					"<tr>" +
 						"<td><label>收到裁定日</label></td>" +
 						"<td><input id='iptcourtDocRuledDate" + courtDocsubtabcount + "' ></input></td>" +
-						"<td><label>收到金額</label></td>" +
+						"<td><label>裁定金額</label></td>" +
 						"<td><input id='iptcourtDocRuledAmount" + courtDocsubtabcount + "' ></input></td>" +
-						"<td><label>申請確證日</label></td>" +
+						"<td><label>聲請確證日</label></td>" +
 						"<td><input id='iptcourtDocApplyConfirmationDate" + courtDocsubtabcount + "' ></input></td>" +
 					"</tr>" +
 					"<tr>" +
 						"<td><label>收確證日</label></td>" +
 						"<td><input id='iptcourtDocReceivedConfirmationDate" + courtDocsubtabcount + "' ></input></td>" +
-						"<td><label>開庭日</label></td>" +
-						"<td><input id='iptcourtDocCourtDate" + courtDocsubtabcount + "' ></input></td>" +
 						"<td><label>失效日</label></td>" +
 						"<td><input id='iptcourtDocFailureDate" + courtDocsubtabcount + "' ></input></td>" +
 					"</tr>" +
 				"</table>" +
 				"<table>" +
 					"<tr>" +
-						"<td>" +
-							"<table>" +
-								"<tr>" +
-									"<td><input type='radio' name='courtDocApplyLawThird" + courtDocsubtabcount + "' value='0' id='rdocourtDocApplyLawThird" + courtDocsubtabcount + "' checked>法務申請(第三人)</td>" +
-									"<td><select id='iptcourtDocRelationPersonAddress" + courtDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
-									"<td>" +
-										"<button class='ui-button ui-widget ui-corner-all' id ='btncourtDocRelationPersonAddress" + courtDocsubtabcount + "'>" +
-								    		"<span class='ui-icon ui-icon-gear'></span> +新增" +
-								  		"</button>" +
-								  	"</td>" +
-								"</tr>" +
-							"</table>" +
-							"<table>" +
-								"<tr>" +
-									"<td><input type='radio' name='courtDocApplyLawThird" + courtDocsubtabcount + "' value='1' id='rdocourtDocReceivedDocThird" + courtDocsubtabcount + "' >法務收文(第三人)</td>" +
-									"<td><label>第三人名稱</label></td>" +
-									"<td><input id='iptcourtDocOtherRelationPersonName" + courtDocsubtabcount + "' ></input></td>" +
-									"<td><label>第三人地址</label></td>" +
-									"<td><input id='iptcourtDocOtherRelationPersonAddress" + courtDocsubtabcount + "' ></input></td>" +
-									"<td>" +
-										"<button class='ui-button ui-widget ui-corner-all' id ='btncourtDocOtherRelationPersonAddress" + courtDocsubtabcount + "'>" +
-								    		"<span class='ui-icon ui-icon-gear'></span> +新增" +
-								  		"</button>" +
-								  	"</td>" +
-								"</tr>" +
-							"</table>" +
-						"</td>" +
-						"<td>" +
-							"<textarea  rows='4' cols='50' id='iptcourtDocAddAddress" + courtDocsubtabcount + "' ></textarea >" +
-						"</td>" +
+						"<td><label>扣薪第三人(25字)</label></td>" +
+						"<td><input id='iptcourtDocApplyLawThird" + courtDocsubtabcount + "'   style='width : 400px'></input></td>" +
+						"<td><label>扣薪第三人地址(30字)</label></td>" +
+						"<td><input id='iptcourtDocAddAddress" + courtDocsubtabcount + "' style='width : 500px'></input></td>" +
 					"</tr>" +
 				"</table>" +
 				"<table style='background-color:#8FBC8F;'>" +
@@ -1302,11 +1272,11 @@ law.addDoc.courtDoc = {
 				"<table>" +
 					"<tr>" +
 						"<td><label>進度</label></td>" +
-						"<td><input id='iptcourtDocProgress" + courtDocsubtabcount + "' ></input></td>" +
+						"<td><input id='iptcourtDocProgress" + courtDocsubtabcount + "' style='width : 900px'></input></td>" +
 					"</tr>" +
 					"<tr>" +
 						"<td><label>備註</label></td>" +
-						"<td><input id='iptcourtDocRemark" + courtDocsubtabcount + "' ></input></td>" +
+						"<td><input id='iptcourtDocRemark" + courtDocsubtabcount + "' style='width : 900px'></input></td>" +
 					"</tr>" +
 				"</table>" +
 				"<div style='overflow: auto;margin:5px 5px 5px 5px' class='ui-widget-content'>" +
@@ -1314,35 +1284,35 @@ law.addDoc.courtDoc = {
 		       	 	"<table>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>申報債權-文到</label></td>" +
-							"<td><input id='iptcourtDocApplyDebtDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocApplyDebtDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 							"<td><label>日內</label></td>" +
 		           	 		"<td><label>受償情形-文到</label></td>" +
-							"<td><input id='iptcourtDocRepayDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocRepayDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 							"<td><label>日內</label></td>" +
 							"<td><label>使用情形-文到</label></td>" +
-							"<td><input id='iptcourtDocUseDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocUseDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 							"<td><label>日內</label></td>" +
-		           	 	"</tr>" +
-		           	 	"<tr>" +
-		           	 		"<td><label>陳報意見-文到</label></td>" +
-							"<td><input id='iptcourtDocOpinionDays" + "' ></input></td>" +
+							"<td><label>陳報意見-文到</label></td>" +
+							"<td><input id='iptcourtDocOpinionDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 							"<td><label>日內</label></td>" +
 							"<td><label>匯款帳戶-文到</label></td>" +
-							"<td><input id='iptcourtDocAccountDays" + courtDocsubtabcount + "' ></input></td>" +
-							"<td><label>日內</label></td>" +
-		           	 		"<td><label>陳報匯款入帳聲請書-文到</label></td>" +
-							"<td><input id='iptcourtDocPleaseDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocAccountDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 							"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
 		           	 "</table>" +
 		           	 "<table>" +
 		           	 	"<tr>" +
+		           	 		"<td><label>陳報匯款入帳聲請書-文到</label></td>" +
+							"<td><input id='iptcourtDocPleaseDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
+							"<td><label>日內</label></td>" +
 		           	 		"<td><label>陳報其他</label></td>" +
 							"<td><input id='iptcourtDocReportOther" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>文到</label></td>" +
-							"<td><input id='iptcourtDocReportOtherDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocReportOtherDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 							"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
+	           	 	"</table>" +
+		           	 "<table>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>陳報說明</label></td>" +
 							"<td><input id='iptcourtDocReportDescription" + courtDocsubtabcount + "' ></input></td>" +
@@ -1367,13 +1337,13 @@ law.addDoc.courtDoc = {
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='distribution' id='ckbcourtDocDistribution" + courtDocsubtabcount + "'>分配表" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='thingThird' id='ckbcourtDocThingThird" + courtDocsubtabcount + "'>事項表(第三人)" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='thingDebt' id='ckbcourtDocThingDebt" + courtDocsubtabcount + "'>事項表(債權人)" +
+									"</div>" +
+									"<div>" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='coOwned' id='ckbcourtDocCoOwned" + courtDocsubtabcount + "'>共有人名冊" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='debtDoc' id='ckbcourtDocDebtDoc" + courtDocsubtabcount + "'>債權文件" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='detail' id='ckbcourtDocDetail" + courtDocsubtabcount + "'>帳務明細" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='file' id='ckbcourtDocFile" + courtDocsubtabcount + "'>執名附件" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='debtContinue' id='ckbcourtDocDebtContinue" + courtDocsubtabcount + "'>債證續行表" +
-									"</div>" +
-									"<div>" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='cashierCheck' id='ckbcourtDocCashierCheck" + courtDocsubtabcount + "'>本票" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='recovery' id='ckbcourtDocRecovery" + courtDocsubtabcount + "'>回復所有權登記" +
 										"<input type='checkbox' name='ckbcourtDoc" + courtDocsubtabcount + "' value='other' id='ckbcourtDocOther" + courtDocsubtabcount + "'>其它" +
@@ -1385,7 +1355,7 @@ law.addDoc.courtDoc = {
 		           	 "<table>" +
 		           	 	"<tr id='trcourtDocTranscripts" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocTranscriptsSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocTranscriptsSub" + courtDocsubtabcount + "'>戶謄</td>" +
-		           	 		"<td><input id='iptcourtDocTranscriptsDays" + courtDocsubtabcount + "' ></input></td>" +
+		           	 		"<td><input id='iptcourtDocTranscriptsDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 		"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1395,7 +1365,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocCoOwnedTranscripts" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocCoOwnedTranscriptsSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocCoOwnedTranscriptsSub" + courtDocsubtabcount + "'>共有人戶謄</td>" +
-							"<td><input id='iptcourtDocCoOwnedTranscriptsDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocCoOwnedTranscriptsDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocCoOwnedTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1405,7 +1375,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocMortgageeTranscripts" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocMortgageeTranscriptsSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocMortgageeTranscriptsSub" + courtDocsubtabcount + "'>抵押權人戶謄</td>" +
-							"<td><input id='iptcourtDocMortgageeTranscriptsDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocMortgageeTranscriptsDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocMortgageeTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1415,7 +1385,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocLawTranscripts" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocLawTranscriptsSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocLawTranscriptsSub" + courtDocsubtabcount + "'>法代戶謄</td>" +
-							"<td><input id='iptcourtDocLawTranscriptsDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocLawTranscriptsDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocLawTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1425,7 +1395,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocHeirTranscripts" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocHeirTranscriptsSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocHeirTranscriptsSub" + courtDocsubtabcount + "'>繼承人戶謄</td>" +
-							"<td><input id='iptcourtDocHeirTranscriptsDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocHeirTranscriptsDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocHeirTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1435,7 +1405,7 @@ law.addDoc.courtDoc = {
 		           	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDirtTranscripts" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocDirtTranscriptsSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocDirtTranscriptsSub" + courtDocsubtabcount + "'>土謄</td>" +
-							"<td><input id='iptcourtDocDirtTranscriptsDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocDirtTranscriptsDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDirtTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1445,7 +1415,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocBuiltTranscripts" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocBuiltTranscripts" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocBuiltTranscriptsSub" + courtDocsubtabcount + "'>建謄</td>" +
-							"<td><input id='iptcourtDocBuiltTranscriptsDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocBuiltTranscriptsDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocBuiltTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1455,7 +1425,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDistribution" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocDistributionSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocDistributionSub" + courtDocsubtabcount + "'>分配表</td>" +
-							"<td><input id='iptcourtDocDistributionDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocDistributionDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDistributionRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1465,7 +1435,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocThingThird" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocThingThirdSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocThingThirdSub" + courtDocsubtabcount + "'>事項表(第三人)</td>" +
-							"<td><input id='iptcourtDocThingThirdDays" + courtDocsubtabcount + "'></input></td>" +
+							"<td><input id='iptcourtDocThingThirdDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocThingThirdRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1475,7 +1445,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocThingDebt" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocThingDebtSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocThingDebtSub" + courtDocsubtabcount + "'>事項表(債權人)</td>" +
-							"<td><input id='iptcourtDocThingDebtDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocThingDebtDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocThingDebtRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1485,7 +1455,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocCoOwned" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocCoOwnedSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocCoOwnedSub" + courtDocsubtabcount + "'>共有人名冊</td>" +
-							"<td><input id='iptcourtDocCoOwnedDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocCoOwnedDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocCoOwnedRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1495,7 +1465,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDebtDoc" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocDebtDocSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocDebtDocSub" + courtDocsubtabcount + "'>債權文件</td>" +
-							"<td><input id='iptcourtDocDebtDocDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocDebtDocDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDebtDocRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1505,7 +1475,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDetail" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocDetailSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocDetailSub" + courtDocsubtabcount + "'>帳務明細</td>" +
-							"<td><input id='iptcourtDocDetailDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocDetailDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDetailRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1515,7 +1485,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocFile" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocFileSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocFileSub" + courtDocsubtabcount + "'>執名附件</td>" +
-							"<td><input id='iptcourtDocFileDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocFileDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocFileRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1525,7 +1495,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDebtContinue" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocDebtContinueSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocDebtContinueSub" + courtDocsubtabcount + "'>債證續行表</td>" +
-							"<td><input id='iptcourtDocDebtContinueDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocDebtContinueDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDebtContinueRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1535,7 +1505,7 @@ law.addDoc.courtDoc = {
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocCashierCheck" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocCashierCheckSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocCashierCheckSub" + courtDocsubtabcount + "'>本票</td>" +
-							"<td><input id='iptcourtDocCashierCheckDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocCashierCheckDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocCashierCheckRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1557,7 +1527,7 @@ law.addDoc.courtDoc = {
 		           	 "<table>" +
 		        	 	"<tr id='trcourtDocOther" + courtDocsubtabcount + "'>" +
 		           	 		"<td><input type='checkbox' name='namecourtDocOtherSub" + courtDocsubtabcount + "' value='transcripts' id='ckbcourtDocOtherSub" + courtDocsubtabcount + "'>其它</td>" +
-							"<td><input id='iptcourtDocOtherName" + courtDocsubtabcount + "' ></input><input id='iptcourtDocOtherDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocOtherName" + courtDocsubtabcount + "' ></input><input id='iptcourtDocOtherDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		   	 				"<td><label>日內</label></td>" +
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocOtherRemark" + courtDocsubtabcount + "' ></input></td>" +
@@ -1580,72 +1550,72 @@ law.addDoc.courtDoc = {
 		           	 		"<td><label>程序費-金額</label></td>" +
 							"<td><input id='iptcourtDocProgramCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocProgramDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocProgramDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 		"<td><label>訴訟費-金額</label></td>" +
 							"<td><input id='iptcourtDocLegalActionCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocLegalActionDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocLegalActionDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>執行費-金額</label></td>" +
 							"<td><input id='iptcourtDocExcuteCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocExcuteDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocExcuteDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 		"<td><label>補發費-金額</label></td>" +
 							"<td><input id='iptcourtDocReplacementCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocReplacementDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocReplacementDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>指界費-金額</label></td>" +
 							"<td><input id='iptcourtDocSectorCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocSectorDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocSectorDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 		"<td><label>鑑價費-金額</label></td>" +
 							"<td><input id='iptcourtDocValuationCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocValuationDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocValuationDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>複丈費-金額</label></td>" +
 							"<td><input id='iptcourtDocRebirthCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocRebirthDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocRebirthDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 		"<td><label>測量費-金額</label></td>" +
 							"<td><input id='iptcourtDocMeasureCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocMeasureDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocMeasureDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>提存金-金額</label></td>" +
 							"<td><input id='iptcourtDocSaveCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocSaveDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocSaveDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 		"<td><label>集保-金額</label></td>" +
 							"<td><input id='iptcourtDocCentralizedCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocCentralizedDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocCentralizedDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>保單-金額</label></td>" +
 							"<td><input id='iptcourtDocInsuranceCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocInsuranceDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocInsuranceDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 		"<td><label>郵局-金額</label></td>" +
 							"<td><input id='iptcourtDocPostCost" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>繳費期限</label></td>" +
-							"<td><input id='iptcourtDocPostDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocPostDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 		           	 	"</tr>" +
 		       	 	"</table>" +
@@ -1656,7 +1626,7 @@ law.addDoc.courtDoc = {
 		       	 	"<table>" +
 		           	 	"<tr>" +
 		           	 		"<td><label>登報-文到</label></td>" +
-							"<td><input id='iptcourtDocPublishDays" + courtDocsubtabcount + "' ></input></td>" +
+							"<td><input id='iptcourtDocPublishDays" + courtDocsubtabcount + "' style='width : 50px'></input></td>" +
 		           	 		"<td><label>日內</label></td>" +
 							"<td><select id='iptcourtDocPublishObject" + courtDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 		           	 		"<td><label>事項</label></td>" +
@@ -1732,7 +1702,6 @@ law.addDoc.courtDoc = {
 	 	law.common.formatInputItemToDate("#iptcourtDocRuledDate" + courtDocsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcourtDocApplyConfirmationDate" + courtDocsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcourtDocReceivedConfirmationDate" + courtDocsubtabcount, "yy-mm-dd");
-	 	law.common.formatInputItemToDate("#iptcourtDocCourtDate" + courtDocsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcourtDocFailureDate" + courtDocsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcourtDocApprovedDelayDate" + courtDocsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcourtDocDelayEndDate" + courtDocsubtabcount, "yy-mm-dd");
@@ -1769,7 +1738,6 @@ law.addDoc.courtDoc = {
 		
 		});
 		law.common.selectOption("#iptcourtDocBankName" + courtDocsubtabcount, courtDoc.BankName);
-		law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.OldBankName);
 		law.common.selectOption("#iptcourtDocCourtYearCourt" + courtDocsubtabcount, courtDoc.CourtYearCourt);
 		law.common.selectOption("#iptcourtDocPublishObject" + courtDocsubtabcount, courtDoc.PublishObject);
 		law.common.selectOption("#iptcourtDocPublishThings" + courtDocsubtabcount, courtDoc.PublishThings);
@@ -1795,6 +1763,43 @@ law.addDoc.courtDoc = {
 		law.common.selectRelaOption("#iptcourtDocRecoveryRelationPerson" + courtDocsubtabcount + "_0", law.addDoc.rela);
 		law.common.selectRelaOption("#iptcourtDocOtherRelationPerson" + courtDocsubtabcount + "_0", law.addDoc.rela);
 		
+		// 動態跑出原債權人
+		$("#iptcourtDocBankName" + courtDocsubtabcount).change(function(i) {
+			if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-B1" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-B2" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-B3" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-B4" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-B5" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-B6" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-B7" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-CD" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-CR"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.TSBOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "FEI_BK"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.FEIOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "SK_BK"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.SKOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "YT_AMC" ||
+					$("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "YT_IS"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.YTOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "FI-AMC"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.FIOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TS-AMC"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.TSAOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "TAMCO"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.TAMCOOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.ORIXOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "MT-IS"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.MTOldBankName);
+			}else if($("#iptcourtDocBankName" + courtDocsubtabcount).find('option:selected').val() ===  "UN_IS"){
+				law.common.selectOption("#iptcourtDocOldBankName" + courtDocsubtabcount, courtDoc.UNOldBankName);
+			}else{
+				var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+				$("#iptcourtDocOldBankName" + courtDocsubtabcount + " option").remove();
+				$("#iptcourtDocOldBankName" + courtDocsubtabcount).append(selectNull);
+			}
+		});
 		
 		//設定收文日期為當日
 		$("#iptcourtDocReceivedDate" + courtDocsubtabcount).val(courtDoc.ReceivedDate);
@@ -1806,21 +1811,32 @@ law.addDoc.courtDoc = {
  		law.addDoc.courtDoc.controlcourtDocEditCKB(courtDocsubtabcount+1);
 	},
 	// 初始化
-	initcourtDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, OldBankName, CourtYearCourt,
-		ImmovablesTypeTwo, CenTypeTwo, DebtTypeTwo, PublishObject, PublishThings){
+	initcourtDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, TSBOldBankName, 
+			CourtYearCourt,	ImmovablesTypeTwo, CenTypeTwo, DebtTypeTwo, PublishObject, PublishThings, 
+			FEIOldBankName, SKOldBankName,YTOldBankName, FIOldBankName, TSAOldBankName, 
+			TAMCOOldBankName, ORIXOldBankName, MTOldBankName, UNOldBankName){
 		var initsub = law.addDoc.courtDoc;
 		initsub.ReceivedDate = ReceivedDate;
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
 		initsub.BankName = BankName;
-		initsub.OldBankName = OldBankName;
+		initsub.TSBOldBankName = TSBOldBankName;
 		initsub.CourtYearCourt = CourtYearCourt;
 		initsub.ImmovablesTypeTwo = ImmovablesTypeTwo;
 		initsub.CenTypeTwo = CenTypeTwo;
 		initsub.DebtTypeTwo = DebtTypeTwo;
 		initsub.PublishObject = PublishObject;
 		initsub.PublishThings = PublishThings;
+		initsub.FEIOldBankName = FEIOldBankName;
+		initsub.SKOldBankName = SKOldBankName;
+		initsub.YTOldBankName = YTOldBankName;
+		initsub.FIOldBankName = FIOldBankName;
+		initsub.TSAOldBankName = TSAOldBankName;
+		initsub.TAMCOOldBankName = TAMCOOldBankName;
+		initsub.ORIXOldBankName = ORIXOldBankName;
+		initsub.MTOldBankName = MTOldBankName;
+		initsub.UNOldBankName = UNOldBankName;
 	},
 	// 將所有頁籤內容帶出
 	returnAllsubtabJson : function(){
@@ -2029,7 +2045,6 @@ law.addDoc.courtDoc = {
 			'shadow' : $("#rdocourtDocShadow:checked").val(),
 			'receivedDate' : $("#iptcourtDocReceivedDate").val(),
 			'bankDate' : $("#iptcourtDocBankDate").val(),
-			'appointmentLetterCode' : $("#iptcourtDocAppointmentLetterCode").val(),
 			'docStatus' : $("#iptcourtDocDocStatus").find('option:selected').val(),
 			'typeOne' : $("#iptcourtDocTypeOne").find('option:selected').val(),
 			'typeTwo' : $("#iptcourtDocTypeTwo").find('option:selected').val(),
@@ -2046,12 +2061,11 @@ law.addDoc.courtDoc = {
 			'ruledAmount' : $("#iptcourtDocRuledAmount").val(),
 			'applyConfirmationDate' : $("#iptcourtDocApplyConfirmationDate").val(),
 			'receivedConfirmationDate' : $("#iptcourtDocReceivedConfirmationDate").val(),
-			'courtDate' : $("#iptcourtDocCourtDate").val(),
 			'failureDate' : $("#iptcourtDocFailureDate").val(),
-			'applyLawThird' : $("#rdocourtDocApplyLawThird:checked").val(),
+			'applyLawThird' : $("#iptcourtDocApplyLawThird").val(),
 			'addAddress' : $("#iptcourtDocAddAddress").val(),
 			'distributionAmount' : $("#iptcourtDocDistributionAmount").val(),
-			'approbedDelayDate' : $("#iptcourtDocApprovedDelayDate").val(),
+			'approvedDelayDate' : $("#iptcourtDocApprovedDelayDate").val(),
 			'delayEndDate' : $("#iptcourtDocDelayEndDate").val(),
 			'sectorDate' : $("#iptcourtDocSectorDate").val(),
 			'measureDate' : $("#iptcourtDocMeasureDate").val(),
@@ -2441,7 +2455,6 @@ law.addDoc.courtDoc = {
 					'shadow' : $("#rdocourtDocShadow" + i + ":checked").val(),
 					'receivedDate' : $("#iptcourtDocReceivedDate" + i).val(),
 					'bankDate' : $("#iptcourtDocBankDate" + i).val(),
-					'appointmentLetterCode' : $("#iptcourtDocAppointmentLetterCode" + i).val(),
 					'docStatus' : $("#iptcourtDocDocStatus" + i).find('option:selected').val(),
 					'typeOne' : $("#iptcourtDocTypeOne" + i).find('option:selected').val(),
 					'typeTwo' : $("#iptcourtDocTypeTwo" + i).find('option:selected').val(),
@@ -2458,12 +2471,11 @@ law.addDoc.courtDoc = {
 					'ruledAmount' : $("#iptcourtDocRuledAmount" + i).val(),
 					'applyConfirmationDate' : $("#iptcourtDocApplyConfirmationDate" + i).val(),
 					'receivedConfirmationDate' : $("#iptcourtDocReceivedConfirmationDate" + i).val(),
-					'courtDate' : $("#iptcourtDocCourtDate" + i).val(),
 					'failureDate' : $("#iptcourtDocFailureDate" + i).val(),
-					'applyLawThird' : $("#rdocourtDocApplyLawThird" + i + ":checked").val(),
+					'applyLawThird' : $("#iptcourtDocApplyLawThird" + i).val(),
 					'addAddress' : $("#iptcourtDocAddAddress" + i).val(),
 					'distributionAmount' : $("#iptcourtDocDistributionAmount" + i).val(),
-					'approbedDelayDate' : $("#iptcourtDocApprovedDelayDate" + i).val(),
+					'approvedDelayDate' : $("#iptcourtDocApprovedDelayDate" + i).val(),
 					'delayEndDate' : $("#iptcourtDocDelayEndDate" + i).val(),
 					'sectorDate' : $("#iptcourtDocSectorDate" + i).val(),
 					'measureDate' : $("#iptcourtDocMeasureDate" + i).val(),
@@ -2658,7 +2670,6 @@ law.addDoc.courtDoc = {
  	law.common.formatInputItemToDate("#iptcourtDocRuledDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcourtDocApplyConfirmationDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcourtDocReceivedConfirmationDate", "yy-mm-dd");
- 	law.common.formatInputItemToDate("#iptcourtDocCourtDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcourtDocFailureDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcourtDocApprovedDelayDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcourtDocDelayEndDate", "yy-mm-dd");

@@ -45,10 +45,10 @@ law.addDoc.debts = {
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
            	 	"<tr>" +
-					"<td><label>收文日期</label></td>" +
-					"<td><input id='iptdebtsReceivedDate" + debtssubtabcount + "'></input></td>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptdebtsBankDate" + debtssubtabcount + "' ></input></td>" +
+					"<td><label>收文日期</label></td>" +
+					"<td><input id='iptdebtsReceivedDate" + debtssubtabcount + "'></input></td>" +
 					"<td><label>文件狀態</label></td>" +
 					"<td><select id='iptdebtsDocStatus" + debtssubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
@@ -71,17 +71,17 @@ law.addDoc.debts = {
 				"</tr>" +
 			"</table>" +
 			"<table>" +
-				"<tr>" +
+				"<tr bgcolor='#FFEBCD' >" +
 					"<td><label>法院年字案股</label></td>" +
 					"<td><select id='iptdebtsCourtYearCourt" + debtssubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>年度</label></td>" +
-					"<td><input id='iptdebtsCourtYearYear" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearYear" + debtssubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>字</label></td>" +
-					"<td><input id='iptdebtsCourtYearTxt" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearTxt" + debtssubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>股別</label></td>" +
-					"<td><input id='iptdebtsCourtYearShare" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearShare" + debtssubtabcount + "' style='width : 50px'></input></td>" +
 					"<td><label>案號</label></td>" +
-					"<td><input id='iptdebtsCourtYearCaseId" + debtssubtabcount + "'></input></td>" +
+					"<td><input id='iptdebtsCourtYearCaseId" + debtssubtabcount + "' style='width : 60px'></input></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>債讓日</label></td>" +
@@ -114,25 +114,74 @@ law.addDoc.debts = {
 		law.common.selectOption("#iptdebtsTypeOne" + debtssubtabcount, debts.TypeOne, "8aa2e72a5c812434015c81303cbf0008");
 		law.common.selectOption("#iptdebtsTypeTwo" + debtssubtabcount, debts.TypeTwo);
 		law.common.selectOption("#iptdebtsBankName" + debtssubtabcount, debts.BankName);
-		law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.OldBankName);
 		law.common.selectOption("#iptdebtsCourtYearCourt" + debtssubtabcount, debts.CourtYearCourt);
 		law.common.selectRelaOption("#iptdebtsRelationPerson" + debtssubtabcount + "_0", law.addDoc.rela);
 		//設定收文日期為當日
 		$("#iptdebtsReceivedDate" + debtssubtabcount).val(debts.ReceivedDate);
 		
+		//動態跑出原債權人
+		$("#iptdebtsBankName" + debtssubtabcount).change(function(i) {
+			if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B1" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B2" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B3" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B4" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B5" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B6" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B7" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-CD" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-CR"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TSBOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "FEI_BK"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.FEIOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "SK_BK"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.SKOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "YT_AMC" ||
+					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "YT_IS"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.YTOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "FI-AMC"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.FIOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-AMC"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TSAOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TAMCO"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TAMCOOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.ORIXOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "MT-IS"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.MTOldBankName);
+			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "UN_IS"){
+				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.UNOldBankName);
+			}else{
+				var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+				$("#iptdebtsOldBankName" + debtssubtabcount + " option").remove();
+				$("#iptdebtsOldBankName" + debtssubtabcount).append(selectNull);
+			}
+		
+		});
+		
 		//設定相對人 = 0
 		law.addDoc.debts.debtsRelaNum[(debtssubtabcount+1)] = 0;
 	},
 	// 初始化
-	initdebtssubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, OldBankName, CourtYearCourt){
+	initdebtssubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, TSBOldBankName, CourtYearCourt, 
+			FEIOldBankName, SKOldBankName,YTOldBankName, FIOldBankName, TSAOldBankName, 
+			TAMCOOldBankName, ORIXOldBankName, MTOldBankName, UNOldBankName){
 		var initsub = law.addDoc.debts;
 		initsub.ReceivedDate = ReceivedDate;
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
 		initsub.BankName = BankName;
-		initsub.OldBankName = OldBankName;
+		initsub.TSBOldBankName = TSBOldBankName;
 		initsub.CourtYearCourt = CourtYearCourt;
+		initsub.FEIOldBankName = FEIOldBankName;
+		initsub.SKOldBankName = SKOldBankName;
+		initsub.YTOldBankName = YTOldBankName;
+		initsub.FIOldBankName = FIOldBankName;
+		initsub.TSAOldBankName = TSAOldBankName;
+		initsub.TAMCOOldBankName = TAMCOOldBankName;
+		initsub.ORIXOldBankName = ORIXOldBankName;
+		initsub.MTOldBankName = MTOldBankName;
+		initsub.UNOldBankName = UNOldBankName;
 	},
 	// 將所有頁籤內容帶出
 	returnAllsubtabJson : function(){
