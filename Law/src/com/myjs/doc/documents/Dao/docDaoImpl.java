@@ -650,7 +650,6 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		log.debug("findDocByCaseId start");
 		StringBuffer queryString = new StringBuffer("exec SP_finddocbycaseId " + caseId);
 		log.debug("queryString = {}", queryString);
-//		List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
 		
 		@SuppressWarnings("unchecked")
 		List<LDocInfo> ListDocInfo = jdbcTemplate.query(queryString.toString(), new LDocInfoMapper());

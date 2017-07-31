@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <meta http-equiv="x-ua-compatible" content="IE=edge" charset="utf-8">
-<!-- Add By Jia 2017-07-27 補正(公務機關)的JS功能 -->
+<!-- Add By Jia 2017-07-31 調卷的JS功能 -->
 <script type="text/javascript" src="../legaljs/doc/docmoveDoc.js"></script>
 <head>
 <style>
@@ -15,7 +15,7 @@
     	min-width:450px;
     }
 </style>
-<title>繳費</title>
+<title>調卷</title>
 </head>
 <body>
 	<script type="text/javascript">
@@ -110,13 +110,23 @@
 		<table>
 			<tr>
 				<td>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryDocSum">
+					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryMoveDoc">
 				    	<span class="ui-icon ui-icon-gear"></span> 查詢
 				  	</button>
 				</td>
 				<td>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnprintDocSum">
-				    	<span class="ui-icon ui-icon-gear"></span> 匯出Excel
+					<button class="ui-button ui-widget ui-corner-all" id ="btnprintMoveDoc">
+				    	<span class="ui-icon ui-icon-gear"></span> 列印明細
+				  	</button>
+				</td>
+				<td>
+					<button class="ui-button ui-widget ui-corner-all" id ="btncheckMoveDoc">
+				    	<span class="ui-icon ui-icon-gear"></span> 確定調出
+				  	</button>
+				</td>
+				<td>
+					<button class="ui-button ui-widget ui-corner-all" id ="btncancelMoveDoc">
+				    	<span class="ui-icon ui-icon-gear"></span> 取消借調
 				  	</button>
 				</td>
 			</tr>
@@ -125,54 +135,54 @@
 		<table>
 			<tr>
 				<td>
-			    	<label for="labsearchDocPayCaseId">案號 </label>
-					<input id="iptsearchDocPayCaseId"></input>
+			    	<label for="labsearchMoveDocCaseId">案號 </label>
+					<input id="iptsearchMoveDocCaseId"></input>
 				</td>
 				<td>
-			    	<label for="labsearchDocPayBankName">委託公司 </label>
-					<input id="iptsearchDocPayBankName"></input>
+			    	<label for="labsearchMoveDocBankName">委託公司 </label>
+					<input id="iptsearchMoveDocBankName"></input>
 				</td>
 				<td>
-			    	<label for="labsearchDocPayReceivedStartDate">收文日期 </label>
-					<input id="iptsearchDocPayReceivedStartDate"></input>
-				</td>
-				<td>
-			    	<label for="labsearchDocPayReceivedEndDate">~ </label>
-					<input id="iptsearchDocPayReceivedEndDate"></input>
+			    	<label for="labsearchMoveDocIsInStore">是否在庫 </label>
+					<select id="iptsearchMoveDocIsInStore"><option value="">請選擇</option></select>
 				</td>
 			</tr>
 			<tr>
 				<td>
-			    	<label for="labsearchDocPayDebtName">姓名 </label>
-					<input id="iptsearchDocPayDebtName"></input>
+			    	<label for="labsearchMoveDocDebtName">姓名 </label>
+					<input id="iptsearchMoveDocDebtName"></input>
 				</td>
-				<td></td>
-				<td><label for="labsearchDocPayProdName">產品別 </label><div class="select-bar">
-						<select multiple="multiple" id="selectedBox_docPayProdName">
-						</select>
-					</div></td>
+				<td>
+			    	<label for="labsearchMoveDocBorrowReason">申調原因 </label>
+					<select id="iptMoveDocBorrowReason"><option value="">請選擇</option></select>
+				</td>
+				<td>
+			    	<label for="labsearchMoveDocDocStatud">文管狀態</label>
+					<select id="cobsearchMoveDocDocStatud"><option value="">請選擇</option></select>
+				</td>
 			</tr>
 			<tr>
 				<td>
-			    	<label for="labsearchDocPayID">ID: </label>
-					<input id="iptsearchDocPayID"></input>
+			    	<label for="labsearchMoveDocID">ID</label>
+					<input id="iptsearchMoveDocID"></input>
+				</td>
+				<td>
+			    	<label for="labsearchMoveDocBorrowStartDate">申調日期 </label>
+					<input id="iptsearchMoveDocBorrowStartDate"></input>
+				</td>
+				<td>
+			    	<label for="labsearchMoveDocBorrowEndDate">~</label>
+					<input id="iptsearchMoveDocBorrowEndDate"></input>
 				</td>
 			</tr>
 			<tr>
 				<td>
-			    	<label for="labsearchDocPayDocCode">文件編號 </label>
-					<input id="iptsearchDocPayDocCode"></input>
+			    	<label for="labsearchMoveDocDocCode">文件編號 </label>
+					<input id="iptsearchMoveDocDocCode"></input>
 				</td>
-				<td><label for="labsearchDocPayBusinessUserName">業務人員 </label>
-						<select id="selectedBox_docPayBusinessUserName">	</select>
+				<td><label for="labsearchMoveDocBorrowUserName">申請人 </label>
+						<select id="cobsearchMoveDocBorrowUserName"><option value="">請選擇</option></select>
 				</td>
-			</tr>
-			<tr>
-				<td><label for="labsearchDocSumStatus">狀態: </label><div class="select-bar">
-						<select multiple="multiple" id="selectedBox_docSumStatus">
-						</select>
-					</div></td>
-				<td>
 			</tr>
 		</table>
 		<!-- 查詢條件欄位 -->
