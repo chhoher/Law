@@ -133,7 +133,14 @@
 					                }
 					            }).on('loaded.jstree', function(e, data) {
 					                $menutreeview.jstree('open_all');
+					             	// 把一些選項隱藏
+									$(menuJson).each( function() {
+										if(this.isShow === "N"){
+									    	$("#menu").jstree().hide_node(this.id);
+										}
+									});
 					            });
+								
 							},
 							error : function(xhr, ajaxOptions, thrownError) {
 								alert(xhr.status);

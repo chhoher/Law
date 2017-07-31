@@ -216,7 +216,7 @@ public class testGson {
 	 				MapColumnListnull.add(lcekcolumn);
 	 			}
 	            //System.out.println(rs.getString("column_id") + "," + rs.getString("column_name") + "," + rs.getString("checkform_column_id"));  
-	            //Gson的地方
+	            //Gson的地方ee
 	         }  
 
 	 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

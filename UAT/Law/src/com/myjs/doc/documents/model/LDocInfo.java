@@ -79,6 +79,30 @@ public class LDocInfo {
     private String debtsDate;
     private String claimsdocQuota;
     private String claimsDocInterestRate;
+
+	// Add By Jia 2017-07-26 Vo
+	private String prodName;
+	private String ID;
+	private String borrowReason;
+	private String lawCode;
+	private String borrowDatetime;
+	private String borrowUserId;
+	private String borrowUserName;
+	private String progressDatetime;
+	private String progressUserId;
+	private String progressUserName;
+	private String checkDatetime;
+	private String checkUserId;
+	private String checkUserName;
+	private String backDatetime;
+	private String backUserId;
+	private String backUserName;
+	private String finalDatetime;
+	private String finalUserId;
+	private String finalUserName;
+	private String businessAccount;
+	private String business;
+	private String rowNum;
 	
 	public LDocInfo(String docInfoId, int caseId, String createUserId,
 			Date createDatetime) {
@@ -681,6 +705,182 @@ public class LDocInfo {
 
 	public void setClaimsDocInterestRate(String claimsDocInterestRate) {
 		this.claimsDocInterestRate = claimsDocInterestRate;
+	}
+
+	public String getProdName() {
+		return prodName;
+	}
+
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
+	}
+
+	public String getBorrowReason() {
+		return borrowReason;
+	}
+
+	public void setBorrowReason(String borrowReason) {
+		this.borrowReason = borrowReason;
+	}
+
+	public String getLawCode() {
+		return lawCode;
+	}
+
+	public void setLawCode(String lawCode) {
+		this.lawCode = lawCode;
+	}
+
+	public String getBorrowDatetime() {
+		return borrowDatetime;
+	}
+
+	public void setBorrowDatetime(String borrowDatetime) {
+		this.borrowDatetime = borrowDatetime;
+	}
+
+	public String getBorrowUserId() {
+		return borrowUserId;
+	}
+
+	public void setBorrowUserId(String borrowUserId) {
+		this.borrowUserId = borrowUserId;
+	}
+
+	public String getBorrowUserName() {
+		return borrowUserName;
+	}
+
+	public void setBorrowUserName(String borrowUserName) {
+		this.borrowUserName = borrowUserName;
+	}
+
+	public String getProgressDatetime() {
+		return progressDatetime;
+	}
+
+	public void setProgressDatetime(String progressDatetime) {
+		this.progressDatetime = progressDatetime;
+	}
+
+	public String getProgressUserId() {
+		return progressUserId;
+	}
+
+	public void setProgressUserId(String progressUserId) {
+		this.progressUserId = progressUserId;
+	}
+
+	public String getProgressUserName() {
+		return progressUserName;
+	}
+
+	public void setProgressUserName(String progressUserName) {
+		this.progressUserName = progressUserName;
+	}
+
+	public String getCheckDatetime() {
+		return checkDatetime;
+	}
+
+	public void setCheckDatetime(String checkDatetime) {
+		this.checkDatetime = checkDatetime;
+	}
+
+	public String getCheckUserId() {
+		return checkUserId;
+	}
+
+	public void setCheckUserId(String checkUserId) {
+		this.checkUserId = checkUserId;
+	}
+
+	public String getCheckUserName() {
+		return checkUserName;
+	}
+
+	public void setCheckUserName(String checkUserName) {
+		this.checkUserName = checkUserName;
+	}
+
+	public String getBackDatetime() {
+		return backDatetime;
+	}
+
+	public void setBackDatetime(String backDatetime) {
+		this.backDatetime = backDatetime;
+	}
+
+	public String getBackUserId() {
+		return backUserId;
+	}
+
+	public void setBackUserId(String backUserId) {
+		this.backUserId = backUserId;
+	}
+
+	public String getBackUserName() {
+		return backUserName;
+	}
+
+	public void setBackUserName(String backUserName) {
+		this.backUserName = backUserName;
+	}
+
+	public String getFinalDatetime() {
+		return finalDatetime;
+	}
+
+	public void setFinalDatetime(String finalDatetime) {
+		this.finalDatetime = finalDatetime;
+	}
+
+	public String getFinalUserId() {
+		return finalUserId;
+	}
+
+	public void setFinalUserId(String finalUserId) {
+		this.finalUserId = finalUserId;
+	}
+
+	public String getFinalUserName() {
+		return finalUserName;
+	}
+
+	public void setFinalUserName(String finalUserName) {
+		this.finalUserName = finalUserName;
+	}
+
+	public String getBusinessAccount() {
+		return businessAccount;
+	}
+
+	public void setBusinessAccount(String businessAccount) {
+		this.businessAccount = businessAccount;
+	}
+
+	public String getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(String business) {
+		this.business = business;
+	}
+
+	public String getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(String rowNum) {
+		this.rowNum = rowNum;
 	}
 	
 }

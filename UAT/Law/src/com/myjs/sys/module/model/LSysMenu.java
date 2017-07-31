@@ -11,6 +11,7 @@ public class LSysMenu {
 	private String isDelete;
 	private String menuUrl;
 	private String isNode;
+	private String isShow;
 	
 	// add By Jia 2017-05-31 Vo
 	private String menuPname;
@@ -139,6 +140,14 @@ public class LSysMenu {
 
 	public void setIsNode(String isNode) {
 		this.isNode = isNode;
+	}
+
+	public String getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(String isShow) {
+		this.isShow = isShow;
 	}
 
 }

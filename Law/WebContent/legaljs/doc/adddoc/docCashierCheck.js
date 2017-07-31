@@ -108,23 +108,71 @@ law.addDoc.cashierCheck = {
 		law.common.selectOption("#iptcashierCheckTypeOne" + cashierChecksubtabcount, cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007");
 		law.common.selectOption("#iptcashierCheckTypeTwo" + cashierChecksubtabcount, cashierCheck.TypeTwo);
 		law.common.selectOption("#iptcashierCheckBankName" + cashierChecksubtabcount, cashierCheck.BankName);
-		law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.OldBankName);
 		law.common.selectRelaOption("#iptcashierCheckRelationPerson" + cashierChecksubtabcount + "_0", law.addDoc.rela);
 		//設定收文日期為當日
 		$("#iptcashierCheckReceivedDate" + cashierChecksubtabcount).val(cashierCheck.ReceivedDate);
+		
+		//跑出動態原債權人
+		$("#iptcashierCheckBankName" + cashierChecksubtabcount).change(function(i) {
+			if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B1" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B2" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B3" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B4" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B5" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B6" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B7" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-CD" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-CR"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TSBOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "FEI_BK"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.FEIOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "SK_BK"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.SKOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "YT_AMC" ||
+					$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "YT_IS"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.YTOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "FI-AMC"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.FIOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-AMC"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TSAOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TAMCO"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TAMCOOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.ORIXOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "MT-IS"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.MTOldBankName);
+			}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "UN_IS"){
+				law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.UNOldBankName);
+			}else{
+				var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+				$("#iptcashierCheckOldBankName" + cashierChecksubtabcount + " option").remove();
+				$("#iptcashierCheckOldBankName" + cashierChecksubtabcount).append(selectNull);
+			}
+		});
 		
 		//設定相對人 = 0
 		law.addDoc.cashierCheck.cashierCheckRelaNum[(cashierChecksubtabcount+1)] = 0;
 	},
 	// 初始化
-	initcashierChecksubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, OldBankName){
+	initcashierChecksubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, 
+			TSBOldBankName, FEIOldBankName, SKOldBankName,YTOldBankName, FIOldBankName, 
+			TSAOldBankName, TAMCOOldBankName, ORIXOldBankName, MTOldBankName, UNOldBankName){
 		var initsub = law.addDoc.cashierCheck;
 		initsub.ReceivedDate = ReceivedDate;
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
 		initsub.BankName = BankName;
-		initsub.OldBankName = OldBankName;
+		initsub.TSBOldBankName = TSBOldBankName;
+		initsub.FEIOldBankName = FEIOldBankName;
+		initsub.SKOldBankName = SKOldBankName;
+		initsub.YTOldBankName = YTOldBankName;
+		initsub.FIOldBankName = FIOldBankName;
+		initsub.TSAOldBankName = TSAOldBankName;
+		initsub.TAMCOOldBankName = TAMCOOldBankName;
+		initsub.ORIXOldBankName = ORIXOldBankName;
+		initsub.MTOldBankName = MTOldBankName;
+		initsub.UNOldBankName = UNOldBankName;
 	},
 	// 將所有頁籤內容帶出
 	returnAllsubtabJson : function(){
