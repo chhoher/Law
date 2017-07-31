@@ -15,7 +15,40 @@ $(function() {
 			returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
 			returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
 			returnOther = law.addDoc.other.returnAllsubtabJson();// 儲存(其他)
-
+		
+		var checkAll = $("#ckbaddDocAll").is(':checked'),
+			checkCentitlement = $("#ckbaddDocentitlementForeclosure").is(':checked'),
+			checkCourtDoc = $("#ckbaddDoccourtDoc").is(':checked'),
+			checkCashierCheck = $("#ckbaddDoccashierCheck").is(':checked'),
+			checkDebts = $("#ckbaddDocdebts").is(':checked'),
+			checkClaimsDoc = $("#ckbaddDocclaimsDoc").is(':checked'),
+			checkDocFile = $("#ckbaddDocfile").is(':checked'),
+			checkOther = $("#ckbaddDocother").is(':checked');
+			
+		if(!checkAll){
+			if(!checkCentitlement){
+				returnCentitlement = null;
+			}
+			if(!checkCourtDoc){
+				returnCourtDoc = null;
+			}
+			if(!checkCashierCheck){
+				returnCashierCheck = null;
+			}
+			if(!checkDebts){
+				returnDebts = null;
+			}
+			if(!checkClaimsDoc){
+				returnClaim = null;
+			}
+			if(!checkDocFile){
+				returnFile = null;
+			}
+			if(!checkOther){
+				returnOther = null;
+			}
+		}
+		
 		$.ajax({
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',
 					data : {
