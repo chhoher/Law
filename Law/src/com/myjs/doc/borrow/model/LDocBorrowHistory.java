@@ -1,8 +1,9 @@
-package com.myjs.doc.documents.model;
+package com.myjs.doc.borrow.model;
 
 import java.util.Date;
 
 public class LDocBorrowHistory {
+	private String borrowHistoryId;
 	private String borrowDocId;
 	private String borrowUserName;
 	private String borrowUserId;
@@ -50,6 +51,12 @@ public class LDocBorrowHistory {
 	private String borrowSubLawCode;
 	private int docId;
 	
+	public String getBorrowHistoryId() {
+		return borrowHistoryId;
+	}
+	public void setBorrowHistoryId(String borrowHistoryId) {
+		this.borrowHistoryId = borrowHistoryId;
+	}
 	public String getBorrowDocId() {
 		return borrowDocId;
 	}

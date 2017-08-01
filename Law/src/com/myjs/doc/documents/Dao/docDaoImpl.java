@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.myjs.commons.DaoUtil;
-import com.myjs.doc.documents.model.LDocBorrowHistory;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCashiercheckRela;
 import com.myjs.doc.documents.model.LDocCentitlement;
@@ -616,17 +615,6 @@ public class docDaoImpl extends DaoUtil implements docDao{
 
 	public boolean save(LDocOtherdocs transientInstance) throws Exception {
 		log.debug("saving LDocOtherdocs instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-	
-	public boolean save(LDocBorrowHistory transientInstance) throws Exception {
-		log.debug("saving LDocBorrowHistory instance");
 		boolean flag = false;
 		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
 		if(null!=lizable||!"".equals(lizable)){

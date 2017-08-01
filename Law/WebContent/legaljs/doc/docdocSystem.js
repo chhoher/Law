@@ -21,7 +21,6 @@ $(function() {
 			
 			// Get row data
 		 	data = docDataTable.row(rowTr).data();
-			console.log(data);
 			
 			saveData = {
 				bankName : data.bankName,
@@ -35,7 +34,7 @@ $(function() {
 				docStatus : data.docStatus,
 				courtYearInfo : data.courtYearInfo,
 				sourceDocInfo : data.sourceDocInfo,
-				borrowReason : $("#applyBorrow_" + data.docCode).find('option:selected').text(),
+				borrowReason : $("#applyBorrow_" + data.docCode).find('option:selected').val(),
 				lawCode : 0,
 				borrowUserName : "ABC",
 				borrowUserId : "ABC",
@@ -68,11 +67,15 @@ $(function() {
 				borrowCourtYearShare : "",
 				borrowCommonsReason : "",
 				borrowSubLawCode : "",
-				docId : 0
+				docId : 0, //TODO 這裡記得改
+				borrowStatus : 0 //申調固定帶0
 			}
 			
 			saveBorrowInfo.push(saveData);
-			saveBorrowInfoString = JSON.stringify(saveBorrowInfo); 
+			
+		});
+		
+		saveBorrowInfoString = JSON.stringify(saveBorrowInfo); 
 			
 			$.ajax({
 				url : "../pages/doc/documents/docAction!saveBorrowDocs.action",
@@ -90,7 +93,6 @@ $(function() {
 					alert(thrownError);
 				}
 			});
-		});
 		
 	}
 	

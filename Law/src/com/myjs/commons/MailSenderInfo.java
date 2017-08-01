@@ -16,12 +16,12 @@ public class MailSenderInfo {
 	private String mailServerHost = "js-mailsrv.mytf.com.tw";
 	private String mailServerPort = "25";
 	// 郵件發送者的地址
-	private String fromAddress = "legalServer@mytf.com.tw";
+	private String fromAddress = "9999@mytf.com.tw";
 	// 郵件接收者的地址
 	private String toAddress = "2354@mytf.com.tw";
-	private String toAddress2 = null;
+	private String toAddress2 = "2354@mytf.com.tw";
 	// 郵件副本接收者的地址
-	private String ccAddress = null;
+	private String ccAddress = "2354@mytf.com.tw";
 	private String ccAddress2 = null;
 	// 登陸郵件發送服務器的用戶名和密碼
 	private String userName = "劉家嘉";

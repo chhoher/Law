@@ -9,9 +9,8 @@
 
 
 	<!-- DAO -->
-
-	<bean id="docDao"
-		class="com.myjs.doc.documents.Dao.docDaoImpl">
+	<bean id="docBorrowDao"
+		class="com.myjs.doc.borrow.Dao.docBorrowDaoImpl">
 		<description>The base dao implement java file</description>
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -19,33 +18,24 @@
 		<property name="jdbcTemplate">
 			<ref bean="jdbcTemplate" />
 		</property>
-		<property name="SMARTjdbcTemplate">
-			<ref bean="SMARTjdbcTemplate" />
-		</property>
 	</bean>
 	
 	<!-- Services -->
-	<bean id="docService"
-		class="com.myjs.doc.documents.service.docServiceImpl">
-		<property name="docDao">
-			<ref bean="docDao" />
-		</property>
+	<bean id="docBorrowService"
+		class="com.myjs.doc.borrow.service.docBorrowServiceImpl">
 		<property name="docBorrowDao">
 			<ref bean="docBorrowDao" />
 		</property>
-		<property name="variableDao">
-			<ref bean="variableDao"/>
-		</property>
-		<property name="recordcheckformDao">
-			<ref bean="recordcheckformDao" />
+		<property name="docDao">
+			<ref bean="docDao" />
 		</property>
 	</bean>
-
+	
 	<!-- Action -->
-	<bean id="docAction"
-		class="com.myjs.doc.documents.Action.docAction">
-		<property name="docService">
-			<ref bean="docService" />
+	<bean id="docBorrowAction"
+		class="com.myjs.doc.borrow.Action.docBorrowAction">
+		<property name="docBorrowService">
+			<ref bean="docBorrowService" />
 		</property>
 	</bean>
 	

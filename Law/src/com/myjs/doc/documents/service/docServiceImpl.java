@@ -19,8 +19,10 @@ import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.SaveParameter;
+import com.myjs.doc.borrow.model.LDocBorrowHistory;
+import com.myjs.doc.borrow.model.LDocBorrowList;
 import com.myjs.doc.documents.Dao.docDao;
-import com.myjs.doc.documents.model.LDocBorrowHistory;
+import com.myjs.doc.borrow.Dao.docBorrowDao;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCentitlement;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
@@ -43,6 +45,7 @@ public class docServiceImpl implements docService{
 	private recordcheckformDao recordcheckformDao;
 	private variableDao variableDao;
 	private docDao docDao;
+	private docBorrowDao docBorrowDao;
 	
 	public recordcheckformDao getRecordcheckformDao() {
 		return recordcheckformDao;
@@ -66,6 +69,14 @@ public class docServiceImpl implements docService{
 
 	public void setVariableDao(variableDao variableDao) {
 		this.variableDao = variableDao;
+	}
+
+	public docBorrowDao getDocBorrowDao() {
+		return docBorrowDao;
+	}
+
+	public void setDocBorrowDao(docBorrowDao docBorrowDao) {
+		this.docBorrowDao = docBorrowDao;
 	}
 
 	public List<LCekSignedCaseInfo> findByProperty(String caseId, String debtorName, String debtorId, String docNo,
@@ -554,10 +565,16 @@ public class docServiceImpl implements docService{
 
 	public String saveBorrowDocs(String saveBorrowString) throws Exception{
 		Gson gson = new Gson();
-		List<LDocBorrowHistory> LDocBorrowHistoryList = gson.fromJson(saveBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());
-		for(int i = 0; i < LDocBorrowHistoryList.size();i ++){
-			docDao.save(LDocBorrowHistoryList.get(i));
+		// 新增申調List
+		List<LDocBorrowList> LDocBorrowList = gson.fromJson(saveBorrowString, new TypeToken<List<LDocBorrowList>>(){}.getType());
+		// 歷史紀錄
+		List<LDocBorrowHistory> LDocBorrowHistoryList = gson.fromJson(saveBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());//TODO 記得改!!!!!!!!
+		for(int i = 0; i < LDocBorrowList.size();i ++){
+			docBorrowDao.save(LDocBorrowList.get(i));
+			LDocBorrowHistoryList.get(i).setBorrowDocId(LDocBorrowList.get(i).getBorrowDocId());
+			docBorrowDao.save(LDocBorrowHistoryList.get(i));
 		}
+		
 		JsonObject jsonResponse = new JsonObject();
 		jsonResponse.addProperty("success", "success");
 		jsonResponse.addProperty("msg", "申調成功");

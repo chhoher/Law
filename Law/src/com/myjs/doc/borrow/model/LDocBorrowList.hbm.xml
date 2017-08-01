@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- add By Jia 2017-08-01 借調文件的清單 -->
+<hibernate-mapping>
+    <class name="com.myjs.doc.borrow.model.LDocBorrowList" table="L_DOC_BORROW_LIST" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="borrowDocId" type="string">
+            <column name="borrow_doc_id"/>
+            <generator class="uuid" />
+        </id>
+		<property name="borrowUserName" type="string">
+			<column name="borrow_user_name" length="50" />
+		</property>
+		<property name="borrowUserId" type="string">
+			<column name="borrow_user_id" length="50" />
+		</property>
+		<property name="borrowDatetime" type="timestamp">
+            <column name="borrow_datetime" length="23" not-null="true" />
+		</property>
+		<property name="caseId" type="int">
+			<column name="case_id" />
+		</property>
+		<property name="debtName" type="string">
+			<column name="debt_name" length="50"/>
+		</property>
+		<property name="ID" type="string">
+			<column name="ID" length="10"/>
+		</property>
+		<property name="docCode" type="string">
+			<column name="doc_code" length="50"/>
+		</property>
+		<property name="borrowStatus" type="string">
+			<column name="borrow_status" length="1" not-null="true" />
+		</property>
+		<property name="borrowReason" type="string">
+			<column name="borrow_reason" length="50"/>
+		</property>
+		<property name="lawCode" type="int">
+			<column name="law_code" />
+		</property>
+		<property name="modifyDatetime" type="timestamp">
+			<column name="modify_datetime" length="23"/>
+		</property>
+		<property name="modifyUserId" type="string">
+			<column name="modify_user_id" length="50"/>
+		</property>
+		<property name="modifyUserName" type="string">
+			<column name="modify_user_name" length="50" />
+		</property>
+		<property name="borrowInfo" type="string">
+			<column name="borrow_info" />
+		</property>
+		<property name="docType" type="string">
+			<column name="doc_type" length="2" />
+		</property>
+		<property name="docId" type="int">
+			<column name="doc_id"/>
+		</property>
+	</class>
+</hibernate-mapping>
