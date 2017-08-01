@@ -218,7 +218,7 @@ public class docAction extends AbstractAction {
 					docCode = super.getRequest().getParameter("docCodes");
 			
 			log.debug("saveBorrowString = {}, docCode = {}", saveBorrowString, docCode);
-			String response = docService.saveBorrowDocs(saveBorrowString);
+			String response = docService.saveBorrowDocs(saveBorrowString);//申調
 			
 			log.debug("response = {}", response);
 			printToResponse(response);

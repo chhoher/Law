@@ -65,6 +65,9 @@
 					if (response.data != '') {
 						datatable.fnAddData(json);
 						
+						// Add By Jia 2017-08-01 將案件所需資料寫入 doc資訊
+						law.addDoc.bankId = json.data.
+						
 						// Add By Jia 2017-06-22 初始化表單，若是新表單給予一個新的ID
 						$.ajax({
 							url : '../pages/doc/documents/docAction!initaddDoc.action',

@@ -219,6 +219,22 @@
 
 										
 									});
+									
+									// 勾勾按下去的動作
+									$("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).on( "click", function(){
+										if($("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).is(':checked')){
+											$( "#applyBorrow_" + docsdatatable.fnGetData(i).docCode)[0].selectedIndex = 4;
+
+											$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).empty();// 先清除一般借調的填寫框
+											$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).append(// 將一般借調的填寫框加入下方
+													law.doc.applyBorrowString($( "#applyBorrow_" + docsdatatable.fnGetData(i).docCode).val(), docsdatatable.fnGetData(i).docCode));
+											
+										}else{
+											$( "#applyBorrow_" + docsdatatable.fnGetData(i).docCode)[0].selectedIndex = 0;
+											$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).empty();// 清除所填寫的框框
+										}
+									});
+									
 								});
 							},
 							error : function(xhr, ajaxOptions, thrownError) {

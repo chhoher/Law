@@ -3,11 +3,14 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- add By Jia 2017-07-24 文管歷史紀錄 -->
 <hibernate-mapping>
-    <class name="com.myjs.doc.documents.model.LDocBorrowHistory" table="L_DOC_BORROW_HISTORY" schema="dbo" catalog="Legal" optimistic-lock="version">
-        <id name="borrowDocId" type="string">
-            <column name="borrow_doc_id"/>
+    <class name="com.myjs.doc.borrow.model.LDocBorrowHistory" table="L_DOC_BORROW_HISTORY" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="borrowHistoryId" type="string">
+            <column name="borrow_history_id"/>
             <generator class="uuid" />
         </id>
+		<property name="borrowDocId" type="string">
+			<column name="borrow_doc_id" length="50" />
+		</property>
 		<property name="borrowUserName" type="string">
 			<column name="borrow_user_name" length="50" />
 		</property>
