@@ -66,7 +66,28 @@
 						datatable.fnAddData(json);
 						
 						// Add By Jia 2017-08-01 將案件所需資料寫入 doc資訊
-						law.addDoc.bankId = json.data.
+						law.addDoc.bankId = json[0].Bank_ID;
+						law.addDoc.bankName = json[0].Bank_alias;
+						law.addDoc.gprodId = json[0].G_ID;
+						law.addDoc.gprodName = json[0].G_name;
+						law.addDoc.ID = json[0].ID;
+						law.addDoc.debtName = json[0].name;
+						
+						BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+						$("#iptcentitlementBankName").append(BankNameSelectOption);
+						$("#iptcentitlementBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
+						$("#iptcourtDocBankName").append(BankNameSelectOption);
+						$("#iptcourtDocBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
+						$("#iptcashierCheckBankName").append(BankNameSelectOption);
+						$("#iptcashierCheckBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
+						$("#iptdebtsBankName").append(BankNameSelectOption);
+						$("#iptdebtsBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
+						$("#iptclaimsDocBankName").append(BankNameSelectOption);
+						$("#iptclaimsDocBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
+						$("#iptfileBankName").append(BankNameSelectOption);
+						$("#iptfileBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
+						$("#iptotherBankName").append(BankNameSelectOption);
+						$("#iptotherBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
 						
 						// Add By Jia 2017-06-22 初始化表單，若是新表單給予一個新的ID
 						$.ajax({
@@ -223,8 +244,8 @@
 
 					// =====執行名義start=====
 					law.addDoc.centitlement.initcentitlementsubtab(response.nowDate, response.DocStatus, response.TypeOne, 
-							response.centitlementTypeTwo, response.BankName, response.TSBOldBankName, 
-							response.CourtYearCourt, response.SourceDoc, response.FEIOldBankName, response.SKOldBankName,
+							response.centitlementTypeTwo, response.TSBOldBankName, response.CourtYearCourt, 
+							response.SourceDoc, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
 					//設定收文日期為當日
@@ -233,56 +254,51 @@
 					law.common.selectOption("#iptcentitlementDocStatus", centitlement.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 					law.common.selectOption("#iptcentitlementTypeOne", centitlement.TypeOne, "8aa2e72a5c812434015c812f07cd0001");
 					law.common.selectOption("#iptcentitlementTypeTwo", centitlement.TypeTwo);
-					law.common.selectOption("#iptcentitlementBankName", centitlement.BankName);
 					law.common.selectOption("#iptcentitlementCourtYearCourt", centitlement.CourtYearCourt);
 					law.common.selectOption("#iptcentitlementSourceDoc_0", centitlement.SourceDoc);
 					law.common.selectOption("#iptcentitlementSourceDocCourtYearCourt_0", centitlement.CourtYearCourt);
 					law.addDoc.centitlement.centitlementSourceDocNum[0] = 0;
 					
-					$("#iptcentitlementBankName").change(function(i) {
-						if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B1" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B2" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B3" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B4" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B5" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B6" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B7" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CD" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CR"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSBOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FEI_BK"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.FEIOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "SK_BK"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.SKOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "YT_AMC" ||
-								$("#iptcentitlementBankName").find('option:selected').val() ===  "YT_IS"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.YTOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FI-AMC"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.FIOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-AMC"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSAOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TAMCO"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.TAMCOOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "ORIX_AMC"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.ORIXOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "MT-IS"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.MTOldBankName);
-						}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "UN_IS"){
-							law.common.selectOption("#iptcentitlementOldBankName", centitlement.UNOldBankName);
-						}else{
-							var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
-							$("#iptcentitlementOldBankName option").remove();
-							$("#iptcentitlementOldBankName").append(selectNull);
-						}
-					
-					});
-					
+					if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B1" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B2" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B3" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B4" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B5" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B6" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B7" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CD" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CR"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSBOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FEI_BK"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.FEIOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "SK_BK"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.SKOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "YT_AMC" ||
+							$("#iptcentitlementBankName").find('option:selected').val() ===  "YT_IS"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.YTOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FI-AMC"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.FIOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-AMC"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSAOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TAMCO"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TAMCOOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "ORIX_AMC"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.ORIXOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "MT-IS"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.MTOldBankName);
+					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "UN_IS"){
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.UNOldBankName);
+					}else{
+						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+						$("#iptcentitlementOldBankName option").remove();
+						$("#iptcentitlementOldBankName").append(selectNull);
+					}
 					
 					// =====執行名義end=====
 					
 					// =====法院文start=====
 					law.addDoc.courtDoc.initcourtDocsubtab(response.nowDate, response.DocStatus, response.courtDocTypeOne, 
-							response.courtDocTypeTwo, response.BankName, response.TSBOldBankName, response.CourtYearCourt, 
+							response.courtDocTypeTwo, response.TSBOldBankName, response.CourtYearCourt, 
 							response.courtDocImmovablesTypeTwo, response.courtDocCenTypeTwo, response.courtDocDebtTypeTwo,
 							response.PublishObject, response.PublishThings, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
@@ -307,53 +323,50 @@
 					
 					});
 					
-					law.common.selectOption("#iptcourtDocBankName", courtDoc.BankName);
 					law.common.selectOption("#iptcourtDocCourtYearCourt", courtDoc.CourtYearCourt);
 					law.common.selectOption("#iptcourtDocPublishObject", courtDoc.PublishObject);
 					law.common.selectOption("#iptcourtDocPublishThings", courtDoc.PublishThings);
 					
-					$("#iptcourtDocBankName").change(function(i) {
-						if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B1" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B2" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B3" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B4" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B5" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B6" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B7" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CD" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CR"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSBOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FEI_BK"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FEIOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "SK_BK"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.SKOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "YT_AMC" ||
-								$("#iptcourtDocBankName").find('option:selected').val() ===  "YT_IS"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.YTOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FI-AMC"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FIOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-AMC"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSAOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TAMCO"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TAMCOOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.ORIXOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "MT-IS"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.MTOldBankName);
-						}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "UN_IS"){
-							law.common.selectOption("#iptcourtDocOldBankName", courtDoc.UNOldBankName);
-						}else{
-							var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
-							$("#iptcourtDocOldBankName option").remove();
-							$("#iptcourtDocOldBankName").append(selectNull);
-						}
+					if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B1" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B2" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B3" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B4" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B5" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B6" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B7" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CD" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CR"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSBOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FEI_BK"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FEIOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "SK_BK"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.SKOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "YT_AMC" ||
+							$("#iptcourtDocBankName").find('option:selected').val() ===  "YT_IS"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.YTOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FI-AMC"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FIOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-AMC"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSAOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TAMCO"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TAMCOOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.ORIXOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "MT-IS"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.MTOldBankName);
+					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "UN_IS"){
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.UNOldBankName);
+					}else{
+						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+						$("#iptcourtDocOldBankName option").remove();
+						$("#iptcourtDocOldBankName").append(selectNull);
+					}
 					
-					});
 					// =====法院文end=====
 						
 					// =====本票start=====
 					law.addDoc.cashierCheck.initcashierChecksubtab(response.nowDate, response.DocStatus, response.TypeOne, 
-							response.cashierCheckTypeTwo, response.BankName, response.TSBOldBankName, response.FEIOldBankName, response.SKOldBankName,
+							response.cashierCheckTypeTwo, response.TSBOldBankName, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
 					//設定收文日期為當日
@@ -362,50 +375,47 @@
 					law.common.selectOption("#iptcashierCheckDocStatus", cashierCheck.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 					law.common.selectOption("#iptcashierCheckTypeOne", cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007");
 					law.common.selectOption("#iptcashierCheckTypeTwo", cashierCheck.TypeTwo);
-					law.common.selectOption("#iptcashierCheckBankName", cashierCheck.BankName);
 					
-					$("#iptcashierCheckBankName").change(function(i) {
-						if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B1" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B2" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B3" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B4" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B5" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B6" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B7" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CD" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CR"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSBOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FEI_BK"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FEIOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "SK_BK"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.SKOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_AMC" ||
-								$("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_IS"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.YTOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FI-AMC"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FIOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-AMC"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSAOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TAMCO"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TAMCOOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "ORIX_AMC"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.ORIXOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "MT-IS"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.MTOldBankName);
-						}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "UN_IS"){
-							law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.UNOldBankName);
-						}else{
-							var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
-							$("#iptcashierCheckOldBankName option").remove();
-							$("#iptcashierCheckOldBankName").append(selectNull);
-						}
+					if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B1" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B2" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B3" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B4" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B5" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B6" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B7" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CD" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CR"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSBOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FEI_BK"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FEIOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "SK_BK"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.SKOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_AMC" ||
+							$("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_IS"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.YTOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FI-AMC"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FIOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-AMC"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSAOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TAMCO"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TAMCOOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "ORIX_AMC"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.ORIXOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "MT-IS"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.MTOldBankName);
+					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "UN_IS"){
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.UNOldBankName);
+					}else{
+						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+						$("#iptcashierCheckOldBankName option").remove();
+						$("#iptcashierCheckOldBankName").append(selectNull);
+					}
 					
-					});
 					// =====本票end=====
 					
 					// =====債讓start=====
 					law.addDoc.debts.initdebtssubtab(response.nowDate, response.DocStatus, response.TypeOne, 
-							response.debtsTypeTwo, response.BankName, response.TSBOldBankName, response.CourtYearCourt, response.FEIOldBankName, response.SKOldBankName,
+							response.debtsTypeTwo, response.TSBOldBankName, response.CourtYearCourt, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
 					//設定收文日期為當日
@@ -414,51 +424,48 @@
 					law.common.selectOption("#iptdebtsDocStatus", debts.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 					law.common.selectOption("#iptdebtsTypeOne", debts.TypeOne, "8aa2e72a5c812434015c81303cbf0008");
 					law.common.selectOption("#iptdebtsTypeTwo", debts.TypeTwo);
-					law.common.selectOption("#iptdebtsBankName", debts.BankName);
 					law.common.selectOption("#iptdebtsCourtYearCourt", debts.CourtYearCourt);
 					
-					$("#iptdebtsBankName").change(function(i) {
-						if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-B1" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B2" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B3" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B4" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B5" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B6" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B7" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CD" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CR"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.TSBOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FEI_BK"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.FEIOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "SK_BK"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.SKOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "YT_AMC" ||
-								$("#iptdebtsBankName").find('option:selected').val() ===  "YT_IS"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.YTOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FI-AMC"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.FIOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-AMC"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.TSAOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TAMCO"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.TAMCOOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "ORIX_AMC"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.ORIXOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "MT-IS"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.MTOldBankName);
-						}else if($("#iptdebtsBankName").find('option:selected').val() ===  "UN_IS"){
-							law.common.selectOption("#iptdebtsOldBankName", debts.UNOldBankName);
-						}else{
-							var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
-							$("#iptdebtsOldBankName option").remove();
-							$("#iptdebtsOldBankName").append(selectNull);
-						}
+					if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-B1" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B2" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B3" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B4" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B5" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B6" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B7" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CD" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CR"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.TSBOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FEI_BK"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.FEIOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "SK_BK"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.SKOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "YT_AMC" ||
+							$("#iptdebtsBankName").find('option:selected').val() ===  "YT_IS"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.YTOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FI-AMC"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.FIOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-AMC"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.TSAOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TAMCO"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.TAMCOOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "ORIX_AMC"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.ORIXOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "MT-IS"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.MTOldBankName);
+					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "UN_IS"){
+						law.common.selectOption("#iptdebtsOldBankName", debts.UNOldBankName);
+					}else{
+						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+						$("#iptdebtsOldBankName option").remove();
+						$("#iptdebtsOldBankName").append(selectNull);
+					}
 					
-					});
 					// =====債讓end=====
 						
 					// =====債權文件start=====
 					law.addDoc.claimsDoc.initclaimsDocsubtab(response.nowDate, response.DocStatus, response.TypeOne, 
-							response.claimDocTypeTwo, response.BankName, response.TSBOldBankName, response.FEIOldBankName, response.SKOldBankName,
+							response.claimDocTypeTwo, response.TSBOldBankName, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
 					//設定收文日期為當日
@@ -467,61 +474,57 @@
 					law.common.selectOption("#iptclaimsDocDocStatus", claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 					law.common.selectOption("#iptclaimsDocTypeOne", claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006");
 					law.common.selectOption("#iptclaimsDocTypeTwo", claimsDoc.TypeTwo);
-					law.common.selectOption("#iptclaimsDocBankName", claimsDoc.BankName);
 					
-					$("#iptclaimsDocBankName").change(function(i) {
-						if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B1" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B2" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B3" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B4" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B5" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B6" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B7" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CD" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CR"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSBOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FEI_BK"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FEIOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "SK_BK"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.SKOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_AMC" ||
-								$("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_IS"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.YTOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FI-AMC"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FIOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-AMC"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSAOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TAMCO"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TAMCOOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.ORIXOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "MT-IS"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.MTOldBankName);
-						}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "UN_IS"){
-							law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.UNOldBankName);
-						}else{
-							var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
-							$("#iptclaimsDocOldBankName option").remove();
-							$("#iptclaimsDocOldBankName").append(selectNull);
-						}
+					if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B1" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B2" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B3" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B4" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B5" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B6" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B7" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CD" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CR"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSBOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FEI_BK"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FEIOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "SK_BK"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.SKOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_AMC" ||
+							$("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_IS"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.YTOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FI-AMC"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FIOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-AMC"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSAOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TAMCO"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TAMCOOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.ORIXOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "MT-IS"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.MTOldBankName);
+					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "UN_IS"){
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.UNOldBankName);
+					}else{
+						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+						$("#iptclaimsDocOldBankName option").remove();
+						$("#iptclaimsDocOldBankName").append(selectNull);
+					}
 					
-					});
 					// =====債權文件end=====
 						
 					// =====卷宗start=====
-					law.addDoc.file.initfilesubtab(response.nowDate, response.DocStatus, response.TypeOne, response.fileTypeTwo, response.BankName);
+					law.addDoc.file.initfilesubtab(response.nowDate, response.DocStatus, response.TypeOne, response.fileTypeTwo);
 					//設定收文日期為當日
 					$("#iptfileReceivedDate").val(response.nowDate);
 					//卷宗下拉選項
 					law.common.selectOption("#iptfileDocStatus", file.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 					law.common.selectOption("#iptfileTypeOne", file.TypeOne, "8aa2e72a5c812434015c813055070009");
 					law.common.selectOption("#iptfileTypeTwo", file.TypeTwo);
-					law.common.selectOption("#iptfileBankName", file.BankName);
 					// =====卷宗end=====
 					
 					// =====其他start=====
 					// 初始化其他選項
-					law.addDoc.other.initothersubtab(response.nowDate, response.DocStatus, response.TypeOne, response.otherTypeTwo, response.BankName);
+					law.addDoc.other.initothersubtab(response.nowDate, response.DocStatus, response.TypeOne, response.otherTypeTwo);
 
 					//設定收文日期為當日
 					$("#iptotherReceivedDate").val(response.nowDate);
@@ -529,7 +532,6 @@
 					law.common.selectOption("#iptotherDocStatus", other.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 					law.common.selectOption("#iptotherTypeOne", other.TypeOne, "8aa2e72a5c812434015c81307418000a");
 					law.common.selectOption("#iptotherTypeTwo", other.TypeTwo);
-					law.common.selectOption("#iptotherBankName", other.BankName);	
 					// =====其他end=====
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
@@ -625,7 +627,7 @@
 					<td><label>文件項目</label></td>
 					<td><select id="iptcentitlementTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><select id="iptcentitlementBankName"><option value="">請選擇</option></select></td>
+					<td><select id="iptcentitlementBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptcentitlementOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
@@ -934,7 +936,7 @@
 						<td><label>文件項目</label></td>
 						<td><select id="iptcourtDocTypeTwo"><option value="">請選擇</option></select></td>
 						<td><label>債權人</label></td>
-						<td><select id="iptcourtDocBankName"><option value="">請選擇</option></select></td>
+						<td><select id="iptcourtDocBankName" disabled><option value="">請選擇</option></select></td>
 						<td><label>原債權人</label></td>
 						<td><select id="iptcourtDocOldBankName"><option value="">請選擇</option></select></td>
 					</tr>
@@ -1473,7 +1475,7 @@
 					<td><label>文件項目</label></td>
 					<td><select id="iptcashierCheckTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><select id="iptcashierCheckBankName"><option value="">請選擇</option></select></td>
+					<td><select id="iptcashierCheckBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptcashierCheckOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
@@ -1530,7 +1532,7 @@
 					<td><label>文件項目</label></td>
 					<td><select id="iptdebtsTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><select id="iptdebtsBankName"><option value="">請選擇</option></select></td>
+					<td><select id="iptdebtsBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptdebtsOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
@@ -1595,7 +1597,7 @@
 					<td><label>文件項目</label></td>
 					<td><select id="iptclaimsDocTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><select id="iptclaimsDocBankName"><option value="">請選擇</option></select></td>
+					<td><select id="iptclaimsDocBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptclaimsDocOldBankName"><option value="">請選擇</option></select></td>
 				</tr>
@@ -1649,7 +1651,7 @@
 					<td><label>文件項目</label></td>
 					<td><select id="iptfileTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><select id="iptfileBankName"><option value="">請選擇</option></select></td>
+					<td><select id="iptfileBankName" disabled><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>份數</label></td>
@@ -1692,7 +1694,7 @@
 					<td><label>文件項目</label></td>
 					<td><select id="iptotherTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
-					<td><select id="iptotherBankName"><option value="">請選擇</option></select></td>
+					<td><select id="iptotherBankName" disabled><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>收據種類</label></td>

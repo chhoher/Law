@@ -34,7 +34,7 @@ law.addDoc.other = {
 					"<td><label>文件項目</label></td>" +
 					"<td><select id='iptotherTypeTwo" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
-					"<td><select id='iptotherBankName" + othersubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptotherBankName" + othersubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>收據種類</label></td>" +
@@ -70,20 +70,22 @@ law.addDoc.other = {
 		law.common.selectOption("#iptotherDocStatus" + othersubtabcount, other.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 		law.common.selectOption("#iptotherTypeOne" + othersubtabcount, other.TypeOne, "8aa2e72a5c812434015c81307418000a");
 		law.common.selectOption("#iptotherTypeTwo" + othersubtabcount, other.TypeTwo);
-		law.common.selectOption("#iptotherBankName" + othersubtabcount, other.BankName);
+		
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptotherBankName" + othersubtabcount).append(BankNameSelectOption);
+		$("#iptotherBankName" + othersubtabcount + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
 		
 		//設定收文日期為當日
 		$("#iptotherReceivedDate" + othersubtabcount).val(other.ReceivedDate);
 			
 	},
 	// 初始化
-	initothersubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName){
+	initothersubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo){
 		var initsub = law.addDoc.other;
 		initsub.ReceivedDate = ReceivedDate;
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
-		initsub.BankName = BankName;
 	},
 	// 將所有頁籤內容帶出
 	returnAllsubtabJson : function(){
@@ -94,13 +96,18 @@ law.addDoc.other = {
 			returnOther = "";
 			
 		var topItem = {
+			'bankId' : law.addDoc.bankId,
+			'bankName' : law.addDoc.bankName,
+			'gProdId' : law.addDoc.gprodId,
+			'gProdName' : law.addDoc.gprodName,
+			'debtID' : law.addDoc.ID,
+			'debtName' : law.addDoc.debtName,
 			'receivedDate' : $("#iptotherReceivedDate").val(),
 			'bankDate' : $("#iptotherBankDate").val(),
 			'appointmentLetterCode' : $("#iptotherAppointmentLetterCode").val(),
 			'docStatus' : $("#iptotherDocStatus").find('option:selected').val(),
 			'typeOne' : $("#iptotherTypeOne").find('option:selected').val(),
 			'typeTwo' : $("#iptotherTypeTwo").find('option:selected').val(),
-			'bankName' : $("#iptotherBankName").find('option:selected').val(),
 			'receiptType' : $("#iptotherReceiptType").val(),
 			'receiptAmount' : $("#iptotherReceiptAmount").val(),
 			'courtDate' : $("#iptotherCourtDate").val(),
@@ -112,13 +119,18 @@ law.addDoc.other = {
 			
 		for ( ; i < length; i++ ) {
 				var subItems = {
+					'bankId' : law.addDoc.bankId,
+					'bankName' : law.addDoc.bankName,
+					'gProdId' : law.addDoc.gprodId,
+					'gProdName' : law.addDoc.gprodName,
+					'debtID' : law.addDoc.ID,
+					'debtName' : law.addDoc.debtName,
 					'receivedDate' : $("#iptotherReceivedDate" + i ).val(),
 					'bankDate' : $("#iptotherBankDate" + i ).val(),
 					'appointmentLetterCode' : $("#iptotherAppointmentLetterCode" + i).val(),
 					'docStatus' : $("#iptotherDocStatus" + i ).find('option:selected').val(),
 					'typeOne' : $("#iptotherTypeOne" + i ).find('option:selected').val(),
 					'typeTwo' : $("#iptotherTypeTwo" + i ).find('option:selected').val(),
-					'bankName' : $("#iptotherBankName" + i ).find('option:selected').val(),
 					'receiptType' : $("#iptotherReceiptType" + i ).val(),
 					'receiptAmount' : $("#iptotherReceiptAmount" + i ).val(),
 					'courtDate' : $("#iptotherCourtDate" + i ).val(),

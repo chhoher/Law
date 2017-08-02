@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+
+<!-- 宣告service名稱(id)及對應位置/impl (class) -->
+	 <bean id="historyQueryDao"
+		class="com.myjs.doc.historyquery.Dao.HistoryQueryDaoImpl">
+		<description>The base dao implement java file</description>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+	
+	
+<!-- 宣告service名稱(id)及對應位置/impl (class) -->
+	<bean id="historyQueryService" class="com.myjs.doc.historyquery.service.HistoryQueryServiceImpl">
+		<property name="historyQueryDao">            <!-- 描DAO--> 
+			<ref bean="historyQueryDao" />
+		</property>
+	</bean> 
+
+
+	<!-- 宣告action名稱(id)及位置(class) service名稱(property name)位置(ref bean) -->
+	<!-- Action -->
+	<bean id="HistoryQueryAction" class="com.myjs.doc.historyquery.Action.HistoryQueryAction">
+		<property name="historyQueryService">
+			<ref bean="historyQueryService" />
+		</property>
+	</bean>
+	
+</beans>

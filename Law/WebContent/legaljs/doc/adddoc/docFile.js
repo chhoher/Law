@@ -38,7 +38,7 @@ law.addDoc.file = {
 					"<td><label>文件項目</label></td>" +
 					"<td><select id='iptfileTypeTwo" + filesubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
-					"<td><select id='iptfileBankName" + filesubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptfileBankName" + filesubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
 					"<td><label>份數</label></td>" +
@@ -66,19 +66,21 @@ law.addDoc.file = {
 		law.common.selectOption("#iptfileDocStatus" + filesubtabcount, file.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 		law.common.selectOption("#iptfileTypeOne" + filesubtabcount, file.TypeOne, "8aa2e72a5c812434015c813055070009");
 		law.common.selectOption("#iptfileTypeTwo" + filesubtabcount, file.TypeTwo);
-		law.common.selectOption("#iptfileBankName" + filesubtabcount, file.BankName);
+		
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptfileBankName" + filesubtabcount).append(BankNameSelectOption);
+		$("#iptfileBankName" + filesubtabcount + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
 		
 		//設定收文日期為當日
 		$("#iptfileReceivedDate" + filesubtabcount).val(file.ReceivedDate);
 	},
 	// 初始化
-	initfilesubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName){
+	initfilesubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo){
 		var initsub = law.addDoc.file;
 		initsub.ReceivedDate = ReceivedDate;
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
-		initsub.BankName = BankName;
 	},
 	// 將所有頁籤內容帶出
 	returnAllsubtabJson : function(){
@@ -89,12 +91,17 @@ law.addDoc.file = {
 			returnFile = "";
 			
 		var topItem = {
+			'bankId' : law.addDoc.bankId,
+			'bankName' : law.addDoc.bankName,
+			'gProdId' : law.addDoc.gprodId,
+			'gProdName' : law.addDoc.gprodName,
+			'debtID' : law.addDoc.ID,
+			'debtName' : law.addDoc.debtName,
 			'receivedDate' : $("#iptfileReceivedDate").val(),
 			'bankDate' : $("#iptfileBankDate").val(),
 			'docStatus' : $("#iptfileDocStatus").find('option:selected').val(),
 			'typeOne' : $("#iptfileTypeOne").find('option:selected').val(),
 			'typeTwo' : $("#iptfileTypeTwo").find('option:selected').val(),
-			'bankName' : $("#iptfileBankName").find('option:selected').val(),
 			'nums' : $("#iptfileNums").val(),
 			'remark' : $("#iptfileRemark").val()
 		};
@@ -104,12 +111,17 @@ law.addDoc.file = {
 			
 		for ( ; i < length; i++ ) {
 				var subItems = {
+					'bankId' : law.addDoc.bankId,
+					'bankName' : law.addDoc.bankName,
+					'gProdId' : law.addDoc.gprodId,
+					'gProdName' : law.addDoc.gprodName,
+					'debtID' : law.addDoc.ID,
+					'debtName' : law.addDoc.debtName,
 					'receivedDate' : $("#iptfileReceivedDate" + i ).val(),
 					'bankDate' : $("#iptfileBankDate" + i ).val(),
 					'docStatus' : $("#iptfileDocStatus" + i ).find('option:selected').val(),
 					'typeOne' : $("#iptfileTypeOne" + i ).find('option:selected').val(),
 					'typeTwo' : $("#iptfileTypeTwo" + i ).find('option:selected').val(),
-					'bankName' : $("#iptfileBankName" + i ).find('option:selected').val(),
 					'nums' : $("#iptfileNums" + i ).val(),
 					'remark' : $("#iptfileRemark" + i ).val()
 			};

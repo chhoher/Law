@@ -8,6 +8,21 @@
             <column name="debts_id"/>
             <generator class="identity" />
         </id>
+        <property name="bankId" type="string">
+			<column name="bank_id" length="10" />
+		</property>
+		<property name="gProdId" type="string">
+			<column name="g_prod_id" length="10" />
+		</property>
+		<property name="gProdName" type="string">
+			<column name="g_prod_name" length="50" />
+		</property>
+		<property name="debtID" type="string">
+			<column name="debt_ID" length="10" />
+		</property>
+		<property name="debtName" type="string">
+			<column name="debt_name" length="10" />
+		</property>
 		<property name="infoId" type="string">
 			<column name="info_id" length="50" />
 		</property>
