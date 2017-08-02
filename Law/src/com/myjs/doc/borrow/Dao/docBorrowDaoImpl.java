@@ -52,10 +52,10 @@ public class docBorrowDaoImpl extends DaoUtil implements docBorrowDao{
 	public List<LDocBorrowList> findBorrowDoc() throws Exception{
 		log.debug("findBorrowDoc start");
 		StringBuffer queryString = new StringBuffer("SELECT borrow_doc_id, borrow_user_name, borrow_user_id,");
-		queryString.append(" borrow_datetime, LDO.case_id, debt_name, ID, doc_code, borrow_status,");
+		queryString.append(" borrow_datetime, LDO.case_id, LDO.debt_name, LDO.debt_ID as ID, doc_code, borrow_status,");
 		queryString.append(" LDO.borrow_reason, law_code, LDBL.modify_datetime, LDBL.modify_user_id,");
 		queryString.append(" LDBL.modify_user_name, LDO.borrow_info, doc_id, LSVTO.variable_name as type_one,");
-		queryString.append(" LSVTT.variable_name as type_two, LDO.bank_name, NULL AS prod_name, NULL AS court_year_info,");
+		queryString.append(" LSVTT.variable_name as type_two, LDO.bank_name, LDO.g_prod_name AS prod_name, NULL AS court_year_info,");
 		queryString.append(" NULL AS source_doc_info, LSVDS.variable_name as doc_status, NULL AS O_C, NULL AS share_case_id");
 		queryString.append(" FROM L_DOC_BORROW_LIST LDBL");
 		queryString.append(" LEFT JOIN L_DOC_OTHERDOCS LDO ON LDBL.doc_id = LDO.otherdocs_id");

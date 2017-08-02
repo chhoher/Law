@@ -401,7 +401,8 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		boolean hasInputValue = false;
 		
 		StringBuffer queryString = new StringBuffer("SELECT TOP 1000 VSC.Bank_alias, VSC.Prod_Name,");
-		queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d, VSC.O_or_C");
+		queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d,");
+		queryString.append(" VSC.O_or_C, VSC.Bank_ID, VSC.G_ID, VSC.G_name");
 		queryString.append(" FROM V_SMART_RELAINFO VSR");
 		queryString.append(" LEFT JOIN V_SMART_CASEINFO VSC ON VSR.Case_ID = VSC.Case_ID");
 		queryString.append(" WHERE VSR.Rela_kind = '本人'");
@@ -444,6 +445,9 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			LCekSignedCaseInfo.setPriDebt_amount(((BigDecimal) map.get("PriDebt_amount")).intValue());
 			LCekSignedCaseInfo.setCtCase_d((Date) map.get("ctCase_d"));
 			LCekSignedCaseInfo.setO_or_C((String) map.get("O_or_C"));
+			LCekSignedCaseInfo.setBank_ID((String) map.get("Bank_ID"));
+			LCekSignedCaseInfo.setG_ID((int) map.get("G_ID"));
+			LCekSignedCaseInfo.setG_name((String) map.get("G_name"));
 			MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
 		}
 		log.debug("findCaseByproperties end");

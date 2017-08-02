@@ -58,7 +58,7 @@ law.addDoc.debts = {
 					"<td><label>文件項目</label></td>" +
 					"<td><select id='iptdebtsTypeTwo" + debtssubtabcount + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>債權人</label></td>" +
-					"<td><select id='iptdebtsBankName" + debtssubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptdebtsBankName" + debtssubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 					"<td><label>原債權人</label></td>" +
 					"<td><select id='iptdebtsOldBankName" + debtssubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
@@ -113,56 +113,58 @@ law.addDoc.debts = {
 		law.common.selectOption("#iptdebtsDocStatus" + debtssubtabcount, debts.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
 		law.common.selectOption("#iptdebtsTypeOne" + debtssubtabcount, debts.TypeOne, "8aa2e72a5c812434015c81303cbf0008");
 		law.common.selectOption("#iptdebtsTypeTwo" + debtssubtabcount, debts.TypeTwo);
-		law.common.selectOption("#iptdebtsBankName" + debtssubtabcount, debts.BankName);
 		law.common.selectOption("#iptdebtsCourtYearCourt" + debtssubtabcount, debts.CourtYearCourt);
 		law.common.selectRelaOption("#iptdebtsRelationPerson" + debtssubtabcount + "_0", law.addDoc.rela);
+		
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptdebtsBankName" + debtssubtabcount).append(BankNameSelectOption);
+		$("#iptdebtsBankName" + debtssubtabcount + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
+						
 		//設定收文日期為當日
 		$("#iptdebtsReceivedDate" + debtssubtabcount).val(debts.ReceivedDate);
 		
 		//動態跑出原債權人
-		$("#iptdebtsBankName" + debtssubtabcount).change(function(i) {
-			if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B1" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B2" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B3" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B4" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B5" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B6" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B7" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-CD" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-CR"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TSBOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "FEI_BK"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.FEIOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "SK_BK"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.SKOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "YT_AMC" ||
-					$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "YT_IS"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.YTOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "FI-AMC"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.FIOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-AMC"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TSAOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TAMCO"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TAMCOOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.ORIXOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "MT-IS"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.MTOldBankName);
-			}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "UN_IS"){
-				law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.UNOldBankName);
-			}else{
-				var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
-				$("#iptdebtsOldBankName" + debtssubtabcount + " option").remove();
-				$("#iptdebtsOldBankName" + debtssubtabcount).append(selectNull);
-			}
+		if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B1" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B2" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B3" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B4" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B5" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B6" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-B7" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-CD" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TSBOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.FEIOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.SKOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.YTOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.FIOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TSAOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.TAMCOOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.ORIXOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.MTOldBankName);
+		}else if($("#iptdebtsBankName" + debtssubtabcount).find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptdebtsOldBankName" + debtssubtabcount, debts.UNOldBankName);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptdebtsOldBankName" + debtssubtabcount + " option").remove();
+			$("#iptdebtsOldBankName" + debtssubtabcount).append(selectNull);
+		}
 		
-		});
 		
 		//設定相對人 = 0
 		law.addDoc.debts.debtsRelaNum[(debtssubtabcount+1)] = 0;
 	},
 	// 初始化
-	initdebtssubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, TSBOldBankName, CourtYearCourt, 
+	initdebtssubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, TSBOldBankName, CourtYearCourt, 
 			FEIOldBankName, SKOldBankName,YTOldBankName, FIOldBankName, TSAOldBankName, 
 			TAMCOOldBankName, ORIXOldBankName, MTOldBankName, UNOldBankName){
 		var initsub = law.addDoc.debts;
@@ -170,7 +172,6 @@ law.addDoc.debts = {
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
-		initsub.BankName = BankName;
 		initsub.TSBOldBankName = TSBOldBankName;
 		initsub.CourtYearCourt = CourtYearCourt;
 		initsub.FEIOldBankName = FEIOldBankName;
@@ -202,12 +203,17 @@ law.addDoc.debts = {
 		}
 			
 		var topItem = {
+			'bankId' : law.addDoc.bankId,
+			'bankName' : law.addDoc.bankName,
+			'gProdId' : law.addDoc.gprodId,
+			'gProdName' : law.addDoc.gprodName,
+			'debtID' : law.addDoc.ID,
+			'debtName' : law.addDoc.debtName,
 			'receivedDate' : $("#iptdebtsReceivedDate").val(),
 			'bankDate' : $("#iptdebtsBankDate").val(),
 			'docStatus' : $("#iptdebtsDocStatus").find('option:selected').val(),
 			'typeOne' : $("#iptdebtsTypeOne").find('option:selected').val(),
 			'typeTwo' : $("#iptdebtsTypeTwo").find('option:selected').val(),
-			'bankName' : $("#iptdebtsBankName").find('option:selected').val(),
 			'oldBankName' : $("#iptdebtsOldBankName").find('option:selected').val(),
 			'debtsRelationPerson' : returndebtsRelas_0,
 			'relationPerson' : $("#iptdebtsRelationPerson_0").find('option:selected').val(),
@@ -237,12 +243,17 @@ law.addDoc.debts = {
 			}
 			
 				var subItems = {
+					'bankId' : law.addDoc.bankId,
+					'bankName' : law.addDoc.bankName,
+					'gProdId' : law.addDoc.gprodId,
+					'gProdName' : law.addDoc.gprodName,
+					'debtID' : law.addDoc.ID,
+					'debtName' : law.addDoc.debtName,
 					'receivedDate' : $("#iptdebtsReceivedDate" + i ).val(),
 					'bankDate' : $("#iptdebtsBankDate" + i ).val(),
 					'docStatus' : $("#iptdebtsDocStatus" + i ).find('option:selected').val(),
 					'typeOne' : $("#iptdebtsTypeOne" + i ).find('option:selected').val(),
 					'typeTwo' : $("#iptdebtsTypeTwo" + i ).find('option:selected').val(),
-					'bankName' : $("#iptdebtsBankName" + i ).find('option:selected').val(),
 					'oldBankName' : $("#iptdebtsOldBankName" + i ).find('option:selected').val(),
 					'debtsRelationPerson' : returndebtsRelas_0,
 					'relationPerson' : $("#iptdebtsRelationPerson_0").find('option:selected').val(),

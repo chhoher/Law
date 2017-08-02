@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.myjs.doc.historyquery.model.HQColumeObject1" table="L_DOC_BORROW_HISTORY" schema="dbo" catalog="Legal" optimistic-lock="version">
+		<!-- key值 -->
+		<!-- <id name="borrow_doc_id" type="string">
+            <column name="borrow_doc_id" length="50" />
+            <generator class="uuid.hex" />
+        </id>-->
+        <id name="caseId" type="string">
+            <column name="case_id" length="10"/>   <!-- table colume name -->
+        	<generator class="uuid.hex" />
+        </id>
+        <property name="borrowUser" type="string">
+            <column name="borrow_user_name" length="10"/>
+        </property>
+        <property name="borrowDate" type="timestamp">
+            <column name="borrow_datetime" />
+        </property>   
+		<property name="bankname" type="string">
+            <column name="bank_name" length="50"/>   
+        </property>
+        <property name="prodname" type="string">
+            <column name="prod_name" length="10"/>
+        </property>
+        <property name="name" type="string">
+            <column name="debt_name"  length="10"/>
+        </property>
+        <property name="id" type="string">
+            <column name="ID"  length="10"/>
+        </property>
+        <property name="docno" type="string">
+            <column name="doc_code"  length="50"/>
+        </property>
+        <property name="doctype" type="string">
+            <column name="type_one"  length="10"/>
+        </property>
+        <property name="docitem" type="string">
+            <column name="type_two"  length="10"/>
+        </property>
+        <property name="docstatus" type="string">
+            <column name="doc_status"  length="10"/>
+        </property>
+        <property name="courtYearInfo" type="string">
+            <column name="court_year_info" length="10"/>
+        </property>
+        <property name="sourceDocInfo" type="string">
+            <column name="source_doc_info" length="10"/>
+        </property>
+        <property name="borrowReason" type="string">
+            <column name="borrow_reason" length="10"/>
+        </property>
+        <property name="lawcode" type="string">
+            <column name="law_code" length="10"/>
+        </property>        
+        <property name="procdate" type="timestamp">
+            <column name="progress_datetime" />
+        </property>
+        <property name="procname" type="string">
+            <column name="progress_user_name" length="10"/>
+        </property>
+        <property name="checkDate" type="timestamp">
+            <column name="check_datetime" />
+        </property>
+        <property name="checkUser" type="string">
+            <column name="check_user_name" length="10"/>
+        </property>
+        <property name="backDate" type="timestamp">
+            <column name="back_datetime" />
+        </property>
+        <property name="backUser" type="string">
+            <column name="back_user_name" length="10"/>
+        </property>
+        <property name="lastproctime" type="timestamp">
+            <column name="final_progress_datetime" />
+        </property>
+        <property name="lastprocname" type="string">
+            <column name="final_progress_user_name" length="10"/>
+        </property>
+        <property name="correct" type="string">
+            <column name="edit" length="10"/>
+        </property>
+        <property name="department" type="string">
+            <column name="business" length="10"/>
+        </property>
+        <property name="employee_tel" type="string">
+            <column name="business_account" length="10"/>
+        </property>
+        
+       
+    </class>
+</hibernate-mapping>

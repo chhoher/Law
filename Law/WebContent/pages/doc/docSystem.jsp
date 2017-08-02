@@ -100,7 +100,6 @@
 					                },
 					                { "data": "editDoc"},
 					                { "data": "docStatus" },
-					                { "data": "borrowInfo" },
 					                { "data": "progress" },
 					                { "data": "imgFiles" },
 					                { "data": "bankDate" },
@@ -128,11 +127,12 @@
 					                { "data": "shareCaseId0" },
 					                { "data": "sendDate" },
 					                { "data": "newSendDate" },
+					                { "data": "interestYear" },
+					                { "data": "interestDate" },
 					                { "data": "remark" },
 					                { "data": "shadow" },
+					                { "data": "borrowInfo"},
 					                { "data": "modifyUserName" },
-					                { "data": "cashierCheckStartDate" },
-					                { "data": "cashierCheckAmount" },
 					                { "data": "ruledDate" },
 					                { "data": "ruledAmount" },
 					                { "data": "applyConfirmationDate" },
@@ -157,8 +157,8 @@
 					                { "data": "reduceSaleDate" },
 					                { "data": "destoryDate" },
 					                { "data": "realDistributionDate" },
+					                { "data" :"report"},
 					                { "data": "edit" },
-					                { "data": "report" },
 					                { "data": "pay" },
 					                { "data": "sendReport" },
 					                { "data": "toCourtDate" },
@@ -167,11 +167,16 @@
 					                { "data": "toCourtNotice" },
 					                { "data": "executionDate" },
 					                { "data": "executionDate" },
+					                { "data": "cashierCheckStartDate" },
+					                { "data": "cashierCheckAmount" },
 					                { "data": "cashierCheckEndDate" },
-					                { "data": "courtYearInfo" },
+					                { "data": "debtscourtYearInfo" },
 					                { "data": "debtsDate" },
 					                { "data": "claimsdocQuota" },
 					                { "data": "claimsDocInterestRate" },
+					                { "data": "otherReceiptType" },
+					                { "data": "otherReceiptAmount" },
+					                { "data": "otherCourtDate" }
 					            ]
 					            };
 						
@@ -324,7 +329,6 @@
                 <th>申請借調</th>
                 <th>修改</th>
                 <th>文件狀態</th>
-                <th>借調資訊</th>
                 <th>進度</th>
                 <th>影像檔</th>
                 <th>業主調件日</th>
@@ -348,11 +352,12 @@
                 <th>共用案號</th>
                 <th>發文日期</th>
                 <th>最近執行日期</th>
+                <th>(時效)利息年限</th>
+                <th>(時效)利息到期日</th>
                 <th>備註</th>
                 <th>影本註記</th>
+                <th>借調資訊</th>
                 <th>最後建檔人&日期</th>
-                <th>本票發票日</th>
-                <th>本票金額</th>
                 <th>收到裁定日</th>
                 <th>收到裁定金額</th>
                 <th>聲請確證日</th>
@@ -377,21 +382,26 @@
                 <th>減拍日</th>
                 <th>塗銷登記日</th>
                 <th>實施分配日</th>
-                <th>補正</th>
                 <th>陳報</th>
+                <th>補正</th>
                 <th>繳費</th>
-                <th>公送公告</th>
+                <th>登報</th>
                 <th>開庭日期</th>
                 <th>開庭時間</th>
                 <th>開庭期日種類</th>
                 <th>開庭注意事項</th>
                 <th>導往執行日期</th>
                 <th>導往執行時間</th>
+                <th>本票發票日</th>
+                <th>本票金額</th>
                 <th>本票到期日</th>
                 <th>(債讓變動債權)法院年字案股</th>
                 <th>債讓日</th>
                 <th>額度</th>
                 <th>利率</th>
+                <th>收據種類</th>
+                <th>收據金額</th>
+                <th>法院製發日</th>
             </tr>
         </thead>
     </table>

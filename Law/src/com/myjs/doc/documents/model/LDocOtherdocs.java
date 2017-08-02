@@ -3,6 +3,11 @@ package com.myjs.doc.documents.model;
 import java.util.Date;
 
 public class LDocOtherdocs {
+	private String bankId;
+	private String gProdId;
+	private String gProdName;
+	private String debtID;
+	private String debtName;
 	private int otherdocsId;
 	private String infoId;
 	private int caseId;
@@ -184,6 +189,46 @@ public class LDocOtherdocs {
 
 	public void setAppointmentLetterCode(String appointmentLetterCode) {
 		this.appointmentLetterCode = appointmentLetterCode;
+	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+
+	public String getgProdId() {
+		return gProdId;
+	}
+
+	public void setgProdId(String gProdId) {
+		this.gProdId = gProdId;
+	}
+
+	public String getgProdName() {
+		return gProdName;
+	}
+
+	public void setgProdName(String gProdName) {
+		this.gProdName = gProdName;
+	}
+
+	public String getDebtID() {
+		return debtID;
+	}
+
+	public void setDebtID(String debtID) {
+		this.debtID = debtID;
+	}
+
+	public String getDebtName() {
+		return debtName;
+	}
+
+	public void setDebtName(String debtName) {
+		this.debtName = debtName;
 	}
 	
 }
