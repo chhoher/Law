@@ -22,24 +22,85 @@ $(function() {
 			// Get row data
 		 	data = docDataTable.row(rowTr).data();
 			
+		 	// 組出借調資訊
+		 	var borrowInfo,lawCode,borrowBackDate,borrowBackReason,borrowToCourtDate,borrowToCourtLawCode,
+		 		borrowCourtYearCourt,borrowCourtYearYear,borrowCourtYearTxt,borrowCourtYearCaseId,
+		 		borrowCourtYearShare,borrowCommonReason,borrowSubLawCode;
+		 	
+		 	// 遞狀
+			if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f474dd50002"){
+				lawCode = $("#iptborrowDocLawCode_" + data.docCode).val();
+				borrowInfo = "-遞狀【" + lawCode + "】";
+			}
+			
+			// 遞狀退件(業主)
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f478ecc0003"){
+				borrowBackDate = $("#iptborrowDocBackDate_" + data.docCode).val();
+				borrowBackReason = $("#iptborrowDocBackReason_" + data.docCode).val();
+				borrowInfo = "-退件(業主)【" + borrowBackDate + "-" + borrowBackReason + "】";
+			}
+			
+			// 開庭
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f486f120004"){
+				var courtName;
+				borrowToCourtDate = $("#iptborrowDocToCourtDate_" + data.docCode).val();
+				borrowToCourtLawCode = $("#iptborrowDocToCourtLawCode_" + data.docCode).val();
+				borrowCourtYearCourt = $("#applyBorrowCourtYearCourt_" + data.docCode).find('option:selected').val();
+				courtName = $("#applyBorrowCourtYearCourt_" + data.docCode).find('option:selected').text();
+				borrowCourtYearYear = $("#applyBorrowCourtYearYear_" + data.docCode).val();
+				borrowCourtYearTxt = $("#applyBorrowCourtYearTxt_" + data.docCode).val();
+				borrowCourtYearCaseId = $("#applyBorrowCourtYearCaseId_" + data.docCode).val();
+				borrowCourtYearShare = $("#applyBorrowCourtYearShare_" + data.docCode).val();
+				borrowInfo = "-開庭【" + borrowToCourtLawCode + "】【" + borrowToCourtDate + "-" + courtName + "/" + 
+					borrowCourtYearYear + "/" + borrowCourtYearTxt + "/" + borrowCourtYearCaseId + "/" + borrowCourtYearShare + "】";
+			}
+			
+			// 一般借調
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f489e0b0005"){
+				borrowCommonReason = $("#iptborrowDocReason_" + data.docCode).val();
+				borrowInfo = "-一般借調【" + borrowCommonReason + "】";
+			}
+			
+			// 預借(遞狀)
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f48db170006"){
+				borrowSubLawCode = $("#iptborrowDocSubLawCode_" + data.docCode).val();
+				borrowInfo = "-預借(遞狀)【" + borrowSubLawCode + "】";
+			}
+			
 			saveData = {
-				bankName : data.bankName,
-				prodName : "",
+				// borrowList
 				caseId : data.caseId,
 				debtName : data.debtName,
-				ID : "",
+				ID : data.ID,
 				docCode : data.docCode,
-				typeOne : data.typeOne,
-				typeTwo : data.typeTwo,
 				docStatus : data.docStatus,
-				courtYearInfo : data.courtYearInfo,
-				sourceDocInfo : data.sourceDocInfo,
+				borrowStatus : 0, //申調固定帶0
 				borrowReason : $("#applyBorrow_" + data.docCode).find('option:selected').val(),
-				lawCode : 0,
+				docId : data.docId,
+				docType : data.docType,
+				borrowInfo : borrowInfo,
+				lawCode : lawCode,
+				borrowBackDate : borrowBackDate,
+				borrowBackReason : borrowBackReason,
+				borrowToCourtDate : borrowToCourtDate,
+				borrowToCourtLawCode : borrowToCourtLawCode,
+		 		borrowCourtYearCourt : borrowCourtYearCourt,
+		 		borrowCourtYearYear : borrowCourtYearYear,
+		 		borrowCourtYearTxt : borrowCourtYearTxt,
+		 		borrowCourtYearCaseId : borrowCourtYearCaseId,
+		 		borrowCourtYearShare : borrowCourtYearShare,
+		 		borrowCommonReason : borrowCommonReason,
+		 		borrowSubLawCode : borrowSubLawCode,			
 				borrowUserName : "ABC",
 				borrowUserId : "ABC",
 				borrowDatetime : "2017-07-24",
-				progressDatetime : "2017-07-24",
+				bankName : data.bankName,
+				prodName : "",
+				typeOne : data.typeOne,
+				typeTwo : data.typeTwo,
+				courtYearInfo : data.courtYearInfo,
+				sourceDocInfo : data.sourceDocInfo,
+				//progressDatetime : "2017-07-24",
 				progressUserId : "",
 				progressUserName : "",
 				checkDatetime : "2017-07-24",
@@ -53,22 +114,7 @@ $(function() {
 				finalProgressUserName : "",
 				edit : data.edit,
 				business : "",
-				businessAccount : "",
-				borrowInfo : "",
-				borrowLawCode : "",
-				borrowBackDate : "2017-07-24",
-				borrowBackReason : "",
-				borrowToCourtDate : "2017-07-24",
-				borrowToCourtLawCode : "",
-				borrowCourtYearCourt : "",
-				borrowCourtYearYear : 0,
-				borrowCourtYearTxt : "",
-				borrowCourtYearCaseId : 0,
-				borrowCourtYearShare : "",
-				borrowCommonsReason : "",
-				borrowSubLawCode : "",
-				docId : 0, //TODO 這裡記得改
-				borrowStatus : 0 //申調固定帶0
+				businessAccount : ""
 			}
 			
 			saveBorrowInfo.push(saveData);
@@ -80,7 +126,6 @@ $(function() {
 			$.ajax({
 				url : "../pages/doc/documents/docAction!saveBorrowDocs.action",
 				data : {
-					"docCodes" : docCodes,
 					"saveBorrowInfo" : saveBorrowInfoString
 				},
 				type : "POST",
@@ -110,13 +155,50 @@ $(function() {
 			
 			// Get row data
 		 	data = docDataTable.row(rowTr).data();
+		 	
+		 	// 組出借調資訊
+		 	var borrowInfo,lawCode,borrowBackDate,borrowBackReason,borrowToCourtDate,borrowToCourtLawCode,
+		 		borrowCourtYearCourt,borrowCourtYearYear,borrowCourtYearTxt,borrowCourtYearCaseId,
+		 		borrowCourtYearShare,borrowCommonReason,borrowSubLawCode;
 			
+		 	// 遞狀
+			if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f474dd50002"){
+				lawCode = $("#iptborrowDocLawCode_" + data.docCode).val();
+			}
+			
+			// 遞狀退件(業主)
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f478ecc0003"){
+				borrowBackDate = $("#iptborrowDocBackDate_" + data.docCode).val();
+				borrowBackReason = $("#iptborrowDocBackReason_" + data.docCode).val();
+			}
+			
+			// 開庭
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f486f120004"){
+				borrowToCourtDate = $("#iptborrowDocToCourtDate_" + data.docCode).val();
+				borrowToCourtLawCode = $("#iptborrowDocToCourtLawCode_" + data.docCode).val();
+				borrowCourtYearCourt = $("#applyBorrowCourtYearCourt_" + data.docCode).find('option:selected').val();
+				borrowCourtYearYear = $("#applyBorrowCourtYearYear_" + data.docCode).val();
+				borrowCourtYearTxt = $("#applyBorrowCourtYearTxt_" + data.docCode).val();
+				borrowCourtYearCaseId = $("#applyBorrowCourtYearCaseId_" + data.docCode).val();
+				borrowCourtYearShare = $("#applyBorrowCourtYearShare_" + data.docCode).val();
+			}
+			
+			// 一般借調
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f489e0b0005"){
+				borrowCommonReason = $("#iptborrowDocReason_" + data.docCode).val();
+			}
+			
+			// 預借(遞狀)
+			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f48db170006"){
+				borrowSubLawCode = $("#iptborrowDocSubLawCode_" + data.docCode).val();
+			}
+		 		
 			printData = {
 				bankName : data.bankName,
 				prodName : "",
 				caseId : data.caseId,
 				debtName : data.debtName,
-				ID : "",
+				ID : data.ID,
 				docCode : data.docCode,
 				typeOne : data.typeOne,
 				typeTwo : data.typeTwo,
@@ -124,7 +206,21 @@ $(function() {
 				courtYearInfo : data.courtYearInfo,
 				sourceDocInfo : data.sourceDocInfo,
 				borrowReason : $("#applyBorrow_" + data.docCode).find('option:selected').text(),
-				lawCode : 0,
+				docId : data.docId,
+				docType : data.docType,
+				borrowInfo : borrowInfo,
+				lawCode : lawCode,
+				borrowBackDate : borrowBackDate,
+				borrowBackReason : borrowBackReason,
+				borrowToCourtDate : borrowToCourtDate,
+				borrowToCourtLawCode : borrowToCourtLawCode,
+		 		borrowCourtYearCourt : borrowCourtYearCourt,
+		 		borrowCourtYearYear : borrowCourtYearYear,
+		 		borrowCourtYearTxt : borrowCourtYearTxt,
+		 		borrowCourtYearCaseId : borrowCourtYearCaseId,
+		 		borrowCourtYearShare : borrowCourtYearShare,
+		 		borrowCommonReason : borrowCommonReason,
+		 		borrowSubLawCode : borrowSubLawCode,			
 				borrowUserName : "ABC",
 				borrowUserId : "ABC",
 				borrowDatetime : "2017-07-24",
@@ -155,8 +251,7 @@ $(function() {
 				borrowCourtYearCaseId : 0,
 				borrowCourtYearShare : "",
 				borrowCommonsReason : "",
-				borrowSubLawCode : "",
-				docId : 0
+				borrowSubLawCode : ""
 			}
 			
 			printBorrowInfo.push(printData);

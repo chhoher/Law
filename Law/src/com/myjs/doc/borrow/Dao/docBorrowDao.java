@@ -31,8 +31,20 @@ public interface docBorrowDao {
 	/**
 	 * 文管申調清單查詢
 	 * @param caseId
+	 * @param bankName
+	 * @param isInStore
+	 * @param debtName
+	 * @param borrowReason
+	 * @param docStatus
+	 * @param ID
+	 * @param borrowStartDate
+	 * @param borrowEndDate
+	 * @param docCode
+	 * @param borrowUserName
 	 * @return
 	 * @throws Exception
 	 */
-	public List<LDocBorrowList> findBorrowDoc() throws Exception;
+	public List<LDocBorrowList> findBorrowDoc(String caseId, String bankName, 
+			String isInStore, String debtName, String borrowReason, String docStatus, 	String ID, 
+			String borrowStartDate, String borrowEndDate, String docCode, String borrowUserName) throws Exception;
 }

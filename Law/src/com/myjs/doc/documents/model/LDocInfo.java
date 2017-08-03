@@ -12,7 +12,6 @@ public class LDocInfo {
 	private String applyBorrow;
 	private String editDoc;
 	private String docStatus;
-	private String borrowInfo;
 	private String progress;
 	private String imgFiles;
 	private String bankDate;
@@ -36,10 +35,11 @@ public class LDocInfo {
 	private String sendDate;
 	private String newSendDate;
 	private String remark;
+	private String interestYear;
+	private String interestDate;
 	private String shadow;
+	private String borrowInfo;
 	private String modifyUserName;
-	private String cashierCheckStartDate;
-	private int cashierCheckAmount;
 	private String ruledDate;
 	private int ruledAmount;
 	private String applyConfirmationDate;
@@ -74,11 +74,16 @@ public class LDocInfo {
     private String toCourtNotice;
     private String executionDate;
     private String executionTime;
+	private String cashierCheckStartDate;
+	private int cashierCheckAmount;
     private String cashierCheckEndDate;
-    private String courtYearInfo;
+    private String debtsCourtYearInfo;
     private String debtsDate;
     private String claimsdocQuota;
     private String claimsDocInterestRate;
+    private String otherReceiptType;
+    private String otherReceiptAmount;
+    private String otherCourtDate;
 
 	// Add By Jia 2017-07-26 Vo
 	private String prodName;
@@ -103,6 +108,8 @@ public class LDocInfo {
 	private String businessAccount;
 	private String business;
 	private String rowNum;
+	private String docId;
+	private String docType;
 	
 	public LDocInfo(String docInfoId, int caseId, String createUserId,
 			Date createDatetime) {
@@ -675,14 +682,6 @@ public class LDocInfo {
 		this.cashierCheckEndDate = cashierCheckEndDate;
 	}
 
-	public String getCourtYearInfo() {
-		return courtYearInfo;
-	}
-
-	public void setCourtYearInfo(String courtYearInfo) {
-		this.courtYearInfo = courtYearInfo;
-	}
-
 	public String getDebtsDate() {
 		return debtsDate;
 	}
@@ -881,6 +880,70 @@ public class LDocInfo {
 
 	public void setRowNum(String rowNum) {
 		this.rowNum = rowNum;
+	}
+
+	public String getInterestYear() {
+		return interestYear;
+	}
+
+	public void setInterestYear(String interestYear) {
+		this.interestYear = interestYear;
+	}
+
+	public String getInterestDate() {
+		return interestDate;
+	}
+
+	public void setInterestDate(String interestDate) {
+		this.interestDate = interestDate;
+	}
+
+	public String getDebtsCourtYearInfo() {
+		return debtsCourtYearInfo;
+	}
+
+	public void setDebtsCourtYearInfo(String debtsCourtYearInfo) {
+		this.debtsCourtYearInfo = debtsCourtYearInfo;
+	}
+
+	public String getOtherReceiptType() {
+		return otherReceiptType;
+	}
+
+	public void setOtherReceiptType(String otherReceiptType) {
+		this.otherReceiptType = otherReceiptType;
+	}
+
+	public String getOtherReceiptAmount() {
+		return otherReceiptAmount;
+	}
+
+	public void setOtherReceiptAmount(String otherReceiptAmount) {
+		this.otherReceiptAmount = otherReceiptAmount;
+	}
+
+	public String getOtherCourtDate() {
+		return otherCourtDate;
+	}
+
+	public void setOtherCourtDate(String otherCourtDate) {
+		this.otherCourtDate = otherCourtDate;
+	}
+
+	public String getDocId() {
+		return docId;
+	}
+
+	public void setDocId(String docId) {
+		this.docId = docId;
+	}
+
+	public String getDocType() {
+		return docType;
+	}
+
+	public void setDocType(String docType) {
+		this.docType = docType;
 	}
 	
 }

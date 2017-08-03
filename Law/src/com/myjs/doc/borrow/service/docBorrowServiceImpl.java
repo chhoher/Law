@@ -71,11 +71,16 @@ public class docBorrowServiceImpl implements docBorrowService{
 		return jsonResponse.toString();
 	}
 	
-	public String findMoveDoc() throws Exception{
-		List<LDocBorrowList> ListLDocInfo = docBorrowDao.findBorrowDoc();
+	public String findMoveDoc(String caseId, String bankName, String isInStore, String debtName, 
+			String borrowReason, String docStatus, String ID, String borrowStartDate, 
+			String borrowEndDate, String docCode, String borrowUserName) throws Exception{
+		
+		List<LDocBorrowList> ListLDocInfo = docBorrowDao.findBorrowDoc(caseId, bankName, isInStore, debtName, 
+				borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
 		JsonObject jsonResponse = new JsonObject();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
 		jsonResponse.add("responseLDocBorrow", gson.toJsonTree(ListLDocInfo));
 		return jsonResponse.toString();
+		
 	}
 }

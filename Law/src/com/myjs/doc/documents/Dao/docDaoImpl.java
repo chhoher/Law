@@ -663,7 +663,6 @@ public class docDaoImpl extends DaoUtil implements docDao{
 			LDocInfo.setApplyBorrow(rs.getString("apply_borrow") == null ? "" : rs.getString("apply_borrow"));
 			LDocInfo.setEditDoc(rs.getString("edit_doc") == null ? "" : rs.getString("edit_doc"));
 			LDocInfo.setDocStatus(rs.getString("doc_status") == null ? "" : rs.getString("doc_status"));
-			LDocInfo.setBorrowInfo(rs.getString("borrow_info") == null ? "" : rs.getString("borrow_info"));
 			LDocInfo.setProgress(rs.getString("progress") == null ? "" : rs.getString("progress"));
 		    LDocInfo.setImgFiles(rs.getString("img_files") == null ? "" : rs.getString("img_files"));
 		    LDocInfo.setBankDate(rs.getString("bank_date") == null ? "" : rs.getString("bank_date"));
@@ -674,7 +673,7 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		    LDocInfo.setTypeOne(rs.getString("type_one") == null ? "" : rs.getString("type_one"));
 		    LDocInfo.setTypeTwo(rs.getString("type_two") == null ? "" : rs.getString("type_two"));
 		    LDocInfo.setCourtYearCourt(rs.getString("court_year_court") == null ? "" : rs.getString("court_year_court"));
-		    LDocInfo.setCourtYearYear(rs.getInt("court_year_year"));
+		    LDocInfo.setCourtYearYear(rs.getString("court_year_year") == null ? 0 : rs.getInt("court_year_year"));
 		    LDocInfo.setCourtYearTxt(rs.getString("court_year_txt") == null ? "" : rs.getString("court_year_txt"));
 		    LDocInfo.setCourtYearShare(rs.getString("court_year_share") == null ? "" : rs.getString("court_year_share"));
 		    LDocInfo.setCourtYearCaseId(rs.getString("court_year_case_id") == null ? "" : rs.getString("court_year_case_id"));
@@ -686,11 +685,12 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		    LDocInfo.setShareCaseId0(rs.getString("share_case_id_0") == null ? "" : rs.getString("share_case_id_0"));
 		    LDocInfo.setSendDate(rs.getString("send_date") == null ? "" : rs.getString("send_date"));
 		    LDocInfo.setNewSendDate(rs.getString("new_send_date") == null ? "" : rs.getString("new_send_date"));
+		    LDocInfo.setInterestYear(rs.getString("interest_year") == null ? "" : rs.getString("interest_year"));
+		    LDocInfo.setInterestDate(rs.getString("interest_date") == null ? "" : rs.getString("interest_date"));
 		    LDocInfo.setRemark(rs.getString("remark") == null ? "" : rs.getString("remark"));
 		    LDocInfo.setShadow(rs.getString("shadow") == null ? "" : rs.getString("shadow"));
+			LDocInfo.setBorrowInfo(rs.getString("borrow_info") == null ? "" : rs.getString("borrow_info"));
 		    LDocInfo.setModifyUserName(rs.getString("modify_user_name") == null ? "" : rs.getString("modify_user_name"));
-		    LDocInfo.setCashierCheckStartDate(rs.getString("cashier_check_start_date") == null ? "" : rs.getString("cashier_check_start_date"));
-		    LDocInfo.setCashierCheckAmount(rs.getInt("cashier_check_amount"));
 		    LDocInfo.setRuledDate(rs.getString("ruled_date") == null ? "" : rs.getString("ruled_date"));
 		    LDocInfo.setRuledAmount(rs.getInt("ruled_amount"));
 		    LDocInfo.setApplyConfirmationDate(rs.getString("apply_confirmation_date") == null ? "" : rs.getString("apply_confirmation_date"));
@@ -715,8 +715,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		    LDocInfo.setReduceSaleDate(rs.getString("reduce_sale_date") == null ? "" : rs.getString("reduce_sale_date"));
 		    LDocInfo.setDestoryDate(rs.getString("destory_date") == null ? "" : rs.getString("destory_date"));
 		    LDocInfo.setRealDistributionDate(rs.getString("real_distribution_date") == null ? "" : rs.getString("real_distribution_date"));
-		    LDocInfo.setEdit(rs.getString("edit") == null ? "" : rs.getString("edit"));
 		    LDocInfo.setReport(rs.getString("report") == null ? "" : rs.getString("report"));
+		    LDocInfo.setEdit(rs.getString("edit") == null ? "" : rs.getString("edit"));;
 		    LDocInfo.setPay(rs.getString("pay") == null ? "" : rs.getString("pay"));
 		    LDocInfo.setSendReport(rs.getString("send_report") == null ? "" : rs.getString("send_report"));
 		    LDocInfo.setToCourtDate(rs.getString("to_court_date") == null ? "" : rs.getString("to_court_date"));
@@ -725,11 +725,19 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		    LDocInfo.setToCourtNotice(rs.getString("to_court_notice") == null ? "" : rs.getString("to_court_notice"));
 		    LDocInfo.setExecutionDate(rs.getString("execution_date") == null ? "" : rs.getString("execution_date"));
 		    LDocInfo.setExecutionTime(rs.getString("execution_time") == null ? "" : rs.getString("execution_time"));
+		    LDocInfo.setCashierCheckStartDate(rs.getString("cashier_check_start_date") == null ? "" : rs.getString("cashier_check_start_date"));
+		    LDocInfo.setCashierCheckAmount(rs.getInt("cashier_check_amount"));
 		    LDocInfo.setCashierCheckEndDate(rs.getString("cashier_check_end_date") == null ? "" : rs.getString("cashier_check_end_date"));
-		    LDocInfo.setCourtYearInfo(rs.getString("court_year_info") == null ? "" : rs.getString("court_year_info"));
+		    LDocInfo.setDebtsCourtYearInfo(rs.getString("debts_court_year_info") == null ? "" : rs.getString("debts_court_year_info"));
 		    LDocInfo.setDebtsDate(rs.getString("debts_date") == null ? "" : rs.getString("debts_date"));
 		    LDocInfo.setClaimsdocQuota(rs.getString("claimsdoc_quota") == null ? "" : rs.getString("claimsdoc_quota"));
 		    LDocInfo.setClaimsDocInterestRate(rs.getString("claims_doc_interest_rate") == null ? "" : rs.getString("claims_doc_interest_rate"));
+		    LDocInfo.setOtherReceiptType(rs.getString("other_receipt_type") == null ? "" : rs.getString("other_receipt_type"));
+		    LDocInfo.setOtherReceiptAmount(rs.getString("other_receipt_amount") == null ? "" : rs.getString("other_receipt_amount"));
+		    LDocInfo.setOtherCourtDate(rs.getString("other_court_date") == null ? "" : rs.getString("other_court_date"));
+		    LDocInfo.setID(rs.getString("debt_ID") == null ? "" : rs.getString("debt_ID"));
+		    LDocInfo.setDocId(rs.getString("doc_id") == null ? "" : rs.getString("doc_id"));
+		    LDocInfo.setDocType(rs.getString("doc_type") == null ? "" : rs.getString("doc_type"));
 			return LDocInfo;
 
 		}

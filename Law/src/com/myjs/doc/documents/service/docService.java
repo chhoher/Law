@@ -61,7 +61,7 @@ public interface docService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String saveBorrowDocs(String saveBorrowString) throws Exception;
+	public String saveBorrowDocs(String saveBorrowString, VEIPMemdb loginUser) throws Exception;
 	
 	/**
 	 * add By Jia 2017-07-24

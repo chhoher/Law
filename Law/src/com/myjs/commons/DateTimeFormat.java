@@ -48,6 +48,16 @@ public class DateTimeFormat {
 	}
 	
 	/**
+	 * 將輸入日期轉換 民國的 "yyy/MM/dd"
+	 * @return
+	 */
+	public static String getTWNowDate(Date datetime) throws Exception{
+		@SuppressWarnings("deprecation")
+		String TWDate = (datetime.getYear()-11) + "/" + (datetime.getMonth()+1) + "/" + datetime.getDate();
+		return TWDate;
+	}
+	
+	/**
 	 * 取出現在日期 "yyyyMMddHHmmss"
 	 * @return
 	 */
