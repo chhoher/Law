@@ -563,13 +563,23 @@ public class docServiceImpl implements docService{
 		return jsonResponse.toString();
 	}
 
-	public String saveBorrowDocs(String saveBorrowString) throws Exception{
+	public String saveBorrowDocs(String saveBorrowString, VEIPMemdb loginUser) throws Exception{
 		Gson gson = new Gson();
+		Date nowDatetime = new Date();
 		// 新增申調List
 		List<LDocBorrowList> LDocBorrowList = gson.fromJson(saveBorrowString, new TypeToken<List<LDocBorrowList>>(){}.getType());
 		// 歷史紀錄
 		List<LDocBorrowHistory> LDocBorrowHistoryList = gson.fromJson(saveBorrowString, new TypeToken<List<LDocBorrowHistory>>(){}.getType());//TODO 記得改!!!!!!!!
 		for(int i = 0; i < LDocBorrowList.size();i ++){
+			String borrowinfo = LDocBorrowList.get(i).getBorrowInfo();
+			borrowinfo = DateTimeFormat.getTWNowDate(nowDatetime) + borrowinfo + loginUser.getMemnm();
+			LDocBorrowList.get(i).setBorrowInfo(borrowinfo);
+			LDocBorrowList.get(i).setBorrowUserId(loginUser.getMemno());
+			LDocBorrowList.get(i).setBorrowUserName(loginUser.getMemnm());
+			LDocBorrowList.get(i).setBorrowDatetime(nowDatetime);
+			LDocBorrowList.get(i).setModifyUserId(loginUser.getMemno());
+			LDocBorrowList.get(i).setModifyUserName(loginUser.getMemnm());
+			LDocBorrowList.get(i).setModifyDatetime(nowDatetime);
 			docBorrowDao.save(LDocBorrowList.get(i));
 			LDocBorrowHistoryList.get(i).setBorrowDocId(LDocBorrowList.get(i).getBorrowDocId());
 			docBorrowDao.save(LDocBorrowHistoryList.get(i));

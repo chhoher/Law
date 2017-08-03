@@ -15,6 +15,8 @@ public interface docBorrowService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String findMoveDoc() throws Exception;
+	public String findMoveDoc(String caseId, String bankName, String isInStore, String debtName, 
+			String borrowReason, String docStatus, String ID, String borrowStartDate, 
+			String borrowEndDate, String docCode, String borrowUserName) throws Exception;
 	
 }

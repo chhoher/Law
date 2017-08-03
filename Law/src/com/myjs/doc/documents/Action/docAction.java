@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.myjs.doc.documents.service.docService;
+import com.myjs.sys.user.model.VEIPMemdb;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.commons.AbstractAction;
@@ -218,7 +219,9 @@ public class docAction extends AbstractAction {
 					docCode = super.getRequest().getParameter("docCodes");
 			
 			log.debug("saveBorrowString = {}, docCode = {}", saveBorrowString, docCode);
-			String response = docService.saveBorrowDocs(saveBorrowString);//申調
+			
+			VEIPMemdb loginUser = getSessionLoginUser();
+			String response = docService.saveBorrowDocs(saveBorrowString, loginUser);//申調
 			
 			log.debug("response = {}", response);
 			printToResponse(response);

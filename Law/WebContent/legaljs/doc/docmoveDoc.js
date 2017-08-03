@@ -6,31 +6,42 @@ $(function() {
 	
 	// ===== function start =====
 	
-	// add by Jia 查詢文管總表 function
-	function queryDocSum() {
-		var docSumTable = "";
-		docSumTable = $("#docSumTable").dataTable();
+	// add by Jia 查詢需調卷文件 function
+	function queryMoveDoc(caseId, bankName, isInStore, debtName, borrowReason, 
+			docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName) {
+		var docMoveDocTable = "";
+		docMoveDocTable = $("#moveDocTable").dataTable();
 		
-		$.ajax({
-			url : "../pages/doc/documents/docAction!queryDocSumTable.action",
-			data : {
-				
-			},
-			type : "POST",
-			dataType : 'json',
-			success : function(response) {
-				var json = response.responseLDocSumInfo;
-				docSumTable.fnClearTable();
-				if (json.length !== 0) {
-					docSumTable.fnAddData(json);
+		    $.ajax({
+				url : '../pages/doc/borrow/docBorrowAction!loadborrowDocs.action',
+				data : {
+					"caseId" : caseId,
+					"bankName" : bankName,
+					"isInStore" : isInStore,
+					"debtName" : debtName,
+					"borrowReason" : borrowReason,
+					"docStatus" : docStatus,
+					"ID" : ID,
+					"borrowStartDate" : borrowStartDate,
+					"borrowEndDate" : borrowEndDate,
+					"docCode" : docCode,
+					"borrowUserName" : borrowUserName
+				},
+				type : "POST",
+				dataType : 'json',
+				success : function(response) {
+					var json = response.responseLDocBorrow;
+					docMoveDocTable.fnClearTable();
+					if (json.length !== 0) {
+						docMoveDocTable.fnAddData(json);
+					}
+					docMoveDocTable.fnDraw();
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
 				}
-				docSumTable.fnDraw();
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert(xhr.status);
-				alert(thrownError);
-			}
-		});
+			});
 		
 	}
 	
@@ -124,9 +135,22 @@ $(function() {
 	// ===== function end =====
 
 	// ===== 功能列按鈕 start =====
-	// 查詢文管系統
-	$("#btnqueryDocSum").button().on("click",function() {
-		queryDocSum();
+	// 查詢需調卷文件
+	$("#btnqueryMoveDoc").button().on("click",function() {
+		var caseId = $("#iptsearchMoveDocCaseId").val(),
+			bankName = $("#cobsearchMoveDocBankName").find('option:selected').val(),
+			isInStore = $("#cobsearchMoveDocIsInStore").find('option:selected').val(),
+			debtName = $("#iptsearchMoveDocDebtName").val(),
+			borrowReason = $("#cobMoveDocBorrowReason").find("option:selected").val(),
+			docStatus = $("#cobsearchMoveDocDocStatus").find("option:selected").val(),
+			ID = $("#iptsearchMoveDocID").val(),
+			borrowStartDate = $("#iptsearchMoveDocBorrowStartDate").val(),
+			borrowEndDate = $("#iptsearchMoveDocBorrowEndDate").val(),
+			docCode = $("#iptsearchMoveDocDocCode").val(),
+			borrowUserName = $("#cobsearchMoveDocBorrowUserName").val();
+			
+		queryMoveDoc(caseId, bankName, isInStore, debtName, borrowReason, docStatus, 
+			ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
 	});
 	
 	$("#btnprintBorrowDoc").button().on("click",function(){

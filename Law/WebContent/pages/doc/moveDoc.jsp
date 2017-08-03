@@ -46,9 +46,9 @@
 					$( "#cobMoveDocBorrowReason")[0].selectedIndex = 0;
 
 					//借調狀態
-	    			law.common.selectOption("#cobsearchMoveDocDocStatud", response.borrowStatus);
-					$("#cobsearchMoveDocDocStatud").prepend(noneSelect);
-					$( "#cobsearchMoveDocDocStatud")[0].selectedIndex = 0;
+	    			law.common.selectOption("#cobsearchMoveDocDocStatus", response.borrowStatus);
+					$("#cobsearchMoveDocDocStatus").prepend(noneSelect);
+					$( "#cobsearchMoveDocDocStatus")[0].selectedIndex = 0;
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
@@ -66,7 +66,7 @@
 		    		"columnDefs": [{
 	                    targets: '_all',
 	                    className: 'dt-center',
-	                   	orderable:false,
+	                   	//orderable:false,
 	                }],
 	                "order": [[0, "asc"]],
 		    		"columns": [
@@ -91,8 +91,8 @@
 		                { "data": "borrowStatus" },
 		                { "data": "borrowUserId" },
 		                { "data": "borrowDatetime" },
-		                { "data": "modifyUserId" },
-		                { "data": "modifyDatetime" },
+		                { "data": "progressUserId" },
+		                { "data": "disProgressDatetime" },
 		                { "data": "shareCaseId" }
 		            ]
 			};
@@ -131,6 +131,11 @@
 		       $('input[type="checkbox"]', rows).prop('checked', this.checked);
 		    });
 		 	
+		    smoveDocDatatable.on( 'order.dt search.dt', function () {
+		    	smoveDocDatatable.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+		            cell.innerHTML = i+1;
+		        } );
+		    } ).draw();
 		});
 	</script>
 <div>
@@ -175,8 +180,8 @@
 				<td><input id="iptsearchMoveDocDebtName"></input></td>
 				<td><label for="labsearchMoveDocBorrowReason">申調原因 </label></td>
 				<td><select id="cobMoveDocBorrowReason"><option value="">請選擇</option></select></td>
-				<td><label for="labsearchMoveDocDocStatud">文管狀態</label></td>
-				<td><select id="cobsearchMoveDocDocStatud"><option value="">請選擇</option></select></td>
+				<td><label for="labsearchMoveDocDocStatus">文管狀態</label></td>
+				<td><select id="cobsearchMoveDocDocStatus"><option value="">請選擇</option></select></td>
 			</tr>
 			<tr>
 				<td><label for="labsearchMoveDocID">ID</label></td>

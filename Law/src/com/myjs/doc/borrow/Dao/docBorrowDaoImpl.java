@@ -49,19 +49,25 @@ public class docBorrowDaoImpl extends DaoUtil implements docBorrowDao{
 		return flag;
 	}
 	
-	public List<LDocBorrowList> findBorrowDoc() throws Exception{
+	public List<LDocBorrowList> findBorrowDoc(String caseId, String bankName, 
+			String isInStore, String debtName, String borrowReason, String docStatus, 	String ID, 
+			String borrowStartDate, String borrowEndDate, String docCode, String borrowUserName) throws Exception{
+		
 		log.debug("findBorrowDoc start");
-		StringBuffer queryString = new StringBuffer("SELECT borrow_doc_id, borrow_user_name, borrow_user_id,");
-		queryString.append(" borrow_datetime, LDO.case_id, LDO.debt_name, LDO.debt_ID as ID, doc_code, borrow_status,");
-		queryString.append(" LDO.borrow_reason, law_code, LDBL.modify_datetime, LDBL.modify_user_id,");
-		queryString.append(" LDBL.modify_user_name, LDO.borrow_info, doc_id, LSVTO.variable_name as type_one,");
-		queryString.append(" LSVTT.variable_name as type_two, LDO.bank_name, LDO.g_prod_name AS prod_name, NULL AS court_year_info,");
-		queryString.append(" NULL AS source_doc_info, LSVDS.variable_name as doc_status, NULL AS O_C, NULL AS share_case_id");
-		queryString.append(" FROM L_DOC_BORROW_LIST LDBL");
-		queryString.append(" LEFT JOIN L_DOC_OTHERDOCS LDO ON LDBL.doc_id = LDO.otherdocs_id");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVTO ON LSVTO.variable_id = LDO.type_one");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVTT ON LSVTT.variable_id = LDO.type_two");
-		queryString.append(" LEFT JOIN L_SYS_VARIABLE LSVDS ON LSVDS.variable_id = LDO.doc_status");
+		String pcaseId = (caseId != null && !caseId.equals("")) ? "'" + caseId + "'":"null", 
+				pbankName = (bankName != null && !bankName.equals("")) ? "'" + bankName + "'":"null",
+				pisInStore = (isInStore != null && !isInStore.equals("")) ? "'" + isInStore + "'":"null",
+				pdebtName = (debtName != null && !debtName.equals("")) ? "'" + debtName + "'":"null",
+				pborrowReason = (borrowReason != null && !borrowReason.equals("")) ? "'" + borrowReason + "'":"null",
+				pdocStatus = (docStatus != null && !docStatus.equals("")) ? "'" + docStatus + "'":"null",
+				pID = (ID != null && !ID.equals("")) ? "'" + ID + "'":"null",
+				pborrowStartDate = (borrowStartDate != null && !borrowStartDate.equals("")) ? "'" + borrowStartDate + "'":"null",
+				pborrowEndDate = (borrowEndDate != null && !borrowEndDate.equals("")) ? "'" + borrowEndDate + "'":"null",
+				pdocCode = (docCode != null && !docCode.equals("")) ? "'" + docCode + "'":"null",
+				pborrowUserName = (borrowUserName != null && !borrowUserName.equals("")) ? "'" + borrowUserName + "'":"null";
+		
+		StringBuffer queryString = new StringBuffer("exec SP_findborrowdocs 0," + pcaseId + "," + pbankName + "," + pisInStore + "," + pdebtName + "," + 
+				pborrowReason + "," + pdocStatus + "," + pID + "," + pborrowStartDate + "," + pborrowEndDate + "," + pdocCode + "," + pborrowUserName);
 		log.debug("queryString = {}", queryString);
 		
 		@SuppressWarnings("unchecked")
@@ -84,9 +90,12 @@ public class docBorrowDaoImpl extends DaoUtil implements docBorrowDao{
 			LDocBorrow.setBorrowStatus(rs.getString("borrow_status") == null ? "" : rs.getString("borrow_status"));
 			LDocBorrow.setBorrowReason(rs.getString("borrow_reason") == null ? "" : rs.getString("borrow_reason"));
 			LDocBorrow.setLawCode(rs.getInt("law_code"));
-			LDocBorrow.setModifyDatetime(rs.getDate("modify_datetime"));
-			LDocBorrow.setModifyUserId(rs.getString("modify_user_id") == null ? "" : rs.getString("modify_user_id"));
-			LDocBorrow.setModifyUserName(rs.getString("modify_user_name") == null ? "" : rs.getString("modify_user_name"));
+			//LDocBorrow.setModifyDatetime(rs.getDate("modify_datetime"));
+			//LDocBorrow.setModifyUserId(rs.getString("modify_user_id") == null ? "" : rs.getString("modify_user_id"));
+			//LDocBorrow.setModifyUserName(rs.getString("modify_user_name") == null ? "" : rs.getString("modify_user_name"));
+			LDocBorrow.setDisProgressDatetime(rs.getString("progress_datetime") == null ? "" : rs.getString("progress_datetime"));
+			LDocBorrow.setProgressUserId(rs.getString("progress_user_id") == null ? "" : rs.getString("progress_user_id"));
+			LDocBorrow.setProgressUserName(rs.getString("progress_user_name") == null ? "" : rs.getString("progress_user_name"));
 			LDocBorrow.setBorrowInfo(rs.getString("borrow_info") == null ? "" : rs.getString("borrow_info"));
 			LDocBorrow.setDocId(rs.getInt("doc_id"));
 			LDocBorrow.setTypeOne(rs.getString("type_one") == null ? "" : rs.getString("type_one"));

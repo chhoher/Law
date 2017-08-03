@@ -20,6 +20,20 @@ public class LDocBorrowList {
 	private String borrowInfo;
 	private String docType;//這個放英文代號
 	private int docId;
+	private Date borrowBackDate;
+	private String borrowBackReason;
+	private Date borrowToCourtDate;
+	private int borrowToCourtLawCode;
+	private String borrowCourtYearCourt;
+	private int borrowCourtYearYear;
+	private String borrowCourtYearTxt;
+	private int borrowCourtYearCaseId;
+	private String borrowCourtYearShare;
+	private String borrowCommonReason;
+	private int borrowSubLawCode;			
+	private Date progressDatetime;
+	private String progressUserId;
+	private String progressUserName;
 	
 	//add By Jia 2017-08-01 Vo
 	private int rowNum;
@@ -32,6 +46,7 @@ public class LDocBorrowList {
 	private String typeOne;
 	private String typeTwo;
 	private String shareCaseId;
+	private String disProgressDatetime;
 	
 	public String getBorrowDocId() {
 		return borrowDocId;
@@ -194,6 +209,96 @@ public class LDocBorrowList {
 	}
 	public void setShareCaseId(String shareCaseId) {
 		this.shareCaseId = shareCaseId;
+	}
+	public Date getBorrowBackDate() {
+		return borrowBackDate;
+	}
+	public void setBorrowBackDate(Date borrowBackDate) {
+		this.borrowBackDate = borrowBackDate;
+	}
+	public String getBorrowBackReason() {
+		return borrowBackReason;
+	}
+	public void setBorrowBackReason(String borrowBackReason) {
+		this.borrowBackReason = borrowBackReason;
+	}
+	public Date getBorrowToCourtDate() {
+		return borrowToCourtDate;
+	}
+	public void setBorrowToCourtDate(Date borrowToCourtDate) {
+		this.borrowToCourtDate = borrowToCourtDate;
+	}
+	public int getBorrowToCourtLawCode() {
+		return borrowToCourtLawCode;
+	}
+	public void setBorrowToCourtLawCode(int borrowToCourtLawCode) {
+		this.borrowToCourtLawCode = borrowToCourtLawCode;
+	}
+	public String getBorrowCourtYearCourt() {
+		return borrowCourtYearCourt;
+	}
+	public void setBorrowCourtYearCourt(String borrowCourtYearCourt) {
+		this.borrowCourtYearCourt = borrowCourtYearCourt;
+	}
+	public int getBorrowCourtYearYear() {
+		return borrowCourtYearYear;
+	}
+	public void setBorrowCourtYearYear(int borrowCourtYearYear) {
+		this.borrowCourtYearYear = borrowCourtYearYear;
+	}
+	public String getBorrowCourtYearTxt() {
+		return borrowCourtYearTxt;
+	}
+	public void setBorrowCourtYearTxt(String borrowCourtYearTxt) {
+		this.borrowCourtYearTxt = borrowCourtYearTxt;
+	}
+	public int getBorrowCourtYearCaseId() {
+		return borrowCourtYearCaseId;
+	}
+	public void setBorrowCourtYearCaseId(int borrowCourtYearCaseId) {
+		this.borrowCourtYearCaseId = borrowCourtYearCaseId;
+	}
+	public String getBorrowCourtYearShare() {
+		return borrowCourtYearShare;
+	}
+	public void setBorrowCourtYearShare(String borrowCourtYearShare) {
+		this.borrowCourtYearShare = borrowCourtYearShare;
+	}
+	public String getBorrowCommonReason() {
+		return borrowCommonReason;
+	}
+	public void setBorrowCommonReason(String borrowCommonReason) {
+		this.borrowCommonReason = borrowCommonReason;
+	}
+	public int getBorrowSubLawCode() {
+		return borrowSubLawCode;
+	}
+	public void setBorrowSubLawCode(int borrowSubLawCode) {
+		this.borrowSubLawCode = borrowSubLawCode;
+	}
+	public Date getProgressDatetime() {
+		return progressDatetime;
+	}
+	public void setProgressDatetime(Date progressDatetime) {
+		this.progressDatetime = progressDatetime;
+	}
+	public String getProgressUserId() {
+		return progressUserId;
+	}
+	public void setProgressUserId(String progressUserId) {
+		this.progressUserId = progressUserId;
+	}
+	public String getProgressUserName() {
+		return progressUserName;
+	}
+	public void setProgressUserName(String progressUserName) {
+		this.progressUserName = progressUserName;
+	}
+	public String getDisProgressDatetime() {
+		return disProgressDatetime;
+	}
+	public void setDisProgressDatetime(String disProgressDatetime) {
+		this.disProgressDatetime = disProgressDatetime;
 	}
 	
 	
