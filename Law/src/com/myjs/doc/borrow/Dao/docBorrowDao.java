@@ -30,6 +30,7 @@ public interface docBorrowDao {
 	
 	/**
 	 * 文管申調清單查詢
+	 * @param type
 	 * @param caseId
 	 * @param bankName
 	 * @param isInStore
@@ -44,7 +45,16 @@ public interface docBorrowDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<LDocBorrowList> findBorrowDoc(String caseId, String bankName, 
+	public List<LDocBorrowList> findBorrowDoc(int type, String caseId, String bankName, 
 			String isInStore, String debtName, String borrowReason, String docStatus, 	String ID, 
 			String borrowStartDate, String borrowEndDate, String docCode, String borrowUserName) throws Exception;
+	
+	/**
+	 * 儲存修改借調清單的狀態
+	 * @param borrowListDocIds
+	 * @param updateStatus
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean saveToUpdateBorrowListStatus(String borrowListDocIds, String updateStatus) throws Exception;
 }

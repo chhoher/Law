@@ -47,6 +47,7 @@ public class LDocBorrowList {
 	private String typeTwo;
 	private String shareCaseId;
 	private String disProgressDatetime;
+	private String checkBox;
 	
 	public String getBorrowDocId() {
 		return borrowDocId;
@@ -299,6 +300,12 @@ public class LDocBorrowList {
 	}
 	public void setDisProgressDatetime(String disProgressDatetime) {
 		this.disProgressDatetime = disProgressDatetime;
+	}
+	public String getCheckBox() {
+		return checkBox;
+	}
+	public void setCheckBox(String checkBox) {
+		this.checkBox = checkBox;
 	}
 	
 	

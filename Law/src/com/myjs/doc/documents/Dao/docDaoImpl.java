@@ -654,6 +654,34 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		return ListDocInfo;
 	}
 	
+	public boolean saveToUpdateDocStatus(String DocTableName, String updateStatus, String doc_id) throws Exception{
+		log.debug("saveToUpdateDocStatus start");
+		boolean flag = false;
+		String docsIdName = "";
+		if(DocTableName.equals("L_DOC_CENTITLEMENT")){
+			docsIdName = "centitlement_id";
+		}else if(DocTableName.equals("L_DOC_COURT_DOC")){
+			docsIdName = "court_doc_id";
+		}else if(DocTableName.equals("L_DOC_CASHIERCHECK")){
+			docsIdName = "cashiercheck_id";
+		}else if(DocTableName.equals("L_DOC_DEBTS")){
+			docsIdName = "debts_id";
+		}else if(DocTableName.equals("L_DOC_CLAIMSDOC")){
+			docsIdName = "claimsdocs_id";
+		}else if(DocTableName.equals("L_DOC_FILEDOCS")){
+			docsIdName = "filedocs_id";
+		}else if(DocTableName.equals("L_DOC_OTHERDOCS")){
+			docsIdName = "otherdocs_id";
+		}
+		StringBuffer updateString=new StringBuffer("UPDATE " + DocTableName);
+		updateString.append(" SET doc_status = " + updateStatus + " WHERE " + docsIdName + " IN (" + doc_id + ")");
+		log.debug("updateString = {}",updateString);
+		this.jdbcTemplate.execute(updateString.toString());
+		
+		flag = true;
+		return flag;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	class LDocInfoMapper implements RowMapper {
 		public Object mapRow(ResultSet rs, int arg1) throws SQLException{

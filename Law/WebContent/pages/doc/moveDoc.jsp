@@ -56,7 +56,7 @@
 				}
 			});
 			
-			//繳費的表格
+			//調卷的表格
 			var opt={
 		    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
 		    		"bJQueryUI":true,	
@@ -105,7 +105,7 @@
 		    $.ajax({
 				url : '../pages/doc/borrow/docBorrowAction!loadborrowDocs.action',
 				data : {
-					
+					"type" : 0
 				},
 				type : "POST",
 				dataType : 'json',
