@@ -467,4 +467,14 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public List<LSysVariable> findAllBankName() throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-07 更改DOC狀態
+	 * @param DocTableName
+	 * @param updateStatus
+	 * @param doc_id
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean saveToUpdateDocStatus(String DocTableName, String updateStatus, String doc_id) throws Exception;
 }

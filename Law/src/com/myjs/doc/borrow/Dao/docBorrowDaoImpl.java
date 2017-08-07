@@ -49,7 +49,7 @@ public class docBorrowDaoImpl extends DaoUtil implements docBorrowDao{
 		return flag;
 	}
 	
-	public List<LDocBorrowList> findBorrowDoc(String caseId, String bankName, 
+	public List<LDocBorrowList> findBorrowDoc(int type, String caseId, String bankName, 
 			String isInStore, String debtName, String borrowReason, String docStatus, 	String ID, 
 			String borrowStartDate, String borrowEndDate, String docCode, String borrowUserName) throws Exception{
 		
@@ -66,13 +66,26 @@ public class docBorrowDaoImpl extends DaoUtil implements docBorrowDao{
 				pdocCode = (docCode != null && !docCode.equals("")) ? "'" + docCode + "'":"null",
 				pborrowUserName = (borrowUserName != null && !borrowUserName.equals("")) ? "'" + borrowUserName + "'":"null";
 		
-		StringBuffer queryString = new StringBuffer("exec SP_findborrowdocs 0," + pcaseId + "," + pbankName + "," + pisInStore + "," + pdebtName + "," + 
+		StringBuffer queryString = new StringBuffer("exec SP_findborrowdocs " + type + "," + pcaseId + "," + pbankName + "," + pisInStore + "," + pdebtName + "," + 
 				pborrowReason + "," + pdocStatus + "," + pID + "," + pborrowStartDate + "," + pborrowEndDate + "," + pdocCode + "," + pborrowUserName);
 		log.debug("queryString = {}", queryString);
 		
 		@SuppressWarnings("unchecked")
 		List<LDocBorrowList> LDocBorrowList = jdbcTemplate.query(queryString.toString(), new LDocBorrowMapper());
 		return LDocBorrowList;
+	}
+	
+	public boolean saveToUpdateBorrowListStatus(String borrowListDocIds, String updateStatus) throws Exception{
+		log.debug("saveToUpdateBorrowListStatus start");
+		
+		boolean flag = false;
+		StringBuffer updateString=new StringBuffer("UPDATE L_DOC_BORROW_LIST");
+		updateString.append(" SET borrow_status = " + updateStatus + " WHERE borrow_doc_id IN (" + borrowListDocIds + ")");
+		log.debug("updateString = {}",updateString);
+		this.jdbcTemplate.execute(updateString.toString());
+		
+		flag = true;
+		return flag;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -107,6 +120,7 @@ public class docBorrowDaoImpl extends DaoUtil implements docBorrowDao{
 			LDocBorrow.setO_C(rs.getString("O_C") == null ? "" : rs.getString("O_C"));
 			LDocBorrow.setDocStatus(rs.getString("doc_status") == null ? "" : rs.getString("doc_status"));
 			LDocBorrow.setShareCaseId(rs.getString("share_case_id") == null ? "" : rs.getString("share_case_id"));
+			LDocBorrow.setDocType(rs.getString("doc_type") == null ? "" : rs.getString("doc_type"));
 
 			return LDocBorrow;
 		}

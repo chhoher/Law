@@ -1,5 +1,5 @@
 /**
- * Add By Jia 2017-07-26 docdocSum.js 實作docSum.jsp 
+ * Add By Jia 2017-07-26 docmoveDoc.js 實作moveDoc.jsp 
  */
  
 $(function() {
@@ -15,6 +15,7 @@ $(function() {
 		    $.ajax({
 				url : '../pages/doc/borrow/docBorrowAction!loadborrowDocs.action',
 				data : {
+					"type" : 0,
 					"caseId" : caseId,
 					"bankName" : bankName,
 					"isInStore" : isInStore,
@@ -46,11 +47,11 @@ $(function() {
 	}
 	
 	// add by Jia 匯出借調excel function
-	function printBorrowDoc() {
-		var docsdatatable = "",docDataTable="",printBorrowInfoString;
-		var printBorrowInfo = [];
-		docsdatatable = $("#docSystemCaseDocsTable").dataTable();
-		docDataTable = $("#docSystemCaseDocsTable").DataTable();
+	function printMoveDoc() {
+		var docsdatatable = "",docDataTable="",printMoveDocInfoString;
+		var printMoveDocInfo = [];
+		docsdatatable = $("#moveDocTable").dataTable();
+		docDataTable = $("#moveDocTable").DataTable();
 		
 		$(docsdatatable.fnGetNodes()).each(function(){
 			var data = "",
@@ -61,74 +62,134 @@ $(function() {
 		 	data = docDataTable.row(rowTr).data();
 			
 			printData = {
+				rowNum : data.rowNum,
+				checkBox : data.checkBox,
 				bankName : data.bankName,
-				prodName : "",
+				prodName : data.prodName,
 				caseId : data.caseId,
 				debtName : data.debtName,
-				ID : "",
+				ID : data.ID,
 				docCode : data.docCode,
 				typeOne : data.typeOne,
 				typeTwo : data.typeTwo,
 				docStatus : data.docStatus,
 				courtYearInfo : data.courtYearInfo,
 				sourceDocInfo : data.sourceDocInfo,
-				borrowReason : $("#applyBorrow_" + data.docCode).find('option:selected').text(),
-				lawCode : 0,
-				borrowUserName : "ABC",
-				borrowUserId : "ABC",
-				borrowDatetime : "2017-07-24",
-				progressDatetime : "2017-07-24",
-				progressUserId : "",
-				progressUserName : "",
-				checkDatetime : "2017-07-24",
-				checkUserId : "",
-				checkUserName : "",
-				backDatetime : "2017-07-24",
-				backUserId : "",
-				backUserName : "",
-				finalProgressDatetime : "2017-07-24",
-				finalProgressUserId : "",
-				finalProgressUserName : "",
-				edit : data.edit,
-				business : "",
-				businessAccount : "",
-				borrowInfo : "",
-				borrowLawCode : "",
-				borrowBackDate : "2017-07-24",
-				borrowBackReason : "",
-				borrowToCourtDate : "2017-07-24",
-				borrowToCourtLawCode : "",
-				borrowCourtYearCourt : "",
-				borrowCourtYearYear : 0,
-				borrowCourtYearTxt : "",
-				borrowCourtYearCaseId : 0,
-				borrowCourtYearShare : "",
-				borrowCommonsReason : "",
-				borrowSubLawCode : "",
-				docId : 0
+				borrowReason : data.borrowReason,
+				lawCode : data.lawCode,
+				O_C : data.O_C,
+				borrowStatus : data.borrowStatus,
+				borrowUserName : data.borrowUserName,
+				borrowUserId : data.borrowUserId,
+//				borrowDatetime : data.borrowDatetime,
+//				progressDatetime : data.disProgressDatetime,
+				borrowDatetime : null,
+				progressDatetime : null,
+				progressUserId : data.progressUserId,
+				progressUserName : data.progressUserName,
+				shareCaseId : data.shareCaseId
 			}
 			
-			printBorrowInfo.push(printData);
-			printBorrowInfoString = JSON.stringify(printBorrowInfo); 
+			printMoveDocInfo.push(printData);
 			
 		});
 		
+		printMoveDocInfoString = JSON.stringify(printMoveDocInfo);
+		
 		$.ajax({
-				url : "../pages/doc/documents/docAction!printBorrowDocs.action",
+				url : "../pages/doc/borrow/docBorrowAction!printMoveDocs.action",
 				data : {
-					"printBorrowInfo" : printBorrowInfoString
+					"printMoveDocInfo" : printMoveDocInfoString,
+					"printType" : 0
 				},
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
     				window.location.href = response.downloadPath;
-//					window.open(response.downloadPath);
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
 					alert(thrownError);
 				}
 			});
+		
+	}
+	
+	// add By Jia 2017-08-07 確認調出
+	// updateType = 0 表示確定調卷
+	// updateType = 1 表示取消借調
+	function updateMoveDoc(updateType){
+		var moveDocsdatatable, moveDocsDataTable;
+		var updateCentitlementDocIds = [], updateCourtDocDocIds = [], updateCashierCheckDocIds = [], 
+			updateDebtsDocIds = [], updateClaimsDocDocIds = [], updateFileDocDocIds = [], updateOtherDocIds = [];
+		var updateBorrowDocIds = [];
+		var saveCentitlementDocIds, saveCourtDocDocIds, saveCashierCheckDocIds, saveDebtsDocIds,
+			saveClaimsDocDocIds, saveFileDocDocIds, saveOtherDocIds;
+		var saveBorrowDocIds;
+		
+		moveDocsdatatable = $("#moveDocTable").dataTable();
+		moveDocsDataTable = $("#moveDocTable").DataTable();
+		
+		$("input:checked",moveDocsdatatable.fnGetNodes()).each(function(){
+			var data = "",
+				saveData = "";
+			var rowTr = $(this).closest('tr');
+			
+			// Get row data
+		 	data = moveDocsDataTable.row(rowTr).data();
+		 	
+		 	if(data.docType === "A"){
+		 		updateCentitlementDocIds.push(data.docId);
+		 	}else if(data.docType === "B"){
+		 		updateCourtDocDocIds.push(data.docId);
+		 	}else if(data.docType === "C"){
+		 		updateCashierCheckDocIds.push(data.docId);
+		 	}else if(data.docType === "D"){
+		 		updateDebtsDocIds.push(data.docId);
+		 	}else if(data.docType === "E"){
+		 		updateClaimsDocDocIds.push(data.docId);
+		 	}else if(data.docType === "F"){
+		 		updateFileDocDocIds.push(data.docId);
+		 	}else if(data.docType === "G"){
+		 		updateOtherDocIds.push(data.docId);
+		 	}
+		 	
+		 	updateBorrowDocIds.push(data.borrowDocId);
+		});
+		
+		saveCentitlementDocIds = JSON.stringify(updateCentitlementDocIds);
+		saveCourtDocDocIds = JSON.stringify(updateCourtDocDocIds);
+		saveCashierCheckDocIds = JSON.stringify(updateCashierCheckDocIds);
+		saveDebtsDocIds = JSON.stringify(updateDebtsDocIds);
+		saveClaimsDocDocIds = JSON.stringify(updateClaimsDocDocIds);
+		saveFileDocDocIds = JSON.stringify(updateFileDocDocIds);
+		saveOtherDocIds = JSON.stringify(updateOtherDocIds);
+		saveBorrowDocIds = JSON.stringify(updateBorrowDocIds);
+		
+		$.ajax({
+			url : "../pages/doc/borrow/docBorrowAction!saveMoveDocs.action",
+			data : {
+				"saveCentitlementDocIds" : saveCentitlementDocIds,
+				"saveCourtDocDocIds" : saveCourtDocDocIds,
+				"saveCashierCheckDocIds" : saveCashierCheckDocIds,
+				"saveDebtsDocIds" : saveDebtsDocIds,
+				"saveClaimsDocDocIds" : saveClaimsDocDocIds,
+				"saveFileDocDocIds" : saveFileDocDocIds,
+				"saveOtherDocIds" : saveOtherDocIds,
+				"saveBorrowDocIds" : saveBorrowDocIds,
+				"updateType" : updateType
+			},
+			type : "POST",
+			dataType : 'json',
+			success : function(response) {
+				alert(response.msg);
+				queryMoveDoc();
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert(xhr.status);
+				alert(thrownError);
+			}
+		});
 		
 	}
 	
@@ -153,13 +214,20 @@ $(function() {
 			ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
 	});
 	
-	$("#btnprintBorrowDoc").button().on("click",function(){
-		printBorrowDoc();
+	// 匯出調卷Excel
+	$("#btnprintMoveDoc").button().on("click",function(){
+		printMoveDoc();
+	});
+	
+	// 確定調出
+	$("#btncheckMoveDoc").button().on("click", function(){
+		updateMoveDoc(0);
+	});
+	
+	// 取消借調
+	$("#btncancelMoveDoc").button().on("click", function(){
+		updateMoveDoc(1);
 	});
 	// ===== 功能列按鈕 end =====
 	
 });
-
- (function(){
-	
- })();

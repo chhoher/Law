@@ -52,6 +52,7 @@ public class docBorrowAction extends AbstractAction {
 			log.debug("=====loadborrowDocs start=====");
 			
 			log.debug("loadBorrowDocs queryInfo");
+			String type = super.getRequest().getParameter("type"); // 0 : 調卷, 1 : 調卷簽收
 			String caseId = super.getRequest().getParameter("caseId"),
 					bankName = super.getRequest().getParameter("bankName"),
 					isInStore = super.getRequest().getParameter("isInStore"),
@@ -64,19 +65,111 @@ public class docBorrowAction extends AbstractAction {
 					docCode = super.getRequest().getParameter("docCode"),
 					borrowUserName = super.getRequest().getParameter("borrowUserName");
 			
+			log.debug("type = {} ", type);
+			
 			log.debug("caseId = {}, bankName = {}, isInStore = {}, debtName = {}, borrowReason = {}, "
 					+ "docStatus = {}, ID = {}, borrowStartDate = {}, borrowEndDate = {}, docCode = {}, borrowUserName = {}", 
 					caseId, bankName, isInStore, debtName, borrowReason, docStatus, ID, borrowStartDate, 
 					borrowEndDate, docCode, borrowUserName);
 			
-			String responseLDocBorrow = docBorrowService.findMoveDoc(caseId, bankName, isInStore, debtName, 
-					borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
+			String responseLDocBorrow = "";
+			if(type != null && !type.equals("")){
+				if(type.equals("0")){
+					responseLDocBorrow = docBorrowService.findMoveDoc(0, caseId, bankName, isInStore, debtName, 
+							borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
+				}else if(type.equals("1")){
+					responseLDocBorrow = docBorrowService.findMoveDoc(1, caseId, bankName, isInStore, debtName, 
+							borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
+				}
+			}
+			
+			
 			
 			log.debug("responseLDocBorrow = {}", responseLDocBorrow);
 			printToResponse(responseLDocBorrow);
 		}catch(Exception e){
 			sendException(e);
 			log.error("loadborrowDocs error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * add By Jia 2017-08-07 調卷的匯出Excel
+	 * @return
+	 */
+	public String printMoveDocs(){
+		try{
+			log.debug("printMoveDocs start");
+			String type = super.getRequest().getParameter("printType");// type = 0 : 調卷匯出excel, type = 1 : 調卷簽收匯出excel
+			String printMoveDocString = super.getRequest().getParameter("printMoveDocInfo");
+			
+			log.debug("printMoveDocString = {}, type = {}", printMoveDocString, type);
+			String response = docBorrowService.printMoveDocs(type, printMoveDocString, getpath());
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+		}catch(Exception e){
+			sendException(e);
+			log.error("printMoveDocs error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * add By Jia 2017-08-07
+	 * 確認調出
+	 * 讓文件狀態docStatus更改為"已借出"
+	 * 申調狀態borrowStatus改為2 "借出"
+	 * @return
+	 */
+	public String saveMoveDocs(){
+		try{
+			log.debug("saveMoveDocs start");
+			
+			String saveCentitlementDocIds = super.getRequest().getParameter("saveCentitlementDocIds"), 
+					saveCourtDocDocIds = super.getRequest().getParameter("saveCourtDocDocIds"), 
+					saveCashierCheckDocIds = super.getRequest().getParameter("saveCashierCheckDocIds"),
+					saveDebtsDocIds = super.getRequest().getParameter("saveDebtsDocIds"),
+					saveClaimsDocDocIds = super.getRequest().getParameter("saveClaimsDocDocIds"), 
+					saveFileDocDocIds = super.getRequest().getParameter("saveFileDocDocIds"), 
+					saveOtherDocIds = super.getRequest().getParameter("saveOtherDocIds"), 
+					saveBorrowDocIds = super.getRequest().getParameter("saveBorrowDocIds"),
+					updateType = super.getRequest().getParameter("updateType");//動作 0 : 確定調卷, 1 : 取消借調, 2 : 調卷簽收, 3 : 取消調卷
+			
+			log.debug("saveCentitlementDocIds = {}, saveCourtDocDocIds = {}, saveCashierCheckDocIds = {}, saveDebtsDocIds = {}, " +
+					"saveClaimsDocDocIds = {}, saveFileDocDocIds = {}, saveOtherDocIds = {}, saveBorrowDocIds = {}", saveCentitlementDocIds, 
+					saveCourtDocDocIds, saveCashierCheckDocIds, saveDebtsDocIds, saveClaimsDocDocIds, 
+					saveFileDocDocIds, saveOtherDocIds, saveBorrowDocIds);
+			
+			String response = docBorrowService.saveMoveDocs(updateType, saveCentitlementDocIds, 
+					saveCourtDocDocIds, saveCashierCheckDocIds, saveDebtsDocIds, saveClaimsDocDocIds, 
+					saveFileDocDocIds, saveOtherDocIds, saveBorrowDocIds);
+			
+			log.debug("response = {}", response);
+			printToResponse(response);
+			
+		}catch(Exception e){
+			sendException(e);
+			log.error("saveMoveDocs error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-08-07
+	 * 初始化調卷簽收下拉選單
+	 */
+	public String initMoveCheckDocSelectOption(){
+		try{
+			log.debug("=====initMoveCheckDocSelectOption start=====");
+			String returnValue = docBorrowService.findMoveCheckDocSelectOption();
+			
+			log.debug("returnValue = {}", returnValue);
+			printToResponse(returnValue);
+		}catch(Exception e){
+			sendException(e);
+			log.error("initMoveCheckDocSelectOption error msg==>", e);
 		}
 		return NONE;
 	}
