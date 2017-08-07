@@ -173,4 +173,56 @@ public class docBorrowAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * Add By Jia 2017-08-07
+	 * 上傳檔案(大批退件)
+	 * @return
+	 */
+	public String batchBackfilesupload(){
+		try{
+			log.debug("=====loadborrowDocs start=====");
+			
+			log.debug("loadBorrowDocs queryInfo");
+			String type = "0"; // 0 : 調卷, 1 : 調卷簽收
+			String caseId = super.getRequest().getParameter("caseId"),
+					bankName = super.getRequest().getParameter("bankName"),
+					isInStore = super.getRequest().getParameter("isInStore"),
+					debtName = super.getRequest().getParameter("debtName"),
+					borrowReason = super.getRequest().getParameter("borrowReason"),
+					docStatus = super.getRequest().getParameter("docStatus"),
+					ID = super.getRequest().getParameter("ID"),
+					borrowStartDate = super.getRequest().getParameter("borrowStartDate"),
+					borrowEndDate = super.getRequest().getParameter("borrowEndDate"),
+					docCode = super.getRequest().getParameter("docCode"),
+					borrowUserName = super.getRequest().getParameter("borrowUserName");
+			
+			log.debug("type = {} ", type);
+			
+			log.debug("caseId = {}, bankName = {}, isInStore = {}, debtName = {}, borrowReason = {}, "
+					+ "docStatus = {}, ID = {}, borrowStartDate = {}, borrowEndDate = {}, docCode = {}, borrowUserName = {}", 
+					caseId, bankName, isInStore, debtName, borrowReason, docStatus, ID, borrowStartDate, 
+					borrowEndDate, docCode, borrowUserName);
+			
+			String responseLDocBorrow = "";
+			if(type != null && !type.equals("")){
+				if(type.equals("0")){
+					responseLDocBorrow = docBorrowService.findMoveDoc(0, caseId, bankName, isInStore, debtName, 
+							borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
+				}else if(type.equals("1")){
+					responseLDocBorrow = docBorrowService.findMoveDoc(1, caseId, bankName, isInStore, debtName, 
+							borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
+				}
+			}
+			
+			
+			
+			log.debug("responseLDocBorrow = {}", responseLDocBorrow);
+			printToResponse(responseLDocBorrow);
+		}catch(Exception e){
+			sendException(e);
+			log.error("batchBackfilesupload error msg==>", e);
+		}
+		return NONE;
+	}
 }

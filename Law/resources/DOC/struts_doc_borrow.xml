@@ -8,7 +8,7 @@
         <action name="docBorrowAction!*"  method="{1}" class="docBorrowAction"  >		
         
         	<allowed-methods>initMoveDocSelectOption,loadborrowDocs,printMoveDocs,
-        		saveMoveDocs,initMoveCheckDocSelectOption</allowed-methods>
+        		saveMoveDocs,initMoveCheckDocSelectOption,batchBackfilesupload</allowed-methods>
         </action>
     </package>
 </struts>
