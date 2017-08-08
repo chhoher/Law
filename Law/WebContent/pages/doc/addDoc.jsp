@@ -568,12 +568,12 @@
 					<button class="ui-button ui-widget ui-corner-all" id ="btnsaveaddDoc">
 					    <span class="ui-icon ui-icon-gear"></span> 儲存
 					</button>
-					<button class="ui-button ui-widget ui-corner-all" id ="btnqueryCekcheckform">
+					<button class="ui-button ui-widget ui-corner-all" id ="btnLinkDocSystem">
 				    	<span class="ui-icon ui-icon-gear"></span> 連結到本案文管系統
 				  	</button>
-				  	<button class="ui-button ui-widget ui-corner-all" id ="btndeleteCekcheckform">
+				  	<!-- <button class="ui-button ui-widget ui-corner-all" id ="btndeleteCekcheckform">
 				    	<span class="ui-icon ui-icon-gear"></span> 連結到法務申請
-				  	</button>
+				  	</button> -->
 				</td>
 			</tr>
 		</table>

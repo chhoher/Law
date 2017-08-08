@@ -95,7 +95,13 @@
 					                		var returnString = "<select id='applyBorrow_" +  full.docCode + "'><option value=''>請選擇</option>" + borrowSelOption + "</select>";
 					                		var editString = "<div id='applyBorrowEdit_" + full.docCode + "'></div>";
 					                		
-					                		return checkBoxString + returnString + editString;
+					                		if(data !== ""){
+					                			var dataString = "<select id='applyBorrow_" +  full.docCode + "' disabled><option value='" + data + "'>" + full.disApplyBorrow + "</option>" + borrowSelOption + "</select>";
+					                			var dataEditString = "<div id='applyBorrowEdit_" + full.docCode + "'>" + law.doc.applyBorrowString(data, full.docCode) + "</div>"
+					                			return dataString + dataEditString;
+					                		}else{
+						                		return checkBoxString + returnString + editString;
+					                		}
 					                	}   
 					                },
 					                { "data": "editDoc"},
