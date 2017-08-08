@@ -295,7 +295,8 @@ $(function() {
 
  (function(){
 	// 選項動態組出畫面的String
-	law.doc.applyBorrowString = function applyBorrowString(type, rowDocId) {
+	law.doc.applyBorrowString = function applyBorrowString(type, rowDocId, initTxt1, initTxt2, initTxt3, 
+			initTxt4, initTxt5, initTxt6, initTxt7, initTxt8, initTxt9, initTxt10, initTxt11) {
 		var certificate, // 遞狀
 			backCertificate, // 遞狀退件(業主)
 			toCourt, // 開庭
@@ -305,30 +306,34 @@ $(function() {
 		
 		// 遞狀
 		if(type === "8aa2e72a5d5efd74015d5f474dd50002"){
-			returnString = "<label>法務編號</label><input id='iptborrowDocLawCode_" + rowDocId + "' ></input>";
+			returnString = "<label>法務編號</label><input id='iptborrowDocLawCode_" + rowDocId + "' value='" + initTxt1 + "'></input>";
 		}
 		
 		// 遞狀退件(業主)
 		else if(type === "8aa2e72a5d5efd74015d5f478ecc0003"){
-			returnString = "<label>指定退件日期</label><input id='iptborrowDocBackDate_" + rowDocId + "' ></input></br><label>退件原因</label><input id='iptborrowDocBackReason_" + rowDocId + "' ></input>";
+			returnString = "<label>指定退件日期</label><input id='iptborrowDocBackDate_" + rowDocId + "' value='" + initTxt2 + "'></input>" +
+					"</br><label>退件原因</label><input id='iptborrowDocBackReason_" + rowDocId + "' value='" + initTxt3 + "'></input>";
 		}
 		
 		// 開庭
 		else if(type === "8aa2e72a5d5efd74015d5f486f120004"){
-			returnString = "<label>開庭日期</label><input id='iptborrowDocToCourtDate_" + rowDocId + "' style='width: 100px;'></input><label>法務編號</label><input id='iptborrowDocToCourtLawCode_" + rowDocId + "' style='width: 100px;'></input>" +
-					"</br><select id='applyBorrowCourtYearCourt_" +  rowDocId + "'><option value=''>請選擇</option></select><input id='applyBorrowCourtYearYear_" + rowDocId + "'  style='width: 50px;'><label>年</label>" +
-							"<input id='applyBorrowCourtYearTxt_" + rowDocId + "' style='width: 50px;'><label>字</label><input id='applyBorrowCourtYearCaseId_" + rowDocId + "' style='width: 50px;'><label>案號</label>" +
-									"<input id='applyBorrowCourtYearShare_" + rowDocId + "' style='width: 50px;'><label>股</label>";
+			returnString = "<label>開庭日期</label><input id='iptborrowDocToCourtDate_" + rowDocId + "' value= '" + initTxt3 + "' style='width: 100px;'></input><label>法務編號</label>" +
+					"<input id='iptborrowDocToCourtLawCode_" + rowDocId + "' value='" + initTxt4 + "' style='width: 100px;'></input>" +
+					"</br><select id='applyBorrowCourtYearCourt_" +  rowDocId + "'><option value=''>請選擇</option></select>" +
+							"<input id='applyBorrowCourtYearYear_" + rowDocId + "' value='" + initTxt6 + "' style='width: 50px;'><label>年</label>" +
+							"<input id='applyBorrowCourtYearTxt_" + rowDocId + "' value='" + initTxt7 + "' style='width: 50px;'><label>字</label>" +
+									"<input id='applyBorrowCourtYearCaseId_" + rowDocId + "' value='" + initTxt8 + "' style='width: 50px;'><label>案號</label>" +
+									"<input id='applyBorrowCourtYearShare_" + rowDocId + "' value='" + initTxt9 + "' style='width: 50px;'><label>股</label>";
 		}
 		
 		// 一般借調
 		else if(type === "8aa2e72a5d5efd74015d5f489e0b0005"){
-			returnString = "<label>原因</label><input id='iptborrowDocReason_" + rowDocId + "' ></input>";
+			returnString = "<label>原因</label><input id='iptborrowDocReason_" + rowDocId + "' value='" + initTxt10 + "'></input>";
 		}
 		
 		// 預借(遞狀)
 		else if(type === "8aa2e72a5d5efd74015d5f48db170006"){
-			returnString = "<label>法務編號</label><input id='iptborrowDocSubLawCode_" + rowDocId + "' ></input>";
+			returnString = "<label>法務編號</label><input id='iptborrowDocSubLawCode_" + rowDocId + "' value='" + initTxt11 + "'></input>";
 		}
 		
 		return returnString;

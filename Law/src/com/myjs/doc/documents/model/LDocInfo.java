@@ -10,6 +10,7 @@ public class LDocInfo {
 	
 	// Add By Jia 2017-07-19 Vo
 	private String applyBorrow;
+	private String disApplyBorrow;
 	private String editDoc;
 	private String docStatus;
 	private String progress;
@@ -944,6 +945,14 @@ public class LDocInfo {
 
 	public void setDocType(String docType) {
 		this.docType = docType;
+	}
+
+	public String getDisApplyBorrow() {
+		return disApplyBorrow;
+	}
+
+	public void setDisApplyBorrow(String disApplyBorrow) {
+		this.disApplyBorrow = disApplyBorrow;
 	}
 	
 }

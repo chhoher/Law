@@ -689,6 +689,7 @@ public class docDaoImpl extends DaoUtil implements docDao{
 			LDocInfo.setDebtName("");
 			LDocInfo.setCaseId(rs.getInt("case_id"));
 			LDocInfo.setApplyBorrow(rs.getString("apply_borrow") == null ? "" : rs.getString("apply_borrow"));
+			LDocInfo.setDisApplyBorrow(rs.getString("dis_apply_borrow") == null ? "" : rs.getString("dis_apply_borrow"));
 			LDocInfo.setEditDoc(rs.getString("edit_doc") == null ? "" : rs.getString("edit_doc"));
 			LDocInfo.setDocStatus(rs.getString("doc_status") == null ? "" : rs.getString("doc_status"));
 			LDocInfo.setProgress(rs.getString("progress") == null ? "" : rs.getString("progress"));

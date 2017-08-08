@@ -85,6 +85,10 @@ $(function() {
 		saveaddDoc();
 	});
 	
+	// 連結文管系統
+	$("#btnLinkDocSystem").button().on("click",function() {
+		law.doc.todocSystem(law.addDoc.caseId);
+	});
 	// ===== 功能列按鈕 end =====
 	
 });
