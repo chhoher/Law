@@ -1,12 +1,7 @@
 /**
  * add By Jia 2017-03-07 regex.js 包含輸入form的格式判斷，彈跳提醒
  */
-law.regex = {
-	CNameRegex : '',
-	ENameRegex : '',
-	emailRegex : /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-	numberRegex : /^\d+$/
-};
+
 
 var tips;// 提示訊息
 

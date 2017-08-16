@@ -32,7 +32,7 @@ law.addDoc.cashierCheck = {
 				"<td><select id='iptcashierCheckRelationPerson" + displaynum + "_" + cashierCheck.cashierCheckRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
 					
 		$("#iptcashierCheckRelationPersonTr" + displaynum ).append(tdString);
-		law.common.selectRelaOption("#iptcashierCheckRelationPerson" + displaynum + "_" + cashierCheck.cashierCheckRelaNum[num], law.addDoc.rela);
+		law.common.selectRelaOption("#iptcashierCheckRelationPerson" + displaynum + "_" + cashierCheck.cashierCheckRelaNum[num], law.addDoc.rela, undefined, true);
 	},
 	addcashierChecksubtab : function(){
 		var cashierCheck = law.addDoc.cashierCheck;
@@ -47,17 +47,17 @@ law.addDoc.cashierCheck = {
            	 	"<tr>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptcashierCheckBankDate" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>收文日期</label></td>" +
+					"<td><label style='color:red'>*收文日期</label></td>" +
 					"<td><input id='iptcashierCheckReceivedDate" + cashierChecksubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
+					"<td><label style='color:red'>*文件狀態</label></td>" +
 					"<td><select id='iptcashierCheckDocStatus" + cashierChecksubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
-					"<td><label>文件類別</label></td>" +
+					"<td><label style='color:red'>*文件類別</label></td>" +
 					"<td><select id='iptcashierCheckTypeOne" + cashierChecksubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
-					"<td><label>文件項目</label></td>" +
+					"<td><label style='color:red'>*文件項目</label></td>" +
 					"<td><select id='iptcashierCheckTypeTwo" + cashierChecksubtabcount + "'><option value=''>請選擇</option></select></td>" +
-					"<td><label>債權人</label></td>" +
+					"<td><label style='color:red'>*債權人</label></td>" +
 					"<td><select id='iptcashierCheckBankName" + cashierChecksubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 					"<td><label>原債權人</label></td>" +
 					"<td><select id='iptcashierCheckOldBankName" + cashierChecksubtabcount + "'><option value=''>請選擇</option></select></td>" +
@@ -65,7 +65,7 @@ law.addDoc.cashierCheck = {
 			"</table>" +
 			"<table>" +
 				"<tr id='iptcashierCheckRelationPersonTr" + cashierChecksubtabcount + "'>" +
-					"<td><label>相對人</label></td>" +
+					"<td><label style='color:red'>*相對人</label></td>" +
 					"<td><select id='iptcashierCheckRelationPerson" + cashierChecksubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
 					"<td><img src='../images/plus.png' onclick='law.addDoc.cashierCheck.addcashierCheckRelaTd(" + (cashierChecksubtabcount + 1) + ")'></td>" +
 				"</tr>" +
@@ -104,17 +104,14 @@ law.addDoc.cashierCheck = {
 	 	law.common.formatInputItemToDate("#iptcashierCheckStartDate" + cashierChecksubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcashierCheckEndDate" + cashierChecksubtabcount, "yy-mm-dd");
 	   
-		law.common.selectOption("#iptcashierCheckDocStatus" + cashierChecksubtabcount, cashierCheck.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-		law.common.selectOption("#iptcashierCheckTypeOne" + cashierChecksubtabcount, cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007");
-		law.common.selectOption("#iptcashierCheckTypeTwo" + cashierChecksubtabcount, cashierCheck.TypeTwo);
-		law.common.selectRelaOption("#iptcashierCheckRelationPerson" + cashierChecksubtabcount + "_0", law.addDoc.rela);
+		law.common.selectOption("#iptcashierCheckDocStatus" + cashierChecksubtabcount, cashierCheck.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+		law.common.selectOption("#iptcashierCheckTypeOne" + cashierChecksubtabcount, cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007", true);
+		law.common.selectOption("#iptcashierCheckTypeTwo" + cashierChecksubtabcount, cashierCheck.TypeTwo, undefined, true);
+		law.common.selectRelaOption("#iptcashierCheckRelationPerson" + cashierChecksubtabcount + "_0", law.addDoc.rela, undefined, true);
 		
 		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
 		$("#iptcashierCheckBankName" + cashierChecksubtabcount).append(BankNameSelectOption);
 		$("#iptcashierCheckBankName" + cashierChecksubtabcount + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
-		
-		//設定收文日期為當日
-		$("#iptcashierCheckReceivedDate" + cashierChecksubtabcount).val(cashierCheck.ReceivedDate);
 		
 		//跑出動態原債權人
 		if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B1" ||
@@ -126,26 +123,26 @@ law.addDoc.cashierCheck = {
 				$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-B7" ||
 				$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-CD" ||
 				$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-CR"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TSBOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TSBOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "FEI_BK"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.FEIOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.FEIOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "SK_BK"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.SKOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.SKOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "YT_AMC" ||
 				$("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "YT_IS"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.YTOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.YTOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "FI-AMC"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.FIOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.FIOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TS-AMC"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TSAOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TSAOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "TAMCO"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TAMCOOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.TAMCOOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.ORIXOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.ORIXOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "MT-IS"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.MTOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.MTOldBankName, undefined, true);
 		}else if($("#iptcashierCheckBankName" + cashierChecksubtabcount).find('option:selected').val() ===  "UN_IS"){
-			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.UNOldBankName);
+			law.common.selectOption("#iptcashierCheckOldBankName" + cashierChecksubtabcount, cashierCheck.UNOldBankName, undefined, true);
 		}else{
 			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
 			$("#iptcashierCheckOldBankName" + cashierChecksubtabcount + " option").remove();
@@ -184,6 +181,17 @@ law.addDoc.cashierCheck = {
 			returncashierCheck = "",
 			returncashierCheckRelas_0 = [],
 			relainfo = {};
+		
+		// add By Jia 2017-08-11 空值判斷
+		var emptyReturn = law.addDoc.cashierCheck.cashierCheckRegex(undefined);
+		if(emptyReturn.isEmpty){
+			return emptyReturn;
+		}
+		// add By Jia 2017-08-14 格式判斷
+		var isRegexReturn = law.addDoc.cashierCheck.cashierCheckRegex(undefined);
+		if(isRegexReturn.isRegexp){
+			return isRegexReturn;
+		}
 			
 		for( ; i <= law.addDoc.cashierCheck.cashierCheckRelaNum[0]; i++){
 			relainfo = { 
@@ -201,17 +209,20 @@ law.addDoc.cashierCheck = {
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
 			'receivedDate' : $("#iptcashierCheckReceivedDate").val(),
-			'bankDate' : $("#iptcashierCheckBankDate").val(),
+			'bankDate' : ($("#iptcashierCheckBankDate").val() !== "")? $("#iptcashierCheckBankDate").val() : null,
 			'docStatus' : $("#iptcashierCheckDocStatus").find('option:selected').val(),
 			'typeOne' : $("#iptcashierCheckTypeOne").find('option:selected').val(),
 			'typeTwo' : $("#iptcashierCheckTypeTwo").find('option:selected').val(),
-			'oldBankName' : $("#iptcashierCheckOldBankName").find('option:selected').val(),
+			'oldBankName' : ($("#iptcashierCheckOldBankName").find('option:selected').val() !== "")? $("#iptcashierCheckOldBankName").find('option:selected').val() : null,
 			'cashiercheckRelationPerson' : returncashierCheckRelas_0,
 			'relationPerson' : $("#iptcashierCheckRelationPerson_0").find('option:selected').val(),
-			'startDate' : $("#iptcashierCheckStartDate").val(),
-			'amount' : $("#iptcashierCheckAmount").val(),
-			'endDate' : $("#iptcashierCheckEndDate").val(),
-			'remark' : $("#iptcashierCheckRemark").val()
+			'startDate' : ($("#iptcashierCheckStartDate").val() !== "")? $("#iptcashierCheckStartDate").val() : null,
+			'amount' : ($("#iptcashierCheckAmount").val() !== "")? $("#iptcashierCheckAmount").val() : null,
+			'endDate' : ($("#iptcashierCheckEndDate").val() !== "")? $("#iptcashierCheckEndDate").val() : null,
+			'remark' : ($("#iptcashierCheckRemark").val() !== "")? $("#iptcashierCheckRemark").val() : null,
+			'disTypeOne' : $("#iptcashierCheckTypeOne").find('option:selected').text(),
+			'disTypeTwo' : $("#iptcashierCheckTypeTwo").find('option:selected').text(),
+			'disDocStatus' : $("#iptcashierCheckDocStatus").find('option:selected').text()
 		};
 			
 		cashierCheck.subItems = [];
@@ -219,42 +230,126 @@ law.addDoc.cashierCheck = {
 			
 		i = 0;
 		for ( ; i < length; i++ ) {
-			returncashierCheckRelas_0 = [];
-			displayNum = i + 1;
-			j = 0;
-			for( ; j <= law.addDoc.cashierCheck.cashierCheckRelaNum[displayNum]; j++){
-				relainfo = { 
-					"ID" : $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').val(),
-					"name"	: $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').text()
+			if($("#licashierChecktab_" + i).size() > 0){
+				
+				// add By Jia 2017-08-11 空值判斷
+				var emptyReturn = law.addDoc.cashierCheck.cashierCheckRegex(i);
+				if(emptyReturn.isEmpty){
+					return emptyReturn;
+				}
+				// add By Jia 2017-08-14 格式判斷
+				var isRegexReturn = law.addDoc.cashierCheck.cashierCheckRegex(i);
+				if(isRegexReturn.isRegexp){
+					return isRegexReturn;
+				}
+				returncashierCheckRelas_0 = [];
+				displayNum = i + 1;
+				j = 0;
+				for( ; j <= law.addDoc.cashierCheck.cashierCheckRelaNum[displayNum]; j++){
+					relainfo = { 
+						"ID" : $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').val(),
+						"name"	: $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').text()
+						};
+					returncashierCheckRelas_0.push(relainfo);
+				}
+				
+						var subItems = {
+							'bankId' : law.addDoc.bankId,
+							'bankName' : law.addDoc.bankName,
+							'gProdId' : law.addDoc.gprodId,
+							'gProdName' : law.addDoc.gprodName,
+							'debtID' : law.addDoc.ID,
+							'debtName' : law.addDoc.debtName,
+							'receivedDate' : $("#iptcashierCheckReceivedDate" + i ).val(),
+							'bankDate' : ($("#iptcashierCheckBankDate" + i ).val() !== "")? $("#iptcashierCheckBankDate" + i ).val() : null,
+							'docStatus' : $("#iptcashierCheckDocStatus" + i ).find('option:selected').val(),
+							'typeOne' : $("#iptcashierCheckTypeOne" + i ).find('option:selected').val(),
+							'typeTwo' : $("#iptcashierCheckTypeTwo" + i ).find('option:selected').val(),
+							'oldBankName' : ($("#iptcashierCheckOldBankName" + i ).find('option:selected').val() !== "")? $("#iptcashierCheckOldBankName" + i ).find('option:selected').val() : null,
+							'cashiercheckRelationPerson' : returncashierCheckRelas_0,
+							'relationPerson' : $("#iptcashierCheckRelationPerson_0").find('option:selected').val(),
+							'startDate' : ($("#iptcashierCheckStartDate" + i ).val() !== "")? $("#iptcashierCheckStartDate" + i ).val() : null,
+							'amount' : ($("#iptcashierCheckAmount" + i ).val() !== "")? $("#iptcashierCheckAmount" + i ).val() : null,
+							'endDate' : ($("#iptcashierCheckEndDate" + i ).val() !== "")? $("#iptcashierCheckEndDate" + i ).val() : null,
+							'remark' : ($("#iptcashierCheckRemark" + i ).val() !== "")? $("#iptcashierCheckRemark" + i ).val() : null,
+							'disTypeOne' : $("#iptcashierCheckTypeOne" + i).find('option:selected').text(),
+							'disTypeTwo' : $("#iptcashierCheckTypeTwo" + i).find('option:selected').text(),
+							'disDocStatus' : $("#iptcashierCheckDocStatus" + i).find('option:selected').text()
 					};
-				returncashierCheckRelas_0.push(relainfo);
+					cashierCheck.subItems.push(subItems);
 			}
-			
-				var subItems = {
-					'bankId' : law.addDoc.bankId,
-					'bankName' : law.addDoc.bankName,
-					'gProdId' : law.addDoc.gprodId,
-					'gProdName' : law.addDoc.gprodName,
-					'debtID' : law.addDoc.ID,
-					'debtName' : law.addDoc.debtName,
-					'receivedDate' : $("#iptcashierCheckReceivedDate" + i ).val(),
-					'bankDate' : $("#iptcashierCheckBankDate" + i ).val(),
-					'docStatus' : $("#iptcashierCheckDocStatus" + i ).find('option:selected').val(),
-					'typeOne' : $("#iptcashierCheckTypeOne" + i ).find('option:selected').val(),
-					'typeTwo' : $("#iptcashierCheckTypeTwo" + i ).find('option:selected').val(),
-					'oldBankName' : $("#iptcashierCheckOldBankName" + i ).find('option:selected').val(),
-					'cashiercheckRelationPerson' : returncashierCheckRelas_0,
-					'relationPerson' : $("#iptcashierCheckRelationPerson_0").find('option:selected').val(),
-					'startDate' : $("#iptcashierCheckStartDate" + i ).val(),
-					'amount' : $("#iptcashierCheckAmount" + i ).val(),
-					'endDate' : $("#iptcashierCheckEndDate" + i ).val(),
-					'remark' : $("#iptcashierCheckRemark" + i ).val()
-			};
-			cashierCheck.subItems.push(subItems);
 		}
 
 		returncashierCheck = JSON.stringify(cashierCheck.subItems);
 		return returncashierCheck;
+	},
+	// add By Jia 2017-08-10 若必選欄位有空則return並提示
+	//index : 第幾頁籤 index = undefined 表示首頁
+	cashierCheckRegex : function(index){
+		var isEmpty;
+		var isRegexp;
+		var returnSaveCashierCheck;
+		var returncashierCheck = "";
+		if(index === undefined){
+			isEmpty = law.common.checkIsEmpty("iptcashierCheckReceivedDate", "本票[收文日期]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptcashierCheckDocStatus", "本票[文件狀態]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptcashierCheckTypeTwo", "本票[文件項目]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptcashierCheckRelationPerson_0", "本票[相對人]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			if($("#iptcashierCheckAmount").val() !== ""){
+				isRegexp = law.common.checkRegexp("iptcashierCheckAmount", law.regex.numberRegex, "本票[本票金額]須為數字格式");
+				if(isRegexp.isRegexp){
+					returnSaveCashierCheck = { isRegexp : true, regexString : isRegexp.regexString, returncashierCheck : returncashierCheck}
+					return returnSaveCashierCheck;
+				}
+			}
+		}else{
+			isEmpty = law.common.checkIsEmpty("iptcashierCheckReceivedDate" + index, "本票[收文日期]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptcashierCheckDocStatus" + index, "本票[文件狀態]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptcashierCheckTypeTwo" + index, "本票[文件項目]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptcashierCheckRelationPerson" + index + "_0", "本票[相對人]");
+			if(isEmpty.isEmpty){
+				returnSaveCashierCheck = { isEmpty : true, regexString : isEmpty.regexString, returncashierCheck : returncashierCheck}
+				return returnSaveCashierCheck;
+			}
+			if($("#iptcashierCheckAmount" + index).val() !== ""){
+				isRegexp = law.common.checkRegexp("iptcashierCheckAmount" + index, law.regex.numberRegex, "本票[本票金額]須為數字格式");
+				if(isRegexp.isRegexp){
+					returnSaveCashierCheck = { isRegexp : true, regexString : isRegexp.regexString, returncashierCheck : returncashierCheck}
+					return returnSaveCashierCheck;
+				}
+			}
+		}
+		// 全部為空驗證通過
+		returnSaveCashierCheck = { isEmpty : false, isRegexp : false};
+		return returnSaveCashierCheck;
 	}
 }
 	

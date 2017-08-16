@@ -56,6 +56,7 @@ public class docAction extends AbstractAction {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			JsonObject jsonResponse = new JsonObject();
 			jsonResponse.add("data", gson.toJsonTree(LCekSignedCaseInfoList));
+			jsonResponse.addProperty("loginUserRoleIds", getSessionLoginUserRoles());
 			String responseLCekSignedCaseInfoList = jsonResponse.toString();
 
 			log.debug("responsedata = {}", responseLCekSignedCaseInfoList);
@@ -131,6 +132,7 @@ public class docAction extends AbstractAction {
 			log.debug("other = {}", otherdocsJson);
 			String response = docService.saveaddDoc(docInfoId, getSessionLoginUser(), caseId, docinfoJson,
 					centitlementJson, courtDocJson, cashiercheckJson, debtsJson, claimsdocsJson, filedocsJson, otherdocsJson);
+			log.debug("response = {}", response);
 			printToResponse(response);
 			
 		}catch(Exception e){
@@ -180,7 +182,7 @@ public class docAction extends AbstractAction {
 			log.debug("loadCaseDocs start");
 			String caseId = super.getRequest().getParameter("caseId");
 			log.debug("caseId = {}", caseId);
-			String response = docService.loadCaseDocsByCaseId(caseId);
+			String response = docService.loadCaseDocsByCaseId(caseId).toString();
 			log.debug("responseString = {}", response);
 			printToResponse(response);
 		}catch(Exception e){
@@ -216,12 +218,13 @@ public class docAction extends AbstractAction {
 		try{
 			log.debug("=====saveBorrowDocs start=====");
 			String saveBorrowString = super.getRequest().getParameter("saveBorrowInfo"),
-					docCode = super.getRequest().getParameter("docCodes");
+//					docCode = super.getRequest().getParameter("docCodes"),
+					caseId = super.getRequest().getParameter("caseId");
 			
-			log.debug("saveBorrowString = {}, docCode = {}", saveBorrowString, docCode);
+			log.debug("saveBorrowString = {}, docCode = {}, caseId = {}", saveBorrowString, caseId);
 			
 			VEIPMemdb loginUser = getSessionLoginUser();
-			String response = docService.saveBorrowDocs(saveBorrowString, loginUser);//申調
+			String response = docService.saveBorrowDocs(saveBorrowString, loginUser, caseId);//申調
 			
 			log.debug("response = {}", response);
 			printToResponse(response);
@@ -287,6 +290,49 @@ public class docAction extends AbstractAction {
 		}catch(Exception e){
 			sendException(e);
 			log.error("initdocSumSelectOption error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-08-15
+	 * 將影像檔複製回來後下載
+	 */
+	public String downloadImgFile(){
+		try{
+			log.debug("=====downloadImgFile start=====");
+			String caseId = super.getRequest().getParameter("rowCaseId"),
+					fileName = super.getRequest().getParameter("fileName");
+			String path = getpath();
+			String returndownloadImgFile = docService.downloadImgFile(caseId, fileName, path);
+			
+			log.debug("returndownloadImgFile = {}", returndownloadImgFile);
+			printToResponse(returndownloadImgFile);
+		}catch(Exception e){
+			sendException(e);
+			log.error("downloadImgFile error msg==>", e);
+		}
+		return NONE;
+	}
+	
+	/**
+	 * Add By Jia 2017-08-15
+	 * 修改選擇文件的狀態
+	 */
+	public String updateDocStatus(){
+		try{
+			log.debug("=====updateDocStatus start=====");
+			String docId = super.getRequest().getParameter("docId"),
+					updateDocStatus = super.getRequest().getParameter("updateDocStatus");
+			
+			log.debug("docId = {}, updateDocStatus = {}", docId, updateDocStatus);
+			String returnValue = docService.updateDocStatus(docId, updateDocStatus);
+			
+			log.debug("returnValue = {}", returnValue);
+			printToResponse(returnValue);
+		}catch(Exception e){
+			sendException(e);
+			log.error("updateDocStatus error msg==>", e);
 		}
 		return NONE;
 	}

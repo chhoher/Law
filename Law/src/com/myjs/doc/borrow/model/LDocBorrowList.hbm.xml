@@ -98,5 +98,8 @@
 		<property name="progressUserName" type="string">
 			<column name="progress_user_name" length="50" />
 		</property>
+		<property name="isClose" type="string">
+			<column name="is_close" length="1" />
+		</property>
 	</class>
 </hibernate-mapping>

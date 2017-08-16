@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- add By Jia 2017-08-16 文管系統影像檔暫存 -->
+<hibernate-mapping>
+    <class name="com.myjs.doc.documents.model.LDocImgfileTemp" table="L_DOC_IMGFILE_TEMP" schema="dbo" catalog="Legal" optimistic-lock="version">
+        <id name="imgTempId" type="string">
+            <column name="img_temp_id" length="50" />
+        </id>
+		<property name="output" type="string">
+			<column name="output"/>
+		</property>
+		<property name="caseId" type="int">
+			<column name="case_id"/>
+		</property>
+	</class>
+</hibernate-mapping>

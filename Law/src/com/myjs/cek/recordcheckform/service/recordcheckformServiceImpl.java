@@ -73,7 +73,7 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 		//用角色來判斷 {roleId:8aa2e72a5da58d99015da5dab0fd0001	roleCode:sign03	roleName:簽呈最大權限} 可以查看所有案件
 		//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b80d350000	roleCode:sign01	roleName:簽呈可覆核主管}
 		//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b8e8960002	roleCode:sign02	roleName:簽呈可結案窗口}
-		if(roleIds.indexOf("8aa2e72a5da58d99015da5dab0fd0001") > 0 || loginUser.getMemno().equals("admin")){
+		if(roleIds.indexOf("8aa2e72a5da58d99015da5dab0fd0001") >= 0 || loginUser.getMemno().equals("admin")){
 			return recordcheckformDao.findbyproperties(startDate,	endDate, null, status, null);
 		}else{
 			//若不是主管級的，只能查詢自己的表單

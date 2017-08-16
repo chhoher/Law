@@ -22,7 +22,7 @@ public class LDocClaimsdocs {
 	private String oldBankName;
 	private String relationPerson;
 	private int quota;
-	private int interestRate;
+	private String interestRate;
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
@@ -31,6 +31,9 @@ public class LDocClaimsdocs {
 	
 	// add By Jia 2017-06-28 Vo
 	private List<LDocClaimsdocsRela> claimsRelationPerson;
+	private String disTypeOne;
+	private String disTypeTwo;
+	private String disDocStatus;
 	
 	public LDocClaimsdocs(){
 		
@@ -38,7 +41,7 @@ public class LDocClaimsdocs {
 	
 	public LDocClaimsdocs(int claimsdocsId, String infoId, int caseId, Date receivedDate, Date bankDate,
 			String docStatus, String typeOne, String typeTwo, String bankName, String oldBankName,
-			String relationPerson, int quota, int interestRate, String remark, Date createDatetime,
+			String relationPerson, int quota, String interestRate, String remark, Date createDatetime,
 			String createUserId) {
 		super();
 		this.claimsdocsId = claimsdocsId;
@@ -155,11 +158,11 @@ public class LDocClaimsdocs {
 		this.quota = quota;
 	}
 
-	public int getInterestRate() {
+	public String getInterestRate() {
 		return interestRate;
 	}
 
-	public void setInterestRate(int interestRate) {
+	public void setInterestRate(String interestRate) {
 		this.interestRate = interestRate;
 	}
 
@@ -249,6 +252,30 @@ public class LDocClaimsdocs {
 
 	public void setDebtName(String debtName) {
 		this.debtName = debtName;
+	}
+
+	public String getDisTypeOne() {
+		return disTypeOne;
+	}
+
+	public void setDisTypeOne(String disTypeOne) {
+		this.disTypeOne = disTypeOne;
+	}
+
+	public String getDisTypeTwo() {
+		return disTypeTwo;
+	}
+
+	public void setDisTypeTwo(String disTypeTwo) {
+		this.disTypeTwo = disTypeTwo;
+	}
+
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
 	}
 
 

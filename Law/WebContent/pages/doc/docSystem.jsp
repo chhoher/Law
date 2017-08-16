@@ -14,6 +14,10 @@
     .borrowWidth{
     	min-width:450px;
     }
+    
+    .editWidth{
+    	min-width:250px;
+    }
 </style>
 <title>文管系統</title>
 </head>
@@ -22,7 +26,8 @@
 		$(document).ready(function() {
 			
 			var borrowReason = "",
-				borrowSelOption = "";
+				borrowSelOption = "",
+				docStatusSelOption = "";
 			
 			//文件資訊的表格
 			var docsdatatable;
@@ -71,12 +76,14 @@
 				type : "POST",
 				dataType : 'json',
 				success : function(response) {
+					var roleIds = response.loginUserRoleIds;
+					law.doc.loginRoleIds = roleIds;
 					var json = response.data;
 					datatable.fnClearTable();
 					if (json.length !== 0) {
 						datatable.fnAddData(json);
 						law.doc.debtName = json[0].name;
-						law.doc.caseId = json.Case_ID;
+						law.doc.caseId = json[0].Case_ID;
 						
 						var docSystemCaseDocsTableopt={
 					    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
@@ -97,26 +104,48 @@
 					                		
 					                		if(data !== ""){
 					                			var dataString = "<select id='applyBorrow_" +  full.docCode + "' disabled><option value='" + data + "'>" + full.disApplyBorrow + "</option>" + borrowSelOption + "</select>";
-					                			var dataEditString = "<div id='applyBorrowEdit_" + full.docCode + "'>" + law.doc.applyBorrowString(data, full.docCode) + "</div>"
+					                			var dataEditString = "<div id='applyBorrowEdit_" + full.docCode + "' >" + law.doc.applyBorrowString(data, full.docCode, "disabled", full.lawCode, full.borrowBackDate, 
+					                					full.borrowBackReason, full.borrowToCourtDate, full.borrowToCourtLawCode, full.borrowCourtYearYear, full.borrowCourtYearTxt, full.borrowCourtYearCaseId,
+					                					full.borrowCourtYearShare, full.borrowCommonReason, full.borrowSubLawCode, full.borrowCourtYearCourt, full.disBorrowCourtYearCourt) + "</div>"
 					                			return dataString + dataEditString;
 					                		}else{
 						                		return checkBoxString + returnString + editString;
 					                		}
 					                	}   
 					                },
-					                { "data": "editDoc"},
-					                { "data": "docStatus" },
+					                { "data": "editDoc",
+					                	"className" : "editWidth",
+					                	"bVisible": false,
+					                	"render": function ( data, type, full, meta ) {
+					                		var returnString = "<select id='editDoc_" +  full.docCode + "'><option value=''>請選擇</option>" + docStatusSelOption + "</select>";
+					                		if(full.docStatus !== ""){
+						                		var editDocStatusButton = "<button onclick=\" law.doc.editDocStatus('" + full.docCode + "','" + meta.row + "')\">修改</button>";
+						                		var editDocsButton = "<button onclick=\" law.doc.editDocs('" + full.caseId + "', '" + full.docCode + "')\">進入</button>";
+					                			var selectBox = "<select id='editDoc_" +  full.docCode + "' ><option value='" + full.docStatus + "'>" + full.disDocStatus + "</option>" + docStatusSelOption + "</select>";// TODO 記得改會重複
+						                		return selectBox + "     " + editDocStatusButton + "     " + editDocsButton;
+					                		}else{
+					                			return returnString
+					                		}
+					                	}
+					                },
+					                { "data": "disDocStatus" },
 					                { "data": "progress" },
-					                { "data": "imgFiles" },
+					                { "data": "imgFiles" ,
+					                	"render": function ( data, type, full, meta ) {
+					                		var imgFilesString = "";
+					                		if(data !== ""){
+					                			var dataArray = data.split(',');
+						                		$.each(dataArray,function(i){
+						                			var imgFileName = dataArray[i];
+						                			imgFilesString += '<a href="javascript:law.doc.openFile(\'' + full.caseId + '\',\'' + imgFileName +'\')">' + (i +1) +'</a>' + " ";
+												});
+					                		}
+					                		return imgFilesString;
+					                	}
+					                },
 					                { "data": "bankDate" },
 					                { "data": "receivedDate"},
 					                { "data": "docCode" },
-					                { "data": "caseId"},
-					                { "data": "debtName" , 
-					                	"render" : function (){
-					             			return law.doc.debtName;	
-					                }
-					                },
 					                { "data": "relaName" },
 					                { "data": "typeOne" },
 					                { "data": "typeTwo" },
@@ -187,7 +216,7 @@
 					            };
 						
 					    $("#docSystemCaseDocsTable").dataTable(docSystemCaseDocsTableopt);
-
+					    
 					    // 將文件資料帶入表格
 					    docsdatatable = $("#docSystemCaseDocsTable").dataTable();
 					    docsdatatable.fnClearTable();
@@ -211,7 +240,8 @@
 					    		$(docsdatatable.fnGetData()).each(function(i){
 									$( "#applyBorrow_" + this.docCode ).change(function() {
 										$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).empty();
-										$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).append(law.doc.applyBorrowString($(this).val(), docsdatatable.fnGetData(i).docCode));
+										$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).append(law.doc.applyBorrowString($(this).val(), docsdatatable.fnGetData(i).docCode, 
+												"", "", "", "", "", "", "", "", "", "", "", "", "", "請選擇"));
 										
 										//將地院的下拉選項帶進去
 										if($(this).val() === "8aa2e72a5d5efd74015d5f486f120004"){
@@ -238,7 +268,7 @@
 
 											$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).empty();// 先清除一般借調的填寫框
 											$("#applyBorrowEdit_" + docsdatatable.fnGetData(i).docCode).append(// 將一般借調的填寫框加入下方
-													law.doc.applyBorrowString($( "#applyBorrow_" + docsdatatable.fnGetData(i).docCode).val(), docsdatatable.fnGetData(i).docCode));
+													law.doc.applyBorrowString($( "#applyBorrow_" + docsdatatable.fnGetData(i).docCode).val(), docsdatatable.fnGetData(i).docCode, "", "", "", "", "", "", "", "", "", "", "", "", "", "請選擇"));
 											
 										}else{
 											$( "#applyBorrow_" + docsdatatable.fnGetData(i).docCode)[0].selectedIndex = 0;
@@ -247,6 +277,12 @@
 									});
 									
 								});
+								
+					    		// 若登入角色具文管科權限，將欄位打開
+								if(roleIds.indexOf('8aa2e72a5de4091a015de41369710000') >= 0){
+								    var toHiddenColumnTable = $('#docSystemCaseDocsTable').DataTable();
+								    toHiddenColumnTable.column( 1 ).visible( true );
+								}
 							},
 							error : function(xhr, ajaxOptions, thrownError) {
 								alert(xhr.status);
@@ -256,6 +292,7 @@
 						
 					}
 					datatable.fnDraw();
+					
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
@@ -280,6 +317,14 @@
 					if(response.court.length !== 0){
 						law.doc.courtSelectOption = response.court;
 					}
+					
+					if (response.docStatus.length !== 0) {
+						var docSysStatus = response.docStatus;
+						$.each(docSysStatus,function(i){
+							docStatusSelOption += '<option value="'+docSysStatus[i].variableId+'">'+docSysStatus[i].variableName+'</option>'; 
+						});
+						
+					}
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
@@ -295,18 +340,18 @@
 	
 　<div style="margin:5px 5px 5px 5px">
 		<table id="docSystemcaseInfoTable" class="display" cellspacing="0" width="100%" >
-		    <thead>
-            <tr>
-                <th>委託公司</th>
-                <th>案號</th>
-                <th>債務人</th>
-                <th>ID</th>
-                <th>委託金額</th>
-                <th>委託日期</th>
-                <th>庫存或退案</th>
-            </tr>
-        </thead>
-    </table>
+			    <thead>
+	            <tr>
+	                <th>委託公司</th>
+	                <th>案號</th>
+	                <th>債務人</th>
+	                <th>ID</th>
+	                <th>委託金額</th>
+	                <th>委託日期</th>
+	                <th>庫存或退案</th>
+	            </tr>
+	        </thead>
+	    </table>
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content">
@@ -340,8 +385,6 @@
                 <th>業主調件日</th>
                 <th>日期</th>
                 <th>文件編號</th>
-                <th>案號</th>
-                <th>債務人</th>
                 <th>相對人</th>
                 <th>文件類別</th>
                 <th>文件項目</th>

@@ -13,6 +13,7 @@ public class LDocInfo {
 	private String disApplyBorrow;
 	private String editDoc;
 	private String docStatus;
+	private String disDocStatus;
 	private String progress;
 	private String imgFiles;
 	private String bankDate;
@@ -90,7 +91,7 @@ public class LDocInfo {
 	private String prodName;
 	private String ID;
 	private String borrowReason;
-	private String lawCode;
+	private String lawCode; // 遞狀的法院編號
 	private String borrowDatetime;
 	private String borrowUserId;
 	private String borrowUserName;
@@ -111,6 +112,21 @@ public class LDocInfo {
 	private String rowNum;
 	private String docId;
 	private String docType;
+	
+	// add by Jia 2017-08-16 申調的欄位 Vo
+	private String borrowBackDate; // 退件(業主) 退件日期
+	private String borrowBackReason; // 退件(業主) 退件原因
+	private String borrowToCourtDate; // 開庭 開庭日期
+	private String borrowToCourtLawCode; // 開庭 法務編號
+	private String borrowCourtYearCourt; // 開庭 法院
+	private String disBorrowCourtYearCourt; // 開庭 法院
+	private String borrowCourtYearYear; // 開庭 年
+	private String borrowCourtYearTxt; // 開庭字
+	private String borrowCourtYearCaseId; // 開庭 案號
+	private String borrowCourtYearShare; // 開庭 股
+	private String borrowCommonReason; // 一般借調 原因
+	private String borrowSubLawCode; // 預借 法務編號
+	
 	
 	public LDocInfo(String docInfoId, int caseId, String createUserId,
 			Date createDatetime) {
@@ -954,5 +970,110 @@ public class LDocInfo {
 	public void setDisApplyBorrow(String disApplyBorrow) {
 		this.disApplyBorrow = disApplyBorrow;
 	}
+
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
+	}
+
+	public String getBorrowBackDate() {
+		return borrowBackDate;
+	}
+
+	public void setBorrowBackDate(String borrowBackDate) {
+		this.borrowBackDate = borrowBackDate;
+	}
+
+	public String getBorrowBackReason() {
+		return borrowBackReason;
+	}
+
+	public void setBorrowBackReason(String borrowBackReason) {
+		this.borrowBackReason = borrowBackReason;
+	}
+
+	public String getBorrowToCourtDate() {
+		return borrowToCourtDate;
+	}
+
+	public void setBorrowToCourtDate(String borrowToCourtDate) {
+		this.borrowToCourtDate = borrowToCourtDate;
+	}
+
+	public String getBorrowToCourtLawCode() {
+		return borrowToCourtLawCode;
+	}
+
+	public void setBorrowToCourtLawCode(String borrowToCourtLawCode) {
+		this.borrowToCourtLawCode = borrowToCourtLawCode;
+	}
+
+	public String getBorrowCourtYearCourt() {
+		return borrowCourtYearCourt;
+	}
+
+	public void setBorrowCourtYearCourt(String borrowCourtYearCourt) {
+		this.borrowCourtYearCourt = borrowCourtYearCourt;
+	}
+
+	public String getDisBorrowCourtYearCourt() {
+		return disBorrowCourtYearCourt;
+	}
+
+	public void setDisBorrowCourtYearCourt(String disBorrowCourtYearCourt) {
+		this.disBorrowCourtYearCourt = disBorrowCourtYearCourt;
+	}
+
+	public String getBorrowCourtYearYear() {
+		return borrowCourtYearYear;
+	}
+
+	public void setBorrowCourtYearYear(String borrowCourtYearYear) {
+		this.borrowCourtYearYear = borrowCourtYearYear;
+	}
+
+	public String getBorrowCourtYearTxt() {
+		return borrowCourtYearTxt;
+	}
+
+	public void setBorrowCourtYearTxt(String borrowCourtYearTxt) {
+		this.borrowCourtYearTxt = borrowCourtYearTxt;
+	}
+
+	public String getBorrowCourtYearCaseId() {
+		return borrowCourtYearCaseId;
+	}
+
+	public void setBorrowCourtYearCaseId(String borrowCourtYearCaseId) {
+		this.borrowCourtYearCaseId = borrowCourtYearCaseId;
+	}
+
+	public String getBorrowCourtYearShare() {
+		return borrowCourtYearShare;
+	}
+
+	public void setBorrowCourtYearShare(String borrowCourtYearShare) {
+		this.borrowCourtYearShare = borrowCourtYearShare;
+	}
+
+	public String getBorrowCommonReason() {
+		return borrowCommonReason;
+	}
+
+	public void setBorrowCommonReason(String borrowCommonReason) {
+		this.borrowCommonReason = borrowCommonReason;
+	}
+
+	public String getBorrowSubLawCode() {
+		return borrowSubLawCode;
+	}
+
+	public void setBorrowSubLawCode(String borrowSubLawCode) {
+		this.borrowSubLawCode = borrowSubLawCode;
+	}
+	
 	
 }

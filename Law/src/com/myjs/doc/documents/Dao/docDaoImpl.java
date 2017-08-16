@@ -1,38 +1,26 @@
 package com.myjs.doc.documents.Dao;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.commons.DaoUtil;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCashiercheckRela;
 import com.myjs.doc.documents.model.LDocCentitlement;
-import com.myjs.doc.documents.model.LDocCentitlementBuiltTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementCashierCheckRela;
-import com.myjs.doc.documents.model.LDocCentitlementCoOwnedRela;
-import com.myjs.doc.documents.model.LDocCentitlementCoOwnedTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementDebtContinueRela;
-import com.myjs.doc.documents.model.LDocCentitlementDebtDocRela;
-import com.myjs.doc.documents.model.LDocCentitlementDetailRela;
-import com.myjs.doc.documents.model.LDocCentitlementDirtTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementDistributionRela;
-import com.myjs.doc.documents.model.LDocCentitlementFileRela;
-import com.myjs.doc.documents.model.LDocCentitlementHeirTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementLawTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementMortgageeTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementOtherRela;
 import com.myjs.doc.documents.model.LDocCentitlementRela;
 import com.myjs.doc.documents.model.LDocCentitlementSourceDoc;
-import com.myjs.doc.documents.model.LDocCentitlementThingDebtRela;
-import com.myjs.doc.documents.model.LDocCentitlementThingThirdRela;
-import com.myjs.doc.documents.model.LDocCentitlementTranscriptsRela;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
 import com.myjs.doc.documents.model.LDocClaimsdocsRela;
 import com.myjs.doc.documents.model.LDocCourtDoc;
@@ -58,6 +46,7 @@ import com.myjs.doc.documents.model.LDocCourtDocTranscriptsRela;
 import com.myjs.doc.documents.model.LDocDebts;
 import com.myjs.doc.documents.model.LDocDebtsRela;
 import com.myjs.doc.documents.model.LDocFiledocs;
+import com.myjs.doc.documents.model.LDocImgfileTemp;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.myjs.sys.variable.model.LSysVariable;
@@ -109,193 +98,6 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	
 	public boolean save(LDocCentitlementRela transientInstance) throws Exception {
 		log.debug("saving LDocCentitlementRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementTranscriptsRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementTranscriptsRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-	
-	public boolean save(LDocCentitlementCoOwnedTranscriptsRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementCoOwnedTranscriptsRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementMortgageeTranscriptsRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementMortgageeTranscriptsRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementLawTranscriptsRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementLawTranscriptsRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementHeirTranscriptsRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementHeirTranscriptsRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementDirtTranscriptsRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementDirtTranscriptsRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementBuiltTranscriptsRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementBuiltTranscriptsRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementDistributionRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementDistributionRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementThingThirdRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementThingThirdRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementThingDebtRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementThingDebtRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementCoOwnedRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementCoOwnedRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementDebtDocRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementDebtDocRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementDetailRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementDetailRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementFileRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementFileRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementDebtContinueRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementDebtContinueRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementCashierCheckRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementCashierCheckRela instance");
-		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
-		log.debug("save successful");
-		return flag;
-	}
-
-	public boolean save(LDocCentitlementOtherRela transientInstance) throws Exception {
-		log.debug("saving LDocCentitlementOtherRela instance");
 		boolean flag = false;
 		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
 		if(null!=lizable||!"".equals(lizable)){
@@ -623,6 +425,27 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		log.debug("save successful");
 		return flag;
 	}
+
+	public boolean save(LDocImgfileTemp transientInstance) throws Exception {
+		log.debug("saving LDocImgfileTemp instance");
+		boolean flag = false;
+		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
+		if(null!=lizable||!"".equals(lizable)){
+			flag=true;
+		}
+		log.debug("save successful");
+		return flag;
+	}
+	
+	public boolean deleteById(String uuid) throws Exception {
+		log.debug("deleteById LDocImgfileTemp instance");
+		StringBuffer deleteString = new StringBuffer("DELETE FROM L_DOC_IMGFILE_TEMP WHERE img_temp_id = '" + uuid + "'");
+		log.debug("deleteString = {}", deleteString);
+		jdbcTemplate.execute(deleteString.toString());
+		boolean flag = true;
+		log.debug("delete successful");
+		return flag;
+	}
 	
 	public List<LSysVariable> findAllBankName() throws Exception{
 		log.debug("findAllBankName start");
@@ -680,6 +503,182 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		
 		flag = true;
 		return flag;
+	}
+	
+
+	public List<LCekSignedCaseInfo> findCaseByDocInfo(String caseId, String debtorName, 
+			String debtorId, String docNo, String legalCaseId, boolean isCheck) throws Exception{
+		log.debug("findCaseByDocInfo start");
+		boolean hasInputValue = false;
+		
+		String tableName = "";
+		String tableIdName = "";
+		String docCaseId = "";
+		String fromLawCaseId = "";
+		if(docNo != null && !docNo.equals("")){
+			if(docNo.indexOf("A") == 0){
+				tableName = "L_DOC_CENTITLEMENT";
+				tableIdName = "centitlement_id";
+			}else if(docNo.indexOf("B") == 0){
+				tableName = "L_DOC_COURT_DOC";
+				tableIdName = "court_doc_id";
+			}else if(docNo.indexOf("C") == 0){
+				tableName = "L_DOC_CASHIERCHECK";
+				tableIdName = "cashiercheck_id";
+			}else if(docNo.indexOf("D") == 0){
+				tableName = "L_DOC_DEBTS";
+				tableIdName = "debts_id";
+			}else if(docNo.indexOf("E") == 0){
+				tableName = "L_DOC_CLAIMSDOC";
+				tableIdName = "claimsdocs_id";
+			}else if(docNo.indexOf("F") == 0){
+				tableName = "L_DOC_FILEDOCS";
+				tableIdName = "filedocs_id";
+			}else if(docNo.indexOf("G") == 0){
+				tableName = "L_DOC_OTHERDOCS";
+				tableIdName = "otherdocs_id";
+			}
+		}else{
+			if(legalCaseId != null && !legalCaseId.equals("")){
+				StringBuffer queryDocString = new StringBuffer("SELECT case_id FROM L_DOC_CENTITLEMENT where court_year_case_id = " + legalCaseId);
+				queryDocString.append(" UNION SELECT case_id FROM L_DOC_COURT_DOC where court_year_case_id = " + legalCaseId);
+				
+				List<Map<String, Object>> docObject = this.jdbcTemplate.queryForList(queryDocString.toString());
+				if(docObject.size() > 0){
+					for(Map<String, Object> doc:docObject){
+						fromLawCaseId += "'" + doc.get("case_id") + "',";
+					}
+					fromLawCaseId = fromLawCaseId.substring(0, fromLawCaseId.length()-1);
+					log.debug("docObject fromLawCaseId = {}", fromLawCaseId);
+				}
+			}
+		}
+		
+		if(tableName != null && !tableName.equals("")){
+			StringBuffer queryDocString = new StringBuffer("SELECT case_id FROM " + tableName + " where " + tableIdName + " = " + docNo.substring(1));
+			
+			List<Map<String, Object>> docObject = this.jdbcTemplate.queryForList(queryDocString.toString());
+			if(docObject.size() > 0){
+				docCaseId = docObject.get(0).get("case_id") + "";
+				log.debug("docObject caseId = {}", docCaseId);
+			}
+		}
+		
+
+		if(docCaseId != null && !docCaseId.equals("")){
+			
+			StringBuffer queryString = new StringBuffer("SELECT TOP 100 VSC.Bank_alias, VSC.Prod_Name,");
+			queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d,");
+			queryString.append(" VSC.O_or_C, VSC.Bank_ID, VSC.G_ID, VSC.G_name");
+			queryString.append(" FROM V_SMART_RELAINFO VSR");
+			queryString.append(" LEFT JOIN V_SMART_CASEINFO VSC ON VSR.Case_ID = VSC.Case_ID");
+			queryString.append(" WHERE VSR.Rela_kind = '本人'");
+			queryString.append(" AND VSC.Case_ID = '"+docCaseId+"'");
+			if(caseId != null && !caseId.equals("")){
+				queryString.append(" AND VSC.Case_ID = '"+caseId+"'");
+				hasInputValue = true;
+			}
+			if(legalCaseId != null && !legalCaseId.equals("")){
+				if(fromLawCaseId != null && !fromLawCaseId.equals("")){
+					queryString.append(" AND VSC.Case_ID in (" + fromLawCaseId + ")");
+					hasInputValue = true;
+				}
+			}
+			if(debtorName != null && !debtorName.equals("")){
+				queryString.append(" AND VSR.Name like '%"+debtorName+"%'");
+				hasInputValue = true;
+			}
+			if(debtorId != null && !debtorId.equals("")){
+				queryString.append(" AND VSR.ID = '"+debtorId+"'");
+				hasInputValue = true;
+			}
+			
+			if(isCheck){// 查核機制
+				queryString.append(" AND  VSC.O_or_C='O'");
+			}else if(!hasInputValue){
+				queryString.append(" AND  VSC.O_or_C='O'");
+			}
+			log.debug("queryString = {}", queryString);
+			
+			List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
+	
+			List<LCekSignedCaseInfo> MapLCekSignedCaseInfo = new ArrayList<LCekSignedCaseInfo>();
+			for (Map<?, ?> map : querylist) {
+				LCekSignedCaseInfo LCekSignedCaseInfo = new LCekSignedCaseInfo();
+				LCekSignedCaseInfo.setBank_alias((String) map.get("Bank_alias"));
+				LCekSignedCaseInfo.setProd_Name((String) map.get("Prod_Name"));
+				LCekSignedCaseInfo.setCase_ID((int) map.get("Case_ID"));
+				LCekSignedCaseInfo.setName((String) map.get("Name"));
+				LCekSignedCaseInfo.setID((String) map.get("ID"));
+				LCekSignedCaseInfo.setPriDebt_amount(((BigDecimal) map.get("PriDebt_amount")).intValue());
+				LCekSignedCaseInfo.setCtCase_d((Date) map.get("ctCase_d"));
+				LCekSignedCaseInfo.setO_or_C((String) map.get("O_or_C"));
+				LCekSignedCaseInfo.setBank_ID((String) map.get("Bank_ID"));
+				LCekSignedCaseInfo.setG_ID((int) map.get("G_ID"));
+				LCekSignedCaseInfo.setG_name((String) map.get("G_name"));
+				MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
+			}
+			log.debug("findCaseByDocInfo end");
+			return MapLCekSignedCaseInfo;
+		}else{
+			if(fromLawCaseId != null && !fromLawCaseId.equals("")){
+				StringBuffer queryString = new StringBuffer("SELECT TOP 100 VSC.Bank_alias, VSC.Prod_Name,");
+				queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d,");
+				queryString.append(" VSC.O_or_C, VSC.Bank_ID, VSC.G_ID, VSC.G_name");
+				queryString.append(" FROM V_SMART_RELAINFO VSR");
+				queryString.append(" LEFT JOIN V_SMART_CASEINFO VSC ON VSR.Case_ID = VSC.Case_ID");
+				queryString.append(" WHERE VSR.Rela_kind = '本人'");
+				if(caseId != null && !caseId.equals("")){
+					queryString.append(" AND VSC.Case_ID = '"+caseId+"'");
+					hasInputValue = true;
+				}
+				if(legalCaseId != null && !legalCaseId.equals("")){
+					if(fromLawCaseId != null && !fromLawCaseId.equals("")){
+						queryString.append(" AND VSC.Case_ID in (" + fromLawCaseId + ")");
+						hasInputValue = true;
+					}
+				}
+				if(debtorName != null && !debtorName.equals("")){
+					queryString.append(" AND VSR.Name like '%"+debtorName+"%'");
+					hasInputValue = true;
+				}
+				if(debtorId != null && !debtorId.equals("")){
+					queryString.append(" AND VSR.ID = '"+debtorId+"'");
+					hasInputValue = true;
+				}
+				
+				if(isCheck){// 查核機制
+					queryString.append(" AND  VSC.O_or_C='O'");
+				}else if(!hasInputValue){
+					queryString.append(" AND  VSC.O_or_C='O'");
+				}
+				log.debug("queryString = {}", queryString);
+				
+				List<Map<String, Object>> querylist=this.jdbcTemplate.queryForList(queryString.toString());
+		
+				List<LCekSignedCaseInfo> MapLCekSignedCaseInfo = new ArrayList<LCekSignedCaseInfo>();
+				for (Map<?, ?> map : querylist) {
+					LCekSignedCaseInfo LCekSignedCaseInfo = new LCekSignedCaseInfo();
+					LCekSignedCaseInfo.setBank_alias((String) map.get("Bank_alias"));
+					LCekSignedCaseInfo.setProd_Name((String) map.get("Prod_Name"));
+					LCekSignedCaseInfo.setCase_ID((int) map.get("Case_ID"));
+					LCekSignedCaseInfo.setName((String) map.get("Name"));
+					LCekSignedCaseInfo.setID((String) map.get("ID"));
+					LCekSignedCaseInfo.setPriDebt_amount(((BigDecimal) map.get("PriDebt_amount")).intValue());
+					LCekSignedCaseInfo.setCtCase_d((Date) map.get("ctCase_d"));
+					LCekSignedCaseInfo.setO_or_C((String) map.get("O_or_C"));
+					LCekSignedCaseInfo.setBank_ID((String) map.get("Bank_ID"));
+					LCekSignedCaseInfo.setG_ID((int) map.get("G_ID"));
+					LCekSignedCaseInfo.setG_name((String) map.get("G_name"));
+					MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
+				}
+				log.debug("findCaseByDocInfo end");
+				return MapLCekSignedCaseInfo;
+			}else{
+				return null;
+			}
+		}
+
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -767,6 +766,20 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		    LDocInfo.setID(rs.getString("debt_ID") == null ? "" : rs.getString("debt_ID"));
 		    LDocInfo.setDocId(rs.getString("doc_id") == null ? "" : rs.getString("doc_id"));
 		    LDocInfo.setDocType(rs.getString("doc_type") == null ? "" : rs.getString("doc_type"));
+			LDocInfo.setDisDocStatus(rs.getString("dis_doc_status") == null ? "" : rs.getString("dis_doc_status"));
+			LDocInfo.setLawCode(rs.getString("law_code") == null ? "" : rs.getString("law_code"));
+			LDocInfo.setBorrowBackDate(rs.getString("borrow_back_date") == null ? "" : rs.getString("borrow_back_date"));
+			LDocInfo.setBorrowBackReason(rs.getString("borrow_back_reason") == null ? "" : rs.getString("borrow_back_reason"));
+			LDocInfo.setBorrowToCourtDate(rs.getString("borrow_to_court_date") == null ? "" : rs.getString("borrow_to_court_date"));
+			LDocInfo.setBorrowToCourtLawCode(rs.getString("borrow_to_court_law_code") == null ? "" : rs.getString("borrow_to_court_law_code"));
+			LDocInfo.setBorrowCourtYearCourt(rs.getString("borrow_court_year_court") == null ? "" : rs.getString("borrow_court_year_court"));
+			LDocInfo.setDisBorrowCourtYearCourt(rs.getString("dis_borrow_court_year_court") == null ? "" : rs.getString("dis_borrow_court_year_court"));
+			LDocInfo.setBorrowCourtYearYear(rs.getString("borrow_court_year_year") == null ? "" : rs.getString("borrow_court_year_year"));
+			LDocInfo.setBorrowCourtYearTxt(rs.getString("borrow_court_year_txt") == null ? "" : rs.getString("borrow_court_year_txt"));
+			LDocInfo.setBorrowCourtYearCaseId(rs.getString("borrow_court_year_case_id") == null ? "" : rs.getString("borrow_court_year_case_id"));
+			LDocInfo.setBorrowCourtYearShare(rs.getString("borrow_court_year_share") == null ? "" : rs.getString("borrow_court_year_share"));
+			LDocInfo.setBorrowCommonReason(rs.getString("borrow_common_reason") == null ? "" : rs.getString("borrow_common_reason"));
+			LDocInfo.setBorrowSubLawCode(rs.getString("borrow_sub_law_code") == null ? "" : rs.getString("borrow_sub_law_code"));
 			return LDocInfo;
 
 		}

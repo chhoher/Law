@@ -208,6 +208,10 @@ public class LDocCourtDoc {
 	private List<LDocCourtDocCashierCheckRela> courtDocCashierCheckRelationPerson;
 	private List<LDocCourtDocRecoveryRela> courtDocRecoveryRelationPerson;
 	private List<LDocCourtDocOtherRela> courtDocOtherRelationPerson;
+	private String disTypeOne;
+	private String disTypeTwo;
+	private String disDocStatus;
+	private String disCourtYearCourt;
 	
 	public int getCourtDocId() {
 		return courtDocId;
@@ -1313,6 +1317,30 @@ public class LDocCourtDoc {
 	}
 	public void setDebtName(String debtName) {
 		this.debtName = debtName;
+	}
+	public String getDisTypeOne() {
+		return disTypeOne;
+	}
+	public void setDisTypeOne(String disTypeOne) {
+		this.disTypeOne = disTypeOne;
+	}
+	public String getDisTypeTwo() {
+		return disTypeTwo;
+	}
+	public void setDisTypeTwo(String disTypeTwo) {
+		this.disTypeTwo = disTypeTwo;
+	}
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
+	}
+	public String getDisCourtYearCourt() {
+		return disCourtYearCourt;
+	}
+	public void setDisCourtYearCourt(String disCourtYearCourt) {
+		this.disCourtYearCourt = disCourtYearCourt;
 	}
 
 	

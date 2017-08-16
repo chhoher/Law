@@ -34,6 +34,7 @@ public class LDocBorrowList {
 	private Date progressDatetime;
 	private String progressUserId;
 	private String progressUserName;
+	private String isClose;
 	
 	//add By Jia 2017-08-01 Vo
 	private int rowNum;
@@ -306,6 +307,12 @@ public class LDocBorrowList {
 	}
 	public void setCheckBox(String checkBox) {
 		this.checkBox = checkBox;
+	}
+	public String getIsClose() {
+		return isClose;
+	}
+	public void setIsClose(String isClose) {
+		this.isClose = isClose;
 	}
 	
 	

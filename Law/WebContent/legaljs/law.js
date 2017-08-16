@@ -17,6 +17,9 @@
  		tabcount = 0,
  		activedNum = 0,
  		
+ 		// regex
+ 		tips = "",
+ 		
 	 	/* 定義新增頁簽function
 	 	* tabsId 帶入需增加頁簽的位置
 	 	* menname 帶入打開頁簽的名稱
@@ -100,7 +103,7 @@
 	 * 帶入初始值(下拉選項)
 	 * 固定是L_SYS_VARIABLE裡面的
 	 */
-	selectOption = function(id, array, selectId){
+	selectOption = function(id, array, selectId, hasNone){
 		var docArray = array,
 			seloption = "";
 		$(id + " option").remove();
@@ -111,13 +114,21 @@
 		if(selectId !== undefined){
 			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
 		}
+		//多加第一項請選擇
+		if(hasNone){
+			var noneSelect = "<option value=''>請選擇</option>"; 
+			$(id).prepend(noneSelect);
+			if(selectId === undefined){
+				$(id)[0].selectedIndex = 0;
+			}
+		}
 	},
 	
 	/*
 	 * add By Jia 2017-06-27
 	 * 帶入相對人
 	 */
-	selectRelaOption = function(id, array, selectId){
+	selectRelaOption = function(id, array, selectId, hasNone){
 		var docArray = array,
 			seloption = "";
 		$(id + " option").remove();
@@ -127,6 +138,14 @@
 		$(id).append(seloption);
 		if(selectId !== undefined){
 			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
+		}
+		//多加第一項請選擇
+		if(hasNone){
+			var noneSelect = "<option value=''>請選擇</option>"; 
+			$(id).prepend(noneSelect);
+			if(selectId === undefined){
+				$(id)[0].selectedIndex = 0;
+			}
 		}
 	},
 	
@@ -170,6 +189,53 @@
 		return str;
 		else
 		return paddingLeft("0" +str,lenght);
+	},
+	// 清除checkbox
+	unchecked = function (id1, id2){
+		$("#" + id1).prop("checked", false);
+		$("#" + id2).prop("checked", false);
+	},
+	//字串驗證
+	checkLength = function (){
+		
+	},
+	//必填欄位是否空
+	// id 
+	// regexString = "提示訊息"
+	// return true = 空 false = 不空
+	checkIsEmpty = function (id, regexString){
+		var returnObject = {};
+		if($("#" + id).val() === ""){
+			returnObject = { isEmpty : true, regexString :  regexString + "->不得為空"};
+			return returnObject;
+		}else{
+			returnObject = { isEmpty : false};
+			return returnObject
+		}
+	},
+	//必填選擇項欄位是否空
+	// id 
+	// regexString = "提示訊息"
+	// return true = 空 false = 不空
+	checkSelectIsEmpty = function (id, regexString){
+		var returnObject = {};
+		if($("#" + id).find('option:selected').val() === ""){
+			returnObject = { isEmpty : true, regexString :  regexString + "->不得為空"};
+			return returnObject;
+		}else{
+			returnObject = { isEmpty : false};
+			return returnObject
+		}
+	},
+	checkRegexp = function (id, regexp, regexString) {
+		var returnObject = {};
+	    if (( regexp.test( $("#" + id).val() ) ) ) {
+	    	returnObject = { isRegexp : false};
+	        return returnObject;
+	    } else {
+			returnObject = { isRegexp : true, regexString :  regexString};
+	        return returnObject;
+	    }
 	}
 	
  	/*
@@ -202,7 +268,13 @@
  		selectOption : selectOption,
  		selectRelaOption : selectRelaOption,
  		formatInputItemToDate : formatInputItemToDate,
- 		paddingLeft : paddingLeft
+ 		paddingLeft : paddingLeft,
+ 		unchecked : unchecked,
+ 		checkLength : checkLength,
+ 		checkIsEmpty : checkIsEmpty,
+ 		checkSelectIsEmpty : checkSelectIsEmpty,
+ 		checkRegexp : checkRegexp,
+ 		tips : tips //regex的提示字串 
  	};
  	
  	// 新增簽核系統類function
@@ -211,7 +283,14 @@
  	};
  	
  	// 新增regex
- 	law.regex = {};
+ 	law.regex = {
+		CNameRegex : '',
+		ENameRegex : '',
+		emailRegex : /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+		numberRegex : /^\d+$/, // 驗證非負整數
+		dateTimeRegex : /(\d{4})-(\d{2})-(\d{2})/,
+		Cyear : /^[0-1]?\d{1,2}/  // 民國年判斷
+	};
  	/*
  	 * 加入law到window裡
  	 */

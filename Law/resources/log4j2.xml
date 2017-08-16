@@ -19,6 +19,10 @@
             <pattern>
                 [%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%c{2}.%M:%L] - %m%n
             </pattern>
+            <Policies>
+			    <SizeBasedTriggeringPolicy size="5 MB"/>
+		  	</Policies>
+		  	<DefaultRolloverStrategy max="20"/>
         </PatternLayout>
     </File>        
 </Appenders>

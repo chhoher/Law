@@ -3,18 +3,34 @@
  */
  
 $(function() {
+	// 定義Regex
+	var addDocRegexdialog = $("#addDocRegex").dialog({
+		autoOpen : false,
+		height : 100,
+		width : 500,
+		modal : true
+	});
+	
+	// 定義儲存完的視窗
+	var saveEndDiv = $("#saveEndDiv").dialog({
+		autoOpen : false,
+		height : 600,
+		width : 1000,
+		modal : true
+	});
+	
 	
 	// ===== function start =====
 	
 	function saveaddDoc(){
 		
-		var returnCentitlement = law.addDoc.centitlement.returnAllsubtabJson(),// 儲存(執行名義)
-			returnCourtDoc = law.addDoc.courtDoc.returnAllsubtabJson(),// 儲存(法院文)
-			returnCashierCheck = law.addDoc.cashierCheck.returnAllsubtabJson(),// 儲存(本票)
-			returnDebts = law.addDoc.debts.returnAllsubtabJson(),// 儲存(債讓)
-			returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
-			returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
-			returnOther = law.addDoc.other.returnAllsubtabJson();// 儲存(其他)
+		var returnCentitlement = null,// 儲存(執行名義)
+			returnCourtDoc = null,// 儲存(法院文)
+			returnCashierCheck = null,// 儲存(本票)
+			returnDebts = null,// 儲存(債讓)
+			returnClaim = null,// 儲存(債權文件)
+			returnFile = null,// 儲存(卷宗)
+			returnOther = null;// 儲存(其他)
 		
 		var checkAll = $("#ckbaddDocAll").is(':checked'),
 			checkCentitlement = $("#ckbaddDocentitlementForeclosure").is(':checked'),
@@ -25,30 +41,192 @@ $(function() {
 			checkDocFile = $("#ckbaddDocfile").is(':checked'),
 			checkOther = $("#ckbaddDocother").is(':checked');
 			
-		if(!checkAll){
-			if(!checkCentitlement){
-				returnCentitlement = null;
+		if(checkAll){
+			returnCentitlement = law.addDoc.centitlement.returnAllsubtabJson(),// 儲存(執行名義)
+			returnCourtDoc = law.addDoc.courtDoc.returnAllsubtabJson(),// 儲存(法院文)
+			returnCashierCheck = law.addDoc.cashierCheck.returnAllsubtabJson(),// 儲存(本票)
+			returnDebts = law.addDoc.debts.returnAllsubtabJson(),// 儲存(債讓)
+			returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson(),// 儲存(債權文件)
+			returnFile = law.addDoc.file.returnAllsubtabJson(),// 儲存(卷宗)
+			returnOther = law.addDoc.other.returnAllsubtabJson();// 儲存(其他)
+			if(returnCentitlement.isEmpty){
+				$("#addDocRegexTxt").text(returnCentitlement.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
 			}
-			if(!checkCourtDoc){
-				returnCourtDoc = null;
+			if(returnCentitlement.isRegexp){
+				$("#addDocRegexTxt").text(returnCentitlement.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
 			}
-			if(!checkCashierCheck){
-				returnCashierCheck = null;
+			if(returnCourtDoc.isEmpty){
+				$("#addDocRegexTxt").text(returnCourtDoc.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
 			}
-			if(!checkDebts){
-				returnDebts = null;
+			if(returnCourtDoc.isRegexp){
+				$("#addDocRegexTxt").text(returnCourtDoc.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
 			}
-			if(!checkClaimsDoc){
-				returnClaim = null;
+			if(returnCashierCheck.isEmpty){
+				$("#addDocRegexTxt").text(returnCashierCheck.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
 			}
-			if(!checkDocFile){
-				returnFile = null;
+			if(returnCashierCheck.isRegexp){
+				$("#addDocRegexTxt").text(returnCashierCheck.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
 			}
-			if(!checkOther){
-				returnOther = null;
+			if(returnDebts.isEmpty){
+				$("#addDocRegexTxt").text(returnDebts.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+			if(returnDebts.isRegexp){
+				$("#addDocRegexTxt").text(returnDebts.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+			if(returnClaim.isEmpty){
+				$("#addDocRegexTxt").text(returnClaim.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+			if(returnClaim.isRegexp){
+				$("#addDocRegexTxt").text(returnClaim.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+			if(returnFile.isEmpty){
+				$("#addDocRegexTxt").text(returnFile.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+			if(returnFile.isRegexp){
+				$("#addDocRegexTxt").text(returnFile.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+			if(returnOther.isEmpty){
+				$("#addDocRegexTxt").text(returnOther.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+			if(returnOther.isRegexp){
+				$("#addDocRegexTxt").text(returnOther.regexString);
+				addDocRegexdialog.dialog("open");
+				return;
+			}
+		}else{
+			var hasCheck = 0;
+			if(checkCentitlement){
+				returnCentitlement = law.addDoc.centitlement.returnAllsubtabJson();// 儲存(執行名義)
+				hasCheck ++;
+				if(returnCentitlement.isEmpty){
+					$("#addDocRegexTxt").text(returnCentitlement.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+				if(returnCentitlement.isRegexp){
+					$("#addDocRegexTxt").text(returnCentitlement.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+			}
+			if(checkCourtDoc){
+				returnCourtDoc = law.addDoc.courtDoc.returnAllsubtabJson();// 儲存(法院文)
+				hasCheck ++;
+				if(returnCourtDoc.isEmpty){
+					$("#addDocRegexTxt").text(returnCourtDoc.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+				if(returnCourtDoc.isRegexp){
+					$("#addDocRegexTxt").text(returnCourtDoc.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+			}
+			if(checkCashierCheck){
+				returnCashierCheck = law.addDoc.cashierCheck.returnAllsubtabJson();// 儲存(本票)
+				hasCheck ++;
+				if(returnCashierCheck.isEmpty){
+					$("#addDocRegexTxt").text(returnCashierCheck.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+				if(returnCashierCheck.isRegexp){
+					$("#addDocRegexTxt").text(returnCashierCheck.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+			}
+			if(checkDebts){
+				returnDebts = law.addDoc.debts.returnAllsubtabJson();// 儲存(債讓)
+				hasCheck ++;
+				if(returnDebts.isEmpty){
+					$("#addDocRegexTxt").text(returnDebts.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+				if(returnDebts.isRegexp){
+					$("#addDocRegexTxt").text(returnDebts.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+			}
+			if(checkClaimsDoc){
+				returnClaim = law.addDoc.claimsDoc.returnAllsubtabJson();// 儲存(債權文件)
+				hasCheck ++;
+				if(returnClaim.isEmpty){
+					$("#addDocRegexTxt").text(returnClaim.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+				if(returnClaim.isRegexp){
+					$("#addDocRegexTxt").text(returnClaim.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+			}
+			if(checkDocFile){
+				returnFile = law.addDoc.file.returnAllsubtabJson();// 儲存(卷宗)
+				hasCheck ++;
+				if(returnFile.isEmpty){
+					$("#addDocRegexTxt").text(returnFile.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+				if(returnFile.isRegexp){
+					$("#addDocRegexTxt").text(returnFile.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+			}
+			if(checkOther){
+				returnOther = law.addDoc.other.returnAllsubtabJson();// 儲存(其他)
+				hasCheck ++;
+				if(returnOther.isEmpty){
+					$("#addDocRegexTxt").text(returnOther.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+				if(returnOther.isRegexp){
+					$("#addDocRegexTxt").text(returnOther.regexString);
+					addDocRegexdialog.dialog("open");
+					return;
+				}
+			}
+			
+			if(hasCheck === 0){
+				$("#addDocRegexTxt").text("請勾選至少一項文件");
+				addDocRegexdialog.dialog("open");
+				return;
 			}
 		}
-		
+			
 		$.ajax({
 					url : '../pages/doc/documents/docAction!saveaddDoc.action',
 					data : {
@@ -65,7 +243,28 @@ $(function() {
 					type : "POST",
 					dataType : 'json',
 					success : function(response) {
+						
+						saveEndDiv.dialog("open");
+						//add By Jia 2017-08-11 將儲存結果回傳前端
+						//文件資訊的表格
+					    var docsdatatable = $("#docSaveEndTable").dataTable();
+					    var saveEndDateTable = $("#docSaveEndTable").DataTable();
+						$("#docSaveEndTable").dataTable().fnClearTable();
+						saveEndDateTable = $("#docSaveEndTable").DataTable();
+						saveEndDateTable.on( 'order.dt search.dt', function () {
+							saveEndDateTable.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+					            cell.innerHTML = i+1;
+					        } );
+					    } ).draw();
 						if (response.success) {
+							var json = response.responseDocInfo;
+							docsdatatable.fnClearTable();
+							if (json.length !== 0) {
+								$("#btnsaveaddDoc").button( "disable" );
+								docsdatatable.fnAddData(json);
+							}
+							docsdatatable.fnDraw();
+							
 							alert(response.msg);
 						} else {
 							alert(response.msg);
@@ -77,12 +276,13 @@ $(function() {
 					}
 				});
 	}
+	
 	// ===== function end =====
 
 	// ===== 功能列按鈕 start =====
 	// 儲存按鈕
 	$("#btnsaveaddDoc").button().on("click",function() {
-		saveaddDoc();
+			saveaddDoc();
 	});
 	
 	// 連結文管系統

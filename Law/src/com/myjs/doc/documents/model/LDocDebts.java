@@ -34,6 +34,9 @@ public class LDocDebts {
 	
 	// add By Jia 2017-06-28 Vo
 	private List<LDocDebtsRela> debtsRelationPerson;
+	private String disTypeOne;
+	private String disTypeTwo;
+	private String disDocStatus;
 
 	public LDocDebts(int debtsId, String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus,
 			String typeOne, String typeTwo, String bankName, String oldBankName, String relationPerson,
@@ -283,6 +286,30 @@ public class LDocDebts {
 
 	public void setDebtName(String debtName) {
 		this.debtName = debtName;
+	}
+
+	public String getDisTypeOne() {
+		return disTypeOne;
+	}
+
+	public void setDisTypeOne(String disTypeOne) {
+		this.disTypeOne = disTypeOne;
+	}
+
+	public String getDisTypeTwo() {
+		return disTypeTwo;
+	}
+
+	public void setDisTypeTwo(String disTypeTwo) {
+		this.disTypeTwo = disTypeTwo;
+	}
+
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
 	}
 
 	
