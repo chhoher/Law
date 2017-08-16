@@ -400,7 +400,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		log.debug("findCaseByproperties start");
 		boolean hasInputValue = false;
 		
-		StringBuffer queryString = new StringBuffer("SELECT TOP 1000 VSC.Bank_alias, VSC.Prod_Name,");
+		StringBuffer queryString = new StringBuffer("SELECT TOP 100 VSC.Bank_alias, VSC.Prod_Name,");
 		queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d,");
 		queryString.append(" VSC.O_or_C, VSC.Bank_ID, VSC.G_ID, VSC.G_name");
 		queryString.append(" FROM V_SMART_RELAINFO VSR");
@@ -418,13 +418,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			queryString.append(" AND VSR.ID = '"+debtorId+"'");
 			hasInputValue = true;
 		}
-		// TODO add By Jia 2017-05-11 下面兩項代號系統還沒有，還不行使用，之後記得加上去
-//			if(docNo != null && !docNo.equals("")){
-//				queryString.append(" and VSC.Case_ID = '"+docNo+"'");
-//			}
-//			if(legalCaseId != null && !legalCaseId.equals("")){
-//				queryString.append(" and VSC.Case_ID = '"+legalCaseId+"'");
-//			}
+		
 		if(isCheck){// 查核機制
 			queryString.append(" AND  VSC.O_or_C='O'");
 		}else if(!hasInputValue){

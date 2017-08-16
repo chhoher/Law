@@ -19,6 +19,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
+			var saveEndDateTable;
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
 		    		"bSort": false,
@@ -47,7 +48,45 @@
 		            ]
 		            };
 		    $("#caseInfoTable").dataTable(opt);
-
+		    
+		    var docSaveopt={
+		    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
+		    		"bJQueryUI":true,	
+		            "scrollX":        true,
+		            "scrollCollapse": true,
+	                "bAutoWidth":false,    
+		    		"columnDefs": [{
+	                    targets: '_all',
+	                    className: 'dt-center'
+	                }],
+	                "order": [[0, "asc"]],
+		    		"columns": [
+		                { "data": "rowNum" },
+		                { "data": "bankName" },
+		                { "data": "prodName" },
+		                { "data": "caseId" },
+		                { "data": "debtName" },
+		                { "data": "ID" },
+		                { "data": "docCode" },
+		                { "data": "typeOne" },
+		                { "data": "typeTwo" },
+		                { "data": "docStatus" },
+		                { "data": "courtYearCourt" },
+		                { "data": "sourceDoc" },
+		                { "data": "sendDate" },
+		                { "data": "newSendDate" },
+		                { "data": "remark" },
+		                { "data": "report" },
+		                { "data": "edit" },
+		                { "data": "pay" },
+		                { "data": "sendReport" },
+		                { "data": "executionDate" },
+			            { "data": "toCourtDate" }
+		            ]
+			};
+			console.log("sdfsd");
+			$("#docSaveEndTable").dataTable(docSaveopt);
+			
 			var json = "", relajson = "";
 		    var datatable = "";
 			datatable = $("#caseInfoTable").dataTable();
@@ -128,66 +167,31 @@
 					law.addDoc.rela = relajson;
 
 					// 執行名義相對人初始化
-					law.common.selectRelaOption("#iptcentitlementRelationPerson_0", law.addDoc.rela);
+					law.common.selectRelaOption("#iptcentitlementRelationPerson_0", law.addDoc.rela, undefined, true);
 					law.addDoc.centitlement.centitlementRelaNum[0] = 0;
-					//補正下拉選項
-					law.common.selectRelaOption("#iptcentitlementTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementCoOwnedTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementMortgageeTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementLawTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementHeirTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementDirtTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementBuiltTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementDistributionRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementThingThirdRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementThingDebtRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementCoOwnedRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementDebtDocRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementDetailRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementFileRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementDebtContinueRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementCashierCheckRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcentitlementOtherRelationPerson_0", law.addDoc.rela);
-					law.addDoc.centitlement.centitlementTranscriptsRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementCoOwnedTranscriptsRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementMortgageeTranscriptsRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementLawTranscriptsRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementHeirTranscriptsRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementDirtTranscriptsRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementBuiltTranscriptsRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementDistributionRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementThingThirdRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementThingDebtRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementCoOwnedRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementDebtDocRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementDetailRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementFileRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementDebtContinueRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementCashierCheckRelaNum[0] = 0;
-					law.addDoc.centitlement.centitlementOtherRelaNum[0] = 0;
 					
 					// 法院文相對人初始化
-					law.common.selectRelaOption("#iptcourtDocRelationPerson_0", law.addDoc.rela);
+					law.common.selectRelaOption("#iptcourtDocRelationPerson_0", law.addDoc.rela, undefined, true);
 					law.addDoc.courtDoc.courtDocRelaNum[0] = 0;
 					//補正下拉選項
-					law.common.selectRelaOption("#iptcourtDocTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocCoOwnedTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocMortgageeTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocLawTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocHeirTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocDirtTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocBuiltTranscriptsRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocDistributionRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocThingThirdRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocThingDebtRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocCoOwnedRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocDebtDocRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocDetailRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocFileRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocDebtContinueRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocCashierCheckRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocRecoveryRelationPerson_0", law.addDoc.rela);
-					law.common.selectRelaOption("#iptcourtDocOtherRelationPerson_0", law.addDoc.rela);
+					law.common.selectRelaOption("#iptcourtDocTranscriptsRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocCoOwnedTranscriptsRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocMortgageeTranscriptsRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocLawTranscriptsRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocHeirTranscriptsRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocDirtTranscriptsRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocBuiltTranscriptsRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocDistributionRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocThingThirdRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocThingDebtRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocCoOwnedRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocDebtDocRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocDetailRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocFileRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocDebtContinueRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocCashierCheckRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocRecoveryRelationPerson_0", law.addDoc.rela, undefined, true);
+					law.common.selectRelaOption("#iptcourtDocOtherRelationPerson_0", law.addDoc.rela, undefined, true);
 					law.addDoc.courtDoc.courtDocTranscriptsRelaNum[0] = 0;
 					law.addDoc.courtDoc.courtDocCoOwnedTranscriptsRelaNum[0] = 0;
 					law.addDoc.courtDoc.courtDocMortgageeTranscriptsRelaNum[0] = 0;
@@ -207,15 +211,15 @@
 					law.addDoc.courtDoc.courtDocOtherRelaNum[0] = 0;
 					
 					// 本票相對人初始化
-					law.common.selectRelaOption("#iptcashierCheckRelationPerson_0", law.addDoc.rela);
+					law.common.selectRelaOption("#iptcashierCheckRelationPerson_0", law.addDoc.rela, undefined, true);
 					law.addDoc.cashierCheck.cashierCheckRelaNum[0] = 0;
 					
 					// 債讓相對人初始化
-					law.common.selectRelaOption("#iptdebtsRelationPerson_0", law.addDoc.rela);
+					law.common.selectRelaOption("#iptdebtsRelationPerson_0", law.addDoc.rela, undefined, true);
 					law.addDoc.debts.debtsRelaNum[0] = 0;
 					
 					// 債權文件相對人初始化
-					law.common.selectRelaOption("#iptclaimsDocRelationPerson_0", law.addDoc.rela);
+					law.common.selectRelaOption("#iptclaimsDocRelationPerson_0", law.addDoc.rela, undefined, true);
 					law.addDoc.claimsDoc.claimsDocRelaNum[0] = 0;
 					
 				},
@@ -248,15 +252,14 @@
 							response.SourceDoc, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
-					//設定收文日期為當日
-					$("#iptcentitlementReceivedDate").val(response.nowDate);
+					
 					//執行名義下拉選項
-					law.common.selectOption("#iptcentitlementDocStatus", centitlement.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-					law.common.selectOption("#iptcentitlementTypeOne", centitlement.TypeOne, "8aa2e72a5c812434015c812f07cd0001");
-					law.common.selectOption("#iptcentitlementTypeTwo", centitlement.TypeTwo);
-					law.common.selectOption("#iptcentitlementCourtYearCourt", centitlement.CourtYearCourt);
-					law.common.selectOption("#iptcentitlementSourceDoc_0", centitlement.SourceDoc);
-					law.common.selectOption("#iptcentitlementSourceDocCourtYearCourt_0", centitlement.CourtYearCourt);
+					law.common.selectOption("#iptcentitlementDocStatus", centitlement.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+					law.common.selectOption("#iptcentitlementTypeOne", centitlement.TypeOne, "8aa2e72a5c812434015c812f07cd0001", true);
+					law.common.selectOption("#iptcentitlementTypeTwo", centitlement.TypeTwo, undefined, true);
+					law.common.selectOption("#iptcentitlementCourtYearCourt", centitlement.CourtYearCourt, undefined, true);
+					law.common.selectOption("#iptcentitlementSourceDoc_0", centitlement.SourceDoc, undefined, true);
+					law.common.selectOption("#iptcentitlementSourceDocCourtYearCourt_0", centitlement.CourtYearCourt, undefined, true);
 					law.addDoc.centitlement.centitlementSourceDocNum[0] = 0;
 					
 					if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B1" ||
@@ -268,26 +271,26 @@
 							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B7" ||
 							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CD" ||
 							$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CR"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSBOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSBOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FEI_BK"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.FEIOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.FEIOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "SK_BK"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.SKOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.SKOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "YT_AMC" ||
 							$("#iptcentitlementBankName").find('option:selected').val() ===  "YT_IS"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.YTOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.YTOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FI-AMC"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.FIOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.FIOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-AMC"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSAOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSAOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TAMCO"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TAMCOOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.TAMCOOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "ORIX_AMC"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.ORIXOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.ORIXOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "MT-IS"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.MTOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.MTOldBankName, undefined, true);
 					}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "UN_IS"){
-						law.common.selectOption("#iptcentitlementOldBankName", centitlement.UNOldBankName);
+						law.common.selectOption("#iptcentitlementOldBankName", centitlement.UNOldBankName, undefined, true);
 					}else{
 						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
 						$("#iptcentitlementOldBankName option").remove();
@@ -303,29 +306,28 @@
 							response.PublishObject, response.PublishThings, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
-					//設定收文日期為當日
-					$("#iptcourtDocReceivedDate").val(response.nowDate);
+					
 					//法院文下拉選項
-					law.common.selectOption("#iptcourtDocDocStatus", courtDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-					law.common.selectOption("#iptcourtDocTypeOne", courtDoc.TypeOne, "8aa2e72a5d4f763e015d4f8771c20005");
-					law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.TypeTwo);
+					law.common.selectOption("#iptcourtDocDocStatus", courtDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+					law.common.selectOption("#iptcourtDocTypeOne", courtDoc.TypeOne, "8aa2e72a5d4f763e015d4f8771c20005", true);
+					law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.TypeTwo, undefined, true);
 					
 					$("#iptcourtDocTypeOne").change(function(i) {
 						if($("#iptcourtDocTypeOne").find('option:selected').val() ===  "8aa2e72a5d4f763e015d4f8771c20005"){
-							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.TypeTwo);
+							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.TypeTwo, undefined, true);
 						}else if($("#iptcourtDocTypeOne").find('option:selected').val() ===  "8aa2e72a5d4f763e015d4f878ed50006"){
-							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.ImmovablesTypeTwo);
+							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.ImmovablesTypeTwo, undefined, true);
 						}else if($("#iptcourtDocTypeOne").find('option:selected').val() ===  "8aa2e72a5d4f763e015d4f87dca70008"){
-							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.CenTypeTwo);
+							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.CenTypeTwo, undefined, true);
 						}else if($("#iptcourtDocTypeOne").find('option:selected').val() ===  "8aa2e72a5d4f763e015d4f87b79f0007"){
-							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.DebtTypeTwo);
+							law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.DebtTypeTwo, undefined, true);
 						}
 					
 					});
 					
-					law.common.selectOption("#iptcourtDocCourtYearCourt", courtDoc.CourtYearCourt);
-					law.common.selectOption("#iptcourtDocPublishObject", courtDoc.PublishObject);
-					law.common.selectOption("#iptcourtDocPublishThings", courtDoc.PublishThings);
+					law.common.selectOption("#iptcourtDocCourtYearCourt", courtDoc.CourtYearCourt, undefined, true);
+					law.common.selectOption("#iptcourtDocPublishObject", courtDoc.PublishObject, undefined, true);
+					law.common.selectOption("#iptcourtDocPublishThings", courtDoc.PublishThings, undefined, true);
 					
 					if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B1" ||
 							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B2" ||
@@ -336,26 +338,26 @@
 							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B7" ||
 							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CD" ||
 							$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CR"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSBOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSBOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FEI_BK"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FEIOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FEIOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "SK_BK"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.SKOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.SKOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "YT_AMC" ||
 							$("#iptcourtDocBankName").find('option:selected').val() ===  "YT_IS"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.YTOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.YTOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FI-AMC"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FIOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FIOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-AMC"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSAOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSAOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TAMCO"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TAMCOOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TAMCOOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.ORIXOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.ORIXOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "MT-IS"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.MTOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.MTOldBankName, undefined, true);
 					}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "UN_IS"){
-						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.UNOldBankName);
+						law.common.selectOption("#iptcourtDocOldBankName", courtDoc.UNOldBankName, undefined, true);
 					}else{
 						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
 						$("#iptcourtDocOldBankName option").remove();
@@ -369,12 +371,11 @@
 							response.cashierCheckTypeTwo, response.TSBOldBankName, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
-					//設定收文日期為當日
-					$("#iptcashierCheckReceivedDate").val(response.nowDate);
+					
 					//債讓下拉選項
-					law.common.selectOption("#iptcashierCheckDocStatus", cashierCheck.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-					law.common.selectOption("#iptcashierCheckTypeOne", cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007");
-					law.common.selectOption("#iptcashierCheckTypeTwo", cashierCheck.TypeTwo);
+					law.common.selectOption("#iptcashierCheckDocStatus", cashierCheck.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+					law.common.selectOption("#iptcashierCheckTypeOne", cashierCheck.TypeOne, "8aa2e72a5c812434015c812fc56a0007", true);
+					law.common.selectOption("#iptcashierCheckTypeTwo", cashierCheck.TypeTwo, undefined, true);
 					
 					if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B1" ||
 							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B2" ||
@@ -385,26 +386,26 @@
 							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B7" ||
 							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CD" ||
 							$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CR"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSBOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSBOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FEI_BK"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FEIOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FEIOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "SK_BK"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.SKOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.SKOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_AMC" ||
 							$("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_IS"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.YTOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.YTOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FI-AMC"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FIOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FIOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-AMC"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSAOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSAOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TAMCO"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TAMCOOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TAMCOOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "ORIX_AMC"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.ORIXOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.ORIXOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "MT-IS"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.MTOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.MTOldBankName, undefined, true);
 					}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "UN_IS"){
-						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.UNOldBankName);
+						law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.UNOldBankName, undefined, true);
 					}else{
 						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
 						$("#iptcashierCheckOldBankName option").remove();
@@ -418,13 +419,12 @@
 							response.debtsTypeTwo, response.TSBOldBankName, response.CourtYearCourt, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
-					//設定收文日期為當日
-					$("#iptdebtsReceivedDate").val(response.nowDate);
+					
 					//債讓下拉選項
-					law.common.selectOption("#iptdebtsDocStatus", debts.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-					law.common.selectOption("#iptdebtsTypeOne", debts.TypeOne, "8aa2e72a5c812434015c81303cbf0008");
-					law.common.selectOption("#iptdebtsTypeTwo", debts.TypeTwo);
-					law.common.selectOption("#iptdebtsCourtYearCourt", debts.CourtYearCourt);
+					law.common.selectOption("#iptdebtsDocStatus", debts.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+					law.common.selectOption("#iptdebtsTypeOne", debts.TypeOne, "8aa2e72a5c812434015c81303cbf0008", true);
+					law.common.selectOption("#iptdebtsTypeTwo", debts.TypeTwo, undefined, true);
+					law.common.selectOption("#iptdebtsCourtYearCourt", debts.CourtYearCourt, undefined, true);
 					
 					if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-B1" ||
 							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B2" ||
@@ -435,26 +435,26 @@
 							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B7" ||
 							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CD" ||
 							$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CR"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.TSBOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.TSBOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FEI_BK"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.FEIOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.FEIOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "SK_BK"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.SKOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.SKOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "YT_AMC" ||
 							$("#iptdebtsBankName").find('option:selected').val() ===  "YT_IS"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.YTOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.YTOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FI-AMC"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.FIOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.FIOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-AMC"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.TSAOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.TSAOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TAMCO"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.TAMCOOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.TAMCOOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "ORIX_AMC"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.ORIXOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.ORIXOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "MT-IS"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.MTOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.MTOldBankName, undefined, true);
 					}else if($("#iptdebtsBankName").find('option:selected').val() ===  "UN_IS"){
-						law.common.selectOption("#iptdebtsOldBankName", debts.UNOldBankName);
+						law.common.selectOption("#iptdebtsOldBankName", debts.UNOldBankName, undefined, true);
 					}else{
 						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
 						$("#iptdebtsOldBankName option").remove();
@@ -468,12 +468,11 @@
 							response.claimDocTypeTwo, response.TSBOldBankName, response.FEIOldBankName, response.SKOldBankName,
 							response.YTOldBankName, response.FIOldBankName, response.TSAOldBankName, response.TAMCOOldBankName,
 							response.ORIXOldBankName, response.MTOldBankName, response.UNOldBankName);
-					//設定收文日期為當日
-					$("#iptclaimsDocReceivedDate").val(response.nowDate);
+					
 					//債權文件下拉選項
-					law.common.selectOption("#iptclaimsDocDocStatus", claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-					law.common.selectOption("#iptclaimsDocTypeOne", claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006");
-					law.common.selectOption("#iptclaimsDocTypeTwo", claimsDoc.TypeTwo);
+					law.common.selectOption("#iptclaimsDocDocStatus", claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+					law.common.selectOption("#iptclaimsDocTypeOne", claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006", true);
+					law.common.selectOption("#iptclaimsDocTypeTwo", claimsDoc.TypeTwo, undefined, true);
 					
 					if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B1" ||
 							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B2" ||
@@ -484,26 +483,26 @@
 							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B7" ||
 							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CD" ||
 							$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CR"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSBOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSBOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FEI_BK"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FEIOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FEIOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "SK_BK"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.SKOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.SKOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_AMC" ||
 							$("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_IS"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.YTOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.YTOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FI-AMC"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FIOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FIOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-AMC"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSAOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSAOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TAMCO"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TAMCOOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TAMCOOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.ORIXOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.ORIXOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "MT-IS"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.MTOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.MTOldBankName, undefined, true);
 					}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "UN_IS"){
-						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.UNOldBankName);
+						law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.UNOldBankName, undefined, true);
 					}else{
 						var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
 						$("#iptclaimsDocOldBankName option").remove();
@@ -514,24 +513,21 @@
 						
 					// =====卷宗start=====
 					law.addDoc.file.initfilesubtab(response.nowDate, response.DocStatus, response.TypeOne, response.fileTypeTwo);
-					//設定收文日期為當日
-					$("#iptfileReceivedDate").val(response.nowDate);
+					
 					//卷宗下拉選項
-					law.common.selectOption("#iptfileDocStatus", file.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-					law.common.selectOption("#iptfileTypeOne", file.TypeOne, "8aa2e72a5c812434015c813055070009");
-					law.common.selectOption("#iptfileTypeTwo", file.TypeTwo);
+					law.common.selectOption("#iptfileDocStatus", file.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+					law.common.selectOption("#iptfileTypeOne", file.TypeOne, "8aa2e72a5c812434015c813055070009", true);
+					law.common.selectOption("#iptfileTypeTwo", file.TypeTwo, undefined, true);
 					// =====卷宗end=====
 					
 					// =====其他start=====
 					// 初始化其他選項
 					law.addDoc.other.initothersubtab(response.nowDate, response.DocStatus, response.TypeOne, response.otherTypeTwo);
 
-					//設定收文日期為當日
-					$("#iptotherReceivedDate").val(response.nowDate);
 					//其他下拉選項
-					law.common.selectOption("#iptotherDocStatus", other.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-					law.common.selectOption("#iptotherTypeOne", other.TypeOne, "8aa2e72a5c812434015c81307418000a");
-					law.common.selectOption("#iptotherTypeTwo", other.TypeTwo);
+					law.common.selectOption("#iptotherDocStatus", other.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+					law.common.selectOption("#iptotherTypeOne", other.TypeOne, "8aa2e72a5c812434015c81307418000a", true);
+					law.common.selectOption("#iptotherTypeTwo", other.TypeTwo, undefined, true);
 					// =====其他end=====
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
@@ -611,22 +607,23 @@
 			<table>
            	 	<tr>
 					<td><input type="radio" name="centitlementShadow" value="0" id="rdocentitlementShadow">影本</td>
-					<td><input type="radio" name="centitlementShadow" value="1" id="rdocentitlementShadowBank" >業主收文僅提供影本</td>
-					<td><label>文件狀態</label></td>
+					<td><input type="radio" name="centitlementShadow" value="1" id="rdocentitlementShadowBank" >業主收文僅提供影本
+						<button onclick="law.common.unchecked('rdocentitlementShadow', 'rdocentitlementShadowBank')">X</button></td>
+					<td><label style="color:red">*文件狀態</label></td>
 					<td><select id="iptcentitlementDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptcentitlementBankDate" ></input></td>
-					<td><label>收文日期</label></td>
+					<td><label style="color:red">*收文日期</label></td>
 					<td><input id="iptcentitlementReceivedDate" ></input></td>
 				</tr>
 				<tr>
-					<td><label>文件類別</label></td>
+					<td><label style="color:red">*文件類別</label></td>
 					<td><select id="iptcentitlementTypeOne" disabled ><option value="">請選擇</option></select></td>
-					<td><label>文件項目</label></td>
+					<td><label style="color:red">*文件項目</label></td>
 					<td><select id="iptcentitlementTypeTwo"><option value="">請選擇</option></select></td>
-					<td><label>債權人</label></td>
+					<td><label style="color:red">*債權人</label></td>
 					<td><select id="iptcentitlementBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptcentitlementOldBankName"><option value="">請選擇</option></select></td>
@@ -634,14 +631,14 @@
 				</table>
 			<table>
 				<tr id="iptcentitlementRelationPersonTr">
-					<td><label>相對人</label></td>
+					<td><label style="color:red">*相對人</label></td>
 					<td><select id="iptcentitlementRelationPerson_0"><option value="">請選擇</option></select></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementRelaTd(0)"></td>
 				</tr>
 			</table>
 			<table style="background-color:#FFEBCD;">
 				<tr>
-					<td><label>法院年字案股</label></td>
+					<td><label style="color:red">*法院年字案股</label></td>
 					<td><select id="iptcentitlementCourtYearCourt"><option value="">請選擇</option></select></td>
 					<td><label>年度</label></td>
 					<td><input id="iptcentitlementCourtYearYear" style="width : 50px"></input></td>
@@ -670,9 +667,9 @@
 			</table>
 			<table>
 				<tr>
-					<td><label>發文日期</label></td>
+					<td><label style="color:red">*發文日期</label></td>
 					<td><input id="iptcentitlementSendDate" ></input></td>
-					<td><label>最近執行日期</label></td>
+					<td><label style="color:red">*最近執行日期</label></td>
 					<td><input id="iptcentitlementNewSendDate" ></input></td>
 				</tr>
 				<tr>
@@ -680,219 +677,6 @@
 					<td><input id="iptcentitlementRemark" ></input></td>
 				</tr>
            	 </table>
-			<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content">
-			<div style="overflow: auto;margin:5px 5px 5px 5px;background-color:#90EE90;font-weight:bold;" align="center">補正</div>
-           	 <table>
-           	 	<tr>
-           	 		<td>
-           	 			<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content">
-		           	 		<div>
-								<input type="checkbox" name="ckbcentitlement" value="all" id="ckbcentitlementAll" checked>全選
-								<input type="checkbox" name="ckbcentitlement" value="transcripts" id="ckbcentitlementTranscripts">戶謄
-								<input type="checkbox" name="ckbcentitlement" value="coOwnedTranscripts" id="ckbcentitlementCoOwnedTranscripts">共有人戶謄
-								<input type="checkbox" name="ckbcentitlement" value="mortgageeTranscripts" id="ckbcentitlementMortgageeTranscripts">抵押權人戶謄
-								<input type="checkbox" name="ckbcentitlement" value="lawTranscripts" id="ckbcentitlementLawTranscripts">法代戶謄
-								<input type="checkbox" name="ckbcentitlement" value="heirTranscripts" id="ckbcentitlementHeirTranscripts">繼承人戶謄
-								<input type="checkbox" name="ckbcentitlement" value="dirtTranscripts" id="ckbcentitlementDirtTranscripts">土謄
-								<input type="checkbox" name="ckbcentitlement" value="builtTranscripts" id="ckbcentitlementBuiltTranscripts">建謄
-								<input type="checkbox" name="ckbcentitlement" value="distribution" id="ckbcentitlementDistribution">分配表
-								<input type="checkbox" name="ckbcentitlement" value="thingThird" id="ckbcentitlementThingThird">事項表(第三人)
-								<input type="checkbox" name="ckbcentitlement" value="thingDebt" id="ckbcentitlementThingDebt">事項表(債權人)
-							</div>
-							<div>
-								<input type="checkbox" name="ckbcentitlement" value="coOwned" id="ckbcentitlementCoOwned">共有人名冊
-								<input type="checkbox" name="ckbcentitlement" value="debtDoc" id="ckbcentitlementDebtDoc">債權文件
-								<input type="checkbox" name="ckbcentitlement" value="detail" id="ckbcentitlementDetail">帳務明細
-								<input type="checkbox" name="ckbcentitlement" value="file" id="ckbcentitlementFile">執名附件
-								<input type="checkbox" name="ckbcentitlement" value="debtContinue" id="ckbcentitlementDebtContinue">債證續行表
-								<input type="checkbox" name="ckbcentitlement" value="cashierCheck" id="ckbcentitlementCashierCheck">本票
-								<input type="checkbox" name="ckbcentitlement" value="other" id="ckbcentitlementOther">其它
-							</div>
-						</div>
-					</td>
-           	 	</tr>
-           	 </table>
-           	 <table>
-           	 	<tr id="trcentitlementTranscripts">
-           	 		<td><input type="checkbox" name="namecentitlementTranscriptsSub" value="transcripts" id="ckbcentitlementTranscriptsSub">戶謄</td>
-           	 		<td><input id="iptcentitlementTranscriptsDays" style="width : 50px"></input></td>
-           	 		<td><label>日內</label></td>
-           	 		<td><label>備註</label></td>
-					<td><input id="iptcentitlementTranscriptsRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementTranscriptsRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementCoOwnedTranscripts">
-           	 		<td><input type="checkbox" name="namecentitlementCoOwnedTranscriptsSub" value="transcripts" id="ckbcentitlementCoOwnedTranscriptsSub">共有人戶謄</td>
-					<td><input id="iptcentitlementCoOwnedTranscriptsDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementCoOwnedTranscriptsRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementCoOwnedTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementCoOwnedTranscriptsRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementMortgageeTranscripts">
-           	 		<td><input type="checkbox" name="namecentitlementMortgageeTranscriptsSub" value="transcripts" id="ckbcentitlementMortgageeTranscriptsSub">抵押權人戶謄</td>
-					<td><input id="iptcentitlementMortgageeTranscriptsDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementMortgageeTranscriptsRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementMortgageeTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementMortgageeTranscriptsRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementLawTranscripts">
-           	 		<td><input type="checkbox" name="namecentitlementLawTranscriptsSub" value="transcripts" id="ckbcentitlementLawTranscriptsSub">法代戶謄</td>
-					<td><input id="iptcentitlementLawTranscriptsDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementLawTranscriptsRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementLawTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementLawTranscriptsRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementHeirTranscripts">
-           	 		<td><input type="checkbox" name="namecentitlementHeirTranscriptsSub" value="transcripts" id="ckbcentitlementHeirTranscriptsSub">繼承人戶謄</td>
-					<td><input id="iptcentitlementHeirTranscriptsDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementHeirTranscriptsRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementHeirTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementHeirTranscriptsRelaTd(0)"></td>
-           	 	</tr>
-        	 	<tr id="trcentitlementDirtTranscripts">
-           	 		<td><input type="checkbox" name="namecentitlementDirtTranscriptsSub" value="transcripts" id="ckbcentitlementDirtTranscriptsSub">土謄</td>
-					<td><input id="iptcentitlementDirtTranscriptsDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementDirtTranscriptsRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementDirtTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementDirtTranscriptsRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementBuiltTranscripts">
-           	 		<td><input type="checkbox" name="namecentitlementBuiltTranscripts" value="transcripts" id="ckbcentitlementBuiltTranscriptsSub">建謄</td>
-					<td><input id="iptcentitlementBuiltTranscriptsDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementBuiltTranscriptsRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementBuiltTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementBuiltTranscriptsRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementDistribution">
-           	 		<td><input type="checkbox" name="namecentitlementDistributionSub" value="transcripts" id="ckbcentitlementDistributionSub">分配表</td>
-					<td><input id="iptcentitlementDistributionDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementDistributionRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementDistributionRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementDistributionRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementThingThird">
-           	 		<td><input type="checkbox" name="namecentitlementThingThirdSub" value="transcripts" id="ckbcentitlementThingThirdSub">事項表(第三人)</td>
-					<td><input id="iptcentitlementThingThirdDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementThingThirdRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementThingThirdRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementThingThirdRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementThingDebt">
-           	 		<td><input type="checkbox" name="namecentitlementThingDebtSub" value="transcripts" id="ckbcentitlementThingDebtSub">事項表(債權人)</td>
-					<td><input id="iptcentitlementThingDebtDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementThingDebtRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementThingDebtRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementThingDebtRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementCoOwned">
-           	 		<td><input type="checkbox" name="namecentitlementCoOwnedSub" value="transcripts" id="ckbcentitlementCoOwnedSub">共有人名冊</td>
-					<td><input id="iptcentitlementCoOwnedDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementCoOwnedRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementCoOwnedRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementCoOwnedRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementDebtDoc">
-           	 		<td><input type="checkbox" name="namecentitlementDebtDocSub" value="transcripts" id="ckbcentitlementDebtDocSub">債權文件</td>
-					<td><input id="iptcentitlementDebtDocDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementDebtDocRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementDebtDocRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementDebtDocRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementDetail">
-           	 		<td><input type="checkbox" name="namecentitlementDetailSub" value="transcripts" id="ckbcentitlementDetailSub">帳務明細</td>
-					<td><input id="iptcentitlementDetailDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementDetailRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementDetailRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementDetailRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementFile">
-           	 		<td><input type="checkbox" name="namecentitlementFileSub" value="transcripts" id="ckbcentitlementFileSub">執名附件</td>
-					<td><input id="iptcentitlementFileDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementFileRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementFileRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementFileRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementDebtContinue">
-           	 		<td><input type="checkbox" name="namecentitlementDebtContinueSub" value="transcripts" id="ckbcentitlementDebtContinueSub">債證續行表</td>
-					<td><input id="iptcentitlementDebtContinueDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementDebtContinueRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementDebtContinueRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementDebtContinueRelaTd(0)"></td>
-        	 	</tr>
-        	 	<tr id="trcentitlementCashierCheck">
-           	 		<td><input type="checkbox" name="namecentitlementCashierCheckSub" value="transcripts" id="ckbcentitlementCashierCheckSub">本票</td>
-					<td><input id="iptcentitlementCashierCheckDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementCashierCheckRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementCashierCheckRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementCashierCheckRelaTd(0)"></td>
-        	 	</tr>
-           	 </table>
-           	 <table>
-        	 	<tr id="trcentitlementOther">
-           	 		<td><input type="checkbox" name="namecentitlementOtherSub" value="transcripts" id="ckbcentitlementOtherSub">其它</td>
-					<td><input id="iptcentitlementOtherName" ></input><input id="iptcentitlementOtherDays" style="width : 50px"></input></td>
-   	 				<td><label>日內</label></td>
-   	 				<td><label>備註</label></td>
-					<td><input id="iptcentitlementOtherRemark" ></input></td>
-					<td><label>相對人</label></td>
-					<td><select id="iptcentitlementOtherRelationPerson_0"><option value="">請選擇</option></select></td>
-					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementOtherRelaTd(0)"></td>
-        	 	</tr>
-           	 </table>
-           	 <table>
-           	 	<tr>
-           	 		<td><label>補正說明</label></td>
-           	 		<td><input id="iptcentitlementEdit"></input></td>
-           	 	</tr>
-           	 </table>
-           	</div>
            	</div>
             
           </div>
@@ -920,22 +704,23 @@
 				<table>
 	           	 	<tr>
 						<td><input type="radio" name="courtDocShadow" value="0" id="rdocourtDocShadow" >影本</td>
-						<td><input type="radio" name="courtDocShadow" value="1" id="rdocourtDocShadowBank" >業主收文僅提供影本</td>
-						<td><label>文件狀態</label></td>
+						<td><input type="radio" name="courtDocShadow" value="1" id="rdocourtDocShadowBank" >業主收文僅提供影本
+							<button onclick="law.common.unchecked('rdocourtDocShadow', 'rdocourtDocShadowBank')">X</button></td>
+						<td><label style="color:red">*文件狀態</label></td>
 						<td><select id="iptcourtDocDocStatus"><option value="">請選擇</option></select></td>
 					</tr>
 					<tr>
 						<td><label>業主調件日</label></td>
 						<td><input id="iptcourtDocBankDate" ></input></td>
-						<td><label>收文日期</label></td>
+						<td><label style="color:red">*收文日期</label></td>
 						<td><input id="iptcourtDocReceivedDate" ></input></td>
 					</tr>
 					<tr>
-						<td><label>文件類別</label></td>
+						<td><label style="color:red">*文件類別</label></td>
 						<td><select id="iptcourtDocTypeOne" ><option value="">請選擇</option></select></td>
-						<td><label>文件項目</label></td>
+						<td><label style="color:red">*文件項目</label></td>
 						<td><select id="iptcourtDocTypeTwo"><option value="">請選擇</option></select></td>
-						<td><label>債權人</label></td>
+						<td><label style="color:red">*債權人</label></td>
 						<td><select id="iptcourtDocBankName" disabled><option value="">請選擇</option></select></td>
 						<td><label>原債權人</label></td>
 						<td><select id="iptcourtDocOldBankName"><option value="">請選擇</option></select></td>
@@ -943,14 +728,14 @@
 				</table>
 				<table>
 					<tr id="iptcourtDocRelationPersonTr">
-						<td><label>相對人</label></td>
+						<td><label style="color:red">*相對人</label></td>
 						<td><select id="iptcourtDocRelationPerson_0"><option value="">請選擇</option></select></td>
 						<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocRelaTd(0)"></td>
 					</tr>
 				</table>
 				<table style="background-color:#FFEBCD;">
 					<tr>
-						<td><label>法院年字案股</label></td>
+						<td><label style="color:red">*法院年字案股</label></td>
 						<td><select id="iptcourtDocCourtYearCourt"><option value="">請選擇</option></select></td>
 						<td><label>年度</label></td>
 						<td><input id="iptcourtDocCourtYearYear" style="width : 50px"></input></td>
@@ -1464,17 +1249,17 @@
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptcashierCheckBankDate" ></input></td>
-					<td><label>收文日期</label></td>
+					<td><label style="color:red">*收文日期</label></td>
 					<td><input id="iptcashierCheckReceivedDate"></input></td>
-					<td><label>文件狀態</label></td>
+					<td><label style="color:red">*文件狀態</label></td>
 					<td><select id="iptcashierCheckDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
-					<td><label>文件類別</label></td>
+					<td><label style="color:red">*文件類別</label></td>
 					<td><select id="iptcashierCheckTypeOne" disabled><option value="">請選擇</option></select></td>
-					<td><label>文件項目</label></td>
+					<td><label style="color:red">*文件項目</label></td>
 					<td><select id="iptcashierCheckTypeTwo"><option value="">請選擇</option></select></td>
-					<td><label>債權人</label></td>
+					<td><label style="color:red">*債權人</label></td>
 					<td><select id="iptcashierCheckBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptcashierCheckOldBankName"><option value="">請選擇</option></select></td>
@@ -1482,7 +1267,7 @@
 			</table>
 			<table>
 				<tr id="iptcashierCheckRelationPersonTr">
-					<td><label>相對人</label></td>
+					<td><label style="color:red">*相對人</label></td>
 					<td><select id="iptcashierCheckRelationPerson_0"><option value="">請選擇</option></select></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.cashierCheck.addcashierCheckRelaTd(0)"></td>
 				</tr>
@@ -1521,17 +1306,17 @@
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptdebtsBankDate" ></input></td>
-					<td><label>收文日期</label></td>
+					<td><label style="color:red">*收文日期</label></td>
 					<td><input id="iptdebtsReceivedDate"></input></td>
-					<td><label>文件狀態</label></td>
+					<td><label style="color:red">*文件狀態</label></td>
 					<td><select id="iptdebtsDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
-					<td><label>文件類別</label></td>
+					<td><label style="color:red">*文件類別</label></td>
 					<td><select id="iptdebtsTypeOne" disabled><option value="">請選擇</option></select></td>
-					<td><label>文件項目</label></td>
+					<td><label style="color:red">*文件項目</label></td>
 					<td><select id="iptdebtsTypeTwo"><option value="">請選擇</option></select></td>
-					<td><label>債權人</label></td>
+					<td><label style="color:red">*債權人</label></td>
 					<td><select id="iptdebtsBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptdebtsOldBankName"><option value="">請選擇</option></select></td>
@@ -1539,14 +1324,14 @@
 			</table>
 			<table>
 				<tr id="iptdebtsRelationPersonTr">
-					<td><label>相對人</label></td>
+					<td><label style="color:red">*相對人</label></td>
 					<td><select id="iptdebtsRelationPerson_0"><option value="">請選擇</option></select></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.debts.adddebtsRelaTd(0)"></td>
 				</tr>
 			</table>
 			<table style="background-color:#FFEBCD;">
 				<tr>
-					<td><label>法院年字案股</label></td>
+					<td><label>(換發債證)法院年字案股</label></td>
 					<td><select id="iptdebtsCourtYearCourt" ><option value="">請選擇</option></select></td>
 					<td><label>年度</label></td>
 					<td><input id="iptdebtsCourtYearYear" style="width : 50px"></input></td>
@@ -1586,17 +1371,17 @@
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptclaimsDocBankDate" ></input></td>
-					<td><label>收文日期</label></td>
+					<td><label style="color:red">*收文日期</label></td>
 					<td><input id="iptclaimsDocReceivedDate"></input></td>
-					<td><label>文件狀態</label></td>
+					<td><label style="color:red">*文件狀態</label></td>
 					<td><select id="iptclaimsDocDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
-					<td><label>文件類別</label></td>
+					<td><label style="color:red">*文件類別</label></td>
 					<td><select id="iptclaimsDocTypeOne" disabled><option value="">請選擇</option></select></td>
-					<td><label>文件項目</label></td>
+					<td><label style="color:red">*文件項目</label></td>
 					<td><select id="iptclaimsDocTypeTwo"><option value="">請選擇</option></select></td>
-					<td><label>債權人</label></td>
+					<td><label style="color:red">*債權人</label></td>
 					<td><select id="iptclaimsDocBankName" disabled><option value="">請選擇</option></select></td>
 					<td><label>原債權人</label></td>
 					<td><select id="iptclaimsDocOldBankName"><option value="">請選擇</option></select></td>
@@ -1604,7 +1389,7 @@
 			</table>
 			<table>
 				<tr id="iptclaimsDocRelationPersonTr">
-					<td><label>相對人</label></td>
+					<td><label style="color:red">*相對人</label></td>
 					<td><select id="iptclaimsDocRelationPerson_0"><option value="">請選擇</option></select></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.claimsDoc.addclaimsRelaTd(0)"></td>
 				</tr>
@@ -1640,15 +1425,15 @@
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptfileBankDate" ></input></td>
-					<td><label>收文日期</label></td>
+					<td><label style="color:red">*收文日期</label></td>
 					<td><input id="iptfileReceivedDate"></input></td>
-					<td><label>文件狀態</label></td>
+					<td><label style="color:red">*文件狀態</label></td>
 					<td><select id="iptfileDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
-					<td><label>文件類別</label></td>
+					<td><label style="color:red">*文件類別</label></td>
 					<td><select id="iptfileTypeOne" disabled><option value="">請選擇</option></select></td>
-					<td><label>文件項目</label></td>
+					<td><label style="color:red">*文件項目</label></td>
 					<td><select id="iptfileTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
 					<td><select id="iptfileBankName" disabled><option value="">請選擇</option></select></td>
@@ -1681,17 +1466,17 @@
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptotherBankDate" ></input></td>
-					<td><label>收文日期</label></td>
+					<td><label style="color:red">*收文日期</label></td>
 					<td><input id="iptotherReceivedDate"></input></td>
 					<td><label>委任狀編號</label></td>
 					<td><input id="iptotherAppointmentLetterCode" ></input></td>
-					<td><label>文件狀態</label></td>
+					<td><label style="color:red">*文件狀態</label></td>
 					<td><select id="iptotherDocStatus"><option value="">請選擇</option></select></td>
 				</tr>
 				<tr>
-					<td><label>文件類別</label></td>
+					<td><label style="color:red">*文件類別</label></td>
 					<td><select id="iptotherTypeOne" disabled><option value="">請選擇</option></select></td>
-					<td><label>文件項目</label></td>
+					<td><label style="color:red">*文件項目</label></td>
 					<td><select id="iptotherTypeTwo"><option value="">請選擇</option></select></td>
 					<td><label>債權人</label></td>
 					<td><select id="iptotherBankName" disabled><option value="">請選擇</option></select></td>
@@ -1715,6 +1500,44 @@
   		</div>
 	</div>
 	
+	</div>
+	
+	<!-- add By Jia 2017-08-10 regex提醒輸入-->
+	<div id="addDocRegex">
+		<div style="overflow: auto;margin:5px 5px 5px 5px;" align="center">
+			<label id="addDocRegexTxt"></label>
+		</div>
+	</div>
+	
+	<!-- add By Jia 2017-08-11 輸入完顯示儲存畫面-->
+	<div id="saveEndDiv">
+			<table id="docSaveEndTable" class="display" cellspacing="0" width="100%" >
+				    <thead>
+		            <tr>
+		            	<th>序</th>
+		                <th>委託公司</th>
+		                <th>產品別</th>
+		                <th>案號</th>
+		                <th>姓名</th>
+		                <th>ID</th>
+		                <th>文件編號</th>
+		                <th>文件類別</th>
+		                <th>文件項目</th>
+		                <th>狀態</th>
+		                <th>法院案號</th>
+		                <th>原始憑證</th>
+		                <th>(執名)發文日</th>
+		                <th>(執名)最近執行日</th>
+		                <th>(執名)備註</th>
+		                <th>陳報</th>
+		                <th>補正</th>
+		                <th>繳費</th>
+		                <th>登報</th>
+		                <th>開庭</th>
+		                <th>導往執行</th>
+		            </tr>
+		        </thead>
+		    </table>
 	</div>
 </body>
 </html>

@@ -24,6 +24,11 @@ public class LDocFiledocs {
 	private String borrowReason;
 	private String borrowInfo;
 	
+	// add By Jia 2017-08-14 Vo
+	private String disTypeOne;
+	private String disTypeTwo;
+	private String disDocStatus;
+	
 	public LDocFiledocs(int filedocsId, String infoId, int caseId, Date receivedDate, 
 			Date bankDate, String docStatus, String typeOne, String typeTwo, 
 			String bankName, int nums, String remark, Date createDatetime, String createUserId) {
@@ -200,6 +205,30 @@ public class LDocFiledocs {
 
 	public void setDebtName(String debtName) {
 		this.debtName = debtName;
+	}
+
+	public String getDisTypeOne() {
+		return disTypeOne;
+	}
+
+	public void setDisTypeOne(String disTypeOne) {
+		this.disTypeOne = disTypeOne;
+	}
+
+	public String getDisTypeTwo() {
+		return disTypeTwo;
+	}
+
+	public void setDisTypeTwo(String disTypeTwo) {
+		this.disTypeTwo = disTypeTwo;
+	}
+
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
 	}
 	
 }
