@@ -356,4 +356,60 @@ public interface docDao {
 	 */
 	public List<LCekSignedCaseInfo> findCaseByDocInfo(String caseId, String debtorName, 
 			String debtorId, String docNo, String legalCaseId, boolean isCheck) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocCentitlement findCenById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocCourtDoc findCourtDocById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocCashiercheck findCashierCheckById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocDebts findDebtsById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocClaimsdocs findClaimDocsById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocFiledocs findFileById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-16 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocOtherdocs findOtherById(String docId) throws Exception;
 }

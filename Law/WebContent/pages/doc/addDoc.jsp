@@ -18,7 +18,112 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			var openDocType = "<%=request.getParameter("docType")%>";
+			var openDocId = "<%=request.getParameter("docId")%>";
+			// add By Jia 2017-08-16 打開資料庫已存在文件
+			if(openDocType !== "null"){
+				$("#ckbaddDocAll").prop("checked", false);
+				$("#ckbaddDocentitlementForeclosure").prop("checked", false);
+				$("#ckbaddDoccourtDoc").prop("checked", false);
+				$("#ckbaddDoccashierCheck").prop("checked", false);
+				$("#ckbaddDocdebts").prop("checked", false);
+				$("#ckbaddDocclaimsDoc").prop("checked", false);
+				$("#ckbaddDocfile").prop("checked", false);
+				$("#ckbaddDocother").prop("checked", false);
+				$("#divaddDocCheckAll").hide();
+				if(openDocType === "A"){
+					$("#ckbaddDocentitlementForeclosure").prop("checked", true);
+					$("#iptcentitlementDocType").val(openDocType);
+					$("#iptcentitlementDocId").val(openDocId);
+					$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+					$("#divaddDocentitlementForeclosure").show();
+					$("#imgaddDocCen").hide();
+				}else if(openDocType === "B"){
+					$("#ckbaddDoccourtDoc").prop("checked", true);
+					$("#iptcourtDocDocType").val(openDocType);
+					$("#iptcourtDocDocId").val(openDocId);
+					$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+					$("#divaddDoccourtDoc").show();
+					$("#imgaddDocCourtDoc").hide();
+				}else if(openDocType === "C"){
+					$("#ckbaddDoccashierCheck").prop("checked", true);
+					$("#iptcashierCheckDocType").val(openDocType);
+					$("#iptcashierCheckDocId").val(openDocId);
+					$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+					$("#divaddDoccashierCheck").show();
+					$("#imgaddDocCashierCheck").hide();
+				}else if(openDocType === "D"){
+					$("#ckbaddDocdebts").prop("checked", true);
+					$("#iptdebtsDocType").val(openDocType);
+					$("#iptdebtsDocId").val(openDocId);
+					$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+					$("#divaddDocdebts").show();
+					$("#imgaddDocDebts").hide();
+				}else if(openDocType === "E"){
+					$("#ckbaddDocclaimsDoc").prop("checked", true);
+					$("#iptclaimsDocDocType").val(openDocType);
+					$("#iptclaimsDocDocId").val(openDocId);
+					$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+					$("#divaddDocclaimsDoc").show();
+					$("#imgaddDocClaimsDoc").hide();
+				}else if(openDocType === "F"){
+					$("#ckbaddDocfile").prop("checked", true);
+					$("#iptfileDocType").val(openDocType);
+					$("#iptfileDocId").val(openDocId);
+					$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+					$("#divaddDocfile").show();
+					$("#imgaddDocFile").hide();
+				}else if(openDocType === "G"){
+					$("#ckbaddDocother").prop("checked", true);
+					$("#iptotherDocType").val(openDocType);
+					$("#iptotherDocId").val(openDocId);
+					$("#divaddDocentitlementForeclosure").hide();
+		    		$("#divaddDoccourtDoc").hide();
+		    		$("#divaddDoccashierCheck").hide();
+		    		$("#divaddDocdebts").hide();
+		    		$("#divaddDocclaimsDoc").hide();
+		    		$("#divaddDocfile").hide();
+		    		$("#divaddDocother").hide();
+					$("#divaddDocother").show();
+					$("#imgaddDocOther").hide();
+				}
+			}
 			var saveEndDateTable;
 			var opt={
 		    		"sDom": '<"top">rt<"bottom"><"clear">',
@@ -84,7 +189,6 @@
 			            { "data": "toCourtDate" }
 		            ]
 			};
-			console.log("sdfsd");
 			$("#docSaveEndTable").dataTable(docSaveopt);
 			
 			var json = "", relajson = "";
@@ -529,14 +633,59 @@
 					law.common.selectOption("#iptotherTypeOne", other.TypeOne, "8aa2e72a5c812434015c81307418000a", true);
 					law.common.selectOption("#iptotherTypeTwo", other.TypeTwo, undefined, true);
 					// =====其他end=====
+						
+					// add By Jia 2017-08-16 打開資料庫已存在文件
+					if(openDocType !== "null"){
+						
+						$.ajax({
+							url : '../pages/doc/documents/docAction!initOpenDoc.action',
+							data : {
+								docType : openDocType,
+								docId : openDocId
+								},
+							type : "POST",
+							dataType : 'json',
+							success : function(response) {
+								var initDocInfo = {
+										cenDoc : response.cenDoc,
+										courtDocDoc : response.courtDocDoc,
+										cashierCheckDoc : response.cashierCheckDoc,
+										debtsDoc : response.debtsDoc,
+										claimsdocsDoc : response.claimsdocsDoc,
+										fileDoc : response.fileDoc,
+										otherDoc : response.otherDoc
+								};
+								
+								if(openDocType === "A"){
+									law.addDoc.centitlement.initopenCensubtab(initDocInfo.cenDoc);
+								}else if(openDocType === "B"){
+									law.addDoc.courtDoc.initopenCourtDocsubtab(initDocInfo.courtDocDoc);
+								}else if(openDocType === "C"){
+									law.addDoc.cashierCheck.initopenCashierChecksubtab(initDocInfo.cashierCheckDoc);
+								}else if(openDocType === "D"){
+									law.addDoc.debts.initopenDebtssubtab(initDocInfo.debtsDoc);
+								}else if(openDocType === "E"){
+									law.addDoc.claimsDoc.initopenClaimsdocsubtab(initDocInfo.claimsdocsDoc);
+								}else if(openDocType === "F"){
+									law.addDoc.file.initopenFilesubtab(initDocInfo.fileDoc);
+								}else if(openDocType === "G"){
+									law.addDoc.other.initopenOthersubtab(initDocInfo.otherDoc);
+								}
+							},
+							error : function(xhr, ajaxOptions, thrownError) {
+								alert(xhr.status);
+								alert(thrownError);
+							}
+						});
+						
+					}
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(xhr.status);
 					alert(thrownError);
 				}
 			});
-			
-		    var $slave = $("#subtabs").tabs();
+
 		});
 	</script>
 <div>
@@ -575,7 +724,7 @@
 		</table>
 	</div>
 	
-	<div>
+	<div id="divaddDocCheckAll">
 	<input type="checkbox" name="docType" value="all" id="ckbaddDocAll" checked>全選
 	<input type="checkbox" name="docType" value="entitlementForeclosure" id="ckbaddDocentitlementForeclosure">執行名義
 	<input type="checkbox" name="docType" value="courtDoc" id="ckbaddDoccourtDoc">法院文
@@ -587,7 +736,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocentitlementForeclosure">
-	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementsubtab()">
+	執行名義 <img alt="新增執行名義" src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementsubtab()" id="imgaddDocCen">
 
         <div id="censubtabs">
           <ul>
@@ -596,6 +745,7 @@
           <div id="censubtabs-0">
             <div>
            	 <table>
+           	 	<tr style="display:none"><td><input id="iptcentitlementDocType"></input><input id="iptcentitlementDocId"></input></td></tr>
            	 	<tr>
 					<td><label>共用案號</label></td>
 					<td><input id="iptcentitlementShareCaseId_0"></input></td>
@@ -669,7 +819,7 @@
 				<tr>
 					<td><label style="color:red">*發文日期</label></td>
 					<td><input id="iptcentitlementSendDate" ></input></td>
-					<td><label style="color:red">*最近執行日期</label></td>
+					<td><label>最近執行日期</label></td>
 					<td><input id="iptcentitlementNewSendDate" ></input></td>
 				</tr>
 				<tr>
@@ -684,7 +834,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccourtDoc">
-	法院文<img alt="新增法院文" src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocsubtab()">
+	法院文<img alt="新增法院文" src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocsubtab()" id="imgaddDocCourtDoc">
 		
 		<div id="courtDocsubtabs">
           <ul>
@@ -693,7 +843,8 @@
           <div id="courtDocsubtabs-0">
             <div>
 	           	 <table>
-	           	 	<tr>
+	           	 	<tr style="display:none"><td><input id="iptcourtDocDocType"></input><input id="iptcourtDocDocId"></input></td></tr>
+           	 		<tr>
 						<td><label>共用案號</label></td>
 						<td><input id="iptcourtDocShareCaseId_0"></input></td>
 						<td><input id="iptcourtDocShareCaseId_1"></input></td>
@@ -1237,7 +1388,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDoccashierCheck">
-	本票<img alt="新增本票" src="../images/plus.png" onclick="law.addDoc.cashierCheck.addcashierChecksubtab()">
+	本票<img alt="新增本票" src="../images/plus.png" onclick="law.addDoc.cashierCheck.addcashierChecksubtab()" id="imgaddDocCashierCheck">
 
         <div id="cashierChecksubtabs">
           <ul>
@@ -1246,6 +1397,7 @@
           <div id="cashierChecksubtabs-0">
             <div>
            	 <table>
+           	 	<tr style="display:none"><td><input id="iptcashierCheckDocType"></input><input id="iptcashierCheckDocId"></input></td></tr>
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptcashierCheckBankDate" ></input></td>
@@ -1293,7 +1445,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocdebts">
-	債讓<img alt="債讓" src="../images/plus.png" onclick="law.addDoc.debts.adddebtssubtab()">
+	債讓<img alt="債讓" src="../images/plus.png" onclick="law.addDoc.debts.adddebtssubtab()" id="imgaddDocDebts">
 
         <div id="debtssubtabs">
           <ul>
@@ -1303,6 +1455,7 @@
 
         <div>
            	 <table>
+           	 	<tr style="display:none"><td><input id="iptdebtsDocType"></input><input id="iptdebtsDocId"></input></td></tr>
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptdebtsBankDate" ></input></td>
@@ -1359,7 +1512,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocclaimsDoc">
-	債權文件<img alt="債權文件" src="../images/plus.png" onclick="law.addDoc.claimsDoc.addclaimsDocsubtab()">
+	債權文件<img alt="債權文件" src="../images/plus.png" onclick="law.addDoc.claimsDoc.addclaimsDocsubtab()" id="imgaddDocClaimsDoc">
 
         <div id="claimsDocsubtabs">
           <ul>
@@ -1368,6 +1521,7 @@
           <div id="claimsDocsubtabs-0">
             <div>
            	 <table>
+           	 	<tr style="display:none"><td><input id="iptclaimsDocDocType"></input><input id="iptclaimsDocDocId"></input></td></tr>
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptclaimsDocBankDate" ></input></td>
@@ -1413,7 +1567,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocfile">
-	卷宗<img alt="卷宗" src="../images/plus.png" onclick="law.addDoc.file.addfilesubtab()">
+	卷宗<img alt="卷宗" src="../images/plus.png" onclick="law.addDoc.file.addfilesubtab()" id="imgaddDocFile">
 
         <div id="filesubtabs">
           <ul>
@@ -1422,6 +1576,7 @@
           <div id="filesubtabs-0">
             <div>
            	 <table>
+           	 	<tr style="display:none"><td><input id="iptfileDocType"></input><input id="iptfileDocId"></input></td></tr>
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptfileBankDate" ></input></td>
@@ -1454,7 +1609,7 @@
 	</div>
 	
 	<div style="overflow: auto;margin:5px 5px 5px 5px" class="ui-widget-content" id="divaddDocother">
-	其它<img alt="其它" src="../images/plus.png" onclick="law.addDoc.other.addothersubtab()">
+	其它<img alt="其它" src="../images/plus.png" onclick="law.addDoc.other.addothersubtab()" id="imgaddDocOther">
 
         <div id="othersubtabs">
           <ul>
@@ -1463,6 +1618,7 @@
           <div id="othersubtabs-0">
             <div>
            	 <table>
+           	 	<tr style="display:none"><td><input id="iptotherDocType"></input><input id="iptotherDocId"></input></td></tr>
            	 	<tr>
 					<td><label>業主調件日</label></td>
 					<td><input id="iptotherBankDate" ></input></td>

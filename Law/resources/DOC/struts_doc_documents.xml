@@ -10,7 +10,7 @@
         	<allowed-methods>loadCaseInfo,initSelectOption,saveaddDoc,initaddDoc,
         		loadCaseRela,loadCaseDocs,initSelectedForDocSys,saveBorrowDocs,
         		printBorrowDocs,queryDocSumTable,initdocSumSelectOption,downloadImgFile,
-        		updateDocStatus</allowed-methods>
+        		updateDocStatus,initOpenDoc</allowed-methods>
         </action>
     </package>
 </struts>

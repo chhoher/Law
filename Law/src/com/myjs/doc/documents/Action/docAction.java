@@ -336,4 +336,27 @@ public class docAction extends AbstractAction {
 		}
 		return NONE;
 	}
+	
+	/**
+	 * add By Jia 2017-08-16
+	 * 依照docType ,docId帶出文件內容
+	 * @return
+	 */
+	public String initOpenDoc(){
+		try{
+			log.debug("=====initOpenDoc start=====");
+			String docType = super.getRequest().getParameter("docType"),
+					docId = super.getRequest().getParameter("docId");
+			
+			log.debug("docType = {}, docId = {}", docType, docId);
+			String returnDoc = docService.findDocByTypeAndId(docType, docId);
+			
+			log.debug("returnDoc = {}", returnDoc);
+			printToResponse(returnDoc);
+		}catch(Exception e){
+			sendException(e);
+			log.error("initOpenDoc error msg==>", e);
+		}
+		return NONE;
+	}
 }

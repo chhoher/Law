@@ -31,7 +31,43 @@ public class LDocOtherdocs {
 	private String disTypeOne;
 	private String disTypeTwo;
 	private String disDocStatus;
+	private String tempCount;
 	
+	public LDocOtherdocs(){
+		
+	}
+	
+	public LDocOtherdocs(String bankId, String gProdId, String gProdName, String debtID, String debtName,
+			int otherdocsId, String infoId, int caseId, Date receivedDate, Date bankDate, String appointmentLetterCode,
+			String docStatus, String typeOne, String typeTwo, String bankName, String receiptType, int receiptAmount,
+			Date courtDate, String remark, Date createDatetime, String createUserId, String borrowReason,
+			String borrowInfo) {
+		super();
+		this.bankId = bankId;
+		this.gProdId = gProdId;
+		this.gProdName = gProdName;
+		this.debtID = debtID;
+		this.debtName = debtName;
+		this.otherdocsId = otherdocsId;
+		this.infoId = infoId;
+		this.caseId = caseId;
+		this.receivedDate = receivedDate;
+		this.bankDate = bankDate;
+		this.appointmentLetterCode = appointmentLetterCode;
+		this.docStatus = docStatus;
+		this.typeOne = typeOne;
+		this.typeTwo = typeTwo;
+		this.bankName = bankName;
+		this.receiptType = receiptType;
+		this.receiptAmount = receiptAmount;
+		this.courtDate = courtDate;
+		this.remark = remark;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
+		this.borrowReason = borrowReason;
+		this.borrowInfo = borrowInfo;
+	}
+
 	public LDocOtherdocs(int otherdocsId, String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus,
 			String typeOne, String typeTwo, String bankName, String receiptType, int receiptAmount, Date courtDate,
 			String remark, Date createDatetime, String createUserId) {
@@ -258,6 +294,14 @@ public class LDocOtherdocs {
 
 	public void setDisDocStatus(String disDocStatus) {
 		this.disDocStatus = disDocStatus;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 	
 }

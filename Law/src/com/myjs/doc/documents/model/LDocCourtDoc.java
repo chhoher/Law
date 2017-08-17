@@ -164,7 +164,7 @@ public class LDocCourtDoc {
 	private int detailDays;
 	private String detailRemark;
 	private String detailRelationPerson;
-	// 執行名義
+	// 執名附件
 	private int fileDays;
 	private String fileRemark;
 	private String fileRelationPerson;
@@ -176,7 +176,7 @@ public class LDocCourtDoc {
 	private int cashierCheckDays;
 	private String cashierCheckRemark;
 	private String cashierCheckRelationPerson;
-	// 本票
+	// 回復所有權登記
 	private String recoveryRemark;
 	private String recoveryRelationPerson;
 	// 其他
@@ -212,7 +212,251 @@ public class LDocCourtDoc {
 	private String disTypeTwo;
 	private String disDocStatus;
 	private String disCourtYearCourt;
+	private String tempCount;
 	
+	public LDocCourtDoc(){
+		
+	}
+	
+	public LDocCourtDoc(String bankId, String gProdId, String gProdName, String debtID, String debtName, int courtDocId,
+			String infoId, int caseId, String shareCaseId0, String shareCaseId1, String shareCaseId2,
+			String shareCaseId3, String shadow, Date receivedDate, Date bankDate, String docStatus, String typeOne,
+			String typeTwo, String bankName, String oldBankName, String relationPerson, String courtYearCourt,
+			int courtYearYear, String courtYearTxt, String courtYearShare, int courtYearCaseId, Date ruledDate,
+			int ruledAmount, Date applyConfirmationDate, Date receivedConfirmationDate, Date failureDate,
+			String applyLawThird, String addAddress, int distributionAmount, Date approvedDelayDate, Date delayEndDate,
+			Date sectorDate, Date measureDate, Date valuationDate, Date rebirthDate, Date surveyDate, Date inquiryDate,
+			Date firstSaleDate, Date secondSaleDate, Date thirdSaleDate, Date postBuyDate, Date postEndDate,
+			Date reduceSaleDate, Date destoryDate, Date realDistributionDate, String progress, String remark,
+			int applyDebtDays, int repayDays, int useDays, int opinionDays, int accountDays, int pleaseDays,
+			String reportOther, int reportOtherDays, String reportDescription, int programCost, int programDays,
+			int legalActionCost, int legalActionDays, int excuteCost, int excuteDays, int replacementCost,
+			int replacementDays, int sectorCost, int sectorDays, int valuationCost, int valuationDays, int rebirthCost,
+			int rebirthDays, int measureCost, int measureDays, int saveCost, int saveDays, int centralizedCost,
+			int centralizedDays, int insuranceCost, int insuranceDays, int postCost, int postDays, int publishDays,
+			String publishObject, String publishThings, String publishRemark, Date toCourtDate, String toCourtTime,
+			String toCourtType, String toCourtNotice, String toCourtAppointmentLetter,
+			String toCourtAppointmentLetterCriminal, String toCourtApplyBook, String toCourtDetail, String toCourtOther,
+			String toCourtOtherContent, Date executionDate, String executionTime, String executionAppointmentLetter,
+			String executionOther, String executionOtherContent, Date createDatetime, String createUserId,
+			int transcriptsDays, String transcriptsRemark, String transcriptsRelationPerson, int coOwnedTranscriptsDays,
+			String coOwnedTranscriptsRemark, String coOwnedTranscriptsRelationPerson, int mortgageeTranscriptsDays,
+			String mortgageeTranscriptsRemark, String mortgageeTranscriptsRelationPerson, int lawTranscriptsDays,
+			String lawTranscriptsRemark, String lawTranscriptsRelationPerson, int heirTranscriptsDays,
+			String heirTranscriptsRemark, String heirTranscriptsRelationPerson, int dirtTranscriptsDays,
+			String dirtTranscriptsRemark, String dirtTranscriptsRelationPerson, int builtTranscriptsDays,
+			String builtTranscriptsRemark, String builtTranscriptsRelationPerson, int distributionDays,
+			String distributionRemark, String distributionRelationPerson, int thingThirdDays, String thingThirdRemark,
+			String thingThirdRelationPerson, int thingDebtDays, String thingDebtRemark, String thingDebtRelationPerson,
+			int coOwnedDays, String coOwnedRemark, String coOwnedRelationPerson, int debtDocDays, String debtDocRemark,
+			String debtDocRelationPerson, int detailDays, String detailRemark, String detailRelationPerson,
+			int fileDays, String fileRemark, String fileRelationPerson, int debtContinueDays, String debtContinueRemark,
+			String debtContinueRelationPerson, int cashierCheckDays, String cashierCheckRemark,
+			String cashierCheckRelationPerson, String recoveryRemark, String recoveryRelationPerson, String otherValues,
+			int otherDays, String otherRemark, String otherRelationPerson, String edit, String borrowReason,
+			String borrowInfo, List<LDocCourtDocRela> courtDocRelationPerson,
+			List<LDocCourtDocTranscriptsRela> courtDocTranscriptsRelationPerson,
+			List<LDocCourtDocCoOwnedTranscriptsRela> courtDocCoOwnedTranscriptsRelationPerson,
+			List<LDocCourtDocMortgageeTranscriptsRela> courtDocMortgageeTranscriptsRelationPerson,
+			List<LDocCourtDocLawTranscriptsRela> courtDocLawTranscriptsRelationPerson,
+			List<LDocCourtDocHeirTranscriptsRela> courtDocHeirTranscriptsRelationPerson,
+			List<LDocCourtDocDirtTranscriptsRela> courtDocDirtTranscriptsRelationPerson,
+			List<LDocCourtDocBuiltTranscriptsRela> courtDocBuiltTranscriptsRelationPerson,
+			List<LDocCourtDocDistributionRela> courtDocDistributionRelationPerson,
+			List<LDocCourtDocThingThirdRela> courtDocThingThirdRelationPerson,
+			List<LDocCourtDocThingDebtRela> courtDocThingDebtRelationPerson,
+			List<LDocCourtDocCoOwnedRela> courtDocCoOwnedRelationPerson,
+			List<LDocCourtDocDebtDocRela> courtDocDebtDocRelationPerson,
+			List<LDocCourtDocDetailRela> courtDocDetailRelationPerson,
+			List<LDocCourtDocFileRela> courtDocFileRelationPerson,
+			List<LDocCourtDocDebtContinueRela> courtDocDebtContinueRelationPerson,
+			List<LDocCourtDocCashierCheckRela> courtDocCashierCheckRelationPerson,
+			List<LDocCourtDocRecoveryRela> courtDocRecoveryRelationPerson,
+			List<LDocCourtDocOtherRela> courtDocOtherRelationPerson) {
+		super();
+		this.bankId = bankId;
+		this.gProdId = gProdId;
+		this.gProdName = gProdName;
+		this.debtID = debtID;
+		this.debtName = debtName;
+		this.courtDocId = courtDocId;
+		this.infoId = infoId;
+		this.caseId = caseId;
+		this.shareCaseId0 = shareCaseId0;
+		this.shareCaseId1 = shareCaseId1;
+		this.shareCaseId2 = shareCaseId2;
+		this.shareCaseId3 = shareCaseId3;
+		this.shadow = shadow;
+		this.receivedDate = receivedDate;
+		this.bankDate = bankDate;
+		this.docStatus = docStatus;
+		this.typeOne = typeOne;
+		this.typeTwo = typeTwo;
+		this.bankName = bankName;
+		this.oldBankName = oldBankName;
+		this.relationPerson = relationPerson;
+		this.courtYearCourt = courtYearCourt;
+		this.courtYearYear = courtYearYear;
+		this.courtYearTxt = courtYearTxt;
+		this.courtYearShare = courtYearShare;
+		this.courtYearCaseId = courtYearCaseId;
+		this.ruledDate = ruledDate;
+		this.ruledAmount = ruledAmount;
+		this.applyConfirmationDate = applyConfirmationDate;
+		this.receivedConfirmationDate = receivedConfirmationDate;
+		this.failureDate = failureDate;
+		this.applyLawThird = applyLawThird;
+		this.addAddress = addAddress;
+		this.distributionAmount = distributionAmount;
+		this.approvedDelayDate = approvedDelayDate;
+		this.delayEndDate = delayEndDate;
+		this.sectorDate = sectorDate;
+		this.measureDate = measureDate;
+		this.valuationDate = valuationDate;
+		this.rebirthDate = rebirthDate;
+		this.surveyDate = surveyDate;
+		this.inquiryDate = inquiryDate;
+		this.firstSaleDate = firstSaleDate;
+		this.secondSaleDate = secondSaleDate;
+		this.thirdSaleDate = thirdSaleDate;
+		this.postBuyDate = postBuyDate;
+		this.postEndDate = postEndDate;
+		this.reduceSaleDate = reduceSaleDate;
+		this.destoryDate = destoryDate;
+		this.realDistributionDate = realDistributionDate;
+		this.progress = progress;
+		this.remark = remark;
+		this.applyDebtDays = applyDebtDays;
+		this.repayDays = repayDays;
+		this.useDays = useDays;
+		this.opinionDays = opinionDays;
+		this.accountDays = accountDays;
+		this.pleaseDays = pleaseDays;
+		this.reportOther = reportOther;
+		this.reportOtherDays = reportOtherDays;
+		this.reportDescription = reportDescription;
+		this.programCost = programCost;
+		this.programDays = programDays;
+		this.legalActionCost = legalActionCost;
+		this.legalActionDays = legalActionDays;
+		this.excuteCost = excuteCost;
+		this.excuteDays = excuteDays;
+		this.replacementCost = replacementCost;
+		this.replacementDays = replacementDays;
+		this.sectorCost = sectorCost;
+		this.sectorDays = sectorDays;
+		this.valuationCost = valuationCost;
+		this.valuationDays = valuationDays;
+		this.rebirthCost = rebirthCost;
+		this.rebirthDays = rebirthDays;
+		this.measureCost = measureCost;
+		this.measureDays = measureDays;
+		this.saveCost = saveCost;
+		this.saveDays = saveDays;
+		this.centralizedCost = centralizedCost;
+		this.centralizedDays = centralizedDays;
+		this.insuranceCost = insuranceCost;
+		this.insuranceDays = insuranceDays;
+		this.postCost = postCost;
+		this.postDays = postDays;
+		this.publishDays = publishDays;
+		this.publishObject = publishObject;
+		this.publishThings = publishThings;
+		this.publishRemark = publishRemark;
+		this.toCourtDate = toCourtDate;
+		this.toCourtTime = toCourtTime;
+		this.toCourtType = toCourtType;
+		this.toCourtNotice = toCourtNotice;
+		this.toCourtAppointmentLetter = toCourtAppointmentLetter;
+		this.toCourtAppointmentLetterCriminal = toCourtAppointmentLetterCriminal;
+		this.toCourtApplyBook = toCourtApplyBook;
+		this.toCourtDetail = toCourtDetail;
+		this.toCourtOther = toCourtOther;
+		this.toCourtOtherContent = toCourtOtherContent;
+		this.executionDate = executionDate;
+		this.executionTime = executionTime;
+		this.executionAppointmentLetter = executionAppointmentLetter;
+		this.executionOther = executionOther;
+		this.executionOtherContent = executionOtherContent;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
+		this.transcriptsDays = transcriptsDays;
+		this.transcriptsRemark = transcriptsRemark;
+		this.transcriptsRelationPerson = transcriptsRelationPerson;
+		this.coOwnedTranscriptsDays = coOwnedTranscriptsDays;
+		this.coOwnedTranscriptsRemark = coOwnedTranscriptsRemark;
+		this.coOwnedTranscriptsRelationPerson = coOwnedTranscriptsRelationPerson;
+		this.mortgageeTranscriptsDays = mortgageeTranscriptsDays;
+		this.mortgageeTranscriptsRemark = mortgageeTranscriptsRemark;
+		this.mortgageeTranscriptsRelationPerson = mortgageeTranscriptsRelationPerson;
+		this.lawTranscriptsDays = lawTranscriptsDays;
+		this.lawTranscriptsRemark = lawTranscriptsRemark;
+		this.lawTranscriptsRelationPerson = lawTranscriptsRelationPerson;
+		this.heirTranscriptsDays = heirTranscriptsDays;
+		this.heirTranscriptsRemark = heirTranscriptsRemark;
+		this.heirTranscriptsRelationPerson = heirTranscriptsRelationPerson;
+		this.dirtTranscriptsDays = dirtTranscriptsDays;
+		this.dirtTranscriptsRemark = dirtTranscriptsRemark;
+		this.dirtTranscriptsRelationPerson = dirtTranscriptsRelationPerson;
+		this.builtTranscriptsDays = builtTranscriptsDays;
+		this.builtTranscriptsRemark = builtTranscriptsRemark;
+		this.builtTranscriptsRelationPerson = builtTranscriptsRelationPerson;
+		this.distributionDays = distributionDays;
+		this.distributionRemark = distributionRemark;
+		this.distributionRelationPerson = distributionRelationPerson;
+		this.thingThirdDays = thingThirdDays;
+		this.thingThirdRemark = thingThirdRemark;
+		this.thingThirdRelationPerson = thingThirdRelationPerson;
+		this.thingDebtDays = thingDebtDays;
+		this.thingDebtRemark = thingDebtRemark;
+		this.thingDebtRelationPerson = thingDebtRelationPerson;
+		this.coOwnedDays = coOwnedDays;
+		this.coOwnedRemark = coOwnedRemark;
+		this.coOwnedRelationPerson = coOwnedRelationPerson;
+		this.debtDocDays = debtDocDays;
+		this.debtDocRemark = debtDocRemark;
+		this.debtDocRelationPerson = debtDocRelationPerson;
+		this.detailDays = detailDays;
+		this.detailRemark = detailRemark;
+		this.detailRelationPerson = detailRelationPerson;
+		this.fileDays = fileDays;
+		this.fileRemark = fileRemark;
+		this.fileRelationPerson = fileRelationPerson;
+		this.debtContinueDays = debtContinueDays;
+		this.debtContinueRemark = debtContinueRemark;
+		this.debtContinueRelationPerson = debtContinueRelationPerson;
+		this.cashierCheckDays = cashierCheckDays;
+		this.cashierCheckRemark = cashierCheckRemark;
+		this.cashierCheckRelationPerson = cashierCheckRelationPerson;
+		this.recoveryRemark = recoveryRemark;
+		this.recoveryRelationPerson = recoveryRelationPerson;
+		this.otherValues = otherValues;
+		this.otherDays = otherDays;
+		this.otherRemark = otherRemark;
+		this.otherRelationPerson = otherRelationPerson;
+		this.edit = edit;
+		this.borrowReason = borrowReason;
+		this.borrowInfo = borrowInfo;
+		this.courtDocRelationPerson = courtDocRelationPerson;
+		this.courtDocTranscriptsRelationPerson = courtDocTranscriptsRelationPerson;
+		this.courtDocCoOwnedTranscriptsRelationPerson = courtDocCoOwnedTranscriptsRelationPerson;
+		this.courtDocMortgageeTranscriptsRelationPerson = courtDocMortgageeTranscriptsRelationPerson;
+		this.courtDocLawTranscriptsRelationPerson = courtDocLawTranscriptsRelationPerson;
+		this.courtDocHeirTranscriptsRelationPerson = courtDocHeirTranscriptsRelationPerson;
+		this.courtDocDirtTranscriptsRelationPerson = courtDocDirtTranscriptsRelationPerson;
+		this.courtDocBuiltTranscriptsRelationPerson = courtDocBuiltTranscriptsRelationPerson;
+		this.courtDocDistributionRelationPerson = courtDocDistributionRelationPerson;
+		this.courtDocThingThirdRelationPerson = courtDocThingThirdRelationPerson;
+		this.courtDocThingDebtRelationPerson = courtDocThingDebtRelationPerson;
+		this.courtDocCoOwnedRelationPerson = courtDocCoOwnedRelationPerson;
+		this.courtDocDebtDocRelationPerson = courtDocDebtDocRelationPerson;
+		this.courtDocDetailRelationPerson = courtDocDetailRelationPerson;
+		this.courtDocFileRelationPerson = courtDocFileRelationPerson;
+		this.courtDocDebtContinueRelationPerson = courtDocDebtContinueRelationPerson;
+		this.courtDocCashierCheckRelationPerson = courtDocCashierCheckRelationPerson;
+		this.courtDocRecoveryRelationPerson = courtDocRecoveryRelationPerson;
+		this.courtDocOtherRelationPerson = courtDocOtherRelationPerson;
+	}
 	public int getCourtDocId() {
 		return courtDocId;
 	}
@@ -1341,6 +1585,14 @@ public class LDocCourtDoc {
 	}
 	public void setDisCourtYearCourt(String disCourtYearCourt) {
 		this.disCourtYearCourt = disCourtYearCourt;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 
 	

@@ -427,8 +427,8 @@ $(function() {
 				});
 	}
 	
-	law.doc.editDocs = function editDocs(caseId, rowDocId){
-		law.doc.toaddDoc(caseId, rowDocId);
+	law.doc.editDocs = function editDocs(caseId, rowDocType, rowDocId){
+		law.doc.toaddDoc(caseId, rowDocType, rowDocId);
 	}
 	
 	law.doc.openFile = function openFile(rowCaseId, fileName){

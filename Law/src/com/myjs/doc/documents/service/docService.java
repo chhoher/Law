@@ -106,4 +106,14 @@ public interface docService {
 	 * @throws Exception
 	 */
 	public String downloadImgFile(String caseId, String fileName, String path) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-16
+	 * 依照文件的type帶出該類型文件
+	 * @param docType
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public String findDocByTypeAndId(String docType, String docId) throws Exception;
 }

@@ -96,7 +96,7 @@
 			<column name="send_date" length="23" not-null="true"/>
 		</property>
 		<property name="newSendDate" type="timestamp">
-			<column name="new_send_date" length="23" not-null="true"/>
+			<column name="new_send_date" length="23"/>
 		</property>
 		<property name="remark" type="string">
 			<column name="remark" />

@@ -112,6 +112,7 @@ public class LDocInfo {
 	private String rowNum;
 	private String docId;
 	private String docType;
+	private String tempCount;
 	
 	// add by Jia 2017-08-16 申調的欄位 Vo
 	private String borrowBackDate; // 退件(業主) 退件日期
@@ -1073,6 +1074,14 @@ public class LDocInfo {
 
 	public void setBorrowSubLawCode(String borrowSubLawCode) {
 		this.borrowSubLawCode = borrowSubLawCode;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 	
 	

@@ -46,9 +46,58 @@ public class LDocCentitlement {
 	private String disTypeOne;
 	private String disTypeTwo;
 	private String disCourtYearCourt;
+	private String tempCount;
 	
 	// 原始憑證
 	private List<LDocCentitlementSourceDoc> centitlementSourceDoc;
+
+	public LDocCentitlement(){
+		
+	}
+	
+	public LDocCentitlement(String bankId, String gProdId, String gProdName, String debtID, String debtName,
+			int centitlementId, String infoId, int caseId, String shareCaseId0, String shareCaseId1,
+			String shareCaseId2, String shareCaseId3, String shadow, Date receivedDate, Date bankDate, String docStatus,
+			String typeOne, String typeTwo, String bankName, String oldBankName, String relationPerson,
+			String courtYearCourt, int courtYearYear, String courtYearTxt, String courtYearShare, int courtYearCaseId,
+			String sourceDoc, Date sendDate, Date newSendDate, String remark, Date createDatetime, String createUserId,
+			String borrowReason, String borrowInfo, List<LDocCentitlementSourceDoc> centitlementSourceDoc) {
+		this.bankId = bankId;
+		this.gProdId = gProdId;
+		this.gProdName = gProdName;
+		this.debtID = debtID;
+		this.debtName = debtName;
+		this.centitlementId = centitlementId;
+		this.infoId = infoId;
+		this.caseId = caseId;
+		this.shareCaseId0 = shareCaseId0;
+		this.shareCaseId1 = shareCaseId1;
+		this.shareCaseId2 = shareCaseId2;
+		this.shareCaseId3 = shareCaseId3;
+		this.shadow = shadow;
+		this.receivedDate = receivedDate;
+		this.bankDate = bankDate;
+		this.docStatus = docStatus;
+		this.typeOne = typeOne;
+		this.typeTwo = typeTwo;
+		this.bankName = bankName;
+		this.oldBankName = oldBankName;
+		this.relationPerson = relationPerson;
+		this.courtYearCourt = courtYearCourt;
+		this.courtYearYear = courtYearYear;
+		this.courtYearTxt = courtYearTxt;
+		this.courtYearShare = courtYearShare;
+		this.courtYearCaseId = courtYearCaseId;
+		this.sourceDoc = sourceDoc;
+		this.sendDate = sendDate;
+		this.newSendDate = newSendDate;
+		this.remark = remark;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
+		this.borrowReason = borrowReason;
+		this.borrowInfo = borrowInfo;
+		this.centitlementSourceDoc = centitlementSourceDoc;
+	}
 
 	public LDocCentitlement(int centitlementId, String infoId, int caseId, String shareCaseId0, String shareCaseId1,
 			String shareCaseId2, String shareCaseId3, String shadow, Date receivedDate, Date bankDate, String docStatus,
@@ -395,6 +444,14 @@ public class LDocCentitlement {
 
 	public void setDisCourtYearCourt(String disCourtYearCourt) {
 		this.disCourtYearCourt = disCourtYearCourt;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 
 	
