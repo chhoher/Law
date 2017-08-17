@@ -106,6 +106,7 @@ law.addDoc.file = {
 			'gProdName' : law.addDoc.gprodName,
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
+			'filedocsId' : ($("#iptfileDocId").val() !== "" ) ? $("#iptfileDocId").val() : null,
 			'receivedDate' : $("#iptfileReceivedDate").val(),
 			'bankDate' : ($("#iptfileBankDate").val() !== "")? $("#iptfileBankDate").val() : null,
 			'docStatus' : $("#iptfileDocStatus").find('option:selected').val(),
@@ -142,6 +143,7 @@ law.addDoc.file = {
 						'gProdName' : law.addDoc.gprodName,
 						'debtID' : law.addDoc.ID,
 						'debtName' : law.addDoc.debtName,
+						'filedocsId' : ($("#iptfileDocId" + i).val() !== "" ) ? $("#iptfileDocId" + i).val() : null,
 						'receivedDate' : $("#iptfileReceivedDate" + i ).val(),
 						'bankDate' : ($("#iptfileBankDate" + i ).val() !== "")? $("#iptfileBankDate" + i ).val() : null,
 						'docStatus' : $("#iptfileDocStatus" + i ).find('option:selected').val(),
@@ -151,7 +153,8 @@ law.addDoc.file = {
 						'remark' : ($("#iptfileRemark" + i ).val() !== "")? $("#iptfileRemark" + i ).val() : null,
 						'disTypeOne' : $("#iptfileTypeOne" + i).find('option:selected').text(),
 						'disTypeTwo' : $("#iptfileTypeTwo" + i).find('option:selected').text(),
-						'disDocStatus' : $("#iptfileDocStatus" + i).find('option:selected').text()
+						'disDocStatus' : $("#iptfileDocStatus" + i).find('option:selected').text(),
+						'tempCount' : i
 				};
 				file.subItems.push(subItems);
 			}
@@ -217,6 +220,20 @@ law.addDoc.file = {
 		// 全部為空驗證通過
 		returnSaveFile = { isEmpty : false, isRegexp : false};
 		return returnSaveFile;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenFilesubtab : function (fileDocInfo){
+		var file = law.addDoc.file;
+		$("#iptfileBankDate").val(fileDocInfo.bankDate !== undefined ? fileDocInfo.bankDate : "");// 業主調件日
+		$("#iptfileReceivedDate").val(fileDocInfo.receivedDate);// 收文日期
+		law.common.selectOption("#iptfileDocStatus", file.DocStatus, fileDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptfileTypeOne", file.TypeOne, fileDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptfileTypeTwo", file.TypeTwo, fileDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptfileBankName").append(BankNameSelectOption);
+		$("#iptfileBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		$("#iptfileNums").val(fileDocInfo.nums !== 0 ? fileDocInfo.nums : "");// 份數
+		$("#iptfileRemark").val(fileDocInfo.remark !== undefined ? fileDocInfo.remark : "");// 備註
 	}
 	
 }

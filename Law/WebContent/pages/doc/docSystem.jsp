@@ -120,7 +120,7 @@
 					                		var returnString = "<select id='editDoc_" +  full.docCode + "'><option value=''>請選擇</option>" + docStatusSelOption + "</select>";
 					                		if(full.docStatus !== ""){
 						                		var editDocStatusButton = "<button onclick=\" law.doc.editDocStatus('" + full.docCode + "','" + meta.row + "')\">修改</button>";
-						                		var editDocsButton = "<button onclick=\" law.doc.editDocs('" + full.caseId + "', '" + full.docCode + "')\">進入</button>";
+						                		var editDocsButton = "<button onclick=\" law.doc.editDocs('" + full.caseId + "', '" + full.docType + "','" + full.docId + "')\">進入</button>";
 					                			var selectBox = "<select id='editDoc_" +  full.docCode + "' ><option value='" + full.docStatus + "'>" + full.disDocStatus + "</option>" + docStatusSelOption + "</select>";// TODO 記得改會重複
 						                		return selectBox + "     " + editDocStatusButton + "     " + editDocsButton;
 					                		}else{

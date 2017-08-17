@@ -37,6 +37,47 @@ public class LDocDebts {
 	private String disTypeOne;
 	private String disTypeTwo;
 	private String disDocStatus;
+	private String tempCount;
+	
+	public LDocDebts(){
+		
+	}
+	
+	public LDocDebts(String bankId, String gProdId, String gProdName, String debtID, String debtName, int debtsId,
+			String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus, String typeOne,
+			String typeTwo, String bankName, String oldBankName, String relationPerson, String courtYearCourt,
+			int courtYearYear, String courtYearTxt, String courtYearShare, int courtYearCaseId, Date debtsDate,
+			String remark, Date createDatetime, String createUserId, String borrowReason, String borrowInfo,
+			List<LDocDebtsRela> debtsRelationPerson) {
+		this.bankId = bankId;
+		this.gProdId = gProdId;
+		this.gProdName = gProdName;
+		this.debtID = debtID;
+		this.debtName = debtName;
+		this.debtsId = debtsId;
+		this.infoId = infoId;
+		this.caseId = caseId;
+		this.receivedDate = receivedDate;
+		this.bankDate = bankDate;
+		this.docStatus = docStatus;
+		this.typeOne = typeOne;
+		this.typeTwo = typeTwo;
+		this.bankName = bankName;
+		this.oldBankName = oldBankName;
+		this.relationPerson = relationPerson;
+		this.courtYearCourt = courtYearCourt;
+		this.courtYearYear = courtYearYear;
+		this.courtYearTxt = courtYearTxt;
+		this.courtYearShare = courtYearShare;
+		this.courtYearCaseId = courtYearCaseId;
+		this.debtsDate = debtsDate;
+		this.remark = remark;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
+		this.borrowReason = borrowReason;
+		this.borrowInfo = borrowInfo;
+		this.debtsRelationPerson = debtsRelationPerson;
+	}
 
 	public LDocDebts(int debtsId, String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus,
 			String typeOne, String typeTwo, String bankName, String oldBankName, String relationPerson,
@@ -310,6 +351,14 @@ public class LDocDebts {
 
 	public void setDisDocStatus(String disDocStatus) {
 		this.disDocStatus = disDocStatus;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 
 	

@@ -80,6 +80,7 @@ law.addDoc.centitlement = {
 		var tabTemplate = "<li id='licentitlementtab_" + centitlementsubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
+           	 	"<tr style='display:none'><td><input id='iptcentitlementDocType" + centitlementsubtabcount + "'></input><input id='iptcentitlementDocId" + centitlementsubtabcount + "'></input></td></tr>" +
            	 	"<tr>" +
 					"<td><label>共用案號</label></td>" +
 					"<td><input id='iptcentitlementShareCaseId" + centitlementsubtabcount + "_0'></input></td>" +
@@ -153,7 +154,7 @@ law.addDoc.centitlement = {
 				"<tr>" +
 					"<td><label style='color:red'>*發文日期</label></td>" +
 					"<td><input id='iptcentitlementSendDate" + centitlementsubtabcount + "' ></input></td>" +
-					"<td><label style='color:red'>*最近執行日期</label></td>" +
+					"<td><label>最近執行日期</label></td>" +
 					"<td><input id='iptcentitlementNewSendDate" + centitlementsubtabcount + "' ></input></td>" +
 				"</tr>" +
 				"<tr>" +
@@ -320,6 +321,7 @@ law.addDoc.centitlement = {
 			'gProdName' : law.addDoc.gprodName,
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
+			'centitlementId' : ($("#iptcentitlementDocId").val() !== "" ) ? $("#iptcentitlementDocId").val() : null,
 			'shareCaseId0' : ($("#iptcentitlementShareCaseId_0").val() !== "") ? $("#iptcentitlementShareCaseId_0").val() : null,
 			'shareCaseId1' : ($("#iptcentitlementShareCaseId_1").val() !== "") ? $("#iptcentitlementShareCaseId_1").val() : null,
 			'shareCaseId2' : ($("#iptcentitlementShareCaseId_2").val() !== "") ? $("#iptcentitlementShareCaseId_2").val() : null,
@@ -339,7 +341,7 @@ law.addDoc.centitlement = {
 			'courtYearShare' : $("#iptcentitlementCourtYearShare").val(),
 			'courtYearCaseId' : $("#iptcentitlementCourtYearCaseId").val(),
 			'sendDate' : $("#iptcentitlementSendDate").val(),
-			'newSendDate' : $("#iptcentitlementNewSendDate").val(),
+			'newSendDate' : ($("#iptcentitlementNewSendDate").val() !== "") ? $("#iptcentitlementNewSendDate").val() : null,
 			'remark' : ($("#iptcentitlementRemark").val() !== "") ? $("#iptcentitlementRemark").val() : null,
 			// 原始憑證
 			'sourceDoc' : ($("#iptcentitlementSourceDoc_0").find('option:selected').val() !== "") ? $("#iptcentitlementSourceDoc_0").find('option:selected').val() : null,
@@ -414,6 +416,7 @@ law.addDoc.centitlement = {
 							'gProdName' : law.addDoc.gprodName,
 							'debtID' : law.addDoc.ID,
 							'debtName' : law.addDoc.debtName,
+							'centitlementId' : ($("#iptcentitlementDocId" + i).val() !== "" ) ? $("#iptcentitlementDocId" + i).val() : null,
 							'shareCaseId0' : ($("#iptcentitlementShareCaseId" + i + "_0").val() !== "") ? $("#iptcentitlementShareCaseId" + i + "_0").val() : null,
 							'shareCaseId1' : ($("#iptcentitlementShareCaseId" + i + "_1").val() !== "") ? $("#iptcentitlementShareCaseId" + i + "_1").val() : null,
 							'shareCaseId2' : ($("#iptcentitlementShareCaseId" + i + "_2").val() !== "") ? $("#iptcentitlementShareCaseId" + i + "_2").val() : null,
@@ -433,7 +436,7 @@ law.addDoc.centitlement = {
 							'courtYearShare' : $("#iptcentitlementCourtYearShare" + i ).val(),
 							'courtYearCaseId' : $("#iptcentitlementCourtYearCaseId" + i ).val(),
 							'sendDate' : $("#iptcentitlementSendDate" + i ).val(),
-							'newSendDate' : $("#iptcentitlementNewSendDate" + i ).val(),
+							'newSendDate' : ($("#iptcentitlementNewSendDate" + i ).val() !== "" ) ? $("#iptcentitlementNewSendDate" + i ).val() : null,
 							'remark' : ($("#iptcentitlementRemark" + i ).val() !== "") ? $("#iptcentitlementRemark" + i ).val() : null,
 							// 原始憑證
 							'sourceDoc' : ($("#iptcentitlementSourceDoc_0").find('option:selected').val() !== "") ? $("#iptcentitlementSourceDoc_0").find('option:selected').val() : null,
@@ -441,7 +444,8 @@ law.addDoc.centitlement = {
 							'disDocStatus' : $("#iptcentitlementDocStatus" + i ).find('option:selected').text(),
 							'disTypeOne' : $("#iptcentitlementTypeOne" + i ).find('option:selected').text(),
 							'disTypeTwo' : $("#iptcentitlementTypeTwo" + i ).find('option:selected').text(),
-							'disCourtYearCourt' : $("#iptcentitlementCourtYearCourt" + i ).find('option:selected').text()
+							'disCourtYearCourt' : $("#iptcentitlementCourtYearCourt" + i ).find('option:selected').text(),
+							'tempCount' : i
 					};
 					centitlement.subItems.push(subItems);
 			}
@@ -506,11 +510,6 @@ law.addDoc.centitlement = {
 				return returnSaveCen;
 			}
 			isEmpty = law.common.checkIsEmpty("iptcentitlementSendDate", "執行名義[發文日期]");
-			if(isEmpty.isEmpty){
-				returnSaveCen = { isEmpty : true, regexString : isEmpty.regexString, returncentitlement : returncentitlement}
-				return returnSaveCen;
-			}
-			isEmpty = law.common.checkIsEmpty("iptcentitlementNewSendDate", "執行名義[最近執行日期]");
 			if(isEmpty.isEmpty){
 				returnSaveCen = { isEmpty : true, regexString : isEmpty.regexString, returncentitlement : returncentitlement}
 				return returnSaveCen;
@@ -625,11 +624,6 @@ law.addDoc.centitlement = {
 				returnSaveCen = { isEmpty : true, regexString : isEmpty.regexString, returncentitlement : returncentitlement}
 				return returnSaveCen;
 			}
-			isEmpty = law.common.checkIsEmpty("iptcentitlementNewSendDate" + index, "執行名義[最近執行日期]");
-			if(isEmpty.isEmpty){
-				returnSaveCen = { isEmpty : true, regexString : isEmpty.regexString, returncentitlement : returncentitlement}
-				return returnSaveCen;
-			}
 			if($("#iptcentitlementShareCaseId" + index + "_0").val() !== ""){
 				isRegexp = law.common.checkRegexp("iptcentitlementShareCaseId" + index + "_0", law.regex.numberRegex, "執行名義[共用案號]須為數字格式");
 				if(isRegexp.isRegexp){
@@ -694,6 +688,87 @@ law.addDoc.centitlement = {
 		// 全部為空驗證通過
 		returnSaveCen = { isEmpty : false, isRegexp : false};
 		return returnSaveCen;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenCensubtab : function (cenDocInfo){
+		var centitlement = law.addDoc.centitlement;
+		$("#iptcentitlementShareCaseId_0").val(cenDocInfo.shareCaseId0 !== undefined ? cenDocInfo.shareCaseId0 : "");// 共用案號1
+		$("#iptcentitlementShareCaseId_1").val(cenDocInfo.shareCaseId1 !== undefined ? cenDocInfo.shareCaseId1 : "");// 共用案號2
+		$("#iptcentitlementShareCaseId_2").val(cenDocInfo.shareCaseId2 !== undefined ? cenDocInfo.shareCaseId2 : "");// 共用案號3
+		$("#iptcentitlementShareCaseId_3").val(cenDocInfo.shareCaseId3 !== undefined ? cenDocInfo.shareCaseId3 : "");// 共用案號4
+		if(cenDocInfo.shadow !== undefined){
+			if(cenDocInfo.shadow === "0"){
+				$("#rdocentitlementShadow").prop("checked", true);
+			}else if(cenDocInfo.shadow === "1"){
+				$("#rdocentitlementShadowBank").prop("checked", true);
+			}
+		}
+		$("#iptcentitlementBankDate").val(cenDocInfo.bankDate !== undefined ? cenDocInfo.bankDate : "");// 業主調件日
+		$("#iptcentitlementReceivedDate").val(cenDocInfo.receivedDate);// 收文日期
+		law.common.selectOption("#iptcentitlementDocStatus", centitlement.DocStatus, cenDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptcentitlementTypeOne", centitlement.TypeOne, cenDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptcentitlementTypeTwo", centitlement.TypeTwo, cenDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptcentitlementBankName").append(BankNameSelectOption);
+		$("#iptcentitlementBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		
+		//動態跑出原債權人
+		if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B1" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B2" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B3" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B4" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B5" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B6" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-B7" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CD" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSBOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.FEIOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.SKOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptcentitlementBankName").find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.YTOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.FIOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.TSAOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.TAMCOOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.ORIXOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.MTOldBankName, cenDocInfo.oldBankName, true);
+		}else if($("#iptcentitlementBankName").find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptcentitlementOldBankName", centitlement.UNOldBankName, cenDocInfo.oldBankName, true);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptcentitlementOldBankName" + " option").remove();
+			$("#iptcentitlementOldBankName").append(selectNull);
+		}
+		
+		law.common.selectRelaOption("#iptcentitlementRelationPerson_0", law.addDoc.rela, cenDocInfo.relationPerson, true); // 相對人
+		
+		// TODO 要帶出多個
+		
+		law.common.selectOption("#iptcentitlementCourtYearCourt", centitlement.CourtYearCourt, cenDocInfo.courtYearCourt, true); // 法院年字案股 法院
+		$("#iptcentitlementCourtYearYear").val(cenDocInfo.courtYearYear !== undefined ? cenDocInfo.courtYearYear : "");// 法院年字案股 年度
+		$("#iptcentitlementCourtYearTxt").val(cenDocInfo.courtYearTxt !== undefined ? cenDocInfo.courtYearTxt : "");// 法院年字案股 字
+		$("#iptcentitlementCourtYearShare").val(cenDocInfo.courtYearShare !== undefined ? cenDocInfo.courtYearShare : "");// 法院年字案股 股別
+		$("#iptcentitlementCourtYearCaseId").val(cenDocInfo.courtYearCaseId !== undefined ? cenDocInfo.courtYearCaseId : "");// 法院年字案股 案號
+		
+//		law.common.selectOption("#iptcentitlementSourceDoc_0", centitlement.CourtYearCourt, cenDocInfo.courtYearCourt, true); // 原始憑證
+//		law.common.selectOption("#iptcentitlementCourtYearCourt", centitlement.CourtYearCourt, cenDocInfo.courtYearCourt, true); // 原始法院年字案股 法院
+//		$("#iptcentitlementCourtYearYear").val(cenDocInfo.courtYearYear !== undefined ? cenDocInfo.courtYearYear : "");// 法院年字案股 年度
+//		$("#iptcentitlementCourtYearTxt").val(cenDocInfo.courtYearTxt !== undefined ? cenDocInfo.courtYearTxt : "");// 法院年字案股 字
+//		$("#iptcentitlementCourtYearShare").val(cenDocInfo.courtYearShare !== undefined ? cenDocInfo.courtYearShare : "");// 法院年字案股 股別
+//		$("#iptcentitlementCourtYearCaseId").val(cenDocInfo.courtYearCaseId !== undefined ? cenDocInfo.courtYearCaseId : "");// 法院年字案股 案號
+		// TODO 要帶出多個
+		
+		$("#iptcentitlementSendDate").val(cenDocInfo.sendDate);// 發文日期
+		$("#iptcentitlementNewSendDate").val(cenDocInfo.newSendDate !== undefined ? cenDocInfo.newSendDate : "");// 最近執行日期
+		$("#iptcentitlementRemark").val(cenDocInfo.remark !== undefined ? cenDocInfo.remark : "");// 備註
 	}
 }
 

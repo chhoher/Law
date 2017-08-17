@@ -271,7 +271,7 @@ public class docServiceImpl implements docService{
 						centitlementItems.get(i).getCourtYearCaseId() + centitlementItems.get(i).getCourtYearShare());
 				LDocInfo.setSourceDoc(SourceString);
 				LDocInfo.setSendDate(DateTimeFormat.getDateTimeString(centitlementItems.get(i).getSendDate(), "yyyy-MM-dd"));
-				LDocInfo.setNewSendDate(DateTimeFormat.getDateTimeString(centitlementItems.get(i).getNewSendDate(), "yyyy-MM-dd"));
+				LDocInfo.setNewSendDate(centitlementItems.get(i).getNewSendDate() != null ? DateTimeFormat.getDateTimeString(centitlementItems.get(i).getNewSendDate(), "yyyy-MM-dd") : "");
 				LDocInfo.setRemark(centitlementItems.get(i).getRemark() != null ?centitlementItems.get(i).getRemark() : "");
 				LDocInfo.setRowNum("0");
 				
@@ -281,6 +281,9 @@ public class docServiceImpl implements docService{
 				LDocInfo.setSendReport("");
 				LDocInfo.setExecutionDate("");
 				LDocInfo.setToCourtDate("");
+				LDocInfo.setDocType("A");
+				LDocInfo.setDocId(centitlementItems.get(i).getCentitlementId() + "");
+				LDocInfo.setTempCount(centitlementItems.get(i).getTempCount());
 				
 				returnDocInfo.add(LDocInfo);
 			}
@@ -478,6 +481,8 @@ public class docServiceImpl implements docService{
 				LDocInfo.setSourceDoc("");
 				LDocInfo.setRemark("");
 				LDocInfo.setRowNum("0");
+				LDocInfo.setDocType("B");
+				LDocInfo.setDocId(courtDocItems.get(i).getCourtDocId() + "");
 				returnDocInfo.add(LDocInfo);
 				
 			}
@@ -525,6 +530,8 @@ public class docServiceImpl implements docService{
 					LDocInfo.setExecutionDate("");
 					LDocInfo.setToCourtDate("");
 					LDocInfo.setSourceDoc("");
+					LDocInfo.setDocType("C");
+					LDocInfo.setDocId(cashiercheckItems.get(i).getCashiercheckId() + "");
 					returnDocInfo.add(LDocInfo);
 				}
 			}
@@ -572,6 +579,8 @@ public class docServiceImpl implements docService{
 				LDocInfo.setSourceDoc("");
 				LDocInfo.setExecutionDate("");
 				LDocInfo.setToCourtDate("");
+				LDocInfo.setDocType("D");
+				LDocInfo.setDocId(debtsItems.get(i).getDebtsId() + "");
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -618,6 +627,8 @@ public class docServiceImpl implements docService{
 				LDocInfo.setSourceDoc("");
 				LDocInfo.setExecutionDate("");
 				LDocInfo.setToCourtDate("");
+				LDocInfo.setDocType("E");
+				LDocInfo.setDocId(claimsdocsItems.get(i).getClaimsdocsId() + "");
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -658,6 +669,8 @@ public class docServiceImpl implements docService{
 				LDocInfo.setSourceDoc("");
 				LDocInfo.setExecutionDate("");
 				LDocInfo.setToCourtDate("");
+				LDocInfo.setDocType("F");
+				LDocInfo.setDocId(filedocsItems.get(i).getFiledocsId() + "");
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -698,6 +711,8 @@ public class docServiceImpl implements docService{
 				LDocInfo.setSourceDoc("");
 				LDocInfo.setExecutionDate("");
 				LDocInfo.setToCourtDate("");
+				LDocInfo.setDocType("G");
+				LDocInfo.setDocId(otherdocsItems.get(i).getOtherdocsId() + "");
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -974,6 +989,36 @@ public class docServiceImpl implements docService{
 		jsonResponse.addProperty("imguuid", uuid);
 		jsonResponse.addProperty("imgFileName", fileName);
 		
+		return jsonResponse.toString();
+	}
+	
+	public String findDocByTypeAndId(String docType, String docId) throws Exception{
+		JsonObject jsonResponse = new JsonObject();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		if(docType != null && !docType.equals("")){
+			if(docType.equals("A")){
+				LDocCentitlement LDocCentitlement = docDao.findCenById(docId);
+				jsonResponse.add("cenDoc", gson.toJsonTree(LDocCentitlement));
+			}else	if(docType.equals("B")){
+				LDocCourtDoc LDocCourtDoc = docDao.findCourtDocById(docId);
+				jsonResponse.add("courtDocDoc", gson.toJsonTree(LDocCourtDoc));
+			}else if(docType.equals("C")){
+				LDocCashiercheck LDocCashiercheck = docDao.findCashierCheckById(docId);
+				jsonResponse.add("cashierCheckDoc", gson.toJsonTree(LDocCashiercheck));
+			}else if(docType.equals("D")){
+				LDocDebts LDocDebts = docDao.findDebtsById(docId);
+				jsonResponse.add("debtsDoc", gson.toJsonTree(LDocDebts));
+			}else	if(docType.equals("E")){
+				LDocClaimsdocs LDocClaimsdocs = docDao.findClaimDocsById(docId);
+				jsonResponse.add("claimsdocsDoc", gson.toJsonTree(LDocClaimsdocs));
+			}else	if(docType.equals("F")){
+				LDocFiledocs LDocFiledocs = docDao.findFileById(docId);
+				jsonResponse.add("fileDoc", gson.toJsonTree(LDocFiledocs));
+			}else	if(docType.equals("G")){
+				LDocOtherdocs LDocOtherdocs = docDao.findOtherById(docId);
+				jsonResponse.add("otherDoc", gson.toJsonTree(LDocOtherdocs));
+			}
+		}
 		return jsonResponse.toString();
 	}
 }

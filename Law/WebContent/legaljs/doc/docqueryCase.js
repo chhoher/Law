@@ -70,7 +70,7 @@ $(function() {
 		//window.open("../pages/doc/addDoc.jsp?caseId=" + data);
 	}
 	
-	law.doc.toaddDoc = function toaddDoc(data) {
+	law.doc.toaddDoc = function toaddDoc(data, docType, docId) {
 		//固定帶文管新增頁簽的資料
 		law.tabControl.closeTabs("#tabs-8aa2e72a5c5c9b6e015c5cb587cc0025");
 		if ($("#saveEndDiv").hasClass('ui-dialog-content')) {
@@ -79,7 +79,12 @@ $(function() {
 		if ($("#addDocRegex").hasClass('ui-dialog-content')) {
 			$("#addDocRegex").dialog('destroy').remove();
 		}
-		law.tabControl.addTabs("#tabs",'8aa2e72a5c5c9b6e015c5cb587cc0025','文管新增','/Law/pages/doc/addDoc.jsp?caseId=' + data);
+		
+		if(docType === undefined && docId === undefined){
+			law.tabControl.addTabs("#tabs",'8aa2e72a5c5c9b6e015c5cb587cc0025','文管新增','/Law/pages/doc/addDoc.jsp?caseId=' + data);
+		}else{
+			law.tabControl.addTabs("#tabs",'8aa2e72a5c5c9b6e015c5cb587cc0025','文管新增','/Law/pages/doc/addDoc.jsp?caseId=' + data + '&docType=' + docType + '&docId=' + docId);
+		}
 	}
 	
 	// TODO Add By Jia 2017-05-11 目前還沒有做到法務 連結到申請法務

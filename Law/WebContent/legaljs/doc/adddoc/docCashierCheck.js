@@ -208,6 +208,7 @@ law.addDoc.cashierCheck = {
 			'gProdName' : law.addDoc.gprodName,
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
+			'cashiercheckId' : ($("#iptcashierCheckDocId").val() !== "" ) ? $("#iptcashierCheckDocId").val() : null,
 			'receivedDate' : $("#iptcashierCheckReceivedDate").val(),
 			'bankDate' : ($("#iptcashierCheckBankDate").val() !== "")? $("#iptcashierCheckBankDate").val() : null,
 			'docStatus' : $("#iptcashierCheckDocStatus").find('option:selected').val(),
@@ -260,6 +261,7 @@ law.addDoc.cashierCheck = {
 							'gProdName' : law.addDoc.gprodName,
 							'debtID' : law.addDoc.ID,
 							'debtName' : law.addDoc.debtName,
+							'cashiercheckId' : ($("#iptcashierCheckDocId" + i).val() !== "" ) ? $("#iptcashierCheckDocId" + i).val() : null,
 							'receivedDate' : $("#iptcashierCheckReceivedDate" + i ).val(),
 							'bankDate' : ($("#iptcashierCheckBankDate" + i ).val() !== "")? $("#iptcashierCheckBankDate" + i ).val() : null,
 							'docStatus' : $("#iptcashierCheckDocStatus" + i ).find('option:selected').val(),
@@ -274,7 +276,8 @@ law.addDoc.cashierCheck = {
 							'remark' : ($("#iptcashierCheckRemark" + i ).val() !== "")? $("#iptcashierCheckRemark" + i ).val() : null,
 							'disTypeOne' : $("#iptcashierCheckTypeOne" + i).find('option:selected').text(),
 							'disTypeTwo' : $("#iptcashierCheckTypeTwo" + i).find('option:selected').text(),
-							'disDocStatus' : $("#iptcashierCheckDocStatus" + i).find('option:selected').text()
+							'disDocStatus' : $("#iptcashierCheckDocStatus" + i).find('option:selected').text(),
+							'tempCount' : i
 					};
 					cashierCheck.subItems.push(subItems);
 			}
@@ -350,6 +353,63 @@ law.addDoc.cashierCheck = {
 		// 全部為空驗證通過
 		returnSaveCashierCheck = { isEmpty : false, isRegexp : false};
 		return returnSaveCashierCheck;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenCashierChecksubtab : function (CashierCheckDocInfo){
+		var cashierCheck = law.addDoc.cashierCheck;
+		$("#iptcashierCheckBankDate").val(CashierCheckDocInfo.bankDate !== undefined ? CashierCheckDocInfo.bankDate : "");// 業主調件日
+		$("#iptcashierCheckReceivedDate").val(CashierCheckDocInfo.receivedDate);// 收文日期
+		law.common.selectOption("#iptcashierCheckDocStatus", cashierCheck.DocStatus, CashierCheckDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptcashierCheckTypeOne", cashierCheck.TypeOne, CashierCheckDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptcashierCheckTypeTwo", cashierCheck.TypeTwo, CashierCheckDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptcashierCheckBankName").append(BankNameSelectOption);
+		$("#iptcashierCheckBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		
+		//動態跑出原債權人
+		if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B1" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B2" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B3" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B4" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B5" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B6" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-B7" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CD" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSBOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FEIOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.SKOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptcashierCheckBankName").find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.YTOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.FIOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TSAOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.TAMCOOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.ORIXOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.MTOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else if($("#iptcashierCheckBankName").find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptcashierCheckOldBankName", cashierCheck.UNOldBankName, CashierCheckDocInfo.oldBankName, true);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptcashierCheckOldBankName" + " option").remove();
+			$("#iptcashierCheckOldBankName").append(selectNull);
+		}
+		
+		law.common.selectRelaOption("#iptcashierCheckRelationPerson_0", law.addDoc.rela, CashierCheckDocInfo.relationPerson, true); // 相對人
+		
+		// TODO 要帶出多個
+		
+		$("#iptcashierCheckStartDate").val(CashierCheckDocInfo.startDate !== undefined ? CashierCheckDocInfo.startDate : "");// 本票發票日
+		$("#iptcashierCheckAmount").val(CashierCheckDocInfo.amount !== 0 ? CashierCheckDocInfo.amount : "");// 本票金額
+		$("#iptcashierCheckEndDate").val(CashierCheckDocInfo.endDate !== undefined ? CashierCheckDocInfo.endDate : "");// 本票到期日
+		$("#iptcashierCheckRemark").val(CashierCheckDocInfo.remark !== undefined ? CashierCheckDocInfo.remark : "");// 備註
 	}
 }
 	

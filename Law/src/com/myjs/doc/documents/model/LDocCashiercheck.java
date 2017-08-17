@@ -34,6 +34,44 @@ public class LDocCashiercheck {
 	private String disTypeOne;
 	private String disTypeTwo;
 	private String disDocStatus;
+	private String tempCount;
+
+	public LDocCashiercheck(){
+		
+	}
+	
+	public LDocCashiercheck(String bankId, String gProdId, String gProdName, String debtID, String debtName,
+			int cashiercheckId, String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus,
+			String typeOne, String typeTwo, String bankName, String oldBankName, String relationPerson, Date startDate,
+			int amount, Date endDate, String remark, Date createDatetime, String createUserId, String borrowReason,
+			String borrowInfo, List<LDocCashiercheckRela> cashiercheckRelationPerson) {
+		super();
+		this.bankId = bankId;
+		this.gProdId = gProdId;
+		this.gProdName = gProdName;
+		this.debtID = debtID;
+		this.debtName = debtName;
+		this.cashiercheckId = cashiercheckId;
+		this.infoId = infoId;
+		this.caseId = caseId;
+		this.receivedDate = receivedDate;
+		this.bankDate = bankDate;
+		this.docStatus = docStatus;
+		this.typeOne = typeOne;
+		this.typeTwo = typeTwo;
+		this.bankName = bankName;
+		this.oldBankName = oldBankName;
+		this.relationPerson = relationPerson;
+		this.startDate = startDate;
+		this.amount = amount;
+		this.endDate = endDate;
+		this.remark = remark;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
+		this.borrowReason = borrowReason;
+		this.borrowInfo = borrowInfo;
+		this.cashiercheckRelationPerson = cashiercheckRelationPerson;
+	}
 
 	public LDocCashiercheck(int cashiercheckId, String infoId, int caseId, Date receivedDate, Date bankDate,
 			String docStatus, String typeOne, String typeTwo, String bankName, String oldBankName,
@@ -280,6 +318,14 @@ public class LDocCashiercheck {
 
 	public void setDisDocStatus(String disDocStatus) {
 		this.disDocStatus = disDocStatus;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 	
 	

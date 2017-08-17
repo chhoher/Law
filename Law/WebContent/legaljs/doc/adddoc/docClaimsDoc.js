@@ -204,6 +204,7 @@ law.addDoc.claimsDoc = {
 			'gProdName' : law.addDoc.gprodName,
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
+			'claimsdocsId' : ($("#iptclaimsDocDocId").val() !== "" ) ? $("#iptclaimsDocDocId").val() : null,
 			'receivedDate' : $("#iptclaimsDocReceivedDate").val(),
 			'bankDate' : ($("#iptclaimsDocBankDate").val() !== "")? $("#iptclaimsDocBankDate").val() : null,
 			'docStatus' : $("#iptclaimsDocDocStatus").find('option:selected').val(),
@@ -256,6 +257,7 @@ law.addDoc.claimsDoc = {
 							'gProdName' : law.addDoc.gprodName,
 							'debtID' : law.addDoc.ID,
 							'debtName' : law.addDoc.debtName,
+							'claimsdocsId' : ($("#iptclaimsDocDocId" + i).val() !== "" ) ? $("#iptclaimsDocDocId" + i).val() : null,
 							'receivedDate' : $("#iptclaimsDocReceivedDate" + i ).val(),
 							'bankDate' : ($("#iptclaimsDocBankDate" + i ).val() !== "")? $("#iptclaimsDocBankDate" + i ).val() : null,
 							'docStatus' : $("#iptclaimsDocDocStatus" + i ).find('option:selected').val(),
@@ -269,7 +271,8 @@ law.addDoc.claimsDoc = {
 							'remark' : ($("#iptclaimsDocRemark" + i ).val() !== "")? $("#iptclaimsDocRemark" + i ).val() : null,
 							'disTypeOne' : $("#iptclaimsDocTypeOne" + i).find('option:selected').text(),
 							'disTypeTwo' : $("#iptclaimsDocTypeTwo" + i).find('option:selected').text(),
-							'disDocStatus' : $("#iptclaimsDocDocStatus" + i).find('option:selected').text()
+							'disDocStatus' : $("#iptclaimsDocDocStatus" + i).find('option:selected').text(),
+							'tempCount' : i
 					};
 					claimsDoc.subItems.push(subItems);
 			}
@@ -345,6 +348,62 @@ law.addDoc.claimsDoc = {
 		// 全部為空驗證通過
 		returnSaveClaimsDoc = { isEmpty : false, isRegexp : false};
 		return returnSaveClaimsDoc;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenClaimsdocsubtab : function (claimsdocDocInfo){
+		var claimsDoc = law.addDoc.claimsDoc;
+		$("#iptclaimsDocBankDate").val(claimsdocDocInfo.bankDate !== undefined ? claimsdocDocInfo.bankDate : "");// 業主調件日
+		$("#iptclaimsDocReceivedDate").val(claimsdocDocInfo.receivedDate);// 收文日期
+		law.common.selectOption("#iptclaimsDocDocStatus", claimsDoc.DocStatus, claimsdocDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptclaimsDocTypeOne", claimsDoc.TypeOne, claimsdocDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptclaimsDocTypeTwo", claimsDoc.TypeTwo, claimsdocDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptclaimsDocBankName").append(BankNameSelectOption);
+		$("#iptclaimsDocBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		
+		//動態跑出原債權人
+		if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B1" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B2" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B3" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B4" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B5" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B6" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B7" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CD" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSBOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FEIOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.SKOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.YTOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FIOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSAOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TAMCOOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.ORIXOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.MTOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.UNOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptclaimsDocOldBankName" + " option").remove();
+			$("#iptclaimsDocOldBankName").append(selectNull);
+		}
+		
+		law.common.selectRelaOption("#iptclaimsDocRelationPerson_0", law.addDoc.rela, claimsdocDocInfo.relationPerson, true); // 相對人
+		
+		// TODO 要帶出多個
+		
+		$("#iptclaimsDocQuota").val(claimsdocDocInfo.quota !== 0 ? claimsdocDocInfo.quota : "");// 額度
+		$("#iptclaimsDocInterestRate").val(claimsdocDocInfo.interestRate !== 0 ? claimsdocDocInfo.interestRate : "");// 利率
+		$("#iptclaimsDocRemark").val(claimsdocDocInfo.remark !== undefined ? claimsdocDocInfo.remark : "");// 備註
 	}
 }
 	

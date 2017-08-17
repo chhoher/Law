@@ -77,10 +77,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocInfo transientInstance) throws Exception {
 		log.debug("saving LDocInfo instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
+		flag=true;
 		log.debug("save successful");
 		return flag;
 	}
@@ -88,10 +86,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocCentitlement transientInstance) throws Exception {
 		log.debug("saving LDocCentitlement instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
+		flag=true;
 		log.debug("save successful");
 		return flag;
 	}
@@ -121,10 +117,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocCourtDoc transientInstance) throws Exception {
 		log.debug("saving LDocCourtDoc instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -341,10 +335,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocCashiercheck transientInstance) throws Exception {
 		log.debug("saving LDocCashiercheck instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -363,10 +355,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocDebts transientInstance) throws Exception {
 		log.debug("saving LDocDebts instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -385,10 +375,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocClaimsdocs transientInstance) throws Exception {
 		log.debug("saving LDocClaimsdocs instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -407,10 +395,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocFiledocs transientInstance) throws Exception {
 		log.debug("saving LDocFiledocs instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -418,10 +404,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocOtherdocs transientInstance) throws Exception {
 		log.debug("saving LDocOtherdocs instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -678,7 +662,97 @@ public class docDaoImpl extends DaoUtil implements docDao{
 				return null;
 			}
 		}
-
+	}
+	
+	public LDocCentitlement findCenById(String docId) throws Exception{
+		log.debug("findCenById start");
+		LDocCentitlement query = null;
+		String queryString = "from LDocCentitlement ldc where  ldc.centitlementId='" + docId + "'";
+		log.debug("queryString = {}", queryString);
+		List<?> LDocCentitlementList = super.getHibernateTemplate().find(queryString);
+		if(LDocCentitlementList.size() != 0){
+			query = (LDocCentitlement) LDocCentitlementList.get(0);
+		}
+		log.debug("findCenById end");
+		return query;
+	}
+	
+	public LDocCourtDoc findCourtDocById(String docId) throws Exception{
+		log.debug("findCourtDocById start");
+		LDocCourtDoc query = null;
+		String queryString = "from LDocCourtDoc ldc where  ldc.courtDocId='" + docId + "'";
+		log.debug("queryString = {}", queryString);
+		List<?> LDocCourtDocList = super.getHibernateTemplate().find(queryString);
+		if(LDocCourtDocList.size() != 0){
+			query = (LDocCourtDoc) LDocCourtDocList.get(0);
+		}
+		log.debug("findCourtDocById end");
+		return query;
+	}
+	
+	public LDocCashiercheck findCashierCheckById(String docId) throws Exception{
+		log.debug("findCashierCheckById start");
+		LDocCashiercheck query = null;
+		String queryString = "from LDocCashiercheck ldc where  ldc.cashiercheckId='" + docId + "'";
+		log.debug("queryString = {}", queryString);
+		List<?> LDocCashiercheckList = super.getHibernateTemplate().find(queryString);
+		if(LDocCashiercheckList.size() != 0){
+			query = (LDocCashiercheck) LDocCashiercheckList.get(0);
+		}
+		log.debug("findCashierCheckById end");
+		return query;
+	}
+	
+	public LDocDebts findDebtsById(String docId) throws Exception{
+		log.debug("findDebtsById start");
+		LDocDebts query = null;
+		String queryString = "from LDocDebts ldd where  ldd.debtsId='" + docId + "'";
+		log.debug("queryString = {}", queryString);
+		List<?> LDocDebtsList = super.getHibernateTemplate().find(queryString);
+		if(LDocDebtsList.size() != 0){
+			query = (LDocDebts) LDocDebtsList.get(0);
+		}
+		log.debug("findDebtsById end");
+		return query;
+	}
+	
+	public LDocClaimsdocs findClaimDocsById(String docId) throws Exception{
+		log.debug("findClaimDocsById start");
+		LDocClaimsdocs query = null;
+		String queryString = "from LDocClaimsdocs ldc where  ldc.claimsdocsId='" + docId + "'";
+		log.debug("queryString = {}", queryString);
+		List<?> LDocClaimsdocsList = super.getHibernateTemplate().find(queryString);
+		if(LDocClaimsdocsList.size() != 0){
+			query = (LDocClaimsdocs) LDocClaimsdocsList.get(0);
+		}
+		log.debug("findClaimDocsById end");
+		return query;
+	}
+	
+	public LDocFiledocs findFileById(String docId) throws Exception{
+		log.debug("findFileById start");
+		LDocFiledocs query = null;
+		String queryString = "from LDocFiledocs ldf where  ldf.filedocsId='" + docId + "'";
+		log.debug("queryString = {}", queryString);
+		List<?> LDocFiledocsList = super.getHibernateTemplate().find(queryString);
+		if(LDocFiledocsList.size() != 0){
+			query = (LDocFiledocs) LDocFiledocsList.get(0);
+		}
+		log.debug("findFileById end");
+		return query;
+	}
+	
+	public LDocOtherdocs findOtherById(String docId) throws Exception{
+		log.debug("findOtherById start");
+		LDocOtherdocs query = null;
+		String queryString = "from LDocOtherdocs ldo where  ldo.otherdocsId='" + docId + "'";
+		log.debug("queryString = {}", queryString);
+		List<?> LDocOtherdocsList = super.getHibernateTemplate().find(queryString);
+		if(LDocOtherdocsList.size() != 0){
+			query = (LDocOtherdocs) LDocOtherdocsList.get(0);
+		}
+		log.debug("findOtherById end");
+		return query;
 	}
 	
 	@SuppressWarnings("rawtypes")

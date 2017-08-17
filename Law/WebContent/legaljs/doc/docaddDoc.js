@@ -260,8 +260,69 @@ $(function() {
 							var json = response.responseDocInfo;
 							docsdatatable.fnClearTable();
 							if (json.length !== 0) {
-								$("#btnsaveaddDoc").button( "disable" );
+								var i = 0;
+								console.log(json.length);
+								//$("#btnsaveaddDoc").button( "disable" );
 								docsdatatable.fnAddData(json);
+								for(;i < json.length; i ++){
+									if(json[i].docType === "A"){
+										if(json[i].tempCount === undefined){
+											$("#iptcentitlementDocType").val(json[i].docType);
+											$("#iptcentitlementDocId").val(json[i].docId);
+										}else{
+											$("#iptcentitlementDocType" + json[i].tempCount).val(json[i].docType);
+											$("#iptcentitlementDocId" + json[i].tempCount).val(json[i].docId);
+										}
+									}else if(json[i].docType === "B"){
+										if(json[i].tempCount === undefined){
+											$("#iptcourtDocDocType").val(json[i].docType);
+											$("#iptcourtDocDocId").val(json[i].docId);
+										}else{
+											$("#iptcourtDocDocType" + json[i].tempCount).val(json[i].docType);
+											$("#iptcourtDocDocId" + json[i].tempCount).val(json[i].docId);
+										}
+									}else if(json[i].docType === "C"){
+										if(json[i].tempCount === undefined){
+											$("#iptcashierCheckDocType").val(json[i].docType);
+											$("#iptcashierCheckDocId").val(json[i].docId);
+										}else{
+											$("#iptcashierCheckDocType" + json[i].tempCount).val(json[i].docType);
+											$("#iptcashierCheckDocId" + json[i].tempCount).val(json[i].docId);
+										}
+									}else if(json[i].docType === "D"){
+										if(json[i].tempCount === undefined){
+											$("#iptdebtsDocType").val(json[i].docType);
+											$("#iptdebtsDocId").val(json[i].docId);
+										}else{
+											$("#iptdebtsDocType" + json[i].tempCount).val(json[i].docType);
+											$("#iptdebtsDocId" + json[i].tempCount).val(json[i].docId);
+										}
+									}else if(json[i].docType === "E"){
+										if(json[i].tempCount === undefined){
+											$("#iptclaimsDocDocType").val(json[i].docType);
+											$("#iptclaimsDocDocId").val(json[i].docId);
+										}else{
+											$("#iptclaimsDocDocType" + json[i].tempCount).val(json[i].docType);
+											$("#iptclaimsDocDocId" + json[i].tempCount).val(json[i].docId);
+										}
+									}else if(json[i].docType === "F"){
+										if(json[i].tempCount === undefined){
+											$("#iptfileDocType").val(json[i].docType);
+											$("#iptfileDocId").val(json[i].docId);
+										}else{
+											$("#iptfileDocType" + json[i].tempCount).val(json[i].docType);
+											$("#iptfileDocId" + json[i].tempCount).val(json[i].docId);
+										}
+									}else if(json[i].docType === "G"){
+										if(json[i].tempCount === undefined){
+											$("#iptotherDocType").val(json[i].docType);
+											$("#iptotherDocId").val(json[i].docId);
+										}else{
+											$("#iptotherDocType" + json[i].tempCount).val(json[i].docType);
+											$("#iptotherDocId" + json[i].tempCount).val(json[i].docId);
+										}
+									}
+								}
 							}
 							docsdatatable.fnDraw();
 							

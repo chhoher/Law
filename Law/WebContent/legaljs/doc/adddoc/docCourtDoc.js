@@ -2063,6 +2063,7 @@ law.addDoc.courtDoc = {
 			'gProdName' : law.addDoc.gprodName,
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
+			'courtDocId' : ($("#iptcourtDocDocId").val() !== "" ) ? $("#iptcourtDocDocId").val() : null,
 			'shareCaseId0' : ($("#iptcourtDocShareCaseId_0").val() !== "") ? $("#iptcourtDocShareCaseId_0").val() : null,
 			'shareCaseId1' : ($("#iptcourtDocShareCaseId_1").val() !== "") ? $("#iptcourtDocShareCaseId_1").val() : null,
 			'shareCaseId2' : ($("#iptcourtDocShareCaseId_2").val() !== "") ? $("#iptcourtDocShareCaseId_2").val() : null,
@@ -2505,6 +2506,7 @@ law.addDoc.courtDoc = {
 						'gProdName' : law.addDoc.gprodName,
 						'debtID' : law.addDoc.ID,
 						'debtName' : law.addDoc.debtName,
+						'courtDocId' : ($("#iptcourtDocDocId" + i).val() !== "" ) ? $("#iptcourtDocDocId" + i).val() : null,
 						'shareCaseId0' : ($("#iptcourtDocShareCaseId" + i + "_0").val() !== "")? $("#iptcourtDocShareCaseId" + i + "_0").val() : null,
 						'shareCaseId1' : ($("#iptcourtDocShareCaseId" + i + "_1").val() !== "")? $("#iptcourtDocShareCaseId" + i + "_1").val() : null,
 						'shareCaseId2' : ($("#iptcourtDocShareCaseId" + i + "_2").val() !== "")? $("#iptcourtDocShareCaseId" + i + "_2").val() : null,
@@ -2701,7 +2703,8 @@ law.addDoc.courtDoc = {
 						'disCourtYearCourt' : $("#iptcourtDocCourtYearCourt" + i).find('option:selected').text(),
 						'disTypeOne' : $("#iptcourtDocTypeOne" + i).find('option:selected').text(),
 						'disTypeTwo' : $("#iptcourtDocTypeTwo" + i).find('option:selected').text(),
-						'disDocStatus' : $("#iptcourtDocDocStatus" + i).find('option:selected').text()
+						'disDocStatus' : $("#iptcourtDocDocStatus" + i).find('option:selected').text(),
+						'tempCount' : i
 					}
 					
 				courtDoc.subItems.push(subItems);
@@ -3622,6 +3625,247 @@ law.addDoc.courtDoc = {
 		// 全部為空驗證通過
 		returnSaveCourtDoc = { isEmpty : false, isRegexp : false};
 		return returnSaveCourtDoc;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenCourtDocsubtab : function (couetDocDocInfo){
+		var courtDoc = law.addDoc.courtDoc;
+		$("#iptcourtDocShareCaseId_0").val(couetDocDocInfo.shareCaseId0 !== undefined ? couetDocDocInfo.shareCaseId0 : "");// 共用案號1
+		$("#iptcourtDocShareCaseId_1").val(couetDocDocInfo.shareCaseId1 !== undefined ? couetDocDocInfo.shareCaseId1 : "");// 共用案號2
+		$("#iptcourtDocShareCaseId_2").val(couetDocDocInfo.shareCaseId2 !== undefined ? couetDocDocInfo.shareCaseId2 : "");// 共用案號3
+		$("#iptcourtDocShareCaseId_3").val(couetDocDocInfo.shareCaseId3 !== undefined ? couetDocDocInfo.shareCaseId3 : "");// 共用案號4
+		if(couetDocDocInfo.shadow !== undefined){
+			if(couetDocDocInfo.shadow === "0"){
+				$("#rdocourtDocShadow").prop("checked", true);
+			}else if(couetDocDocInfo.shadow === "1"){
+				$("#rdocourtDocShadowBank").prop("checked", true);
+			}
+		}
+		$("#iptcourtDocBankDate").val(couetDocDocInfo.bankDate !== undefined ? couetDocDocInfo.bankDate : "");// 業主調件日
+		$("#iptcourtDocReceivedDate").val(couetDocDocInfo.receivedDate);// 收文日期
+		law.common.selectOption("#iptcourtDocDocStatus", courtDoc.DocStatus, couetDocDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptcourtDocTypeOne", courtDoc.TypeOne, couetDocDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptcourtDocTypeTwo", courtDoc.TypeTwo, couetDocDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptcourtDocBankName").append(BankNameSelectOption);
+		$("#iptcourtDocBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		
+		//動態跑出原債權人
+		if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B1" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B2" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B3" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B4" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B5" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B6" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-B7" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CD" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSBOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FEIOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.SKOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptcourtDocBankName").find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.YTOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.FIOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TSAOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.TAMCOOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.ORIXOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.MTOldBankName, couetDocDocInfo.oldBankName, true);
+		}else if($("#iptcourtDocBankName").find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptcourtDocOldBankName", courtDoc.UNOldBankName, couetDocDocInfo.oldBankName, true);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptcourtDocOldBankName" + " option").remove();
+			$("#iptcourtDocOldBankName").append(selectNull);
+		}
+		
+		law.common.selectRelaOption("#iptcourtDocRelationPerson_0", law.addDoc.rela, couetDocDocInfo.relationPerson, true); // 相對人
+		
+		// TODO 要帶出多個
+		
+		law.common.selectOption("#iptcourtDocCourtYearCourt", courtDoc.CourtYearCourt, couetDocDocInfo.courtYearCourt, true); // 法院年字案股 法院
+		$("#iptcourtDocCourtYearYear").val(couetDocDocInfo.courtYearYear !== undefined ? couetDocDocInfo.courtYearYear : "");// 法院年字案股 年度
+		$("#iptcourtDocCourtYearTxt").val(couetDocDocInfo.courtYearTxt !== undefined ? couetDocDocInfo.courtYearTxt : "");// 法院年字案股 字
+		$("#iptcourtDocCourtYearShare").val(couetDocDocInfo.courtYearShare !== undefined ? couetDocDocInfo.courtYearShare : "");// 法院年字案股 股別
+		$("#iptcourtDocCourtYearCaseId").val(couetDocDocInfo.courtYearCaseId !== undefined ? couetDocDocInfo.courtYearCaseId : "");// 法院年字案股 案號
+		
+		$("#iptcourtDocRuledDate").val(couetDocDocInfo.ruledDate !== undefined ? couetDocDocInfo.ruledDate : "");// 收到裁定日
+		$("#iptcourtDocRuledAmount").val(couetDocDocInfo.ruledAmount !== 0 ? couetDocDocInfo.ruledAmount : "");// 裁定金額
+		$("#iptcourtDocApplyConfirmationDate").val(couetDocDocInfo.applyConfirmationDate !== undefined ? couetDocDocInfo.applyConfirmationDate : "");// 聲請確證日
+		$("#iptcourtDocReceivedConfirmationDate").val(couetDocDocInfo.receivedConfirmationDate !== undefined ? couetDocDocInfo.receivedConfirmationDate : "");// 收確證日
+		$("#iptcourtDocFailureDate").val(couetDocDocInfo.failureDate !== undefined ? couetDocDocInfo.failureDate : "");// 失效日
+		$("#iptcourtDocApplyLawThird").val(couetDocDocInfo.applyLawThird !== undefined ? couetDocDocInfo.applyLawThird : "");// 扣薪第三人(25字)
+		$("#iptcourtDocAddAddress").val(couetDocDocInfo.addAddress !== undefined ? couetDocDocInfo.addAddress : "");// 扣薪第三人地址(30字)
+		$("#iptcourtDocDistributionAmount").val(couetDocDocInfo.distributionAmount !== 0 ? couetDocDocInfo.distributionAmount : "");// 分配金額
+		$("#iptcourtDocApprovedDelayDate").val(couetDocDocInfo.approvedDelayDate !== undefined ? couetDocDocInfo.approvedDelayDate : "");// 核准暫緩日
+		$("#iptcourtDocDelayEndDate").val(couetDocDocInfo.delayEndDate !== undefined ? couetDocDocInfo.delayEndDate : "");// 暫緩到期日
+		$("#iptcourtDocSectorDate").val(couetDocDocInfo.sectorDate !== undefined ? couetDocDocInfo.sectorDate : "");// 查封指界日
+		$("#iptcourtDocMeasureDate").val(couetDocDocInfo.measureDate !== undefined ? couetDocDocInfo.measureDate : "");// 測量日
+		$("#iptcourtDocValuationDate").val(couetDocDocInfo.valuationDate !== undefined ? couetDocDocInfo.valuationDate : "");// 鑑價日
+		$("#iptcourtDocRebirthDate").val(couetDocDocInfo.rebirthDate !== undefined ? couetDocDocInfo.rebirthDate : "");// 複丈日
+		$("#iptcourtDocSurveyDate").val(couetDocDocInfo.surveyDate !== undefined ? couetDocDocInfo.surveyDate : "");// 履勘日
+		$("#iptcourtDocInquiryDate").val(couetDocDocInfo.inquiryDate !== undefined ? couetDocDocInfo.inquiryDate : "");// 詢價日
+		$("#iptcourtDocFirstSaleDate").val(couetDocDocInfo.firstSaleDate !== undefined ? couetDocDocInfo.firstSaleDate : "");// 一拍日
+		$("#iptcourtDocSecondSaleDate").val(couetDocDocInfo.secondSaleDate !== undefined ? couetDocDocInfo.secondSaleDate : "");// 二拍日
+		$("#iptcourtDocThirdSaleDate").val(couetDocDocInfo.thirdSaleDate !== undefined ? couetDocDocInfo.thirdSaleDate : "");// 三拍日
+		$("#iptcourtDocPostBuyDate").val(couetDocDocInfo.postBuyDate !== undefined ? couetDocDocInfo.postBuyDate : "");// 公告應買日
+		$("#iptcourtDocPostEndDate").val(couetDocDocInfo.postEndDate !== undefined ? couetDocDocInfo.postEndDate : "");// 公告到期日
+		$("#iptcourtDocReduceSaleDate").val(couetDocDocInfo.reduceSaleDate !== undefined ? couetDocDocInfo.reduceSaleDate : "");// 減拍日
+		$("#iptcourtDocDestoryDate").val(couetDocDocInfo.destoryDate !== undefined ? couetDocDocInfo.destoryDate : "");// 塗銷登記日
+		$("#iptcourtDocRealDistributionDate").val(couetDocDocInfo.realDistributionDate !== undefined ? couetDocDocInfo.realDistributionDate : "");// 實際分配日
+		$("#iptcourtDocProgress").val(couetDocDocInfo.progress !== undefined ? couetDocDocInfo.progress : "");// 進度
+		$("#iptcourtDocRemark").val(couetDocDocInfo.remark !== undefined ? couetDocDocInfo.remark : "");// 備註
+		
+		$("#iptcourtDocApplyDebtDays").val(couetDocDocInfo.applyDebtDays !== 0 ? couetDocDocInfo.applyDebtDays : "");// 申報債權-文到日內
+		$("#iptcourtDocRepayDays").val(couetDocDocInfo.repayDays !== 0 ? couetDocDocInfo.repayDays : "");// 受償情形-文到日內
+		$("#iptcourtDocUseDays").val(couetDocDocInfo.useDays !== 0 ? couetDocDocInfo.useDays : "");// 使用情形-文到日內
+		$("#iptcourtDocOpinionDays").val(couetDocDocInfo.opinionDays !== 0 ? couetDocDocInfo.opinionDays : "");// 陳報意見-文到日內
+		$("#iptcourtDocAccountDays").val(couetDocDocInfo.accountDays !== 0 ? couetDocDocInfo.accountDays : "");// 匯款帳戶-文到日內
+		$("#iptcourtDocPleaseDays").val(couetDocDocInfo.pleaseDays !== 0 ? couetDocDocInfo.pleaseDays : "");// 陳報匯款入帳聲請書-文到日內
+		$("#iptcourtDocReportOther").val(couetDocDocInfo.reportOther !== undefined ? couetDocDocInfo.reportOther : "");// 陳報其他
+		$("#iptcourtDocReportOtherDays").val(couetDocDocInfo.reportOtherDays !== 0 ? couetDocDocInfo.reportOtherDays : "");// 陳報其他-文到日內
+		$("#iptcourtDocReportDescription").val(couetDocDocInfo.reportDescription !== undefined ? couetDocDocInfo.reportDescription : "");// 陳報說明
+		
+		$("#iptcourtDocTranscriptsDays").val(couetDocDocInfo.transcriptsDays !== 0 ? couetDocDocInfo.transcriptsDays : "");// 戶謄日內
+		$("#iptcourtDocTranscriptsRemark").val(couetDocDocInfo.transcriptsRemark !== undefined ? couetDocDocInfo.transcriptsRemark : "");// 戶謄備註
+		law.common.selectRelaOption("#iptcourtDocTranscriptsRelationPerson_0", law.addDoc.rela, couetDocDocInfo.transcriptsRelationPerson, true);// 戶謄相對人
+		// TODO 多筆
+		$("#iptcourtDocCoOwnedTranscriptsDays").val(couetDocDocInfo.coOwnedTranscriptsDays !== 0 ? couetDocDocInfo.coOwnedTranscriptsDays : "");// 共有人戶謄日內
+		$("#iptcourtDocCoOwnedTranscriptsRemark").val(couetDocDocInfo.coOwnedTranscriptsRemark !== undefined ? couetDocDocInfo.coOwnedTranscriptsRemark : "");// 共有人戶謄備註
+		law.common.selectRelaOption("#iptcourtDocCoOwnedTranscriptsRelationPerson_0", law.addDoc.rela, couetDocDocInfo.coOwnedTranscriptsRelationPerson, true);// 共有人戶謄相對人
+		// TODO 多筆
+		$("#iptcourtDocMortgageeTranscriptsDays").val(couetDocDocInfo.mortgageeTranscriptsDays !== 0 ? couetDocDocInfo.mortgageeTranscriptsDays : "");// 抵押權人戶謄日內
+		$("#iptcourtDocMortgageeTranscriptsRemark").val(couetDocDocInfo.mortgageeTranscriptsRemark !== undefined ? couetDocDocInfo.mortgageeTranscriptsRemark : "");// 抵押權人戶謄備註
+		law.common.selectRelaOption("#iptcourtDocMortgageeTranscriptsRelationPerson_0", law.addDoc.rela, couetDocDocInfo.mortgageeTranscriptsRelationPerson, true);// 抵押權人戶謄相對人
+		// TODO 多筆
+		$("#iptcourtDocLawTranscriptsDays").val(couetDocDocInfo.lawTranscriptsDays !== 0 ? couetDocDocInfo.lawTranscriptsDays : "");// 法代戶謄日內
+		$("#iptcourtDocLawTranscriptsRemark").val(couetDocDocInfo.lawTranscriptsRemark !== undefined ? couetDocDocInfo.lawTranscriptsRemark : "");// 法代戶謄備註
+		law.common.selectRelaOption("#iptcourtDocLawTranscriptsRelationPerson_0", law.addDoc.rela, couetDocDocInfo.lawTranscriptsRelationPerson, true);// 法代戶謄相對人
+		// TODO 多筆
+		$("#iptcourtDocHeirTranscriptsDays").val(couetDocDocInfo.heirTranscriptsDays !== 0 ? couetDocDocInfo.heirTranscriptsDays : "");// 繼承人戶謄日內
+		$("#iptcourtDocHeirTranscriptsRemark").val(couetDocDocInfo.heirTranscriptsRemark !== undefined ? couetDocDocInfo.heirTranscriptsRemark : "");// 繼承人戶謄備註
+		law.common.selectRelaOption("#iptcourtDocHeirTranscriptsRelationPerson_0", law.addDoc.rela, couetDocDocInfo.heirTranscriptsRelationPerson, true);// 繼承人戶謄相對人
+		// TODO 多筆
+		$("#iptcourtDocDirtTranscriptsDays").val(couetDocDocInfo.dirtTranscriptsDays !== 0 ? couetDocDocInfo.dirtTranscriptsDays : "");// 土謄日內
+		$("#iptcourtDocDirtTranscriptsRemark").val(couetDocDocInfo.dirtTranscriptsRemark !== undefined ? couetDocDocInfo.dirtTranscriptsRemark : "");// 土謄備註
+		law.common.selectRelaOption("#iptcourtDocDirtTranscriptsRelationPerson_0", law.addDoc.rela, couetDocDocInfo.dirtTranscriptsRelationPerson, true);// 土謄相對人
+		// TODO 多筆
+		$("#iptcourtDocBuiltTranscriptsDays").val(couetDocDocInfo.builtTranscriptsDays !== 0 ? couetDocDocInfo.builtTranscriptsDays : "");// 建謄日內
+		$("#iptcourtDocBuiltTranscriptsRemark").val(couetDocDocInfo.builtTranscriptsRemark !== undefined ? couetDocDocInfo.builtTranscriptsRemark : "");// 建謄備註
+		law.common.selectRelaOption("#iptcourtDocBuiltTranscriptsRelationPerson_0", law.addDoc.rela, couetDocDocInfo.builtTranscriptsRelationPerson, true);// 建謄相對人
+		// TODO 多筆
+		$("#iptcourtDocDistributionDays").val(couetDocDocInfo.distributionDays !== 0 ? couetDocDocInfo.distributionDays : "");// 分配表日內
+		$("#iptcourtDocDistributionRemark").val(couetDocDocInfo.distributionRemark !== undefined ? couetDocDocInfo.distributionRemark : "");// 分配表備註
+		law.common.selectRelaOption("#iptcourtDocDistributionRelationPerson_0", law.addDoc.rela, couetDocDocInfo.distributionRelationPerson, true);// 分配表相對人
+		// TODO 多筆
+		$("#iptcourtDocThingThirdDays").val(couetDocDocInfo.thingThirdDays !== 0 ? couetDocDocInfo.thingThirdDays : "");// 事項表(第三人)日內
+		$("#iptcourtDocThingThirdRemark").val(couetDocDocInfo.thingThirdRemark !== undefined ? couetDocDocInfo.thingThirdRemark : "");// 事項表(第三人)備註
+		law.common.selectRelaOption("#iptcourtDocThingThirdRelationPerson_0", law.addDoc.rela, couetDocDocInfo.thingThirdRelationPerson, true);// 事項表(第三人)相對人
+		// TODO 多筆
+		$("#iptcourtDocThingDebtDays").val(couetDocDocInfo.thingDebtDays !== 0 ? couetDocDocInfo.thingDebtDays : "");// 事項表(債權人)日內
+		$("#iptcourtDocThingDebtRemark").val(couetDocDocInfo.thingDebtRemark !== undefined ? couetDocDocInfo.thingDebtRemark : "");// 事項表(債權人)備註
+		law.common.selectRelaOption("#iptcourtDocThingDebtRelationPerson_0", law.addDoc.rela, couetDocDocInfo.thingDebtRelationPerson, true);// 事項表(債權人)相對人
+		// TODO 多筆
+		$("#iptcourtDocCoOwnedDays").val(couetDocDocInfo.coOwnedDays !== 0 ? couetDocDocInfo.coOwnedDays : "");// 共有人名冊日內
+		$("#iptcourtDocCoOwnedRemark").val(couetDocDocInfo.coOwnedRemark !== undefined ? couetDocDocInfo.coOwnedRemark : "");// 共有人名冊備註
+		law.common.selectRelaOption("#iptcourtDocCoOwnedRelationPerson_0", law.addDoc.rela, couetDocDocInfo.coOwnedRelationPerson, true);// 共有人名冊相對人
+		// TODO 多筆
+		$("#iptcourtDocDebtDocDays").val(couetDocDocInfo.debtDocDays !== 0 ? couetDocDocInfo.debtDocDays : "");// 債權文件日內
+		$("#iptcourtDocDebtDocRemark").val(couetDocDocInfo.debtDocRemark !== undefined ? couetDocDocInfo.debtDocRemark : "");// 債權文件備註
+		law.common.selectRelaOption("#iptcourtDocDebtDocRelationPerson_0", law.addDoc.rela, couetDocDocInfo.debtDocRelationPerson, true);// 債權文件相對人
+		// TODO 多筆
+		$("#iptcourtDocDetailDays").val(couetDocDocInfo.detailDays !== 0 ? couetDocDocInfo.detailDays : "");// 帳務明細日內
+		$("#iptcourtDocDetailRemark").val(couetDocDocInfo.detailRemark !== undefined ? couetDocDocInfo.detailRemark : "");// 帳務明細備註
+		law.common.selectRelaOption("#iptcourtDocDetailRelationPerson_0", law.addDoc.rela, couetDocDocInfo.detailRelationPerson, true);// 帳務明細相對人
+		// TODO 多筆
+		$("#iptcourtDocFileDays").val(couetDocDocInfo.fileDays !== 0 ? couetDocDocInfo.fileDays : "");// 執名附件日內
+		$("#iptcourtDocFileRemark").val(couetDocDocInfo.fileRemark !== undefined ? couetDocDocInfo.fileRemark : "");// 執名附件備註
+		law.common.selectRelaOption("#iptcourtDocFileRelationPerson_0", law.addDoc.rela, couetDocDocInfo.fileRelationPerson, true);// 執名附件相對人
+		// TODO 多筆
+		$("#iptcourtDocDebtContinueDays").val(couetDocDocInfo.debtContinueDays !== 0 ? couetDocDocInfo.debtContinueDays : "");// 債證續行表日內
+		$("#iptcourtDocDebtContinueRemark").val(couetDocDocInfo.debtContinueRemark !== undefined ? couetDocDocInfo.debtContinueRemark : "");// 債證續行表備註
+		law.common.selectRelaOption("#iptcourtDocDebtContinueRelationPerson_0", law.addDoc.rela, couetDocDocInfo.debtContinueRelationPerson, true);// 債證續行表相對人
+		// TODO 多筆
+		$("#iptcourtDocCashierCheckDays").val(couetDocDocInfo.cashierCheckDays !== 0 ? couetDocDocInfo.cashierCheckDays : "");// 本票日內
+		$("#iptcourtDocCashierCheckRemark").val(couetDocDocInfo.cashierCheckRemark !== undefined ? couetDocDocInfo.cashierCheckRemark : "");// 本票備註
+		law.common.selectRelaOption("#iptcourtDocCashierCheckRelationPerson_0", law.addDoc.rela, couetDocDocInfo.cashierCheckRelationPerson, true);// 本票相對人
+		// TODO 多筆
+		$("#iptcourtDocRecoveryRemark").val(couetDocDocInfo.recoveryRemark !== undefined ? couetDocDocInfo.recoveryRemark : "");// 回復所有權登記備註
+		law.common.selectRelaOption("#iptcourtDocRecoveryRelationPerson_0", law.addDoc.rela, couetDocDocInfo.recoveryRelationPerson, true);// 回復所有權登記相對人
+		// TODO 多筆
+		$("#iptcourtDocOtherName").val(couetDocDocInfo.otherValues !== undefined ? couetDocDocInfo.otherValues : "");// 其它
+		$("#iptcourtDocOtherDays").val(couetDocDocInfo.otherDays !== 0 ? couetDocDocInfo.otherDays : "");// 其它日內
+		$("#iptcourtDocOtherRemark").val(couetDocDocInfo.otherRemark !== undefined ? couetDocDocInfo.otherRemark : "");// 其它備註
+		law.common.selectRelaOption("#iptcourtDocOtherRelationPerson_0", law.addDoc.rela, couetDocDocInfo.otherRelationPerson, true);// 其它相對人
+		// TODO 多筆
+		$("#iptcourtDocEdit").val(couetDocDocInfo.edit !== undefined ? couetDocDocInfo.edit : "");// 補正說明
+		
+		$("#iptcourtDocProgramCost").val(couetDocDocInfo.programCost !== 0 ? couetDocDocInfo.programCost : "");// 程序費-金額
+		$("#iptcourtDocProgramDays").val(couetDocDocInfo.programDays !== 0 ? couetDocDocInfo.programDays : "");// 程序費-繳費期限
+		$("#iptcourtDocLegalActionCost").val(couetDocDocInfo.legalActionCost !== 0 ? couetDocDocInfo.legalActionCost : "");// 訴訟費-金額
+		$("#iptcourtDocLegalActionDays").val(couetDocDocInfo.legalActionDays !== 0 ? couetDocDocInfo.legalActionDays : "");// 訴訟費-繳費期限
+		$("#iptcourtDocExcuteCost").val(couetDocDocInfo.excuteCost !== 0 ? couetDocDocInfo.excuteCost : "");// 執行費-金額
+		$("#iptcourtDocExcuteDays").val(couetDocDocInfo.excuteDays !== 0 ? couetDocDocInfo.excuteDays : "");// 執行費-繳費期限
+		$("#iptcourtDocReplacementCost").val(couetDocDocInfo.replacementCost !== 0 ? couetDocDocInfo.replacementCost : "");// 補發費-金額
+		$("#iptcourtDocReplacementDays").val(couetDocDocInfo.replacementDays !== 0 ? couetDocDocInfo.replacementDays : "");// 補發費-繳費期限
+		$("#iptcourtDocSectorCost").val(couetDocDocInfo.sectorCost !== 0 ? couetDocDocInfo.sectorCost : "");// 指界費-金額
+		$("#iptcourtDocSectorDays").val(couetDocDocInfo.sectorDays !== 0 ? couetDocDocInfo.sectorDays : "");// 指界費-繳費期限
+		$("#iptcourtDocValuationCost").val(couetDocDocInfo.valuationCost !== 0 ? couetDocDocInfo.valuationCost : "");// 鑑價費-金額
+		$("#iptcourtDocValuationDays").val(couetDocDocInfo.valuationDays !== 0 ? couetDocDocInfo.valuationDays : "");// 鑑價費-繳費期限
+		$("#iptcourtDocRebirthCost").val(couetDocDocInfo.rebirthCost !== 0 ? couetDocDocInfo.rebirthCost : "");// 複丈費-金額
+		$("#iptcourtDocRebirthDays").val(couetDocDocInfo.rebirthDays !== 0 ? couetDocDocInfo.rebirthDays : "");// 複丈費-繳費期限
+		$("#iptcourtDocMeasureCost").val(couetDocDocInfo.measureCost !== 0 ? couetDocDocInfo.measureCost : "");// 測量費-金額
+		$("#iptcourtDocMeasureDays").val(couetDocDocInfo.measureDays !== 0 ? couetDocDocInfo.measureDays : "");// 測量費-繳費期限
+		$("#iptcourtDocSaveCost").val(couetDocDocInfo.saveCost !== 0 ? couetDocDocInfo.saveCost : "");// 提存金-金額
+		$("#iptcourtDocSaveDays").val(couetDocDocInfo.saveDays !== 0 ? couetDocDocInfo.saveDays : "");// 提存金-繳費期限
+		$("#iptcourtDocCentralizedCost").val(couetDocDocInfo.centralizedCost !== 0 ? couetDocDocInfo.centralizedCost : "");// 集保-金額
+		$("#iptcourtDocCentralizedDays").val(couetDocDocInfo.centralizedDays !== 0 ? couetDocDocInfo.centralizedDays : "");// 集保-繳費期限
+		$("#iptcourtDocInsuranceCost").val(couetDocDocInfo.insuranceCost !== 0 ? couetDocDocInfo.insuranceCost : "");// 保單-金額
+		$("#iptcourtDocInsuranceDays").val(couetDocDocInfo.insuranceDays !== 0 ? couetDocDocInfo.insuranceDays : "");// 保單-繳費期限
+		$("#iptcourtDocPostCost").val(couetDocDocInfo.postCost !== 0 ? couetDocDocInfo.postCost : "");// 郵局-金額
+		$("#iptcourtDocPostDays").val(couetDocDocInfo.postDays !== 0 ? couetDocDocInfo.postDays : "");// 郵局-繳費期限
+		
+		$("#iptcourtDocPublishDays").val(couetDocDocInfo.publishDays !== 0 ? couetDocDocInfo.publishDays : "");// 登報-文到日內
+		law.common.selectOption("#iptcourtDocPublishObject", courtDoc.PublishObject, couetDocDocInfo.publishObject, true);
+		law.common.selectOption("#iptcourtDocPublishThings", courtDoc.PublishThings, couetDocDocInfo.publishThings, true);// 登報-事項
+		$("#iptcourtDocPublishRemark").val(couetDocDocInfo.publishRemark !== undefined ? couetDocDocInfo.publishRemark : "");// 登報-備註
+		
+		$("#iptcourtDocToCourtDate").val(couetDocDocInfo.toCourtDate !== undefined ? couetDocDocInfo.toCourtDate : "");// 開庭日期
+		$("#iptcourtDocToCourtTime").val(couetDocDocInfo.toCourtTime !== undefined ? couetDocDocInfo.toCourtTime : "");// 開庭時間
+		$("#iptcourtDocToCourtType").val(couetDocDocInfo.toCourtType !== undefined ? couetDocDocInfo.toCourtType : "");// 期日種類
+		$("#iptcourtDocToCourtNotice").val(couetDocDocInfo.toCourtNotice !== undefined ? couetDocDocInfo.toCourtNotice : "");// 注意事項
+		if(couetDocDocInfo.toCourtAppointmentLetter !== undefined && couetDocDocInfo.toCourtAppointmentLetter === "1"){// 委任狀
+			$("#ckbcourtDocAppointmentLetter").prop("checked", true);
+		}
+		if(couetDocDocInfo.toCourtAppointmentLetterCriminal !== undefined && couetDocDocInfo.toCourtAppointmentLetterCriminal === "1"){// 委任狀(刑事)
+			$("#ckbcourtDocAppointmentLetterCriminal").prop("checked", true);
+		}
+		if(couetDocDocInfo.toCourtApplyBook !== undefined && couetDocDocInfo.toCourtApplyBook === "1"){// 申請書
+			$("#ckbcourtDocToCourtApplyBook").prop("checked", true);
+		}
+		if(couetDocDocInfo.toCourtDetail !== undefined && couetDocDocInfo.toCourtDetail === "1"){//帳務明細
+			$("#ckbcourtDocToCourtDetail").prop("checked", true);
+		}
+		if(couetDocDocInfo.toCourtOther !== undefined && couetDocDocInfo.toCourtOther === "1"){// 其他V
+			$("#ckbcourtDocToCourtOther").prop("checked", true);
+			$("#iptcourtDocToCourtOther").val(couetDocDocInfo.toCourtOtherContent !== undefined ? couetDocDocInfo.toCourtOtherContent : "");// 其他
+		}
+		
+		$("#iptcourtDocExecutionDate").val(couetDocDocInfo.executionDate !== undefined ? couetDocDocInfo.executionDate : "");// 導往執行日期
+		$("#iptcourtDocExecutionTime").val(couetDocDocInfo.executionTime !== undefined ? couetDocDocInfo.executionTime : "");// 導往執行時間
+		if(couetDocDocInfo.executionAppointmentLetter !== undefined && couetDocDocInfo.executionAppointmentLetter === "1"){//委任狀
+			$("#ckbcourtDocExecutionAppointmentLetter").prop("checked", true);
+		}
+		if(couetDocDocInfo.executionOther !== undefined && couetDocDocInfo.executionOther === "1"){// 其他V
+			$("#ckbcourtDocExecutionOther").prop("checked", true);
+			$("#iptcourtDocExecutionOther").val(couetDocDocInfo.executionOtherContent !== undefined ? couetDocDocInfo.executionOtherContent : "");// 其他
+		}
 	}
 }
 

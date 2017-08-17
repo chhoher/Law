@@ -110,6 +110,7 @@ law.addDoc.other = {
 			'gProdName' : law.addDoc.gprodName,
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
+			'otherdocsId' : ($("#iptotherDocId").val() !== "" ) ? $("#iptotherDocId").val() : null,
 			'receivedDate' : $("#iptotherReceivedDate").val(),
 			'bankDate' : ($("#iptotherBankDate").val() !== "")?$("#iptotherBankDate").val() : null,
 			'appointmentLetterCode' : ($("#iptotherAppointmentLetterCode").val() !== "")? $("#iptotherAppointmentLetterCode").val() : null,
@@ -148,6 +149,7 @@ law.addDoc.other = {
 						'gProdName' : law.addDoc.gprodName,
 						'debtID' : law.addDoc.ID,
 						'debtName' : law.addDoc.debtName,
+						'otherdocsId' : ($("#iptotherDocId" + i).val() !== "" ) ? $("#iptotherDocId" + i).val() : null,
 						'receivedDate' : $("#iptotherReceivedDate" + i ).val(),
 						'bankDate' : ($("#iptotherBankDate" + i ).val() !== "")? $("#iptotherBankDate" + i ).val() : null,
 						'appointmentLetterCode' : ($("#iptotherAppointmentLetterCode" + i).val() !== "")? $("#iptotherAppointmentLetterCode" + i).val() : null,
@@ -160,7 +162,8 @@ law.addDoc.other = {
 						'remark' : ($("#iptotherRemark" + i ).val() !== "")? $("#iptotherRemark" + i ).val() : null,
 						'disTypeOne' : $("#iptotherTypeOne" + i).find('option:selected').text(),
 						'disTypeTwo' : $("#iptotherTypeTwo" + i).find('option:selected').text(),
-						'disDocStatus' : $("#iptotherDocStatus" + i).find('option:selected').text()
+						'disDocStatus' : $("#iptotherDocStatus" + i).find('option:selected').text(),
+						'tempCount' : i
 				};
 				other.subItems.push(subItems);
 			}
@@ -226,6 +229,23 @@ law.addDoc.other = {
 		// 全部為空驗證通過
 		returnSaveOther = { isEmpty : false, isRegexp : false};
 		return returnSaveOther;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenOthersubtab : function (otherDocInfo){
+		var other = law.addDoc.other;
+		$("#iptotherBankDate").val(otherDocInfo.bankDate !== undefined ? otherDocInfo.bankDate : "");// 業主調件日
+		$("#iptotherReceivedDate").val(otherDocInfo.receivedDate);// 收文日期
+		$("#iptotherAppointmentLetterCode").val(otherDocInfo.appointmentLetterCode !== undefined ? otherDocInfo.appointmentLetterCode : "");// 委任狀編號
+		law.common.selectOption("#iptotherDocStatus", other.DocStatus, otherDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptotherTypeOne", other.TypeOne, otherDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptotherTypeTwo", other.TypeTwo, otherDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptotherBankName").append(BankNameSelectOption);
+		$("#iptotherBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		$("#iptotherReceiptType").val(otherDocInfo.receiptType !== undefined ? otherDocInfo.receiptType : "");// 收據種類
+		$("#iptotherReceiptAmount").val(otherDocInfo.receiptAmount !== 0 ? otherDocInfo.receiptAmount : "");// 收據金額
+		$("#iptotherCourtDate").val(otherDocInfo.courtDate !== undefined ? otherDocInfo.courtDate : "");// 法院製發日
+		$("#iptotherRemark").val(otherDocInfo.remark !== undefined ? otherDocInfo.remark : "");// 備註
 	}
 }
 	

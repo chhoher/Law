@@ -219,6 +219,7 @@ law.addDoc.debts = {
 			'gProdName' : law.addDoc.gprodName,
 			'debtID' : law.addDoc.ID,
 			'debtName' : law.addDoc.debtName,
+			'debtsId' : ($("#iptdebtsDocId").val() !== "" ) ? $("#iptdebtsDocId").val() : null,
 			'receivedDate' : $("#iptdebtsReceivedDate").val(),
 			'bankDate' : ($("#iptdebtsBankDate").val() !== "") ? $("#iptdebtsBankDate").val() : null,
 			'docStatus' : $("#iptdebtsDocStatus").find('option:selected').val(),
@@ -275,6 +276,7 @@ law.addDoc.debts = {
 							'gProdName' : law.addDoc.gprodName,
 							'debtID' : law.addDoc.ID,
 							'debtName' : law.addDoc.debtName,
+							'debtsId' : ($("#iptdebtsDocId" + i).val() !== "" ) ? $("#iptdebtsDocId" + i).val() : null,
 							'receivedDate' : $("#iptdebtsReceivedDate" + i ).val(),
 							'bankDate' : ($("#iptdebtsBankDate" + i ).val() !== "")? $("#iptdebtsBankDate" + i ).val() : null,
 							'docStatus' : $("#iptdebtsDocStatus" + i ).find('option:selected').val(),
@@ -292,7 +294,8 @@ law.addDoc.debts = {
 							'remark' : ($("#iptdebtsRemark" + i ).val() !== "") ? $("#iptdebtsRemark" + i ).val() : null,
 							'disTypeOne' : $("#iptdebtsTypeOne" + i).find('option:selected').text(),
 							'disTypeTwo' : $("#iptdebtsTypeTwo" + i).find('option:selected').text(),
-							'disDocStatus' : $("#iptdebtsDocStatus" + i).find('option:selected').text()
+							'disDocStatus' : $("#iptdebtsDocStatus" + i).find('option:selected').text(),
+							'tempCount' : i
 					};
 					debts.subItems.push(subItems);
 			}
@@ -382,6 +385,67 @@ law.addDoc.debts = {
 		// 全部為空驗證通過
 		returnSaveDebts = { isEmpty : false, isRegexp : false};
 		return returnSaveDebts;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenDebtssubtab : function (debtsDocInfo){
+		var debts = law.addDoc.debts;
+		$("#iptdebtsBankDate").val(debtsDocInfo.bankDate !== undefined ? debtsDocInfo.bankDate : "");// 業主調件日
+		$("#iptdebtsReceivedDate").val(debtsDocInfo.receivedDate);// 收文日期
+		law.common.selectOption("#iptdebtsDocStatus", debts.DocStatus, debtsDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptdebtsTypeOne", debts.TypeOne, debtsDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptdebtsTypeTwo", debts.TypeTwo, debtsDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptdebtsBankName").append(BankNameSelectOption);
+		$("#iptdebtsBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		
+		//動態跑出原債權人
+		if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-B1" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B2" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B3" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B4" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B5" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B6" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-B7" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CD" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.TSBOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.FEIOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.SKOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptdebtsBankName").find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.YTOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.FIOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.TSAOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.TAMCOOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.ORIXOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.MTOldBankName, debtsDocInfo.oldBankName, true);
+		}else if($("#iptdebtsBankName").find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptdebtsOldBankName", debts.UNOldBankName, debtsDocInfo.oldBankName, true);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptdebtsOldBankName" + " option").remove();
+			$("#iptdebtsOldBankName").append(selectNull);
+		}
+		
+		law.common.selectRelaOption("#iptdebtsRelationPerson_0", law.addDoc.rela, debtsDocInfo.relationPerson, true); // 相對人
+		
+		// TODO 要帶出多個
+		
+		law.common.selectOption("#iptdebtsCourtYearCourt", debts.CourtYearCourt, debtsDocInfo.courtYearCourt, true); // (換發債證)法院年字案股 法院
+		$("#iptdebtsCourtYearYear").val(debtsDocInfo.courtYearYear !== 0 ? debtsDocInfo.courtYearYear : "");// (換發債證)法院年字案股 年度
+		$("#iptdebtsCourtYearTxt").val(debtsDocInfo.courtYearTxt !== undefined ? debtsDocInfo.courtYearTxt : "");// (換發債證)法院年字案股 字
+		$("#iptdebtsCourtYearShare").val(debtsDocInfo.courtYearShare !== undefined ? debtsDocInfo.courtYearShare : "");// (換發債證)法院年字案股 股別
+		$("#iptdebtsCourtYearCaseId").val(debtsDocInfo.courtYearCaseId !== 0 ? debtsDocInfo.courtYearCaseId : "");// (換發債證)法院年字案股 案號
+		
+		$("#iptdebtsDate").val(debtsDocInfo.debtsDate !== undefined ? debtsDocInfo.debtsDate : "");// 債讓日
+		$("#iptdebtsRemark").val(debtsDocInfo.remark !== undefined ? debtsDocInfo.remark : "");// 備註
 	}
 }
 	
