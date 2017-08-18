@@ -47,7 +47,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocRelationPerson" + displaynum + "_" + courtDoc.courtDocRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocRelationPerson" + displaynum + "_" + courtDoc.courtDocRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocRelationPersonId" + displaynum + "_" + courtDoc.courtDocRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#iptcourtDocRelationPersonTr" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocRelationPerson" + displaynum + "_" + courtDoc.courtDocRelaNum[num], law.addDoc.rela, undefined, true);
@@ -71,7 +72,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocTranscriptsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocTranscriptsRelationPersonId" + displaynum + "_" + courtDoc.courtDocTranscriptsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocTranscripts" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -95,7 +97,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocCoOwnedTranscriptsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocCoOwnedTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocCoOwnedTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocCoOwnedTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocCoOwnedTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocCoOwnedTranscriptsRelationPersonId" + displaynum + "_" + courtDoc.courtDocCoOwnedTranscriptsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocCoOwnedTranscripts" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocCoOwnedTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocCoOwnedTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -119,7 +122,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocMortgageeTranscriptsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocMortgageeTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocMortgageeTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocMortgageeTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocMortgageeTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocMortgageeTranscriptsRelationPersonId" + displaynum + "_" + courtDoc.courtDocMortgageeTranscriptsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocMortgageeTranscripts" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocMortgageeTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocMortgageeTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -143,7 +147,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocLawTranscriptsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocLawTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocLawTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocLawTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocLawTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocLawTranscriptsRelationPersonId" + displaynum + "_" + courtDoc.courtDocLawTranscriptsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocLawTranscripts" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocLawTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocLawTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -167,31 +172,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocHeirTranscriptsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocHeirTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocHeirTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
-					
-		$("#trcourtDocHeirTranscripts" + displaynum ).append(tdString);
-		law.common.selectRelaOption("#iptcourtDocHeirTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocHeirTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
-	},
-	// 新增繼承人戶謄補正的相對人
-	addcourtDocHeirTranscriptsRelaTd : function(num){
-		var courtDoc = law.addDoc.courtDoc;
-		var tdString = ""; 
-		var displaynum = "";
-		
-		if(num !== 0 ){
-			displaynum = num - 1;	
-		}else{
-			displaynum = "";
-		}
-		
-		if(isNaN(courtDoc.courtDocHeirTranscriptsRelaNum[num])){
-			courtDoc.courtDocHeirTranscriptsRelaNum[num] = 0;
-		}
-		
-		law.addDoc.courtDoc.courtDocHeirTranscriptsRelaNum[num] ++ ;
-		
-		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocHeirTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocHeirTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocHeirTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocHeirTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocHeirTranscriptsRelationPersonId" + displaynum + "_" + courtDoc.courtDocHeirTranscriptsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocHeirTranscripts" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocHeirTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocHeirTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -215,7 +197,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocDirtTranscriptsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocDirtTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocDirtTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocDirtTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocDirtTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocDirtTranscriptsRelationPersonId" + displaynum + "_" + courtDoc.courtDocDirtTranscriptsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocDirtTranscripts" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocDirtTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocDirtTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -239,7 +222,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocBuiltTranscriptsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocBuiltTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocBuiltTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocBuiltTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocBuiltTranscriptsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocBuiltTranscriptsRelationPersonId" + displaynum + "_" + courtDoc.courtDocBuiltTranscriptsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocBuiltTranscripts" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocBuiltTranscriptsRelationPerson" + displaynum + "_" + courtDoc.courtDocBuiltTranscriptsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -263,7 +247,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocDistributionRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocDistributionRelationPerson" + displaynum + "_" + courtDoc.courtDocDistributionRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocDistributionRelationPerson" + displaynum + "_" + courtDoc.courtDocDistributionRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocDistributionRelationPersonId" + displaynum + "_" + courtDoc.courtDocDistributionRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocDistribution" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocDistributionRelationPerson" + displaynum + "_" + courtDoc.courtDocDistributionRelaNum[num], law.addDoc.rela, undefined, true);
@@ -287,7 +272,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocThingThirdRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocThingThirdRelationPerson" + displaynum + "_" + courtDoc.courtDocThingThirdRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocThingThirdRelationPerson" + displaynum + "_" + courtDoc.courtDocThingThirdRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocThingThirdRelationPersonId" + displaynum + "_" + courtDoc.courtDocThingThirdRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocThingThird" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocThingThirdRelationPerson" + displaynum + "_" + courtDoc.courtDocThingThirdRelaNum[num], law.addDoc.rela, undefined, true);
@@ -311,7 +297,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocThingDebtRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocThingDebtRelationPerson" + displaynum + "_" + courtDoc.courtDocThingDebtRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocThingDebtRelationPerson" + displaynum + "_" + courtDoc.courtDocThingDebtRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocThingDebtRelationPersonId" + displaynum + "_" + courtDoc.courtDocThingDebtRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocThingDebt" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocThingDebtRelationPerson" + displaynum + "_" + courtDoc.courtDocThingDebtRelaNum[num], law.addDoc.rela, undefined, true);
@@ -335,7 +322,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocCoOwnedRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocCoOwnedRelationPerson" + displaynum + "_" + courtDoc.courtDocCoOwnedRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocCoOwnedRelationPerson" + displaynum + "_" + courtDoc.courtDocCoOwnedRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocCoOwnedRelationPersonId" + displaynum + "_" + courtDoc.courtDocCoOwnedRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocCoOwned" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocCoOwnedRelationPerson" + displaynum + "_" + courtDoc.courtDocCoOwnedRelaNum[num], law.addDoc.rela, undefined, true);
@@ -359,7 +347,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocDebtDocRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocDebtDocRelationPerson" + displaynum + "_" + courtDoc.courtDocDebtDocRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocDebtDocRelationPerson" + displaynum + "_" + courtDoc.courtDocDebtDocRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocDebtDocRelationPersonId" + displaynum + "_" + courtDoc.courtDocDebtDocRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocDebtDoc" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocDebtDocRelationPerson" + displaynum + "_" + courtDoc.courtDocDebtDocRelaNum[num], law.addDoc.rela, undefined, true);
@@ -383,7 +372,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocDetailRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocDetailRelationPerson" + displaynum + "_" + courtDoc.courtDocDetailRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocDetailRelationPerson" + displaynum + "_" + courtDoc.courtDocDetailRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocDetailRelationPersonId" + displaynum + "_" + courtDoc.courtDocDetailRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocDetail" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocDetailRelationPerson" + displaynum + "_" + courtDoc.courtDocDetailRelaNum[num], law.addDoc.rela, undefined, true);
@@ -407,7 +397,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocFileRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocFileRelationPerson" + displaynum + "_" + courtDoc.courtDocFileRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocFileRelationPerson" + displaynum + "_" + courtDoc.courtDocFileRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocFileRelationPersonId" + displaynum + "_" + courtDoc.courtDocFileRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocFile" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocFileRelationPerson" + displaynum + "_" + courtDoc.courtDocFileRelaNum[num], law.addDoc.rela, undefined, true);
@@ -431,7 +422,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocDebtContinueRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocDebtContinueRelationPerson" + displaynum + "_" + courtDoc.courtDocDebtContinueRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocDebtContinueRelationPerson" + displaynum + "_" + courtDoc.courtDocDebtContinueRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocDebtContinueRelationPersonId" + displaynum + "_" + courtDoc.courtDocDebtContinueRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocDebtContinue" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocDebtContinueRelationPerson" + displaynum + "_" + courtDoc.courtDocDebtContinueRelaNum[num], law.addDoc.rela, undefined, true);
@@ -455,7 +447,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocCashierCheckRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocCashierCheckRelationPerson" + displaynum + "_" + courtDoc.courtDocCashierCheckRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocCashierCheckRelationPerson" + displaynum + "_" + courtDoc.courtDocCashierCheckRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocCashierCheckRelationPersonId" + displaynum + "_" + courtDoc.courtDocCashierCheckRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocCashierCheck" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocCashierCheckRelationPerson" + displaynum + "_" + courtDoc.courtDocCashierCheckRelaNum[num], law.addDoc.rela, undefined, true);
@@ -479,7 +472,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocRecoveryRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocRecoveryRelationPerson" + displaynum + "_" + courtDoc.courtDocRecoveryRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocRecoveryRelationPerson" + displaynum + "_" + courtDoc.courtDocRecoveryRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocRecoveryRelationPersonId" + displaynum + "_" + courtDoc.courtDocRecoveryRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocRecovery" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocRecoveryRelationPerson" + displaynum + "_" + courtDoc.courtDocRecoveryRelaNum[num], law.addDoc.rela, undefined, true);
@@ -503,7 +497,8 @@ law.addDoc.courtDoc = {
 		law.addDoc.courtDoc.courtDocOtherRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcourtDocOtherRelationPerson" + displaynum + "_" + courtDoc.courtDocOtherRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcourtDocOtherRelationPerson" + displaynum + "_" + courtDoc.courtDocOtherRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcourtDocOtherRelationPersonId" + displaynum + "_" + courtDoc.courtDocOtherRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#trcourtDocOther" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcourtDocOtherRelationPerson" + displaynum + "_" + courtDoc.courtDocOtherRelaNum[num], law.addDoc.rela, undefined, true);
@@ -1148,6 +1143,7 @@ law.addDoc.courtDoc = {
 		var tabTemplate = "<li id='licourtDoctab_" + courtDocsubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
+					"<tr style='display:none'><td><input id='iptcourtDocDocType" + courtDocsubtabcount + "'></input><input id='iptcourtDocDocId" + courtDocsubtabcount + "'></input></td></tr>" +
 	           	 	"<tr>" +
 						"<td><label>共用案號</label></td>" +
 						"<td><input id='iptcourtDocShareCaseId" + courtDocsubtabcount + "_0'></input></td>" +
@@ -1184,7 +1180,8 @@ law.addDoc.courtDoc = {
 				"<table>" +
 					"<tr id='iptcourtDocRelationPersonTr" + courtDocsubtabcount + "'>" +
 						"<td><label style='color:red'>*相對人</label></td>" +
-						"<td><select id='iptcourtDocRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+						"<td><select id='iptcourtDocRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+								"<input id='iptcourtDocRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 						"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 					"</tr>" +
 				"</table>" +
@@ -1361,7 +1358,8 @@ law.addDoc.courtDoc = {
 		           	 		"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocTranscriptsRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocTranscriptsRelaTd(" + ( courtDocsubtabcount + 1 ) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocCoOwnedTranscripts" + courtDocsubtabcount + "'>" +
@@ -1371,7 +1369,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocCoOwnedTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocCoOwnedTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocCoOwnedTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocCoOwnedTranscriptsRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocCoOwnedTranscriptsRelaTd(" + (courtDocsubtabcount + 1 ) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocMortgageeTranscripts" + courtDocsubtabcount + "'>" +
@@ -1381,7 +1380,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocMortgageeTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocMortgageeTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocMortgageeTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocMortgageeTranscriptsRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocMortgageeTranscriptsRelaTd(" + (courtDocsubtabcount +1 ) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocLawTranscripts" + courtDocsubtabcount + "'>" +
@@ -1391,7 +1391,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocLawTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocLawTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocLawTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocLawTranscriptsRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocLawTranscriptsRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocHeirTranscripts" + courtDocsubtabcount + "'>" +
@@ -1401,7 +1402,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocHeirTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocHeirTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocHeirTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocHeirTranscriptsRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocHeirTranscriptsRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		           	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDirtTranscripts" + courtDocsubtabcount + "'>" +
@@ -1411,7 +1413,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDirtTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocDirtTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocDirtTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocDirtTranscriptsRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocDirtTranscriptsRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocBuiltTranscripts" + courtDocsubtabcount + "'>" +
@@ -1421,7 +1424,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocBuiltTranscriptsRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocBuiltTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocBuiltTranscriptsRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocBuiltTranscriptsRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocBuiltTranscriptsRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDistribution" + courtDocsubtabcount + "'>" +
@@ -1431,7 +1435,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDistributionRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocDistributionRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocDistributionRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocDistributionRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocDistributionRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocThingThird" + courtDocsubtabcount + "'>" +
@@ -1441,7 +1446,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocThingThirdRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocThingThirdRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocThingThirdRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocThingThirdRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocThingThirdRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocThingDebt" + courtDocsubtabcount + "'>" +
@@ -1451,7 +1457,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocThingDebtRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocThingDebtRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocThingDebtRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocThingDebtRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocThingDebtRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocCoOwned" + courtDocsubtabcount + "'>" +
@@ -1461,7 +1468,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocCoOwnedRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocCoOwnedRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocCoOwnedRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocCoOwnedRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocCoOwnedRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDebtDoc" + courtDocsubtabcount + "'>" +
@@ -1471,7 +1479,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDebtDocRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocDebtDocRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocDebtDocRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocDebtDocRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocDebtDocRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDetail" + courtDocsubtabcount + "'>" +
@@ -1481,7 +1490,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDetailRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocDetailRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocDetailRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocDetailRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocDetailRelaTd(" + (courtDocsubtabcount + 1 ) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocFile" + courtDocsubtabcount + "'>" +
@@ -1491,7 +1501,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocFileRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocFileRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocFileRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocFileRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocFileRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocDebtContinue" + courtDocsubtabcount + "'>" +
@@ -1501,7 +1512,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocDebtContinueRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocDebtContinueRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocDebtContinueRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocDebtContinueRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocDebtContinueRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		        	 	"<tr id='trcourtDocCashierCheck" + courtDocsubtabcount + "'>" +
@@ -1511,7 +1523,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocCashierCheckRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocCashierCheckRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocCashierCheckRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocCashierCheckRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocCashierCheckRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		           	 "</table>" +
@@ -1521,7 +1534,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocRecoveryRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocRecoveryRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocRecoveryRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocRecoveryRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocRecoveryRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		           	 "</table>" +
@@ -1533,7 +1547,8 @@ law.addDoc.courtDoc = {
 		   	 				"<td><label>備註</label></td>" +
 							"<td><input id='iptcourtDocOtherRemark" + courtDocsubtabcount + "' ></input></td>" +
 							"<td><label>相對人</label></td>" +
-							"<td><select id='iptcourtDocOtherRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+							"<td><select id='iptcourtDocOtherRelationPerson" + courtDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+									"<input id='iptcourtDocOtherRelationPersonId" + courtDocsubtabcount + "_0' style='display:none'></input></td>" +
 							"<td><img src='../images/plus.png' onclick='law.addDoc.courtDoc.addcourtDocOtherRelaTd(" + (courtDocsubtabcount + 1) + ")'></td>" +
 		        	 	"</tr>" +
 		           	 "</table>" +
@@ -1887,8 +1902,12 @@ law.addDoc.courtDoc = {
 		}
 		
 		for( ; i <= law.addDoc.courtDoc.courtDocRelaNum[0]; i++){
+			var rela_ID = $("#iptcourtDocRelationPerson_" + i).find('option:selected').val().split(",");
 			relainfo = { 
-				"ID" : $("#iptcourtDocRelationPerson_" + i).find('option:selected').val(),
+				"courtDocRelaId" : ($("#iptcourtDocRelationPersonId_" + i).val() != "" ) ? $("#iptcourtDocRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptcourtDocRelationPerson_" + i).find('option:selected').text()
 				};
 			returncourtDocRelas_0.push(relainfo);
@@ -1896,19 +1915,27 @@ law.addDoc.courtDoc = {
 		
 		i = 0;
 		for( ; i <= law.addDoc.courtDoc.courtDocTranscriptsRelaNum[0]; i++){
-			relainfo = { 
-				"ID" : $("#iptcourtDocTranscriptsRelationPerson_" + i).find('option:selected').val(),
+			var rela_ID = $("#iptcourtDocTranscriptsRelationPerson_" + i).find('option:selected').val().split(",");
+			relainfo = {
+				"courtDocTranscriptsRelaId" : ($("#iptcourtDocTranscriptsRelationPersonId_" + i).val() != "" ) ? $("#iptcourtDocTranscriptsRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptcourtDocTranscriptsRelationPerson_" + i).find('option:selected').text()
-				};
+			};
 			returncourtDocTranscriptsRelas_0.push(relainfo);
 		}
 		
 		i = 0;
 		for( ; i <= law.addDoc.courtDoc.courtDocCoOwnedTranscriptsRelaNum[0]; i++){
-			relainfo = { 
-				"ID" : $("#iptcourtDocCoOwnedTranscriptsRelationPerson_" + i).find('option:selected').val(),
+			var rela_ID = $("#iptcourtDocCoOwnedTranscriptsRelationPerson_" + i).find('option:selected').val().split(",");
+			relainfo = {
+				"courtDocCoOwnedTranscriptsRelaId" : ($("#iptcourtDocCoOwnedTranscriptsRelationPersonId_" + i).val() != "" ) ? $("#iptcourtDocCoOwnedTranscriptsRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptcourtDocCoOwnedTranscriptsRelationPerson_" + i).find('option:selected').text()
-				};
+			};
 			returncourtDocCoOwnedTranscriptsRelas_0.push(relainfo);
 		}
 		

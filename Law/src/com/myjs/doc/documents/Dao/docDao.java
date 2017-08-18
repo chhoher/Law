@@ -382,12 +382,28 @@ public interface docDao {
 	public LDocCashiercheck findCashierCheckById(String docId) throws Exception;
 	
 	/**
+	 * add By Jia 2017-08-18 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCashiercheckRela> findCashierCheckRelaById(String docId) throws Exception;
+	
+	/**
 	 * add By Jia 2017-08-17 用id查詢文件
 	 * @param docId
 	 * @return
 	 * @throws Exception
 	 */
 	public LDocDebts findDebtsById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-18 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocDebtsRela> findDebtsRelaById(String docId) throws Exception;
 	
 	/**
 	 * add By Jia 2017-08-17 用id查詢文件
@@ -396,6 +412,14 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public LDocClaimsdocs findClaimDocsById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-18 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocClaimsdocsRela> findClaimDocsRelaById(String docId) throws Exception;
 	
 	/**
 	 * add By Jia 2017-08-17 用id查詢文件

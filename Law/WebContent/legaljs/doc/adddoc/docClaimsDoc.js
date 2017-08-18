@@ -30,7 +30,8 @@ law.addDoc.claimsDoc = {
 		law.addDoc.claimsDoc.claimsDocRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptclaimsDocRelationPersonId" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'  style='display:none'></input></td>";
 					
 		$("#iptclaimsDocRelationPersonTr" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num], law.addDoc.rela, undefined, true);
@@ -45,6 +46,7 @@ law.addDoc.claimsDoc = {
 		var tabTemplate = "<li id='liclaimsDoctab_" + claimsDocsubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
+           	 	"<tr style='display:none'><td><input id='iptclaimsDocDocType" + claimsDocsubtabcount + "'></input><input id='iptclaimsDocDocId" + claimsDocsubtabcount + "'></input></td></tr>" +
            	 	"<tr>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptclaimsDocBankDate" + claimsDocsubtabcount + "'></input></td>" +
@@ -67,7 +69,8 @@ law.addDoc.claimsDoc = {
 			"<table>" +
 				"<tr id='iptclaimsDocRelationPersonTr" + claimsDocsubtabcount + "'>" +
 					"<td><label style='color:red'>*相對人</label></td>" +
-					"<td><select id='iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+							"<input id='iptclaimsDocRelationPersonId" + claimsDocsubtabcount + "_0'  style='display:none'></input></td>" +
 					"<td><img src='../images/plus.png' onclick='law.addDoc.claimsDoc.addclaimsRelaTd(" + (claimsDocsubtabcount + 1) + ")'></td>" +
 				"</tr>" +
 			"</table>" +
@@ -190,8 +193,12 @@ law.addDoc.claimsDoc = {
 		}
 			
 		for( ; i <= law.addDoc.claimsDoc.claimsDocRelaNum[0]; i++){
+			var rela_ID = $("#iptclaimsDocRelationPerson_" + i).find('option:selected').val().split(",");
 			relainfo = { 
-				"ID" : $("#iptclaimsDocRelationPerson_" + i).find('option:selected').val(),
+				"claimsdocsRelaId" : ($("#iptclaimsDocRelationPersonId_" + i).val() != "" ) ? $("#iptclaimsDocRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptclaimsDocRelationPerson_" + i).find('option:selected').text()
 				};
 			returnClaimsDocRelas_0.push(relainfo);
@@ -243,8 +250,13 @@ law.addDoc.claimsDoc = {
 				displayNum = i + 1;
 				j = 0;
 				for( ; j <= law.addDoc.claimsDoc.claimsDocRelaNum[displayNum]; j++){
+					var rela_ID = $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').val().split(",");
+					
 					relainfo = { 
-						"ID" : $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').val(),
+						"claimsdocsRelaId" : ($("#iptclaimsDocRelationPersonId" + i + "_" + j).val() != "" ) ? $("#iptclaimsDocRelationPersonId" + i + "_" + j).val() : null,
+						"num" : j,
+						"ID" : rela_ID[0],
+						"P_ID" : rela_ID[1],
 						"name"	: $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').text()
 						};
 					returnClaimsDocRelas_0.push(relainfo);
@@ -351,6 +363,7 @@ law.addDoc.claimsDoc = {
 	},
 	// 從文管系統進入 初始化頁籤
 	initopenClaimsdocsubtab : function (claimsdocDocInfo){
+		var i = 0;
 		var claimsDoc = law.addDoc.claimsDoc;
 		$("#iptclaimsDocBankDate").val(claimsdocDocInfo.bankDate !== undefined ? claimsdocDocInfo.bankDate : "");// 業主調件日
 		$("#iptclaimsDocReceivedDate").val(claimsdocDocInfo.receivedDate);// 收文日期
@@ -397,9 +410,14 @@ law.addDoc.claimsDoc = {
 			$("#iptclaimsDocOldBankName").append(selectNull);
 		}
 		
-		law.common.selectRelaOption("#iptclaimsDocRelationPerson_0", law.addDoc.rela, claimsdocDocInfo.relationPerson, true); // 相對人
-		
-		// TODO 要帶出多個
+		for(;i < claimsdocDocInfo.claimsRelationPerson.length; i++){
+			var selectVal = claimsdocDocInfo.claimsRelationPerson[i].ID + "," + claimsdocDocInfo.claimsRelationPerson[i].P_ID;
+			if(i !== 0){
+				law.addDoc.claimsDoc.addclaimsRelaTd(0);
+			}
+			law.common.selectRelaOption("#iptclaimsDocRelationPerson_" + i, law.addDoc.rela, selectVal, true); // 相對人
+			$("#iptclaimsDocRelationPersonId_" + i).val(claimsdocDocInfo.claimsRelationPerson[i].claimsdocsRelaId);
+		}
 		
 		$("#iptclaimsDocQuota").val(claimsdocDocInfo.quota !== 0 ? claimsdocDocInfo.quota : "");// 額度
 		$("#iptclaimsDocInterestRate").val(claimsdocDocInfo.interestRate !== 0 ? claimsdocDocInfo.interestRate : "");// 利率

@@ -259,9 +259,8 @@ $(function() {
 						if (response.success) {
 							var json = response.responseDocInfo;
 							docsdatatable.fnClearTable();
-							if (json.length !== 0) {
+							if (json.length !== undefined && json.length !== 0) {
 								var i = 0;
-								console.log(json.length);
 								//$("#btnsaveaddDoc").button( "disable" );
 								docsdatatable.fnAddData(json);
 								for(;i < json.length; i ++){
@@ -285,25 +284,49 @@ $(function() {
 										if(json[i].tempCount === undefined){
 											$("#iptcashierCheckDocType").val(json[i].docType);
 											$("#iptcashierCheckDocId").val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].cashiercheckRelationPerson.length ; j++){
+												$("#iptcashierCheckRelationPersonId_" + j).val(json[i].cashiercheckRelationPerson[j].cashiercheckRelaId);
+											}
 										}else{
 											$("#iptcashierCheckDocType" + json[i].tempCount).val(json[i].docType);
 											$("#iptcashierCheckDocId" + json[i].tempCount).val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].cashiercheckRelationPerson.length ; j++){
+												$("#iptcashierCheckRelationPersonId" + json[i].tempCount + "_" + j).val(json[i].cashiercheckRelationPerson[j].cashiercheckRelaId);
+											}
 										}
 									}else if(json[i].docType === "D"){
 										if(json[i].tempCount === undefined){
 											$("#iptdebtsDocType").val(json[i].docType);
 											$("#iptdebtsDocId").val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].debtsRelationPerson.length ; j++){
+												$("#iptdebtsRelationPersonId_" + j).val(json[i].debtsRelationPerson[j].debtsRelaId);
+											}
 										}else{
 											$("#iptdebtsDocType" + json[i].tempCount).val(json[i].docType);
 											$("#iptdebtsDocId" + json[i].tempCount).val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].debtsRelationPerson.length ; j++){
+												$("#iptdebtsRelationPersonId" + json[i].tempCount + "_" + j).val(json[i].debtsRelationPerson[j].debtsRelaId);
+											}
 										}
 									}else if(json[i].docType === "E"){
 										if(json[i].tempCount === undefined){
 											$("#iptclaimsDocDocType").val(json[i].docType);
 											$("#iptclaimsDocDocId").val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].claimsRelationPerson.length ; j++){
+												$("#iptclaimsDocRelationPersonId_" + j).val(json[i].claimsRelationPerson[j].claimsdocsRelaId);
+											}
 										}else{
 											$("#iptclaimsDocDocType" + json[i].tempCount).val(json[i].docType);
 											$("#iptclaimsDocDocId" + json[i].tempCount).val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].claimsRelationPerson.length ; j++){
+												$("#iptclaimsDocRelationPersonId" + json[i].tempCount + "_" + j).val(json[i].claimsRelationPerson[j].claimsdocsRelaId);
+											}
 										}
 									}else if(json[i].docType === "F"){
 										if(json[i].tempCount === undefined){

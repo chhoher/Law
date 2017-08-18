@@ -18,7 +18,8 @@ law.addDoc.other = {
 		var tabTemplate = "<li id='liothertab_" + othersubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
-           	 	"<tr>" +
+           	 	"<tr style='display:none'><td><input id='iptotherDocType" + othersubtabcount + "'></input><input id='iptotherDocId" + othersubtabcount + "'></input></td></tr>" +
+				"<tr>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptotherBankDate" + othersubtabcount + "'></input></td>" +
 					"<td><label style='color:red'>*收文日期</label></td>" +

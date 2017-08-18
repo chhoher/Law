@@ -29,7 +29,8 @@ law.addDoc.cashierCheck = {
 		law.addDoc.cashierCheck.cashierCheckRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcashierCheckRelationPerson" + displaynum + "_" + cashierCheck.cashierCheckRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcashierCheckRelationPerson" + displaynum + "_" + cashierCheck.cashierCheckRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcashierCheckRelationPersonId" + displaynum + "_" + cashierCheck.cashierCheckRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#iptcashierCheckRelationPersonTr" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcashierCheckRelationPerson" + displaynum + "_" + cashierCheck.cashierCheckRelaNum[num], law.addDoc.rela, undefined, true);
@@ -44,6 +45,7 @@ law.addDoc.cashierCheck = {
 		var tabTemplate = "<li id='licashierChecktab_" + cashierChecksubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
+           	 	"<tr style='display:none'><td><input id='iptcashierCheckDocType" + cashierChecksubtabcount + "'></input><input id='iptcashierCheckDocId" + cashierChecksubtabcount + "'></input></td></tr>" +
            	 	"<tr>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptcashierCheckBankDate" + cashierChecksubtabcount + "'></input></td>" +
@@ -66,7 +68,8 @@ law.addDoc.cashierCheck = {
 			"<table>" +
 				"<tr id='iptcashierCheckRelationPersonTr" + cashierChecksubtabcount + "'>" +
 					"<td><label style='color:red'>*相對人</label></td>" +
-					"<td><select id='iptcashierCheckRelationPerson" + cashierChecksubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptcashierCheckRelationPerson" + cashierChecksubtabcount + "_0'><option value=''>請選擇</option></select>" +
+							"<input id='iptcashierCheckRelationPersonId" + cashierChecksubtabcount + "_0' style='display:none'></input></td>" +
 					"<td><img src='../images/plus.png' onclick='law.addDoc.cashierCheck.addcashierCheckRelaTd(" + (cashierChecksubtabcount + 1) + ")'></td>" +
 				"</tr>" +
 			"</table>" +
@@ -194,8 +197,12 @@ law.addDoc.cashierCheck = {
 		}
 			
 		for( ; i <= law.addDoc.cashierCheck.cashierCheckRelaNum[0]; i++){
+			var rela_ID = $("#iptcashierCheckRelationPerson_" + i).find('option:selected').val().split(",");
 			relainfo = { 
-				"ID" : $("#iptcashierCheckRelationPerson_" + i).find('option:selected').val(),
+				"cashiercheckRelaId" : ($("#iptcashierCheckRelationPersonId_" + i).val() != "" ) ? $("#iptcashierCheckRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptcashierCheckRelationPerson_" + i).find('option:selected').text()
 				};
 			returncashierCheckRelas_0.push(relainfo);
@@ -247,10 +254,14 @@ law.addDoc.cashierCheck = {
 				displayNum = i + 1;
 				j = 0;
 				for( ; j <= law.addDoc.cashierCheck.cashierCheckRelaNum[displayNum]; j++){
+					var rela_ID = $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').val().split(",");
 					relainfo = { 
-						"ID" : $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').val(),
+						"cashiercheckRelaId" : ($("#iptcashierCheckRelationPersonId" + i + "_" + j).val() != "" ) ? $("#iptcashierCheckRelationPersonId" + i + "_" + j).val() : null,
+						"num" : j,
+						"ID" : rela_ID[0],
+						"P_ID" : rela_ID[1],
 						"name"	: $("#iptcashierCheckRelationPerson" + i + "_" + j).find('option:selected').text()
-						};
+					};
 					returncashierCheckRelas_0.push(relainfo);
 				}
 				
@@ -357,6 +368,7 @@ law.addDoc.cashierCheck = {
 	// 從文管系統進入 初始化頁籤
 	initopenCashierChecksubtab : function (CashierCheckDocInfo){
 		var cashierCheck = law.addDoc.cashierCheck;
+		var i = 0;
 		$("#iptcashierCheckBankDate").val(CashierCheckDocInfo.bankDate !== undefined ? CashierCheckDocInfo.bankDate : "");// 業主調件日
 		$("#iptcashierCheckReceivedDate").val(CashierCheckDocInfo.receivedDate);// 收文日期
 		law.common.selectOption("#iptcashierCheckDocStatus", cashierCheck.DocStatus, CashierCheckDocInfo.docStatus, true);// 文件狀態
@@ -402,9 +414,14 @@ law.addDoc.cashierCheck = {
 			$("#iptcashierCheckOldBankName").append(selectNull);
 		}
 		
-		law.common.selectRelaOption("#iptcashierCheckRelationPerson_0", law.addDoc.rela, CashierCheckDocInfo.relationPerson, true); // 相對人
-		
-		// TODO 要帶出多個
+		for(;i < CashierCheckDocInfo.cashiercheckRelationPerson.length; i++){
+			var selectVal = CashierCheckDocInfo.cashiercheckRelationPerson[i].ID + "," + CashierCheckDocInfo.cashiercheckRelationPerson[i].P_ID;
+			if(i !== 0){
+				law.addDoc.cashierCheck.addcashierCheckRelaTd(0);
+			}
+			law.common.selectRelaOption("#iptcashierCheckRelationPerson_" + i, law.addDoc.rela, selectVal, true); // 相對人
+			$("#iptcashierCheckRelationPersonId_" + i).val(CashierCheckDocInfo.cashiercheckRelationPerson[i].cashiercheckRelaId);
+		}
 		
 		$("#iptcashierCheckStartDate").val(CashierCheckDocInfo.startDate !== undefined ? CashierCheckDocInfo.startDate : "");// 本票發票日
 		$("#iptcashierCheckAmount").val(CashierCheckDocInfo.amount !== 0 ? CashierCheckDocInfo.amount : "");// 本票金額

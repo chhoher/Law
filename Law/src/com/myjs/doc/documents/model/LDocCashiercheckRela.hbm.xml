@@ -17,5 +17,11 @@
 		<property name="cashiercheckId" type="int">
 			<column name="cashiercheck_id" />
 		</property>
+		<property name="num" type="int">
+			<column name="num" />
+		</property>
+		<property name="P_ID" type="int">
+			<column name="P_ID" />
+		</property>
 	</class>
 </hibernate-mapping>

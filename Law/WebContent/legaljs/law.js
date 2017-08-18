@@ -133,17 +133,17 @@
 			seloption = "";
 		$(id + " option").remove();
 		$.each(docArray,function(i){
-			seloption += '<option value="'+docArray[i].ID+'">'+docArray[i].Name+'</option>'; 
+			seloption += '<option value="'+docArray[i].ID + ',' + docArray[i].P_ID +'">'+docArray[i].Name+'</option>'; 
 		});
 		$(id).append(seloption);
 		if(selectId !== undefined){
-			$(id + ' option[value=' + selectId + ']').attr('selected', 'selected');
+			$(id + ' option[value="' + selectId + '"]').attr('selected', 'selected');
 		}
 		//多加第一項請選擇
 		if(hasNone){
 			var noneSelect = "<option value=''>請選擇</option>"; 
 			$(id).prepend(noneSelect);
-			if(selectId === undefined){
+			if(selectId === undefined || selectId === ",0"){
 				$(id)[0].selectedIndex = 0;
 			}
 		}
