@@ -344,10 +344,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocCashiercheckRela transientInstance) throws Exception {
 		log.debug("saving LDocCashiercheckRela instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -364,10 +362,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocDebtsRela transientInstance) throws Exception {
 		log.debug("saving LDocDebtsRela instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
 			flag=true;
-		}
 		log.debug("save successful");
 		return flag;
 	}
@@ -384,10 +380,8 @@ public class docDaoImpl extends DaoUtil implements docDao{
 	public boolean save(LDocClaimsdocsRela transientInstance) throws Exception {
 		log.debug("saving LDocClaimsdocsRela instance");
 		boolean flag = false;
-		Serializable lizable=super.getHibernateTemplate().save(transientInstance);
-		if(null!=lizable||!"".equals(lizable)){
-			flag=true;
-		}
+		super.getHibernateTemplate().saveOrUpdate(transientInstance);
+		flag=true;
 		log.debug("save successful");
 		return flag;
 	}
@@ -703,6 +697,16 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		return query;
 	}
 	
+	public List<LDocCashiercheckRela> findCashierCheckRelaById(String docId) throws Exception{
+		log.debug("findCashierCheckRelaById start");
+		StringBuffer queryString = new StringBuffer("select * from L_DOC_CASHIERCHECK_RELA where cashiercheck_id = " + docId);
+		log.debug("queryString = {}", queryString);
+		
+		@SuppressWarnings("unchecked")
+		List<LDocCashiercheckRela> LDocCashiercheckRela = jdbcTemplate.query(queryString.toString(), new LDocCashiercheckRelaMapper());
+		return LDocCashiercheckRela;
+	}
+	
 	public LDocDebts findDebtsById(String docId) throws Exception{
 		log.debug("findDebtsById start");
 		LDocDebts query = null;
@@ -716,6 +720,16 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		return query;
 	}
 	
+	public List<LDocDebtsRela> findDebtsRelaById(String docId) throws Exception{
+		log.debug("findDebtsRelaById start");
+		StringBuffer queryString = new StringBuffer("select * from L_DOC_DEBTS_RELA where debts_id = " + docId);
+		log.debug("queryString = {}", queryString);
+		
+		@SuppressWarnings("unchecked")
+		List<LDocDebtsRela> LDocDebtsRela = jdbcTemplate.query(queryString.toString(), new LDocDebtsRelaMapper());
+		return LDocDebtsRela;
+	}
+	
 	public LDocClaimsdocs findClaimDocsById(String docId) throws Exception{
 		log.debug("findClaimDocsById start");
 		LDocClaimsdocs query = null;
@@ -727,6 +741,16 @@ public class docDaoImpl extends DaoUtil implements docDao{
 		}
 		log.debug("findClaimDocsById end");
 		return query;
+	}
+	
+	public List<LDocClaimsdocsRela> findClaimDocsRelaById(String docId) throws Exception{
+		log.debug("findClaimDocsRelaById start");
+		StringBuffer queryString = new StringBuffer("select * from L_DOC_CLAIMSDOC_RELA where claimsdocs_id = " + docId);
+		log.debug("queryString = {}", queryString);
+		
+		@SuppressWarnings("unchecked")
+		List<LDocClaimsdocsRela> LDocClaimsdocsRela = jdbcTemplate.query(queryString.toString(), new LDocClaimsdocsRelaMapper());
+		return LDocClaimsdocsRela;
 	}
 	
 	public LDocFiledocs findFileById(String docId) throws Exception{
@@ -924,6 +948,48 @@ public class docDaoImpl extends DaoUtil implements docDao{
 			LSysVariable.setVariableId(rs.getString("Bank_ID") == null ? "" : rs.getString("Bank_ID"));
 			LSysVariable.setVariableName(rs.getString("Bank_name") == null ? "" : rs.getString("Bank_name"));
 			return LSysVariable;
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	class LDocClaimsdocsRelaMapper implements RowMapper{
+		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
+			LDocClaimsdocsRela LDocClaimsdocsRela = new LDocClaimsdocsRela();
+			LDocClaimsdocsRela.setClaimsdocsRelaId(rs.getString("claimsdocs_rela_id") == null ? "" : rs.getString("claimsdocs_rela_id"));
+			LDocClaimsdocsRela.setID(rs.getString("ID") == null ? "" : rs.getString("ID"));
+			LDocClaimsdocsRela.setP_ID(rs.getInt("P_ID"));
+			LDocClaimsdocsRela.setNum(rs.getInt("num"));
+			LDocClaimsdocsRela.setClaimsdocsId(rs.getInt("claimsdocs_id"));
+			LDocClaimsdocsRela.setName(rs.getString("name") == null ? "" : rs.getString("name"));
+			return LDocClaimsdocsRela;
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	class LDocDebtsRelaMapper implements RowMapper{
+		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
+			LDocDebtsRela LDocDebtsRela = new LDocDebtsRela();
+			LDocDebtsRela.setDebtsRelaId(rs.getString("debts_rela_id") == null ? "" : rs.getString("debts_rela_id"));
+			LDocDebtsRela.setID(rs.getString("ID") == null ? "" : rs.getString("ID"));
+			LDocDebtsRela.setP_ID(rs.getInt("P_ID"));
+			LDocDebtsRela.setNum(rs.getInt("num"));
+			LDocDebtsRela.setDebtsId(rs.getInt("debts_id"));
+			LDocDebtsRela.setName(rs.getString("name") == null ? "" : rs.getString("name"));
+			return LDocDebtsRela;
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	class LDocCashiercheckRelaMapper implements RowMapper{
+		public Object mapRow(ResultSet rs, int arg1) throws SQLException{
+			LDocCashiercheckRela LDocCashiercheckRela = new LDocCashiercheckRela();
+			LDocCashiercheckRela.setCashiercheckRelaId(rs.getString("cashiercheck_rela_id") == null ? "" : rs.getString("cashiercheck_rela_id"));
+			LDocCashiercheckRela.setID(rs.getString("ID") == null ? "" : rs.getString("ID"));
+			LDocCashiercheckRela.setP_ID(rs.getInt("P_ID"));
+			LDocCashiercheckRela.setNum(rs.getInt("num"));
+			LDocCashiercheckRela.setCashiercheckId(rs.getInt("cashiercheck_id"));
+			LDocCashiercheckRela.setName(rs.getString("name") == null ? "" : rs.getString("name"));
+			return LDocCashiercheckRela;
 		}
 	}
 }

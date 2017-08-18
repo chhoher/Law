@@ -28,10 +28,13 @@ import com.myjs.doc.borrow.model.LDocBorrowList;
 import com.myjs.doc.documents.Dao.docDao;
 import com.myjs.doc.borrow.Dao.docBorrowDao;
 import com.myjs.doc.documents.model.LDocCashiercheck;
+import com.myjs.doc.documents.model.LDocCashiercheckRela;
 import com.myjs.doc.documents.model.LDocCentitlement;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
+import com.myjs.doc.documents.model.LDocClaimsdocsRela;
 import com.myjs.doc.documents.model.LDocCourtDoc;
 import com.myjs.doc.documents.model.LDocDebts;
+import com.myjs.doc.documents.model.LDocDebtsRela;
 import com.myjs.doc.documents.model.LDocFiledocs;
 import com.myjs.doc.documents.model.LDocImgfileTemp;
 import com.myjs.doc.documents.model.LDocInfo;
@@ -483,6 +486,7 @@ public class docServiceImpl implements docService{
 				LDocInfo.setRowNum("0");
 				LDocInfo.setDocType("B");
 				LDocInfo.setDocId(courtDocItems.get(i).getCourtDocId() + "");
+				LDocInfo.setTempCount(courtDocItems.get(i).getTempCount());
 				returnDocInfo.add(LDocInfo);
 				
 			}
@@ -495,45 +499,46 @@ public class docServiceImpl implements docService{
 
 		if(cashiercheckItems != null){
 			for(int i = 0;i < cashiercheckItems.size();i ++){
+				LDocInfo LDocInfo = new LDocInfo();
 				cashiercheckItems.get(i).setInfoId(docInfoId);
 				cashiercheckItems.get(i).setCreateDatetime(nowDatetime);
 				cashiercheckItems.get(i).setCreateUserId(loginMemdb.getMemno());
 				cashiercheckItems.get(i).setCaseId(case_id);
 				
 				docDao.save(cashiercheckItems.get(i));
-				
+
 				for(int j = 0;j < cashiercheckItems.get(i).getCashiercheckRelationPerson().size();j ++){
-					
-					LDocInfo LDocInfo = new LDocInfo();
-					
 					cashiercheckItems.get(i).getCashiercheckRelationPerson().get(j).setCashiercheckId(cashiercheckItems.get(i).getCashiercheckId());
 					docDao.save(cashiercheckItems.get(i).getCashiercheckRelationPerson().get(j));
-					
-					LDocInfo.setBankName(cashiercheckItems.get(i).getBankName());
-					LDocInfo.setProdName(cashiercheckItems.get(i).getgProdName());
-					LDocInfo.setCaseId(cashiercheckItems.get(i).getCaseId());
-					LDocInfo.setDebtName(cashiercheckItems.get(i).getDebtName());
-					LDocInfo.setID(cashiercheckItems.get(i).getDebtID());
-					LDocInfo.setDocCode("C" + cashiercheckItems.get(i).getCashiercheckId());
-					LDocInfo.setTypeOne(cashiercheckItems.get(i).getDisTypeOne());
-					LDocInfo.setTypeTwo(cashiercheckItems.get(i).getDisTypeTwo());
-					LDocInfo.setDocStatus(cashiercheckItems.get(i).getDisDocStatus());
-					LDocInfo.setRemark("");
-					LDocInfo.setRowNum("0");
-					LDocInfo.setReport("");
-					LDocInfo.setEdit("");
-					LDocInfo.setPay("");
-					LDocInfo.setSendReport("");
-					LDocInfo.setCourtYearCourt("");
-					LDocInfo.setSendDate("");
-					LDocInfo.setNewSendDate("");
-					LDocInfo.setExecutionDate("");
-					LDocInfo.setToCourtDate("");
-					LDocInfo.setSourceDoc("");
-					LDocInfo.setDocType("C");
-					LDocInfo.setDocId(cashiercheckItems.get(i).getCashiercheckId() + "");
-					returnDocInfo.add(LDocInfo);
 				}
+				
+				LDocInfo.setCashiercheckRelationPerson(cashiercheckItems.get(i).getCashiercheckRelationPerson());
+				
+				LDocInfo.setBankName(cashiercheckItems.get(i).getBankName());
+				LDocInfo.setProdName(cashiercheckItems.get(i).getgProdName());
+				LDocInfo.setCaseId(cashiercheckItems.get(i).getCaseId());
+				LDocInfo.setDebtName(cashiercheckItems.get(i).getDebtName());
+				LDocInfo.setID(cashiercheckItems.get(i).getDebtID());
+				LDocInfo.setDocCode("C" + cashiercheckItems.get(i).getCashiercheckId());
+				LDocInfo.setTypeOne(cashiercheckItems.get(i).getDisTypeOne());
+				LDocInfo.setTypeTwo(cashiercheckItems.get(i).getDisTypeTwo());
+				LDocInfo.setDocStatus(cashiercheckItems.get(i).getDisDocStatus());
+				LDocInfo.setRemark("");
+				LDocInfo.setRowNum("0");
+				LDocInfo.setReport("");
+				LDocInfo.setEdit("");
+				LDocInfo.setPay("");
+				LDocInfo.setSendReport("");
+				LDocInfo.setCourtYearCourt("");
+				LDocInfo.setSendDate("");
+				LDocInfo.setNewSendDate("");
+				LDocInfo.setExecutionDate("");
+				LDocInfo.setToCourtDate("");
+				LDocInfo.setSourceDoc("");
+				LDocInfo.setDocType("C");
+				LDocInfo.setDocId(cashiercheckItems.get(i).getCashiercheckId() + "");
+				LDocInfo.setTempCount(cashiercheckItems.get(i).getTempCount());
+				returnDocInfo.add(LDocInfo);
 			}
 		}
 		// 本票儲存end
@@ -558,6 +563,8 @@ public class docServiceImpl implements docService{
 					docDao.save(debtsItems.get(i).getDebtsRelationPerson().get(j));
 				}
 				
+				LDocInfo.setDebtsRelationPerson(debtsItems.get(i).getDebtsRelationPerson());
+				
 				LDocInfo.setBankName(debtsItems.get(i).getBankName());
 				LDocInfo.setProdName(debtsItems.get(i).getgProdName());
 				LDocInfo.setCaseId(debtsItems.get(i).getCaseId());
@@ -581,6 +588,7 @@ public class docServiceImpl implements docService{
 				LDocInfo.setToCourtDate("");
 				LDocInfo.setDocType("D");
 				LDocInfo.setDocId(debtsItems.get(i).getDebtsId() + "");
+				LDocInfo.setTempCount(debtsItems.get(i).getTempCount());
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -605,7 +613,9 @@ public class docServiceImpl implements docService{
 					claimsdocsItems.get(i).getClaimsRelationPerson().get(j).setClaimsdocsId(claimsdocsItems.get(i).getClaimsdocsId());
 					docDao.save(claimsdocsItems.get(i).getClaimsRelationPerson().get(j));
 				}
-
+				
+				LDocInfo.setClaimsRelationPerson(claimsdocsItems.get(i).getClaimsRelationPerson());// 債權文件相對人
+				
 				LDocInfo.setBankName(claimsdocsItems.get(i).getBankName());
 				LDocInfo.setProdName(claimsdocsItems.get(i).getgProdName());
 				LDocInfo.setCaseId(claimsdocsItems.get(i).getCaseId());
@@ -629,6 +639,7 @@ public class docServiceImpl implements docService{
 				LDocInfo.setToCourtDate("");
 				LDocInfo.setDocType("E");
 				LDocInfo.setDocId(claimsdocsItems.get(i).getClaimsdocsId() + "");
+				LDocInfo.setTempCount(claimsdocsItems.get(i).getTempCount());
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -671,6 +682,7 @@ public class docServiceImpl implements docService{
 				LDocInfo.setToCourtDate("");
 				LDocInfo.setDocType("F");
 				LDocInfo.setDocId(filedocsItems.get(i).getFiledocsId() + "");
+				LDocInfo.setTempCount(filedocsItems.get(i).getTempCount());
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -713,6 +725,7 @@ public class docServiceImpl implements docService{
 				LDocInfo.setToCourtDate("");
 				LDocInfo.setDocType("G");
 				LDocInfo.setDocId(otherdocsItems.get(i).getOtherdocsId() + "");
+				LDocInfo.setTempCount(otherdocsItems.get(i).getTempCount());
 				returnDocInfo.add(LDocInfo);
 			}
 		}
@@ -1004,12 +1017,18 @@ public class docServiceImpl implements docService{
 				jsonResponse.add("courtDocDoc", gson.toJsonTree(LDocCourtDoc));
 			}else if(docType.equals("C")){
 				LDocCashiercheck LDocCashiercheck = docDao.findCashierCheckById(docId);
+				List<LDocCashiercheckRela> LDocCashiercheckRela = docDao.findCashierCheckRelaById(docId);
+				LDocCashiercheck.setCashiercheckRelationPerson(LDocCashiercheckRela);
 				jsonResponse.add("cashierCheckDoc", gson.toJsonTree(LDocCashiercheck));
 			}else if(docType.equals("D")){
 				LDocDebts LDocDebts = docDao.findDebtsById(docId);
+				List<LDocDebtsRela> LDocDebtsRela = docDao.findDebtsRelaById(docId);
+				LDocDebts.setDebtsRelationPerson(LDocDebtsRela);
 				jsonResponse.add("debtsDoc", gson.toJsonTree(LDocDebts));
 			}else	if(docType.equals("E")){
 				LDocClaimsdocs LDocClaimsdocs = docDao.findClaimDocsById(docId);
+				List<LDocClaimsdocsRela> LDocClaimsdocsRela = docDao.findClaimDocsRelaById(docId);
+				LDocClaimsdocs.setClaimsRelationPerson(LDocClaimsdocsRela);
 				jsonResponse.add("claimsdocsDoc", gson.toJsonTree(LDocClaimsdocs));
 			}else	if(docType.equals("F")){
 				LDocFiledocs LDocFiledocs = docDao.findFileById(docId);

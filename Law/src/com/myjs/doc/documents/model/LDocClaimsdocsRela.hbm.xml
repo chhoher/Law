@@ -8,6 +8,12 @@
             <column name="claimsdocs_rela_id"/>
             <generator class="uuid" />
         </id>
+		<property name="num" type="int">
+			<column name="num" />
+		</property>
+		<property name="P_ID" type="int">
+			<column name="P_ID" />
+		</property>
 		<property name="ID" type="string">
 			<column name="ID" length="10" />
 		</property>

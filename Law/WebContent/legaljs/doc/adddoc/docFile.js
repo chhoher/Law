@@ -24,6 +24,7 @@ law.addDoc.file = {
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 
 		var subtabContentHtml = "<table>" +
+           	 	"<tr style='display:none'><td><input id='iptfileDocType" + filesubtabcount + "'></input><input id='iptfileDocId" + filesubtabcount + "'></input></td></tr>" +
            	 	"<tr>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptfileBankDate" + filesubtabcount + "'></input></td>" +

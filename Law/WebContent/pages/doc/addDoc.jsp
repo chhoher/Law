@@ -880,7 +880,8 @@
 				<table>
 					<tr id="iptcourtDocRelationPersonTr">
 						<td><label style="color:red">*相對人</label></td>
-						<td><select id="iptcourtDocRelationPerson_0"><option value="">請選擇</option></select></td>
+						<td><select id="iptcourtDocRelationPerson_0"><option value="">請選擇</option></select>
+							<input id="iptcourtDocRelationPersonId_0" style="display:none"></input></td>
 						<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocRelaTd(0)"></td>
 					</tr>
 				</table>
@@ -1057,7 +1058,8 @@
 		           	 		<td><label>備註</label></td>
 							<td><input id="iptcourtDocTranscriptsRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocTranscriptsRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocTranscriptsRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocTranscriptsRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocCoOwnedTranscripts">
@@ -1067,7 +1069,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocCoOwnedTranscriptsRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocCoOwnedTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocCoOwnedTranscriptsRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocCoOwnedTranscriptsRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocCoOwnedTranscriptsRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocMortgageeTranscripts">
@@ -1077,7 +1080,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocMortgageeTranscriptsRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocMortgageeTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocMortgageeTranscriptsRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocMortgageeTranscriptsRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocMortgageeTranscriptsRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocLawTranscripts">
@@ -1087,7 +1091,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocLawTranscriptsRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocLawTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocLawTranscriptsRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocLawTranscriptsRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocLawTranscriptsRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocHeirTranscripts">
@@ -1097,7 +1102,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocHeirTranscriptsRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocHeirTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocHeirTranscriptsRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocHeirTranscriptsRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocHeirTranscriptsRelaTd(0)"></td>
 		           	 	</tr>
 		        	 	<tr id="trcourtDocDirtTranscripts">
@@ -1107,7 +1113,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocDirtTranscriptsRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocDirtTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocDirtTranscriptsRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocDirtTranscriptsRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocDirtTranscriptsRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocBuiltTranscripts">
@@ -1117,7 +1124,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocBuiltTranscriptsRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocBuiltTranscriptsRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocBuiltTranscriptsRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocBuiltTranscriptsRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocBuiltTranscriptsRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocDistribution">
@@ -1127,7 +1135,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocDistributionRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocDistributionRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocDistributionRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocDistributionRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocDistributionRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocThingThird">
@@ -1137,7 +1146,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocThingThirdRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocThingThirdRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocThingThirdRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocThingThirdRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocThingThirdRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocThingDebt">
@@ -1147,7 +1157,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocThingDebtRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocThingDebtRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocThingDebtRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocThingDebtRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocThingDebtRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocCoOwned">
@@ -1157,7 +1168,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocCoOwnedRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocCoOwnedRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocCoOwnedRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocCoOwnedRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocCoOwnedRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocDebtDoc">
@@ -1167,7 +1179,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocDebtDocRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocDebtDocRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocDebtDocRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocDebtDocRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocDebtDocRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocDetail">
@@ -1177,7 +1190,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocDetailRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocDetailRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocDetailRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocDetailRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocDetailRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocFile">
@@ -1187,7 +1201,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocFileRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocFileRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocFileRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocFileRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocFileRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocDebtContinue">
@@ -1197,7 +1212,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocDebtContinueRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocDebtContinueRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocDebtContinueRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocDebtContinueRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocDebtContinueRelaTd(0)"></td>
 		        	 	</tr>
 		        	 	<tr id="trcourtDocCashierCheck">
@@ -1207,7 +1223,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocCashierCheckRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocCashierCheckRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocCashierCheckRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocCashierCheckRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocCashierCheckRelaTd(0)"></td>
 		        	 	</tr>
 		           	 </table>
@@ -1217,7 +1234,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocRecoveryRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocRecoveryRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocRecoveryRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocRecoveryRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocRecoveryRelaTd(0)"></td>
 		        	 	</tr>
 		           	 </table>
@@ -1229,7 +1247,8 @@
 		   	 				<td><label>備註</label></td>
 							<td><input id="iptcourtDocOtherRemark" ></input></td>
 							<td><label>相對人</label></td>
-							<td><select id="iptcourtDocOtherRelationPerson_0"><option value="">請選擇</option></select></td>
+							<td><select id="iptcourtDocOtherRelationPerson_0"><option value="">請選擇</option></select>
+								<input id="iptcourtDocOtherRelationPersonId_0" style="display:none"></input></td>
 							<td><img src="../images/plus.png" onclick="law.addDoc.courtDoc.addcourtDocOtherRelaTd(0)"></td>
 		        	 	</tr>
 		           	 </table>
@@ -1420,7 +1439,8 @@
 			<table>
 				<tr id="iptcashierCheckRelationPersonTr">
 					<td><label style="color:red">*相對人</label></td>
-					<td><select id="iptcashierCheckRelationPerson_0"><option value="">請選擇</option></select></td>
+					<td><select id="iptcashierCheckRelationPerson_0"><option value="">請選擇</option></select>
+						<input id="iptcashierCheckRelationPersonId_0" style="display:none"></input></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.cashierCheck.addcashierCheckRelaTd(0)"></td>
 				</tr>
 			</table>
@@ -1478,7 +1498,8 @@
 			<table>
 				<tr id="iptdebtsRelationPersonTr">
 					<td><label style="color:red">*相對人</label></td>
-					<td><select id="iptdebtsRelationPerson_0"><option value="">請選擇</option></select></td>
+					<td><select id="iptdebtsRelationPerson_0"><option value="">請選擇</option></select>
+						<input id="iptdebtsRelationPersonId_0" style="display:none"></input></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.debts.adddebtsRelaTd(0)"></td>
 				</tr>
 			</table>
@@ -1544,7 +1565,8 @@
 			<table>
 				<tr id="iptclaimsDocRelationPersonTr">
 					<td><label style="color:red">*相對人</label></td>
-					<td><select id="iptclaimsDocRelationPerson_0"><option value="">請選擇</option></select></td>
+					<td><select id="iptclaimsDocRelationPerson_0"><option value="">請選擇</option></select>
+						<input id="iptclaimsDocRelationPersonId_0" style="display:none"></input></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.claimsDoc.addclaimsRelaTd(0)"></td>
 				</tr>
 			</table>

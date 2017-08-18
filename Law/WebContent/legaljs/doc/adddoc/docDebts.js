@@ -29,7 +29,8 @@ law.addDoc.debts = {
 		law.addDoc.debts.debtsRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptdebtsRelationPerson" + displaynum + "_" + debts.debtsRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptdebtsRelationPerson" + displaynum + "_" + debts.debtsRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptdebtsRelationPersonId" + displaynum + "_" + debts.debtsRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#iptdebtsRelationPersonTr" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptdebtsRelationPerson" + displaynum + "_" + debts.debtsRelaNum[num], law.addDoc.rela, undefined, true);
@@ -44,6 +45,7 @@ law.addDoc.debts = {
 		var tabTemplate = "<li id='lidebtstab_" + debtssubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
+           	 	"<tr style='display:none'><td><input id='iptdebtsDocType" + debtssubtabcount + "'></input><input id='iptdebtsDocId" + debtssubtabcount + "'></input></td></tr>" +
            	 	"<tr>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptdebtsBankDate" + debtssubtabcount + "' ></input></td>" +
@@ -66,7 +68,8 @@ law.addDoc.debts = {
 			"<table>" +
 				"<tr id='iptdebtsRelationPersonTr" + debtssubtabcount + "'>" +
 					"<td><label style='color:red'>*相對人</label></td>" +
-					"<td><select id='iptdebtsRelationPerson" + debtssubtabcount +"_0'><option value=''>請選擇</option></select></td>" +
+					"<td><select id='iptdebtsRelationPerson" + debtssubtabcount +"_0'><option value=''>請選擇</option></select>" +
+							"<input id='iptdebtsRelationPersonId" + debtssubtabcount + "_0' style='display:none'></input></td>" +
 					"<td><img src='../images/plus.png' onclick='law.addDoc.debts.adddebtsRelaTd(" + (debtssubtabcount + 1) + ")'></td>" +
 				"</tr>" +
 			"</table>" +
@@ -205,8 +208,12 @@ law.addDoc.debts = {
 		}
 		
 		for( ; i <= law.addDoc.debts.debtsRelaNum[0]; i++){
+			var rela_ID = $("#iptdebtsRelationPerson_" + i).find('option:selected').val().split(",");
 			relainfo = { 
-				"ID" : $("#iptdebtsRelationPerson_" + i).find('option:selected').val(),
+				"debtsRelaId" : ($("#iptdebtsRelationPersonId_" + i).val() != "" ) ? $("#iptdebtsRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptdebtsRelationPerson_" + i).find('option:selected').text()
 				};
 			returndebtsRelas_0.push(relainfo);
@@ -262,10 +269,14 @@ law.addDoc.debts = {
 				displayNum = i + 1;
 				j = 0;
 				for( ; j <= law.addDoc.debts.debtsRelaNum[displayNum]; j++){
-					relainfo = { 
-						"ID" : $("#iptdebtsRelationPerson" + i + "_" + j).find('option:selected').val(),
+					var rela_ID = $("#iptdebtsRelationPerson" + i + "_" + j).find('option:selected').val().split(",");
+					relainfo = {
+						"debtsRelaId" : ($("#iptdebtsRelationPersonId" + i + "_" + j).val() != "" ) ? $("#iptdebtsRelationPersonId" + i + "_" + j).val() : null,
+						"num" : j,
+						"ID" : rela_ID[0],
+						"P_ID" : rela_ID[1],
 						"name"	: $("#iptdebtsRelationPerson" + i + "_" + j).find('option:selected').text()
-						};
+					};
 					returndebtsRelas_0.push(relainfo);
 				}
 				
@@ -389,6 +400,7 @@ law.addDoc.debts = {
 	// 從文管系統進入 初始化頁籤
 	initopenDebtssubtab : function (debtsDocInfo){
 		var debts = law.addDoc.debts;
+		var i=0;
 		$("#iptdebtsBankDate").val(debtsDocInfo.bankDate !== undefined ? debtsDocInfo.bankDate : "");// 業主調件日
 		$("#iptdebtsReceivedDate").val(debtsDocInfo.receivedDate);// 收文日期
 		law.common.selectOption("#iptdebtsDocStatus", debts.DocStatus, debtsDocInfo.docStatus, true);// 文件狀態
@@ -434,9 +446,14 @@ law.addDoc.debts = {
 			$("#iptdebtsOldBankName").append(selectNull);
 		}
 		
-		law.common.selectRelaOption("#iptdebtsRelationPerson_0", law.addDoc.rela, debtsDocInfo.relationPerson, true); // 相對人
-		
-		// TODO 要帶出多個
+		for(;i < debtsDocInfo.debtsRelationPerson.length; i++){
+			var selectVal = debtsDocInfo.debtsRelationPerson[i].ID + "," + debtsDocInfo.debtsRelationPerson[i].P_ID;
+			if(i !== 0){
+				law.addDoc.debts.adddebtsRelaTd(0);
+			}
+			law.common.selectRelaOption("#iptdebtsRelationPerson_" + i, law.addDoc.rela, selectVal, true); // 相對人
+			$("#iptdebtsRelationPersonId_" + i).val(debtsDocInfo.debtsRelationPerson[i].debtsRelaId);
+		}
 		
 		law.common.selectOption("#iptdebtsCourtYearCourt", debts.CourtYearCourt, debtsDocInfo.courtYearCourt, true); // (換發債證)法院年字案股 法院
 		$("#iptdebtsCourtYearYear").val(debtsDocInfo.courtYearYear !== 0 ? debtsDocInfo.courtYearYear : "");// (換發債證)法院年字案股 年度

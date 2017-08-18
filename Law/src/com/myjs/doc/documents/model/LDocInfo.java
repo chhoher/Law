@@ -1,6 +1,7 @@
 package com.myjs.doc.documents.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class LDocInfo {
 	private String docInfoId;
@@ -128,6 +129,10 @@ public class LDocInfo {
 	private String borrowCommonReason; // 一般借調 原因
 	private String borrowSubLawCode; // 預借 法務編號
 	
+	// add By Jia 2017-08-18 多項的 (相對人、原始憑證)Vo
+	private List<LDocClaimsdocsRela> claimsRelationPerson; // 債權文件相對人
+	private List<LDocDebtsRela> debtsRelationPerson; // 債讓 相對人
+	private List<LDocCashiercheckRela> cashiercheckRelationPerson; // 本票 相對人
 	
 	public LDocInfo(String docInfoId, int caseId, String createUserId,
 			Date createDatetime) {
@@ -1082,6 +1087,30 @@ public class LDocInfo {
 
 	public void setTempCount(String tempCount) {
 		this.tempCount = tempCount;
+	}
+
+	public List<LDocClaimsdocsRela> getClaimsRelationPerson() {
+		return claimsRelationPerson;
+	}
+
+	public void setClaimsRelationPerson(List<LDocClaimsdocsRela> claimsRelationPerson) {
+		this.claimsRelationPerson = claimsRelationPerson;
+	}
+
+	public List<LDocDebtsRela> getDebtsRelationPerson() {
+		return debtsRelationPerson;
+	}
+
+	public void setDebtsRelationPerson(List<LDocDebtsRela> debtsRelationPerson) {
+		this.debtsRelationPerson = debtsRelationPerson;
+	}
+
+	public List<LDocCashiercheckRela> getCashiercheckRelationPerson() {
+		return cashiercheckRelationPerson;
+	}
+
+	public void setCashiercheckRelationPerson(List<LDocCashiercheckRela> cashiercheckRelationPerson) {
+		this.cashiercheckRelationPerson = cashiercheckRelationPerson;
 	}
 	
 	
