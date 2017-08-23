@@ -21,6 +21,7 @@ public class LDocFiledocs {
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
+	private String createUserName;
 	private String borrowReason;
 	private String borrowInfo;
 	private String tempCount;
@@ -268,6 +269,14 @@ public class LDocFiledocs {
 
 	public void setTempCount(String tempCount) {
 		this.tempCount = tempCount;
+	}
+
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
 	}
 	
 }

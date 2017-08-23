@@ -1,6 +1,7 @@
 package com.myjs.doc.documents.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class LDocInfo {
 	private String docInfoId;
@@ -10,9 +11,10 @@ public class LDocInfo {
 	
 	// Add By Jia 2017-07-19 Vo
 	private String applyBorrow;
+	private String disApplyBorrow;
 	private String editDoc;
 	private String docStatus;
-	private String borrowInfo;
+	private String disDocStatus;
 	private String progress;
 	private String imgFiles;
 	private String bankDate;
@@ -27,7 +29,6 @@ public class LDocInfo {
 	private String courtYearTxt;
 	private String courtYearShare;
 	private String courtYearCaseId;
-	private String otherFile;
 	private String bankName;
 	private String oldBankName;
 	private String sourceDoc;
@@ -36,10 +37,11 @@ public class LDocInfo {
 	private String sendDate;
 	private String newSendDate;
 	private String remark;
+	private String interestYear;
+	private String interestDate;
 	private String shadow;
+	private String borrowInfo;
 	private String modifyUserName;
-	private String cashierCheckStartDate;
-	private int cashierCheckAmount;
 	private String ruledDate;
 	private int ruledAmount;
 	private String applyConfirmationDate;
@@ -74,17 +76,22 @@ public class LDocInfo {
     private String toCourtNotice;
     private String executionDate;
     private String executionTime;
+	private String cashierCheckStartDate;
+	private int cashierCheckAmount;
     private String cashierCheckEndDate;
-    private String courtYearInfo;
+    private String debtsCourtYearInfo;
     private String debtsDate;
     private String claimsdocQuota;
     private String claimsDocInterestRate;
+    private String otherReceiptType;
+    private String otherReceiptAmount;
+    private String otherCourtDate;
 
 	// Add By Jia 2017-07-26 Vo
 	private String prodName;
 	private String ID;
 	private String borrowReason;
-	private String lawCode;
+	private String lawCode; // 遞狀的法院編號
 	private String borrowDatetime;
 	private String borrowUserId;
 	private String borrowUserName;
@@ -103,6 +110,51 @@ public class LDocInfo {
 	private String businessAccount;
 	private String business;
 	private String rowNum;
+	private String docId;
+	private String docType;
+	private String tempCount;
+	
+	// add by Jia 2017-08-16 申調的欄位 Vo
+	private String borrowBackDate; // 退件(業主) 退件日期
+	private String borrowBackReason; // 退件(業主) 退件原因
+	private String borrowToCourtDate; // 開庭 開庭日期
+	private String borrowToCourtLawCode; // 開庭 法務編號
+	private String borrowCourtYearCourt; // 開庭 法院
+	private String disBorrowCourtYearCourt; // 開庭 法院
+	private String borrowCourtYearYear; // 開庭 年
+	private String borrowCourtYearTxt; // 開庭字
+	private String borrowCourtYearCaseId; // 開庭 案號
+	private String borrowCourtYearShare; // 開庭 股
+	private String borrowCommonReason; // 一般借調 原因
+	private String borrowSubLawCode; // 預借 法務編號
+	
+	// add By Jia 2017-08-18 多項的 (相對人、原始憑證)Vo
+	//相對人
+	private List<LDocCentitlementRela> centitlementRelationPerson;
+	// 原始憑證
+	private List<LDocCentitlementSourceDoc> centitlementSourceDoc;
+	private List<LDocClaimsdocsRela> claimsRelationPerson; // 債權文件相對人
+	private List<LDocDebtsRela> debtsRelationPerson; // 債讓 相對人
+	private List<LDocCashiercheckRela> cashiercheckRelationPerson; // 本票 相對人
+	private List<LDocCourtDocRela> courtDocRelationPerson;// 法院文 相對人
+	private List<LDocCourtDocTranscriptsRela> courtDocTranscriptsRelationPerson;
+	private List<LDocCourtDocCoOwnedTranscriptsRela> courtDocCoOwnedTranscriptsRelationPerson;
+	private List<LDocCourtDocMortgageeTranscriptsRela> courtDocMortgageeTranscriptsRelationPerson;
+	private List<LDocCourtDocLawTranscriptsRela> courtDocLawTranscriptsRelationPerson;
+	private List<LDocCourtDocHeirTranscriptsRela> courtDocHeirTranscriptsRelationPerson;
+	private List<LDocCourtDocDirtTranscriptsRela> courtDocDirtTranscriptsRelationPerson;
+	private List<LDocCourtDocBuiltTranscriptsRela> courtDocBuiltTranscriptsRelationPerson;
+	private List<LDocCourtDocDistributionRela> courtDocDistributionRelationPerson;
+	private List<LDocCourtDocThingThirdRela> courtDocThingThirdRelationPerson;
+	private List<LDocCourtDocThingDebtRela> courtDocThingDebtRelationPerson;
+	private List<LDocCourtDocCoOwnedRela> courtDocCoOwnedRelationPerson;
+	private List<LDocCourtDocDebtDocRela> courtDocDebtDocRelationPerson;
+	private List<LDocCourtDocDetailRela> courtDocDetailRelationPerson;
+	private List<LDocCourtDocFileRela> courtDocFileRelationPerson;
+	private List<LDocCourtDocDebtContinueRela> courtDocDebtContinueRelationPerson;
+	private List<LDocCourtDocCashierCheckRela> courtDocCashierCheckRelationPerson;
+	private List<LDocCourtDocRecoveryRela> courtDocRecoveryRelationPerson;
+	private List<LDocCourtDocOtherRela> courtDocOtherRelationPerson;
 	
 	public LDocInfo(String docInfoId, int caseId, String createUserId,
 			Date createDatetime) {
@@ -289,14 +341,6 @@ public class LDocInfo {
 
 	public void setCourtYearCaseId(String courtYearCaseId) {
 		this.courtYearCaseId = courtYearCaseId;
-	}
-
-	public String getOtherFile() {
-		return otherFile;
-	}
-
-	public void setOtherFile(String otherFile) {
-		this.otherFile = otherFile;
 	}
 
 	public String getBankName() {
@@ -675,14 +719,6 @@ public class LDocInfo {
 		this.cashierCheckEndDate = cashierCheckEndDate;
 	}
 
-	public String getCourtYearInfo() {
-		return courtYearInfo;
-	}
-
-	public void setCourtYearInfo(String courtYearInfo) {
-		this.courtYearInfo = courtYearInfo;
-	}
-
 	public String getDebtsDate() {
 		return debtsDate;
 	}
@@ -882,5 +918,391 @@ public class LDocInfo {
 	public void setRowNum(String rowNum) {
 		this.rowNum = rowNum;
 	}
+
+	public String getInterestYear() {
+		return interestYear;
+	}
+
+	public void setInterestYear(String interestYear) {
+		this.interestYear = interestYear;
+	}
+
+	public String getInterestDate() {
+		return interestDate;
+	}
+
+	public void setInterestDate(String interestDate) {
+		this.interestDate = interestDate;
+	}
+
+	public String getDebtsCourtYearInfo() {
+		return debtsCourtYearInfo;
+	}
+
+	public void setDebtsCourtYearInfo(String debtsCourtYearInfo) {
+		this.debtsCourtYearInfo = debtsCourtYearInfo;
+	}
+
+	public String getOtherReceiptType() {
+		return otherReceiptType;
+	}
+
+	public void setOtherReceiptType(String otherReceiptType) {
+		this.otherReceiptType = otherReceiptType;
+	}
+
+	public String getOtherReceiptAmount() {
+		return otherReceiptAmount;
+	}
+
+	public void setOtherReceiptAmount(String otherReceiptAmount) {
+		this.otherReceiptAmount = otherReceiptAmount;
+	}
+
+	public String getOtherCourtDate() {
+		return otherCourtDate;
+	}
+
+	public void setOtherCourtDate(String otherCourtDate) {
+		this.otherCourtDate = otherCourtDate;
+	}
+
+	public String getDocId() {
+		return docId;
+	}
+
+	public void setDocId(String docId) {
+		this.docId = docId;
+	}
+
+	public String getDocType() {
+		return docType;
+	}
+
+	public void setDocType(String docType) {
+		this.docType = docType;
+	}
+
+	public String getDisApplyBorrow() {
+		return disApplyBorrow;
+	}
+
+	public void setDisApplyBorrow(String disApplyBorrow) {
+		this.disApplyBorrow = disApplyBorrow;
+	}
+
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
+	}
+
+	public String getBorrowBackDate() {
+		return borrowBackDate;
+	}
+
+	public void setBorrowBackDate(String borrowBackDate) {
+		this.borrowBackDate = borrowBackDate;
+	}
+
+	public String getBorrowBackReason() {
+		return borrowBackReason;
+	}
+
+	public void setBorrowBackReason(String borrowBackReason) {
+		this.borrowBackReason = borrowBackReason;
+	}
+
+	public String getBorrowToCourtDate() {
+		return borrowToCourtDate;
+	}
+
+	public void setBorrowToCourtDate(String borrowToCourtDate) {
+		this.borrowToCourtDate = borrowToCourtDate;
+	}
+
+	public String getBorrowToCourtLawCode() {
+		return borrowToCourtLawCode;
+	}
+
+	public void setBorrowToCourtLawCode(String borrowToCourtLawCode) {
+		this.borrowToCourtLawCode = borrowToCourtLawCode;
+	}
+
+	public String getBorrowCourtYearCourt() {
+		return borrowCourtYearCourt;
+	}
+
+	public void setBorrowCourtYearCourt(String borrowCourtYearCourt) {
+		this.borrowCourtYearCourt = borrowCourtYearCourt;
+	}
+
+	public String getDisBorrowCourtYearCourt() {
+		return disBorrowCourtYearCourt;
+	}
+
+	public void setDisBorrowCourtYearCourt(String disBorrowCourtYearCourt) {
+		this.disBorrowCourtYearCourt = disBorrowCourtYearCourt;
+	}
+
+	public String getBorrowCourtYearYear() {
+		return borrowCourtYearYear;
+	}
+
+	public void setBorrowCourtYearYear(String borrowCourtYearYear) {
+		this.borrowCourtYearYear = borrowCourtYearYear;
+	}
+
+	public String getBorrowCourtYearTxt() {
+		return borrowCourtYearTxt;
+	}
+
+	public void setBorrowCourtYearTxt(String borrowCourtYearTxt) {
+		this.borrowCourtYearTxt = borrowCourtYearTxt;
+	}
+
+	public String getBorrowCourtYearCaseId() {
+		return borrowCourtYearCaseId;
+	}
+
+	public void setBorrowCourtYearCaseId(String borrowCourtYearCaseId) {
+		this.borrowCourtYearCaseId = borrowCourtYearCaseId;
+	}
+
+	public String getBorrowCourtYearShare() {
+		return borrowCourtYearShare;
+	}
+
+	public void setBorrowCourtYearShare(String borrowCourtYearShare) {
+		this.borrowCourtYearShare = borrowCourtYearShare;
+	}
+
+	public String getBorrowCommonReason() {
+		return borrowCommonReason;
+	}
+
+	public void setBorrowCommonReason(String borrowCommonReason) {
+		this.borrowCommonReason = borrowCommonReason;
+	}
+
+	public String getBorrowSubLawCode() {
+		return borrowSubLawCode;
+	}
+
+	public void setBorrowSubLawCode(String borrowSubLawCode) {
+		this.borrowSubLawCode = borrowSubLawCode;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
+	}
+
+	public List<LDocClaimsdocsRela> getClaimsRelationPerson() {
+		return claimsRelationPerson;
+	}
+
+	public void setClaimsRelationPerson(List<LDocClaimsdocsRela> claimsRelationPerson) {
+		this.claimsRelationPerson = claimsRelationPerson;
+	}
+
+	public List<LDocDebtsRela> getDebtsRelationPerson() {
+		return debtsRelationPerson;
+	}
+
+	public void setDebtsRelationPerson(List<LDocDebtsRela> debtsRelationPerson) {
+		this.debtsRelationPerson = debtsRelationPerson;
+	}
+
+	public List<LDocCashiercheckRela> getCashiercheckRelationPerson() {
+		return cashiercheckRelationPerson;
+	}
+
+	public void setCashiercheckRelationPerson(List<LDocCashiercheckRela> cashiercheckRelationPerson) {
+		this.cashiercheckRelationPerson = cashiercheckRelationPerson;
+	}
+
+	public List<LDocCourtDocRela> getCourtDocRelationPerson() {
+		return courtDocRelationPerson;
+	}
+
+	public void setCourtDocRelationPerson(List<LDocCourtDocRela> courtDocRelationPerson) {
+		this.courtDocRelationPerson = courtDocRelationPerson;
+	}
+
+	public List<LDocCourtDocTranscriptsRela> getCourtDocTranscriptsRelationPerson() {
+		return courtDocTranscriptsRelationPerson;
+	}
+
+	public void setCourtDocTranscriptsRelationPerson(List<LDocCourtDocTranscriptsRela> courtDocTranscriptsRelationPerson) {
+		this.courtDocTranscriptsRelationPerson = courtDocTranscriptsRelationPerson;
+	}
+
+	public List<LDocCourtDocCoOwnedTranscriptsRela> getCourtDocCoOwnedTranscriptsRelationPerson() {
+		return courtDocCoOwnedTranscriptsRelationPerson;
+	}
+
+	public void setCourtDocCoOwnedTranscriptsRelationPerson(
+			List<LDocCourtDocCoOwnedTranscriptsRela> courtDocCoOwnedTranscriptsRelationPerson) {
+		this.courtDocCoOwnedTranscriptsRelationPerson = courtDocCoOwnedTranscriptsRelationPerson;
+	}
+
+	public List<LDocCourtDocMortgageeTranscriptsRela> getCourtDocMortgageeTranscriptsRelationPerson() {
+		return courtDocMortgageeTranscriptsRelationPerson;
+	}
+
+	public void setCourtDocMortgageeTranscriptsRelationPerson(
+			List<LDocCourtDocMortgageeTranscriptsRela> courtDocMortgageeTranscriptsRelationPerson) {
+		this.courtDocMortgageeTranscriptsRelationPerson = courtDocMortgageeTranscriptsRelationPerson;
+	}
+
+	public List<LDocCourtDocLawTranscriptsRela> getCourtDocLawTranscriptsRelationPerson() {
+		return courtDocLawTranscriptsRelationPerson;
+	}
+
+	public void setCourtDocLawTranscriptsRelationPerson(
+			List<LDocCourtDocLawTranscriptsRela> courtDocLawTranscriptsRelationPerson) {
+		this.courtDocLawTranscriptsRelationPerson = courtDocLawTranscriptsRelationPerson;
+	}
+
+	public List<LDocCourtDocHeirTranscriptsRela> getCourtDocHeirTranscriptsRelationPerson() {
+		return courtDocHeirTranscriptsRelationPerson;
+	}
+
+	public void setCourtDocHeirTranscriptsRelationPerson(
+			List<LDocCourtDocHeirTranscriptsRela> courtDocHeirTranscriptsRelationPerson) {
+		this.courtDocHeirTranscriptsRelationPerson = courtDocHeirTranscriptsRelationPerson;
+	}
+
+	public List<LDocCourtDocDirtTranscriptsRela> getCourtDocDirtTranscriptsRelationPerson() {
+		return courtDocDirtTranscriptsRelationPerson;
+	}
+
+	public void setCourtDocDirtTranscriptsRelationPerson(
+			List<LDocCourtDocDirtTranscriptsRela> courtDocDirtTranscriptsRelationPerson) {
+		this.courtDocDirtTranscriptsRelationPerson = courtDocDirtTranscriptsRelationPerson;
+	}
+
+	public List<LDocCourtDocBuiltTranscriptsRela> getCourtDocBuiltTranscriptsRelationPerson() {
+		return courtDocBuiltTranscriptsRelationPerson;
+	}
+
+	public void setCourtDocBuiltTranscriptsRelationPerson(
+			List<LDocCourtDocBuiltTranscriptsRela> courtDocBuiltTranscriptsRelationPerson) {
+		this.courtDocBuiltTranscriptsRelationPerson = courtDocBuiltTranscriptsRelationPerson;
+	}
+
+	public List<LDocCourtDocDistributionRela> getCourtDocDistributionRelationPerson() {
+		return courtDocDistributionRelationPerson;
+	}
+
+	public void setCourtDocDistributionRelationPerson(
+			List<LDocCourtDocDistributionRela> courtDocDistributionRelationPerson) {
+		this.courtDocDistributionRelationPerson = courtDocDistributionRelationPerson;
+	}
+
+	public List<LDocCourtDocThingThirdRela> getCourtDocThingThirdRelationPerson() {
+		return courtDocThingThirdRelationPerson;
+	}
+
+	public void setCourtDocThingThirdRelationPerson(List<LDocCourtDocThingThirdRela> courtDocThingThirdRelationPerson) {
+		this.courtDocThingThirdRelationPerson = courtDocThingThirdRelationPerson;
+	}
+
+	public List<LDocCourtDocThingDebtRela> getCourtDocThingDebtRelationPerson() {
+		return courtDocThingDebtRelationPerson;
+	}
+
+	public void setCourtDocThingDebtRelationPerson(List<LDocCourtDocThingDebtRela> courtDocThingDebtRelationPerson) {
+		this.courtDocThingDebtRelationPerson = courtDocThingDebtRelationPerson;
+	}
+
+	public List<LDocCourtDocCoOwnedRela> getCourtDocCoOwnedRelationPerson() {
+		return courtDocCoOwnedRelationPerson;
+	}
+
+	public void setCourtDocCoOwnedRelationPerson(List<LDocCourtDocCoOwnedRela> courtDocCoOwnedRelationPerson) {
+		this.courtDocCoOwnedRelationPerson = courtDocCoOwnedRelationPerson;
+	}
+
+	public List<LDocCourtDocDebtDocRela> getCourtDocDebtDocRelationPerson() {
+		return courtDocDebtDocRelationPerson;
+	}
+
+	public void setCourtDocDebtDocRelationPerson(List<LDocCourtDocDebtDocRela> courtDocDebtDocRelationPerson) {
+		this.courtDocDebtDocRelationPerson = courtDocDebtDocRelationPerson;
+	}
+
+	public List<LDocCourtDocDetailRela> getCourtDocDetailRelationPerson() {
+		return courtDocDetailRelationPerson;
+	}
+
+	public void setCourtDocDetailRelationPerson(List<LDocCourtDocDetailRela> courtDocDetailRelationPerson) {
+		this.courtDocDetailRelationPerson = courtDocDetailRelationPerson;
+	}
+
+	public List<LDocCourtDocFileRela> getCourtDocFileRelationPerson() {
+		return courtDocFileRelationPerson;
+	}
+
+	public void setCourtDocFileRelationPerson(List<LDocCourtDocFileRela> courtDocFileRelationPerson) {
+		this.courtDocFileRelationPerson = courtDocFileRelationPerson;
+	}
+
+	public List<LDocCourtDocDebtContinueRela> getCourtDocDebtContinueRelationPerson() {
+		return courtDocDebtContinueRelationPerson;
+	}
+
+	public void setCourtDocDebtContinueRelationPerson(
+			List<LDocCourtDocDebtContinueRela> courtDocDebtContinueRelationPerson) {
+		this.courtDocDebtContinueRelationPerson = courtDocDebtContinueRelationPerson;
+	}
+
+	public List<LDocCourtDocCashierCheckRela> getCourtDocCashierCheckRelationPerson() {
+		return courtDocCashierCheckRelationPerson;
+	}
+
+	public void setCourtDocCashierCheckRelationPerson(
+			List<LDocCourtDocCashierCheckRela> courtDocCashierCheckRelationPerson) {
+		this.courtDocCashierCheckRelationPerson = courtDocCashierCheckRelationPerson;
+	}
+
+	public List<LDocCourtDocRecoveryRela> getCourtDocRecoveryRelationPerson() {
+		return courtDocRecoveryRelationPerson;
+	}
+
+	public void setCourtDocRecoveryRelationPerson(List<LDocCourtDocRecoveryRela> courtDocRecoveryRelationPerson) {
+		this.courtDocRecoveryRelationPerson = courtDocRecoveryRelationPerson;
+	}
+
+	public List<LDocCourtDocOtherRela> getCourtDocOtherRelationPerson() {
+		return courtDocOtherRelationPerson;
+	}
+
+	public void setCourtDocOtherRelationPerson(List<LDocCourtDocOtherRela> courtDocOtherRelationPerson) {
+		this.courtDocOtherRelationPerson = courtDocOtherRelationPerson;
+	}
+
+	public List<LDocCentitlementRela> getCentitlementRelationPerson() {
+		return centitlementRelationPerson;
+	}
+
+	public void setCentitlementRelationPerson(List<LDocCentitlementRela> centitlementRelationPerson) {
+		this.centitlementRelationPerson = centitlementRelationPerson;
+	}
+
+	public List<LDocCentitlementSourceDoc> getCentitlementSourceDoc() {
+		return centitlementSourceDoc;
+	}
+
+	public void setCentitlementSourceDoc(List<LDocCentitlementSourceDoc> centitlementSourceDoc) {
+		this.centitlementSourceDoc = centitlementSourceDoc;
+	}
+	
 	
 }

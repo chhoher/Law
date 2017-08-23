@@ -290,11 +290,11 @@ var otherfilenum = 0;
 						$("#iptcasePeriods").attr("disabled", true);
 						$("#iptcasePayEndDate").attr("disabled", true);
 					}else if($("#iptcaseType").val() == 1){
-						$("#iptcasePeriods").val(4);
+						//$("#iptcasePeriods").val(4);
 						$("#iptcasePeriods").attr("disabled", false);
 						$("#iptcasePayEndDate").attr("disabled", false);
 					}else if($("#iptcaseType").val() == 2){
-						$("#iptcasePeriods").val(12);
+						//$("#iptcasePeriods").val(12);
 						$("#iptcasePeriods").attr("disabled", false);
 						$("#iptcasePayEndDate").attr("disabled", false);
 					}else{

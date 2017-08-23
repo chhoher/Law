@@ -9,7 +9,7 @@
         
         	<allowed-methods>loadCaseInfo,initSelectOption,saveaddDoc,initaddDoc,
         		loadCaseRela,loadCaseDocs,initSelectedForDocSys,saveBorrowDocs,
-        		printBorrowDocs,queryDocSumTable,initdocSumSelectOption,downloadImgFile,
+        		printDocsInfo,queryDocSumTable,initdocSumSelectOption,downloadImgFile,
         		updateDocStatus,initOpenDoc</allowed-methods>
         </action>
     </package>

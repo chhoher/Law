@@ -12,10 +12,15 @@ public class LDocCentitlementSourceDoc {
 	private String courtYearShare;
 	private int courtYearCaseId;
 	private int centitlementId;
+	private int num;
+	
+	public LDocCentitlementSourceDoc(){
+		
+	}
 	
 	public LDocCentitlementSourceDoc(String centitlementSourceDocId, String centitlementSourceDoc,
 			String centitlementSourceDocName, String courtYearCourt, String courtYearCourtName, int courtYearYear,
-			String courtYearTxt, String courtYearShare, int courtYearCaseId, int centitlementId) {
+			String courtYearTxt, String courtYearShare, int courtYearCaseId, int centitlementId, int num) {
 		this.centitlementSourceDocId = centitlementSourceDocId;
 		this.centitlementSourceDoc = centitlementSourceDoc;
 		this.centitlementSourceDocName = centitlementSourceDocName;
@@ -26,6 +31,7 @@ public class LDocCentitlementSourceDoc {
 		this.courtYearShare = courtYearShare;
 		this.courtYearCaseId = courtYearCaseId;
 		this.centitlementId = centitlementId;
+		this.num = num;
 	}
 	
 	public String getCentitlementSourceDocId() {
@@ -87,6 +93,14 @@ public class LDocCentitlementSourceDoc {
 	}
 	public void setCentitlementId(int centitlementId) {
 		this.centitlementId = centitlementId;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 	
 	

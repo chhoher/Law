@@ -8,6 +8,21 @@
             <column name="centitlement_id"/>
             <generator class="identity" />
         </id>
+		<property name="bankId" type="string">
+			<column name="bank_id" length="10" not-null="true" />
+		</property>
+		<property name="gProdId" type="string">
+			<column name="g_prod_id" length="10" not-null="true" />
+		</property>
+		<property name="gProdName" type="string">
+			<column name="g_prod_name" length="50" not-null="true" />
+		</property>
+		<property name="debtID" type="string">
+			<column name="debt_ID" length="10" not-null="true" />
+		</property>
+		<property name="debtName" type="string">
+			<column name="debt_name" length="10" not-null="true" />
+		</property>
 		<property name="infoId" type="string">
 			<column name="info_id" length="50" />
 		</property>
@@ -39,7 +54,7 @@
 			<column name="received_date" length="23" not-null="true"/>
 		</property>
 		<property name="bankDate" type="timestamp">
-			<column name="bank_date" length="23" not-null="true" />
+			<column name="bank_date" length="23"/>
 		</property>
 		<property name="docStatus" type="string">
 			<column name="doc_status" length="50" not-null="true" />
@@ -54,25 +69,25 @@
 			<column name="bank_name" length="50" not-null="true" />
 		</property>
 		<property name="oldBankName" type="string">
-			<column name="old_bank_name" length="50" not-null="true" />
+			<column name="old_bank_name" length="50"/>
 		</property>
 		<property name="relationPerson" type="string">
 			<column name="relation_person" length="50" not-null="true"/>
 		</property>		
 		<property name="courtYearCourt" type="string">
-			<column name="court_year_court" length="50"/>
+			<column name="court_year_court" length="50" not-null="true" />
 		</property>
 		<property name="courtYearYear" type="int">
-			<column name="court_year_year" />
+			<column name="court_year_year"  not-null="true" />
 		</property>
 		<property name="courtYearTxt" type="string">
-			<column name="court_year_txt" length="50"/>
+			<column name="court_year_txt" length="50" not-null="true" />
 		</property>
 		<property name="courtYearShare" type="string">
-			<column name="court_year_share" length="50" />
+			<column name="court_year_share" length="50" not-null="true"  />
 		</property>
 		<property name="courtYearCaseId" type="int">
-			<column name="court_year_case_id" />
+			<column name="court_year_case_id" not-null="true"  />
 		</property>
 		<property name="sourceDoc" type="string">
 			<column name="source_doc" length="50" />
@@ -81,170 +96,10 @@
 			<column name="send_date" length="23" not-null="true"/>
 		</property>
 		<property name="newSendDate" type="timestamp">
-			<column name="new_send_date" length="23" not-null="true"/>
+			<column name="new_send_date" length="23"/>
 		</property>
 		<property name="remark" type="string">
 			<column name="remark" />
-		</property>	
-		<!-- 補正 -->
-		<property name="transcriptsDays" type="int">
-			<column name="transcripts_days"></column>
-		</property>
-		<property name="transcriptsRemark" type="string">
-			<column name="transcripts_remark"></column>
-		</property>	
-		<property name="transcriptsRelationPerson" type="string">
-			<column name="transcripts_relation_person" length="50"/>
-		</property>
-		<property name="coOwnedTranscriptsDays" type="int">
-			<column name="co_owned_transcripts_days"></column>
-		</property>
-		<property name="coOwnedTranscriptsRemark" type="string">
-			<column name="co_owned_transcripts_remark"></column>
-		</property>	
-		<property name="coOwnedTranscriptsRelationPerson" type="string">
-			<column name="co_owned_transcripts_relation_person" length="50"/>
-		</property>
-		<property name="mortgageeTranscriptsDays" type="int">
-			<column name="mortgagee_transcripts_days"></column>
-		</property>
-		<property name="mortgageeTranscriptsRemark" type="string">
-			<column name="mortgagee_transcripts_remark"></column>
-		</property>	
-		<property name="mortgageeTranscriptsRelationPerson" type="string">
-			<column name="mortgagee_transcripts_relation_person" length="50"/>
-		</property>
-		<property name="lawTranscriptsDays" type="int">
-			<column name="law_transcripts_days"></column>
-		</property>
-		<property name="lawTranscriptsRemark" type="string">
-			<column name="law_transcripts_remark"></column>
-		</property>	
-		<property name="lawTranscriptsRelationPerson" type="string">
-			<column name="law_transcripts_relation_person" length="50"/>
-		</property>
-		<property name="heirTranscriptsDays" type="int">
-			<column name="heir_transcripts_days"></column>
-		</property>
-		<property name="heirTranscriptsRemark" type="string">
-			<column name="heir_transcripts_remark"></column>
-		</property>	
-		<property name="heirTranscriptsRelationPerson" type="string">
-			<column name="heir_transcripts_relation_person" length="50"/>
-		</property>
-		<property name="dirtTranscriptsDays" type="int">
-			<column name="dirt_transcripts_days"></column>
-		</property>
-		<property name="dirtTranscriptsRemark" type="string">
-			<column name="dirt_transcripts_remark"></column>
-		</property>	
-		<property name="dirtTranscriptsRelationPerson" type="string">
-			<column name="dirt_transcripts_relation_person" length="50"/>
-		</property>
-		<property name="builtTranscriptsDays" type="int">
-			<column name="built_transcripts_days"></column>
-		</property>
-		<property name="builtTranscriptsRemark" type="string">
-			<column name="built_transcripts_remark"></column>
-		</property>	
-		<property name="builtTranscriptsRelationPerson" type="string">
-			<column name="built_transcripts_relation_person" length="50"/>
-		</property>
-		<property name="distributionDays" type="int">
-			<column name="distribution_days"></column>
-		</property>
-		<property name="distributionRemark" type="string">
-			<column name="distribution_remark"></column>
-		</property>	
-		<property name="distributionRelationPerson" type="string">
-			<column name="distribution_relation_person" length="50"/>
-		</property>
-		<property name="thingThirdDays" type="int">
-			<column name="thing_third_days"></column>
-		</property>
-		<property name="thingThirdRemark" type="string">
-			<column name="thing_third_remark"></column>
-		</property>	
-		<property name="thingThirdRelationPerson" type="string">
-			<column name="thing_third_relation_person" length="50"/>
-		</property>
-		<property name="thingDebtDays" type="int">
-			<column name="thing_debt_days"></column>
-		</property>
-		<property name="thingDebtRemark" type="string">
-			<column name="thing_debt_remark"></column>
-		</property>	
-		<property name="thingDebtRelationPerson" type="string">
-			<column name="thing_debt_relation_person" length="50"/>
-		</property>
-		<property name="coOwnedDays" type="int">
-			<column name="co_owned_days"></column>
-		</property>
-		<property name="coOwnedRemark" type="string">
-			<column name="co_owned_remark"></column>
-		</property>	
-		<property name="coOwnedRelationPerson" type="string">
-			<column name="co_owned_relation_person" length="50"/>
-		</property>
-		<property name="debtDocDays" type="int">
-			<column name="debt_doc_days"></column>
-		</property>
-		<property name="debtDocRemark" type="string">
-			<column name="debt_doc_remark"></column>
-		</property>	
-		<property name="debtDocRelationPerson" type="string">
-			<column name="debt_doc_relation_person" length="50"/>
-		</property>
-		<property name="detailDays" type="int">
-			<column name="detail_days"></column>
-		</property>
-		<property name="detailRemark" type="string">
-			<column name="detail_remark"></column>
-		</property>	
-		<property name="detailRelationPerson" type="string">
-			<column name="detail_relation_person" length="50"/>
-		</property>
-		<property name="fileDays" type="int">
-			<column name="files_days"></column>
-		</property>
-		<property name="fileRemark" type="string">
-			<column name="files_remark"></column>
-		</property>	
-		<property name="fileRelationPerson" type="string">
-			<column name="files_relation_person" length="50"/>
-		</property>
-		<property name="debtContinueDays" type="int">
-			<column name="debt_continue_days"></column>
-		</property>
-		<property name="debtContinueRemark" type="string">
-			<column name="debt_continue_remark"></column>
-		</property>	
-		<property name="debtContinueRelationPerson" type="string">
-			<column name="debt_continue_relation_person" length="50"/>
-		</property>
-		<property name="cashierCheckDays" type="int">
-			<column name="cashier_check_days"></column>
-		</property>
-		<property name="cashierCheckRemark" type="string">
-			<column name="cashier_check_remark"></column>
-		</property>	
-		<property name="cashierCheckRelationPerson" type="string">
-			<column name="cashier_check_relation_person" length="50"/>
-		</property>
-		<property name="otherValues" type="string">
-			<column name="other_values" length="50"></column>
-		</property>	
-		<property name="otherDays" type="int">
-			<column name="other_days"></column>
-		</property>
-		<property name="otherRemark" type="string">
-			<column name="other_remark"></column>
-		</property>	
-		<property name="otherRelationPerson" type="string">
-			<column name="other_relation_person" length="50"/>
-		</property>
-		<property name="edit" type="string">
-			<column name="edit" length="50"></column>
 		</property>	
 		<property name="borrowReason" type="string">
 			<column name="borrow_reason" length="50"/>

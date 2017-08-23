@@ -35,6 +35,9 @@
 		<property name="createUserId" type="string">
 			<column name="create_user_id" length="50" not-null="true"/>
 		</property>
+		<property name="createUserName" type="string">
+			<column name="create_user_name" length="30" />
+		</property>
 		<property name="shareCaseId0" type="string">
 			<column name="share_case_id_0" length="50"></column>
 		</property>
@@ -88,21 +91,6 @@
 		</property>
 		<property name="courtYearCaseId" type="int">
 			<column name="court_year_case_id" not-null="true" />
-		</property>
-		<property name="ruledDate" type="timestamp">
-			<column name="ruled_date" length="23" />
-		</property>
-		<property name="ruledAmount" type="int">
-			<column name="ruled_amount" />
-		</property>
-		<property name="applyConfirmationDate" type="timestamp">
-			<column name="apply_confirmation_date" length="23"/>
-		</property>
-		<property name="receivedConfirmationDate" type="timestamp">
-			<column name="received_confirmation_date" length="23"/>
-		</property>
-		<property name="failureDate" type="timestamp">
-			<column name="failure_date" length="23"/>
 		</property>
 		<property name="applyLawThird" type="string">
 			<column name="apply_law_third" length="50"/>
@@ -495,6 +483,18 @@
 		</property>	
 		<property name="borrowInfo" type="string">
 			<column name="borrow_info" />
+		</property>	
+		<property name="hasReport" type="string">
+			<column name="has_report" length="1"/>
+		</property>	
+		<property name="hasEdit" type="string">
+			<column name="has_edit" length="1"/>
+		</property>	
+		<property name="hasPay" type="string">
+			<column name="has_pay" length="1"/>
+		</property>	
+		<property name="hasSendReport" type="string">
+			<column name="has_sendReport" length="1"/>
 		</property>	
 	</class>
 </hibernate-mapping>

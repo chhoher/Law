@@ -21,6 +21,8 @@
 	<import resource="CEK/spring_cek_flow.xml" />
 	<import resource="CEK/spring_cek_recordcheckform.xml" />
 	<import resource="DOC/spring_doc_documents.xml" />
+	<import resource="DOC/spring_doc_borrow.xml" /><!-- Add By Jia 申調文件的spring -->
+	<import resource="HistoryQuery/spring_sys_historyquery.xml" />
 	
 	<!-- refer hibernate factory config -->
 	<bean id="sessionFactory"	class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">

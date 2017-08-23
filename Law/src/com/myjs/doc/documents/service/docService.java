@@ -59,10 +59,12 @@ public interface docService {
 	 * add By Jia 2017-07-21
 	 * 儲存申調紀錄
 	 * @param saveBorrowString
+	 * @param saveBorrowHistoryInfo
+	 * @param caseId
 	 * @return
 	 * @throws Exception
 	 */
-	public String saveBorrowDocs(String saveBorrowString, VEIPMemdb loginUser, String caseId) throws Exception;
+	public String saveBorrowDocs(String saveBorrowString, String saveBorrowHistoryInfo, VEIPMemdb loginUser, String caseId) throws Exception;
 	
 	/**
 	 * add By Jia 2017-07-24
@@ -71,7 +73,7 @@ public interface docService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String printBorrowDocs(String printBorrowString, String uploadPath) throws Exception;
+	public String printDocsInfo(String printDocInfoString, String uploadPath) throws Exception;
 	
 	/**
 	 * add By Jia 2017-07-26

@@ -36,5 +36,8 @@
 		<property name="centitlementId" type="int">
 			<column name="centitlement_id" />
 		</property>
+		<property name="num" type="int">
+			<column name="num" />
+		</property>
 	</class>
 </hibernate-mapping>

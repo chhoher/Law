@@ -198,7 +198,7 @@ law.addDoc.cashierCheck = {
 			
 		for( ; i <= law.addDoc.cashierCheck.cashierCheckRelaNum[0]; i++){
 			var rela_ID = $("#iptcashierCheckRelationPerson_" + i).find('option:selected').val().split(",");
-			relainfo = { 
+			relainfo = {
 				"cashiercheckRelaId" : ($("#iptcashierCheckRelationPersonId_" + i).val() != "" ) ? $("#iptcashierCheckRelationPersonId_" + i).val() : null,
 				"num" : i,
 				"ID" : rela_ID[0],

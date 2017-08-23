@@ -100,6 +100,7 @@ public class LCekSignedCaseInfo implements java.io.Serializable {
 	private String Bank_ID;
 	private String Bank_name;
 	private String Bank_alias;
+	private String G_name;
 	
 	//add By Jia 2017-05-10 VO
 	private String name;
@@ -918,4 +919,13 @@ public class LCekSignedCaseInfo implements java.io.Serializable {
 		O_or_C = o_or_C;
 	}
 
+	public String getG_name() {
+		return G_name;
+	}
+
+	public void setG_name(String g_name) {
+		G_name = g_name;
+	}
+
+	
 }

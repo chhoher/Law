@@ -18,6 +18,8 @@ import com.myjs.commons.DateTimeFormat;
 import com.myjs.commons.SaveParameter;
 import com.myjs.doc.documents.Dao.docDao;
 import com.myjs.doc.borrow.Dao.docBorrowDao;
+import com.myjs.sys.user.Dao.memdbDao;
+import com.myjs.sys.user.model.VEIPMemdb;
 import com.myjs.doc.borrow.model.LDocBorrowList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,7 +31,7 @@ public class docBorrowServiceImpl implements docBorrowService{
 	private static final Logger log = LogManager.getLogger(docBorrowServiceImpl.class);
 	private docDao docDao;
 	private docBorrowDao docBorrowDao;
-	
+	private memdbDao memdbDao;
 	public docDao getDocDao() {
 		return docDao;
 	}
@@ -44,6 +46,15 @@ public class docBorrowServiceImpl implements docBorrowService{
 
 	public void setDocBorrowDao(docBorrowDao docBorrowDao) {
 		this.docBorrowDao = docBorrowDao;
+	}
+	
+	
+	public memdbDao getMemdbDao() {
+		return memdbDao;
+	}
+
+	public void setMemdbDao(memdbDao memdbDao) {
+		this.memdbDao = memdbDao;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -84,16 +95,27 @@ public class docBorrowServiceImpl implements docBorrowService{
 			String borrowReason, String docStatus, String ID, String borrowStartDate, 
 			String borrowEndDate, String docCode, String borrowUserName) throws Exception{
 		
+		VEIPMemdb borrowUserId =null;
+		String borrowUserNo = "";
+		//用申請人姓名讀取ID
+		if(borrowUserName != null && !borrowUserName.equals("")){
+			borrowUserId = memdbDao.findbyuserName(borrowUserName);
+			borrowUserNo = borrowUserId.getMemno();
+		}
+		
+		log.debug("borrowUserId = {}, borrowUserName = {}",	borrowUserNo, borrowUserName);
 		List<LDocBorrowList> ListLDocInfo = docBorrowDao.findBorrowDoc(type, caseId, bankName, isInStore, debtName, 
-				borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserName);
+				borrowReason, docStatus, ID, borrowStartDate, borrowEndDate, docCode, borrowUserNo);
 		JsonObject jsonResponse = new JsonObject();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		jsonResponse.add("responseLDocBorrow", gson.toJsonTree(ListLDocInfo));
 		return jsonResponse.toString();
 	}
 	
 	public String printMoveDocs(String type, String printMoveDocString, String uploadPath) throws Exception{
-		Gson gson = new Gson();
+
+
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		List<LDocBorrowList> LDocBorrowList = gson.fromJson(printMoveDocString, new TypeToken<List<LDocBorrowList>>(){}.getType());
 		
 		// 進行套表
@@ -108,7 +130,9 @@ public class docBorrowServiceImpl implements docBorrowService{
 				typeName = "moveDoc";
 			}else if(type.equals("1")){
 				typeName = "moveCheckDoc";
-			}
+			}else if(type.equals("2")){
+				typeName = "applyBorrow";
+			}	
 		}
 		String filePath = properties.getProperty("doc." + typeName + ".printexcel.path");
 		String fileName = properties.getProperty("doc." + typeName + ".printexcel.name");
@@ -178,7 +202,7 @@ public class docBorrowServiceImpl implements docBorrowService{
 		//確定調出
 		if(saveType.equals("0")){
 			if(saveBorrowDocIds != null && !saveBorrowDocIds.equals("")){
-				docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"2");
+				docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"2" ,"");
 			}
 			
 			if(saveCentitlementDocIds != null && !saveCentitlementDocIds.equals("")){
@@ -215,9 +239,9 @@ public class docBorrowServiceImpl implements docBorrowService{
 
 			if(saveBorrowDocIds != null && !saveBorrowDocIds.equals("")){
 				if(saveType.equals("1")){
-					docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"1");
+					docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"1" ,"");
 				}else if(saveType.equals("3")){
-					docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"4");
+					docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"4" ,"");
 				}
 			}
 			
@@ -258,7 +282,7 @@ public class docBorrowServiceImpl implements docBorrowService{
 		}else if(saveType.equals("2")){// 調卷簽收
 
 			if(saveBorrowDocIds != null && !saveBorrowDocIds.equals("")){
-				docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"3");
+				docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"3" , "");
 			}
 			
 			if(saveCentitlementDocIds != null && !saveCentitlementDocIds.equals("")){
@@ -315,4 +339,102 @@ public class docBorrowServiceImpl implements docBorrowService{
 		
 		return jsonResponse.toString();
 	}
+		
+	public String saveCancelDocs(String saveType,String saveCancelReason, String saveCentitlementDocIds, 
+			String saveCourtDocDocIds, String saveCashierCheckDocIds, String saveDebtsDocIds, 
+			String saveClaimsDocDocIds, String saveFileDocDocIds, String saveOtherDocIds, String saveBorrowDocIds) 
+					throws Exception{
+		
+		log.debug("saveCancelMoveDocs start");
+		log.debug("saveCancelMoveDocs type = {}", saveType);
+		JsonObject jsonResponse = new JsonObject();
+		
+		saveCancelReason = saveCancelReason.replaceAll("\\Q[\\E", "");
+		saveCancelReason = saveCancelReason.replaceAll("\\Q]\\E", "");
+		saveCancelReason = saveCancelReason.replaceAll("\"", "'");
+
+		saveBorrowDocIds = saveBorrowDocIds.replaceAll("\\Q[\\E", "");
+		saveBorrowDocIds = saveBorrowDocIds.replaceAll("\\Q]\\E", "");
+		saveBorrowDocIds = saveBorrowDocIds.replaceAll("\"", "'");
+		
+		saveCentitlementDocIds = saveCentitlementDocIds.replaceAll("\\Q[\\E", "");
+		saveCentitlementDocIds = saveCentitlementDocIds.replaceAll("\\Q]\\E", "");
+		saveCentitlementDocIds = saveCentitlementDocIds.replaceAll("\"", "'");
+		
+		saveCourtDocDocIds = saveCourtDocDocIds.replaceAll("\\Q[\\E", "");
+		saveCourtDocDocIds = saveCourtDocDocIds.replaceAll("\\Q]\\E", "");
+		saveCourtDocDocIds = saveCourtDocDocIds.replaceAll("\"", "'");
+		
+		saveCashierCheckDocIds = saveCashierCheckDocIds.replaceAll("\\Q[\\E", "");
+		saveCashierCheckDocIds = saveCashierCheckDocIds.replaceAll("\\Q]\\E", "");
+		saveCashierCheckDocIds = saveCashierCheckDocIds.replaceAll("\"", "'");
+		
+		saveDebtsDocIds = saveDebtsDocIds.replaceAll("\\Q[\\E", "");
+		saveDebtsDocIds = saveDebtsDocIds.replaceAll("\\Q]\\E", "");
+		saveDebtsDocIds = saveDebtsDocIds.replaceAll("\"", "'");
+		
+		saveClaimsDocDocIds = saveClaimsDocDocIds.replaceAll("\\Q[\\E", "");
+		saveClaimsDocDocIds = saveClaimsDocDocIds.replaceAll("\\Q]\\E", "");
+		saveClaimsDocDocIds = saveClaimsDocDocIds.replaceAll("\"", "'");
+		
+		saveFileDocDocIds = saveFileDocDocIds.replaceAll("\\Q[\\E", "");
+		saveFileDocDocIds = saveFileDocDocIds.replaceAll("\\Q]\\E", "");
+		saveFileDocDocIds = saveFileDocDocIds.replaceAll("\"", "'");
+		
+		saveOtherDocIds = saveOtherDocIds.replaceAll("\\Q[\\E", "");
+		saveOtherDocIds = saveOtherDocIds.replaceAll("\\Q]\\E", "");
+		saveOtherDocIds = saveOtherDocIds.replaceAll("\"", "'");
+		
+		
+		
+		log.debug("saveCancelReason={}, saveCentitlementDocIds={}, saveCourtDocDocIds={}, saveCashierCheckDocIds={},"
+				+ "saveDebtsDocIds={}, saveClaimsDocDocIds={}, saveDebtsDocIds={}, saveClaimsDocDocIds={},"
+				+ "saveFileDocDocIds={}, saveOtherDocIds  ={}, saveBorrowDocIds = {} ,", 
+				saveCancelReason, saveCentitlementDocIds, saveCourtDocDocIds, saveCashierCheckDocIds, saveDebtsDocIds,
+				saveClaimsDocDocIds, saveFileDocDocIds, saveOtherDocIds, saveBorrowDocIds);
+		
+	
+		
+		//狀態改為取消借調
+		if(saveType.equals("0")){
+			
+				
+			if(saveBorrowDocIds != null && !saveBorrowDocIds.equals("")){
+					docBorrowDao.saveToUpdateBorrowListStatus(saveBorrowDocIds,"4", saveCancelReason);
+			}
+		
+			if(saveCentitlementDocIds != null && !saveCentitlementDocIds.equals("") && saveCentitlementDocIds.isEmpty() != true){
+				docDao.saveToUpdateDocStatus("L_DOC_CENTITLEMENT","'8a8081f75ddfcd9e015de3f07b3c0038'",saveCentitlementDocIds);
+			}
+			
+			if(saveCourtDocDocIds != null && !saveCourtDocDocIds.equals("")){
+				docDao.saveToUpdateDocStatus("L_DOC_COURT_DOC","'8a8081f75ddfcd9e015de3f07b3c0038'",saveCourtDocDocIds);
+			}
+			
+			if(saveCashierCheckDocIds != null && !saveCashierCheckDocIds.equals("")){
+				docDao.saveToUpdateDocStatus("L_DOC_CASHIERCHECK","'8a8081f75ddfcd9e015de3f07b3c0038'",saveCashierCheckDocIds);
+			}
+			
+			if(saveDebtsDocIds != null && !saveDebtsDocIds.equals("")){
+				docDao.saveToUpdateDocStatus("L_DOC_DEBTS","'8a8081f75ddfcd9e015de3f07b3c0038'",saveDebtsDocIds);
+			}
+
+			if(saveClaimsDocDocIds != null && !saveClaimsDocDocIds.equals("")){
+				docDao.saveToUpdateDocStatus("L_DOC_CLAIMSDOC","'8a8081f75ddfcd9e015de3f07b3c0038'",saveClaimsDocDocIds);
+			}
+
+			if(saveFileDocDocIds != null && !saveFileDocDocIds.equals("")){
+				docDao.saveToUpdateDocStatus("L_DOC_FILEDOCS","'8a8081f75ddfcd9e015de3f07b3c0038'",saveFileDocDocIds);
+			}
+
+			if(saveOtherDocIds != null && !saveOtherDocIds.equals("")){
+			docDao.saveToUpdateDocStatus("L_DOC_OTHERDOCS","'8a8081f75ddfcd9e015de3f07b3c0038'",saveOtherDocIds);
+			}
+			
+			jsonResponse.addProperty("success", "success");
+			jsonResponse.addProperty("msg", "取消申調成功");
+		
+	}
+		return jsonResponse.toString();
+	}	
 }

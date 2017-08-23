@@ -16,22 +16,22 @@ public class MailSenderInfo {
 	private String mailServerHost = "js-mailsrv.mytf.com.tw";
 	private String mailServerPort = "25";
 	// 郵件發送者的地址
-	private String fromAddress = "legalServer@mytf.com.tw";
+	private String fromAddress = "9999@mytf.com.tw";
 	// 郵件接收者的地址
 	private String toAddress = "2354@mytf.com.tw";
-	private String toAddress2 = null;
+	private String toAddress2 = "2354@mytf.com.tw";
 	// 郵件副本接收者的地址
-	private String ccAddress = null;
-	private String ccAddress2 = null;
+	private String ccAddress = "2354@mytf.com.tw";
+	private String ccAddress2 = "2354@mytf.com.tw";
 	// 登陸郵件發送服務器的用戶名和密碼
-	private String userName = "劉家嘉";
+	private String userName = null;
 	private String password = "";
 	// 是否需要身份驗證
 	private boolean validate = true; 
 	// 郵件主題
-	private String subject = "系統Mail發送";
+	private String subject = "系統Mail發送<<測試信件，請不用理會，謝謝。 By JiaJia>>";
 	// 郵件的文本內容
-	private String content = "系統Mail發送";
+	private String content = "系統Mail發送<<測試信件，請不用理會，謝謝。 By JiaJia>>";
 	// 郵件附件的文件名
 	private String[] attachFileNames;
 	// 郵件附加檔案

@@ -13,6 +13,11 @@
 <script type="text/javascript" src="../legaljs/doc/adddoc/docFile.js"></script>
 <script type="text/javascript" src="../legaljs/doc/adddoc/docOther.js"></script>
 <head>
+<style>
+.editWidth{
+    	min-width:250px;
+    }
+</style>
 <title>文管新增</title>
 </head>
 <body>
@@ -176,8 +181,12 @@
 		                { "data": "typeOne" },
 		                { "data": "typeTwo" },
 		                { "data": "docStatus" },
-		                { "data": "courtYearCourt" },
-		                { "data": "sourceDoc" },
+		                { "data": "courtYearCourt",
+		                	"className" : "editWidth dt-center"	
+		                },
+		                { "data": "sourceDoc" ,
+		                	"className" : "editWidth dt-center"		
+		                },
 		                { "data": "sendDate" },
 		                { "data": "newSendDate" },
 		                { "data": "remark" },
@@ -782,7 +791,8 @@
 			<table>
 				<tr id="iptcentitlementRelationPersonTr">
 					<td><label style="color:red">*相對人</label></td>
-					<td><select id="iptcentitlementRelationPerson_0"><option value="">請選擇</option></select></td>
+					<td><select id="iptcentitlementRelationPerson_0"><option value="">請選擇</option></select>
+						<input id="iptcentitlementRelationPersonId_0" style="display:none"></input></td>
 					<td><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementRelaTd(0)"></td>
 				</tr>
 			</table>
@@ -802,7 +812,7 @@
 			</table>
 			<table id="tcentitlementSourceDoc">
 				<tr>
-					<td><label>原始憑證</label></td>
+					<td><label>原始憑證</label><input id="iptcentitlementSourceDocId_0" style="display:none"></input></td>
 					<td><select id="iptcentitlementSourceDoc_0"><option value="">請選擇</option></select>
 					<select id="iptcentitlementSourceDocCourtYearCourt_0"><option value="">請選擇</option></select></td>
 					<td><label>年度</label></td>
@@ -813,6 +823,22 @@
 					<td><input id="iptcentitlementSourceDocCourtYearShare_0" style="width : 50px"></input></td>
 					<td><label>案號</label></td>
 					<td><input id="iptcentitlementSourceDocCourtYearCaseId_0" style="width : 60px"></input><img src="../images/plus.png" onclick="law.addDoc.centitlement.addcentitlementSourceDocT(0)"></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td><label>收到裁定日</label></td>
+					<td><input id="iptcentitlementRuledDate" ></input></td>
+					<td><label>裁定金額</label></td>
+					<td><input id="iptcentitlementRuledAmount" ></input></td>
+					<td><label>聲請確證日</label></td>
+					<td><input id="iptcentitlementApplyConfirmationDate" ></input></td>
+				</tr>
+				<tr>
+					<td><label>收確證日</label></td>
+					<td><input id="iptcentitlementReceivedConfirmationDate" ></input></td>
+					<td><label>失效日</label></td>
+					<td><input id="iptcentitlementFailureDate" ></input></td>
 				</tr>
 			</table>
 			<table>
@@ -897,22 +923,6 @@
 						<td><input id="iptcourtDocCourtYearShare" style="width : 50px"></input></td>
 						<td><label>案號</label></td>
 						<td><input id="iptcourtDocCourtYearCaseId" style="width : 60px"></input></td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td><label>收到裁定日</label></td>
-						<td><input id="iptcourtDocRuledDate" ></input></td>
-						<td><label>裁定金額</label></td>
-						<td><input id="iptcourtDocRuledAmount" ></input></td>
-						<td><label>聲請確證日</label></td>
-						<td><input id="iptcourtDocApplyConfirmationDate" ></input></td>
-					</tr>
-					<tr>
-						<td><label>收確證日</label></td>
-						<td><input id="iptcourtDocReceivedConfirmationDate" ></input></td>
-						<td><label>失效日</label></td>
-						<td><input id="iptcourtDocFailureDate" ></input></td>
 					</tr>
 				</table>
 				<table>

@@ -2,29 +2,12 @@ package com.myjs.doc.documents.Dao;
 
 import java.util.List;
 
-import com.myjs.doc.documents.model.LDocBorrowHistory;
+import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.doc.documents.model.LDocCashiercheck;
 import com.myjs.doc.documents.model.LDocCashiercheckRela;
 import com.myjs.doc.documents.model.LDocCentitlement;
-import com.myjs.doc.documents.model.LDocCentitlementBuiltTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementCashierCheckRela;
-import com.myjs.doc.documents.model.LDocCentitlementCoOwnedRela;
-import com.myjs.doc.documents.model.LDocCentitlementCoOwnedTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementDebtContinueRela;
-import com.myjs.doc.documents.model.LDocCentitlementDebtDocRela;
-import com.myjs.doc.documents.model.LDocCentitlementDetailRela;
-import com.myjs.doc.documents.model.LDocCentitlementDirtTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementDistributionRela;
-import com.myjs.doc.documents.model.LDocCentitlementFileRela;
-import com.myjs.doc.documents.model.LDocCentitlementHeirTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementLawTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementMortgageeTranscriptsRela;
-import com.myjs.doc.documents.model.LDocCentitlementOtherRela;
 import com.myjs.doc.documents.model.LDocCentitlementRela;
 import com.myjs.doc.documents.model.LDocCentitlementSourceDoc;
-import com.myjs.doc.documents.model.LDocCentitlementThingDebtRela;
-import com.myjs.doc.documents.model.LDocCentitlementThingThirdRela;
-import com.myjs.doc.documents.model.LDocCentitlementTranscriptsRela;
 import com.myjs.doc.documents.model.LDocClaimsdocs;
 import com.myjs.doc.documents.model.LDocClaimsdocsRela;
 import com.myjs.doc.documents.model.LDocCourtDoc;
@@ -50,6 +33,7 @@ import com.myjs.doc.documents.model.LDocCourtDocTranscriptsRela;
 import com.myjs.doc.documents.model.LDocDebts;
 import com.myjs.doc.documents.model.LDocDebtsRela;
 import com.myjs.doc.documents.model.LDocFiledocs;
+import com.myjs.doc.documents.model.LDocImgfileTemp;
 import com.myjs.doc.documents.model.LDocInfo;
 import com.myjs.doc.documents.model.LDocOtherdocs;
 import com.myjs.sys.variable.model.LSysVariable;
@@ -83,142 +67,6 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public boolean save(LDocCentitlementRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義戶謄相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementTranscriptsRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義共有人戶謄相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementCoOwnedTranscriptsRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義抵押權人戶謄相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementMortgageeTranscriptsRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義法代戶謄相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementLawTranscriptsRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義繼承人戶謄相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementHeirTranscriptsRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義土謄相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementDirtTranscriptsRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義建謄相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementBuiltTranscriptsRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義分配表相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementDistributionRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義事項表(第三人)相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementThingThirdRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義事項表(債權人)相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementThingDebtRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義共有人名冊相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementCoOwnedRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義債權文件相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementDebtDocRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義帳務明細相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementDetailRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義執行名義相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementFileRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義債證續行表相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementDebtContinueRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義本票相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementCashierCheckRela transientInstance) throws Exception;
-
-	/**
-	 * 文管新增執行名義其他相關人儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocCentitlementOtherRela transientInstance) throws Exception;
 	
 	/**
 	 * 文管新增執行名義原始憑證
@@ -453,20 +301,28 @@ public interface docDao {
 	public boolean save(LDocOtherdocs transientInstance) throws Exception;
 	
 	/**
+	 * 文管系統影像檔暫存table
+	 * @param transientInstance
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean save(LDocImgfileTemp transientInstance) throws Exception;
+	
+	/**
+	 * 刪除文管系統影像檔暫存table
+	 * @param transientInstance
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean deleteById(String uuid) throws Exception;
+	
+	/**
 	 * 用案號查詢該案件文件
 	 * @param caseId
 	 * @return
 	 * @throws Exception
 	 */
 	public List<LDocInfo> findDocByCaseId(String caseId) throws Exception;
-	
-	/**
-	 * 文管歷史紀錄儲存
-	 * @param transientInstance
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean save(LDocBorrowHistory transientInstance) throws Exception;
 	
 	public List<LDocInfo> findSumDoc() throws Exception;
 	
@@ -476,4 +332,277 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public List<LSysVariable> findAllBankName() throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-07 更改DOC狀態
+	 * @param DocTableName
+	 * @param updateStatus
+	 * @param doc_id
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean saveToUpdateDocStatus(String DocTableName, String updateStatus, String doc_id) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-15 查詢案件資訊by 文管條件
+	 * @param caseId
+	 * @param debtorName
+	 * @param debtorId
+	 * @param docNo
+	 * @param legalCaseId
+	 * @param isCheck
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LCekSignedCaseInfo> findCaseByDocInfo(String caseId, String debtorName, 
+			String debtorId, String docNo, String legalCaseId, boolean isCheck) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocCentitlement findCenById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCentitlementRela> findCenRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出原始憑證list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCentitlementSourceDoc> findCenSourceDocById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocCourtDoc findCourtDocById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocRela> findCourtDocRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocTranscriptsRela> findCourtDocTransciptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocCoOwnedTranscriptsRela> findCourtDocCoOwnedTransciptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocMortgageeTranscriptsRela> findCourtDocMortgageeTranscriptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocLawTranscriptsRela> findCourtDocLawTranscriptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocHeirTranscriptsRela> findCourtDocHeirTranscriptsRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDirtTranscriptsRela> findCourtDocDirtTranscriptsRelaById(String docId) throws Exception;
+	
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocBuiltTranscriptsRela> findCourtDocBuiltTranscriptsRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDistributionRela> findCourtDocDistributionRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocThingThirdRela> findCourtDocThingThirdRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocThingDebtRela> findCourtDocThingDebtRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocCoOwnedRela> findCourtDocCoOwnedRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDebtDocRela> findCourtDocDebtDocRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDetailRela> findCourtDocDetailRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocFileRela> findCourtDocFileRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDebtContinueRela> findCourtDocDebtContinueRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocCashierCheckRela> findCourtDocCashierCheckRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocRecoveryRela> findCourtDocRecoveryRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocOtherRela> findCourtDocOtherRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocCashiercheck findCashierCheckById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-18 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCashiercheckRela> findCashierCheckRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocDebts findDebtsById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-18 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocDebtsRela> findDebtsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocClaimsdocs findClaimDocsById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-18 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocClaimsdocsRela> findClaimDocsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-17 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocFiledocs findFileById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-16 用id查詢文件
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public LDocOtherdocs findOtherById(String docId) throws Exception;
 }

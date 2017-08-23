@@ -6,12 +6,19 @@ public class LDocCashiercheckRela {
 	private String ID;
 	private String name;
 	private int cashiercheckId;
+	private int num;
+	private int P_ID;
 	
-	public LDocCashiercheckRela(String cashiercheckRelaId, String iD, String name, int cashiercheckId) {
+	public LDocCashiercheckRela(){
+	}
+	
+	public LDocCashiercheckRela(String cashiercheckRelaId, String iD, String name, int cashiercheckId, int num, int P_ID) {
 		this.cashiercheckRelaId = cashiercheckRelaId;
 		ID = iD;
 		this.name = name;
 		this.cashiercheckId = cashiercheckId;
+		this.num = num;
+		this.P_ID = P_ID;
 	}
 
 	public String getCashiercheckRelaId() {
@@ -44,6 +51,22 @@ public class LDocCashiercheckRela {
 
 	public void setCashiercheckId(int cashiercheckId) {
 		this.cashiercheckId = cashiercheckId;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public int getP_ID() {
+		return P_ID;
+	}
+
+	public void setP_ID(int p_ID) {
+		P_ID = p_ID;
 	}
 	
 	

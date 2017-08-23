@@ -364,6 +364,22 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public LDocCentitlement findCenById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCentitlementRela> findCenRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出原始憑證list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCentitlementSourceDoc> findCenSourceDocById(String docId) throws Exception;
 	
 	/**
 	 * add By Jia 2017-08-17 用id查詢文件
@@ -372,6 +388,159 @@ public interface docDao {
 	 * @throws Exception
 	 */
 	public LDocCourtDoc findCourtDocById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocRela> findCourtDocRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocTranscriptsRela> findCourtDocTransciptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocCoOwnedTranscriptsRela> findCourtDocCoOwnedTransciptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocMortgageeTranscriptsRela> findCourtDocMortgageeTranscriptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocLawTranscriptsRela> findCourtDocLawTranscriptsRelaById(String docId) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocHeirTranscriptsRela> findCourtDocHeirTranscriptsRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDirtTranscriptsRela> findCourtDocDirtTranscriptsRelaById(String docId) throws Exception;
+	
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocBuiltTranscriptsRela> findCourtDocBuiltTranscriptsRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDistributionRela> findCourtDocDistributionRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocThingThirdRela> findCourtDocThingThirdRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocThingDebtRela> findCourtDocThingDebtRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocCoOwnedRela> findCourtDocCoOwnedRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDebtDocRela> findCourtDocDebtDocRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDetailRela> findCourtDocDetailRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocFileRela> findCourtDocFileRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocDebtContinueRela> findCourtDocDebtContinueRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocCashierCheckRela> findCourtDocCashierCheckRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocRecoveryRela> findCourtDocRecoveryRelaById(String docId) throws Exception;
+
+	/**
+	 * add By Jia 2017-08-20 用id抓出相對人list
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LDocCourtDocOtherRela> findCourtDocOtherRelaById(String docId) throws Exception;
 	
 	/**
 	 * add By Jia 2017-08-17 用id查詢文件

@@ -35,6 +35,9 @@
 		<property name="createUserId" type="string">
 			<column name="create_user_id" length="50" not-null="true"/>
 		</property>
+		<property name="createUserName" type="string">
+			<column name="create_user_name" length="50" />
+		</property>
 		<property name="shareCaseId0" type="string">
 			<column name="share_case_id_0" length="50"></column>
 		</property>
@@ -91,6 +94,21 @@
 		</property>
 		<property name="sourceDoc" type="string">
 			<column name="source_doc" length="50" />
+		</property>
+		<property name="ruledDate" type="timestamp">
+			<column name="ruled_date" length="23" />
+		</property>
+		<property name="ruledAmount" type="int">
+			<column name="ruled_amount" />
+		</property>
+		<property name="applyConfirmationDate" type="timestamp">
+			<column name="apply_confirmation_date" length="23"/>
+		</property>
+		<property name="receivedConfirmationDate" type="timestamp">
+			<column name="received_confirmation_date" length="23"/>
+		</property>
+		<property name="failureDate" type="timestamp">
+			<column name="failure_date" length="23"/>
 		</property>
 		<property name="sendDate" type="timestamp">
 			<column name="send_date" length="23" not-null="true"/>
