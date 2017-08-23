@@ -30,11 +30,6 @@ public class LDocCourtDoc {
 	private String courtYearTxt;
 	private String courtYearShare;
 	private int courtYearCaseId;
-	private Date ruledDate;
-	private int ruledAmount;
-	private Date applyConfirmationDate;
-	private Date receivedConfirmationDate;
-	private Date failureDate; 
 	private String applyLawThird;
 	private String addAddress;
 	private int distributionAmount;
@@ -110,6 +105,11 @@ public class LDocCourtDoc {
 	private String executionOtherContent;
 	private Date createDatetime;
 	private String createUserId;
+	private String createUserName;
+	private String hasReport;
+	private String hasEdit;
+	private String hasPay;
+	private String hasSendReport;
 	
 	// add By Jia 2017-07-18 補正
 	// 戶謄
@@ -222,8 +222,7 @@ public class LDocCourtDoc {
 			String infoId, int caseId, String shareCaseId0, String shareCaseId1, String shareCaseId2,
 			String shareCaseId3, String shadow, Date receivedDate, Date bankDate, String docStatus, String typeOne,
 			String typeTwo, String bankName, String oldBankName, String relationPerson, String courtYearCourt,
-			int courtYearYear, String courtYearTxt, String courtYearShare, int courtYearCaseId, Date ruledDate,
-			int ruledAmount, Date applyConfirmationDate, Date receivedConfirmationDate, Date failureDate,
+			int courtYearYear, String courtYearTxt, String courtYearShare, int courtYearCaseId,
 			String applyLawThird, String addAddress, int distributionAmount, Date approvedDelayDate, Date delayEndDate,
 			Date sectorDate, Date measureDate, Date valuationDate, Date rebirthDate, Date surveyDate, Date inquiryDate,
 			Date firstSaleDate, Date secondSaleDate, Date thirdSaleDate, Date postBuyDate, Date postEndDate,
@@ -300,11 +299,6 @@ public class LDocCourtDoc {
 		this.courtYearTxt = courtYearTxt;
 		this.courtYearShare = courtYearShare;
 		this.courtYearCaseId = courtYearCaseId;
-		this.ruledDate = ruledDate;
-		this.ruledAmount = ruledAmount;
-		this.applyConfirmationDate = applyConfirmationDate;
-		this.receivedConfirmationDate = receivedConfirmationDate;
-		this.failureDate = failureDate;
 		this.applyLawThird = applyLawThird;
 		this.addAddress = addAddress;
 		this.distributionAmount = distributionAmount;
@@ -582,36 +576,6 @@ public class LDocCourtDoc {
 	}
 	public void setCourtYearCaseId(int courtYearCaseId) {
 		this.courtYearCaseId = courtYearCaseId;
-	}
-	public Date getRuledDate() {
-		return ruledDate;
-	}
-	public void setRuledDate(Date ruledDate) {
-		this.ruledDate = ruledDate;
-	}
-	public int getRuledAmount() {
-		return ruledAmount;
-	}
-	public void setRuledAmount(int ruledAmount) {
-		this.ruledAmount = ruledAmount;
-	}
-	public Date getApplyConfirmationDate() {
-		return applyConfirmationDate;
-	}
-	public void setApplyConfirmationDate(Date applyConfirmationDate) {
-		this.applyConfirmationDate = applyConfirmationDate;
-	}
-	public Date getReceivedConfirmationDate() {
-		return receivedConfirmationDate;
-	}
-	public void setReceivedConfirmationDate(Date receivedConfirmationDate) {
-		this.receivedConfirmationDate = receivedConfirmationDate;
-	}
-	public Date getFailureDate() {
-		return failureDate;
-	}
-	public void setFailureDate(Date failureDate) {
-		this.failureDate = failureDate;
 	}
 	public String getApplyLawThird() {
 		return applyLawThird;
@@ -1593,6 +1557,46 @@ public class LDocCourtDoc {
 
 	public void setTempCount(String tempCount) {
 		this.tempCount = tempCount;
+	}
+
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getHasReport() {
+		return hasReport;
+	}
+
+	public void setHasReport(String hasReport) {
+		this.hasReport = hasReport;
+	}
+
+	public String getHasEdit() {
+		return hasEdit;
+	}
+
+	public void setHasEdit(String hasEdit) {
+		this.hasEdit = hasEdit;
+	}
+
+	public String getHasPay() {
+		return hasPay;
+	}
+
+	public void setHasPay(String hasPay) {
+		this.hasPay = hasPay;
+	}
+
+	public String getHasSendReport() {
+		return hasSendReport;
+	}
+
+	public void setHasSendReport(String hasSendReport) {
+		this.hasSendReport = hasSendReport;
 	}
 
 	

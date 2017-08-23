@@ -262,7 +262,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		List<Map<String, Object>> querylist = null;
 		//LCekSignedRelaInfo 是View表，查詢SMART的TABLE，SMART操作按F8跳出的相關人
 		StringBuffer queryString=new StringBuffer("select row_number() over(order by lcsri.Case_ID ASC) AS Row_ID,");
-		queryString.append(" lcsri.Case_ID,lcsri.Name,lcsri.ID,lcsri.Rela_kind,lcsri.Role");
+		queryString.append(" lcsri.Case_ID,lcsri.Name,lcsri.ID,lcsri.Rela_kind,lcsri.Role,lcsri.P_ID");
 		queryString.append(" from V_SMART_RELAINFO lcsri where  1=1");
 		if(caseId != null && !caseId.equals("")){
 			queryString.append(" and lcsri.Case_ID = "+caseId);
@@ -280,6 +280,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			LCekSignedRelaInfo.setID((String) map.get("ID"));
 			LCekSignedRelaInfo.setRela_kind((String) map.get("Rela_kind"));
 			LCekSignedRelaInfo.setRole((String) map.get("Role"));
+			LCekSignedRelaInfo.setP_ID(map.get("P_ID") != null ? (int) map.get("P_ID"): null);
 			MapLCekSignedRelaInfo.add(LCekSignedRelaInfo);
 		}
 		
@@ -400,8 +401,9 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 		log.debug("findCaseByproperties start");
 		boolean hasInputValue = false;
 		
-		StringBuffer queryString = new StringBuffer("SELECT TOP 1000 VSC.Bank_alias, VSC.Prod_Name,");
-		queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d, VSC.O_or_C");
+		StringBuffer queryString = new StringBuffer("SELECT TOP 100 VSC.Bank_alias, VSC.Prod_Name,");
+		queryString.append(" VSC.Case_ID, VSR.Name, VSR.ID, VSC.PriDebt_amount, VSC.ctCase_d,");
+		queryString.append(" VSC.O_or_C, VSC.Bank_ID, VSC.G_ID, VSC.G_name");
 		queryString.append(" FROM V_SMART_RELAINFO VSR");
 		queryString.append(" LEFT JOIN V_SMART_CASEINFO VSC ON VSR.Case_ID = VSC.Case_ID");
 		queryString.append(" WHERE VSR.Rela_kind = '本人'");
@@ -417,13 +419,7 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			queryString.append(" AND VSR.ID = '"+debtorId+"'");
 			hasInputValue = true;
 		}
-		// TODO add By Jia 2017-05-11 下面兩項代號系統還沒有，還不行使用，之後記得加上去
-//			if(docNo != null && !docNo.equals("")){
-//				queryString.append(" and VSC.Case_ID = '"+docNo+"'");
-//			}
-//			if(legalCaseId != null && !legalCaseId.equals("")){
-//				queryString.append(" and VSC.Case_ID = '"+legalCaseId+"'");
-//			}
+		
 		if(isCheck){// 查核機制
 			queryString.append(" AND  VSC.O_or_C='O'");
 		}else if(!hasInputValue){
@@ -444,6 +440,9 @@ public class recordcheckformDaoImpl extends DaoUtil implements recordcheckformDa
 			LCekSignedCaseInfo.setPriDebt_amount(((BigDecimal) map.get("PriDebt_amount")).intValue());
 			LCekSignedCaseInfo.setCtCase_d((Date) map.get("ctCase_d"));
 			LCekSignedCaseInfo.setO_or_C((String) map.get("O_or_C"));
+			LCekSignedCaseInfo.setBank_ID((String) map.get("Bank_ID"));
+			LCekSignedCaseInfo.setG_ID((int) map.get("G_ID"));
+			LCekSignedCaseInfo.setG_name((String) map.get("G_name"));
 			MapLCekSignedCaseInfo.add(LCekSignedCaseInfo);
 		}
 		log.debug("findCaseByproperties end");

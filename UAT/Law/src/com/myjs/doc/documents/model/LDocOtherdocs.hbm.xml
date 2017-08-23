@@ -8,6 +8,21 @@
             <column name="otherdocs_id"/>
             <generator class="identity" />
         </id>
+        <property name="bankId" type="string">
+			<column name="bank_id" length="10" not-null="true"/>
+		</property>
+		<property name="gProdId" type="string">
+			<column name="g_prod_id" length="10" not-null="true"/>
+		</property>
+		<property name="gProdName" type="string">
+			<column name="g_prod_name" length="50" not-null="true"/>
+		</property>
+		<property name="debtID" type="string">
+			<column name="debt_ID" length="10" not-null="true"/>
+		</property>
+		<property name="debtName" type="string">
+			<column name="debt_name" length="10" not-null="true"/>
+		</property>
 		<property name="infoId" type="string">
 			<column name="info_id" length="50" />
 		</property>
@@ -24,7 +39,7 @@
 			<column name="received_date" length="23" not-null="true"/>
 		</property>
 		<property name="bankDate" type="timestamp">
-			<column name="bank_date" length="23" not-null="true" />
+			<column name="bank_date" length="23"/>
 		</property>
 		<property name="docStatus" type="string">
 			<column name="doc_status" length="50" not-null="true" />
@@ -39,13 +54,13 @@
 			<column name="bank_name" length="50" not-null="true" />
 		</property>
 		<property name="receiptType" type="string">
-			<column name="receipt_type" length="50" not-null="true"/>
+			<column name="receipt_type" length="50"/>
 		</property>		
 		<property name="receiptAmount" type="int">
-			<column name="receipt_amount" not-null="true"/>
+			<column name="receipt_amount"/>
 		</property>
 		<property name="courtDate" type="timestamp">
-			<column name="court_date" length="23" not-null="true"/>
+			<column name="court_date" length="23"/>
 		</property>
 		<property name="remark" type="string">
 			<column name="remark" />

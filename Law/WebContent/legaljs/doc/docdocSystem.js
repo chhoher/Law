@@ -8,14 +8,16 @@ $(function() {
 	
 	// add by Jia 申請借調 function
 	function borrowDoc() {
-		var docsdatatable = "",docDataTable="",saveBorrowInfoString;
-		var saveBorrowInfo = [], docCodes = [], saveJson = {};
+		var docsdatatable = "",docDataTable="",saveBorrowInfoString,saveBorrowHistoryInfoString;
+		var saveBorrowInfo = [], docCodes = [], saveJson = {}, saveBorrowHistoryInfo = [];
 		docsdatatable = $("#docSystemCaseDocsTable").dataTable();
 		docDataTable = $("#docSystemCaseDocsTable").DataTable();
 		
 		$("input:checked",docsdatatable.fnGetNodes()).each(function(){
 			var data = "",
-				saveData = "";
+				saveData = "",
+				saveHistory = "";
+				
 			var rowTr = $(this).closest('tr');
 			docCodes.push($(this).val());
 			
@@ -79,54 +81,48 @@ $(function() {
 				docId : data.docId,
 				docType : data.docType,
 				borrowInfo : borrowInfo,
-				lawCode : lawCode,
-				borrowBackDate : borrowBackDate,
-				borrowBackReason : borrowBackReason,
-				borrowToCourtDate : borrowToCourtDate,
-				borrowToCourtLawCode : borrowToCourtLawCode,
-		 		borrowCourtYearCourt : borrowCourtYearCourt,
-		 		borrowCourtYearYear : borrowCourtYearYear,
-		 		borrowCourtYearTxt : borrowCourtYearTxt,
-		 		borrowCourtYearCaseId : borrowCourtYearCaseId,
-		 		borrowCourtYearShare : borrowCourtYearShare,
-		 		borrowCommonReason : borrowCommonReason,
-		 		borrowSubLawCode : borrowSubLawCode,			
-				borrowUserName : "ABC",
-				borrowUserId : "ABC",
-				borrowDatetime : "2017-07-24",
+				lawCode : lawCode !== "" ? lawCode : null,
+				borrowBackDate : borrowBackDate !== "" ? borrowBackDate : null,
+				borrowBackReason : borrowBackReason !== "" ? borrowBackReason : null,
+				borrowToCourtDate : borrowToCourtDate !== "" ? borrowToCourtDate : null,
+				borrowToCourtLawCode : borrowToCourtLawCode !== "" ? borrowToCourtLawCode : null,
+		 		borrowCourtYearCourt : borrowCourtYearCourt !== "" ? borrowCourtYearCourt : null,
+		 		borrowCourtYearYear : borrowCourtYearYear !== "" ? borrowCourtYearYear : null,
+		 		borrowCourtYearTxt : borrowCourtYearTxt !== "" ? borrowCourtYearTxt : null,
+		 		borrowCourtYearCaseId : borrowCourtYearCaseId !== "" ? borrowCourtYearCaseId : null,
+		 		borrowCourtYearShare : borrowCourtYearShare !== "" ? borrowCourtYearShare : null,
+		 		borrowCommonReason : borrowCommonReason !== "" ? borrowCommonReason : null,
+		 		borrowSubLawCode : borrowSubLawCode !== "" ? borrowSubLawCode : null
+			}
+			
+			saveHistory = {
+				//History
 				bankName : data.bankName,
-				prodName : "",
-				typeOne : data.typeOne,
-				typeTwo : data.typeTwo,
 				courtYearInfo : data.courtYearInfo,
 				sourceDocInfo : data.sourceDocInfo,
-				//progressDatetime : "2017-07-24",
-				progressUserId : "",
-				progressUserName : "",
-				checkDatetime : "2017-07-24",
-				checkUserId : "",
-				checkUserName : "",
-				backDatetime : "2017-07-24",
-				backUserId : "",
-				backUserName : "",
-				finalProgressDatetime : "2017-07-24",
-				finalProgressUserId : "",
-				finalProgressUserName : "",
-				edit : data.edit,
-				business : "",
-				businessAccount : ""
+				docId : data.docId,
+				prodName : law.doc.Prod_Name,
+				caseId : data.caseId,
+				debtName : data.debtName,
+				ID : data.ID,
+				docCode : data.docCode,
+				typeOne : data.typeOne,
+				typeTwo : data.typeTwo,
+				borrowReason : $("#applyBorrow_" + data.docCode).find('option:selected').val()
 			}
 			
 			saveBorrowInfo.push(saveData);
-			
+			saveBorrowHistoryInfo.push(saveHistory);
 		});
 		
 		saveBorrowInfoString = JSON.stringify(saveBorrowInfo); 
+		saveBorrowHistoryInfoString = JSON.stringify(saveBorrowHistoryInfo);
 			
 			$.ajax({
 				url : "../pages/doc/documents/docAction!saveBorrowDocs.action",
 				data : {
 					"saveBorrowInfo" : saveBorrowInfoString,
+					"saveBorrowHistoryInfo" : saveBorrowHistoryInfoString,
 					"caseId" : law.doc.caseId
 				},
 				type : "POST",
@@ -202,10 +198,14 @@ $(function() {
 	
 	// add by Jia 匯出借調excel function
 	function printBorrowDoc() {
-		var docsdatatable = "",docDataTable="",printBorrowInfoString;
-		var printBorrowInfo = [];
+		var docsdatatable = "",docDataTable="",printDocInfoString;
+		var printDocInfo = [];
 		docsdatatable = $("#docSystemCaseDocsTable").dataTable();
 		docDataTable = $("#docSystemCaseDocsTable").DataTable();
+		
+		var PriDebt_amount = law.doc.PriDebt_amount;
+		var ctCase_d = law.doc.ctCase_d;
+		var O_or_C = law.doc.O_or_C === "O" ? "在庫" : "退案";
 		
 		$(docsdatatable.fnGetNodes()).each(function(){
 			var data = "",
@@ -214,7 +214,77 @@ $(function() {
 			
 			// Get row data
 		 	data = docDataTable.row(rowTr).data();
+    		var dt = new Date(data.newSendDate);
 		 	
+			var interestYear = "";
+			if(data.sourceDoc === "支付命令確定"){//支付命令確定：15年
+    			interestYear = "15年";
+    		}else if(data.sourceDoc === "本票裁定確定"){//本票裁定確定：3年
+    			interestYear = "3年";
+    		}else if(data.sourceDoc === "民事判決確定"){//民事判決確定：15年
+    			interestYear = "15年";
+    		}else if(data.sourceDoc === "判決確定"){//判決確定：15年
+    			interestYear = "15年";
+    		}else if(data.sourceDoc === "和解筆錄"){//和解筆錄：15年
+    			interestYear = "15年";
+    		}else if(data.sourceDoc === "調解筆錄"){//調解筆錄：15年
+    			interestYear = "15年";
+    		}else if(data.sourceDoc === "債權憑證"){//債權憑證：15年
+    			interestYear = "15年";
+    		}else if(data.sourceDoc === "債權憑證(本裁)"){//債權憑證(本裁)：3年
+    			interestYear = "3年";
+    		}else{
+    			interestYear = "";
+    		}
+    		
+    		var interestDate ="";
+    		if(data.sourceDoc === "支付命令確定"){//支付命令確定：15年
+    			interestDate = (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else if(data.sourceDoc === "本票裁定確定"){//本票裁定確定：3年
+    			interestDate = (dt.getFullYear() + 3) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else if(data.sourceDoc === "民事判決確定"){//民事判決確定：15年
+    			interestDate = (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else if(data.sourceDoc === "判決確定"){//判決確定：15年
+    			interestDate = (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else if(data.sourceDoc === "和解筆錄"){//和解筆錄：15年
+    			interestDate = (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else if(data.sourceDoc === "調解筆錄"){//調解筆錄：15年
+    			interestDate = (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else if(data.sourceDoc === "債權憑證"){//債權憑證：15年
+    			interestDate = (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else if(data.sourceDoc === "債權憑證(本裁)"){//債權憑證(本裁)：3年
+    			interestDate = (dt.getFullYear() + 3) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+    		}else{
+    			interestDate = "";
+    		}
+		 	
+    		var edit = "";
+    		if(data.edit === "Y"){
+    			edit = "V";
+    		}
+    		
+    		var report = "";
+    		if(data.report === "Y"){
+    			report = "V";
+    		}
+    		
+    		var pay = "";
+    		if(data.pay === "Y"){
+    			pay = "V";
+    		}
+    		
+    		var sendReport = "";
+    		if(data.sendReport === "Y"){
+    			sendReport = "V";
+    		}
+    		
+    		var shadow = "";
+    		if(data.shadow === "0"){
+    			shadow = "影本"
+    		}else if(data.shadow === "1"){
+    			shadow = "業主交付/影本";
+    		}
+    		
 		 	// 組出借調資訊
 		 	var borrowInfo,lawCode,borrowBackDate,borrowBackReason,borrowToCourtDate,borrowToCourtLawCode,
 		 		borrowCourtYearCourt,borrowCourtYearYear,borrowCourtYearTxt,borrowCourtYearCaseId,
@@ -223,51 +293,63 @@ $(function() {
 		 	// 遞狀
 			if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f474dd50002"){
 				lawCode = $("#iptborrowDocLawCode_" + data.docCode).val();
+				borrowInfo = "遞狀【" + lawCode + "】";
 			}
 			
 			// 退件(業主)
 			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f478ecc0003"){
 				borrowBackDate = $("#iptborrowDocBackDate_" + data.docCode).val();
 				borrowBackReason = $("#iptborrowDocBackReason_" + data.docCode).val();
+				borrowInfo = "退件(業主)【" + borrowBackDate + "-" + borrowBackReason + "】";
 			}
 			
 			// 開庭
 			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f486f120004"){
+				var courtName;
 				borrowToCourtDate = $("#iptborrowDocToCourtDate_" + data.docCode).val();
 				borrowToCourtLawCode = $("#iptborrowDocToCourtLawCode_" + data.docCode).val();
 				borrowCourtYearCourt = $("#applyBorrowCourtYearCourt_" + data.docCode).find('option:selected').val();
+				courtName = $("#applyBorrowCourtYearCourt_" + data.docCode).find('option:selected').text();
 				borrowCourtYearYear = $("#applyBorrowCourtYearYear_" + data.docCode).val();
 				borrowCourtYearTxt = $("#applyBorrowCourtYearTxt_" + data.docCode).val();
 				borrowCourtYearCaseId = $("#applyBorrowCourtYearCaseId_" + data.docCode).val();
 				borrowCourtYearShare = $("#applyBorrowCourtYearShare_" + data.docCode).val();
+				borrowInfo = "開庭【" + borrowToCourtLawCode + "】【" + borrowToCourtDate + "-" + courtName + "/" + 
+					borrowCourtYearYear + "/" + borrowCourtYearTxt + "/" + borrowCourtYearCaseId + "/" + borrowCourtYearShare + "】";
 			}
 			
 			// 一般借調
 			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f489e0b0005"){
 				borrowCommonReason = $("#iptborrowDocReason_" + data.docCode).val();
+				borrowInfo = "一般借調【" + borrowCommonReason + "】";
 			}
 			
 			// 預借(遞狀)
 			else if($("#applyBorrow_" + data.docCode).find('option:selected').val() === "8aa2e72a5d5efd74015d5f48db170006"){
 				borrowSubLawCode = $("#iptborrowDocSubLawCode_" + data.docCode).val();
+				borrowInfo = "預借(遞狀)【" + borrowSubLawCode + "】";
 			}
 		 		
 			printData = {
 				bankName : data.bankName,
-				prodName : "",
-				caseId : data.caseId,
+				caseId : law.common.paddingLeft(data.caseId, 8),
 				debtName : data.debtName,
 				ID : data.ID,
+				PriDebt_amount : PriDebt_amount,
+				ctCase_d : ctCase_d,
+				O_or_C : O_or_C,
+				imgFiles : data.imgFiles,
 				docCode : data.docCode,
 				typeOne : data.typeOne,
 				typeTwo : data.typeTwo,
-				docStatus : data.docStatus,
-				courtYearInfo : data.courtYearInfo,
-				sourceDocInfo : data.sourceDocInfo,
-				borrowReason : $("#applyBorrow_" + data.docCode).find('option:selected').text(),
-				docId : data.docId,
-				docType : data.docType,
-				borrowInfo : borrowInfo,
+				courtYearCourt : data.courtYearCourt,
+				courtYearYear : data.courtYearYear != 0 ? data.courtYearYear : "",
+				courtYearTxt : data.courtYearTxt,
+				courtYearShare : data.courtYearShare,
+				courtYearCaseId : data.courtYearCaseId != 0 ? data.courtYearCaseId : "",
+				
+				//borrow info
+				borrowInfo : data.borrowInfo,
 				lawCode : lawCode,
 				borrowBackDate : borrowBackDate,
 				borrowBackReason : borrowBackReason,
@@ -279,49 +361,71 @@ $(function() {
 		 		borrowCourtYearCaseId : borrowCourtYearCaseId,
 		 		borrowCourtYearShare : borrowCourtYearShare,
 		 		borrowCommonReason : borrowCommonReason,
-		 		borrowSubLawCode : borrowSubLawCode,			
-				borrowUserName : "ABC",
-				borrowUserId : "ABC",
-				borrowDatetime : "2017-07-24",
-				progressDatetime : "2017-07-24",
-				progressUserId : "",
-				progressUserName : "",
-				checkDatetime : "2017-07-24",
-				checkUserId : "",
-				checkUserName : "",
-				backDatetime : "2017-07-24",
-				backUserId : "",
-				backUserName : "",
-				finalProgressDatetime : "2017-07-24",
-				finalProgressUserId : "",
-				finalProgressUserName : "",
-				edit : data.edit,
-				business : "",
-				businessAccount : "",
-				borrowInfo : "",
-				borrowLawCode : "",
-				borrowBackDate : "2017-07-24",
-				borrowBackReason : "",
-				borrowToCourtDate : "2017-07-24",
-				borrowToCourtLawCode : "",
-				borrowCourtYearCourt : "",
-				borrowCourtYearYear : 0,
-				borrowCourtYearTxt : "",
-				borrowCourtYearCaseId : 0,
-				borrowCourtYearShare : "",
-				borrowCommonsReason : "",
-				borrowSubLawCode : ""
+		 		borrowSubLawCode : borrowSubLawCode,	
+				
+				borrowInfo : borrowInfo,
+				docStatus : data.disDocStatus,
+				progress : data.progress,
+				bankDate : data.bankDate,
+				receivedDate : data.receivedDate,
+				relaName : data.relaName,
+				oldBankName : data.oldBankName,
+				sourceDoc : data.sourceDoc,
+				sourceDocInfo : data.sourceDocInfo,
+				interestYear : interestYear,
+				interestDate : interestDate,
+				remark : data.remark,
+				shadow : shadow,
+				modifyUserName : data.modifyUserName,
+				ruledDate : data.ruledDate,
+				ruledAmount : data.ruledAmount != 0 ? data.ruledAmount : "",
+				applyConfirmationDate : data.applyConfirmationDate,
+				receivedConfirmationDate : data.receivedConfirmationDate,
+				failureDate : data.failureDate,
+				thirdName : data.thirdName,
+				thirdAddress : data.thirdAddress,
+				distributionAmount : data.distributionAmount != 0 ? data.distributionAmount : "",
+				approvedDelayDate : data.approvedDelayDate,
+				delayEndDate : data.delayEndDate,
+				sectorDate : data.sectorDate,
+				measureDate : data.measureDate,
+				valuationDate : data.valuationDate,
+				rebirthDate : data.rebirthDate,
+				surveyDate : data.surveyDate,
+				inquiryDate : data.inquiryDate,
+				firstSaleDate : data.firstSaleDate,
+				secondSaleDate : data.secondSaleDate,
+				thirdSaleDate : data.thirdSaleDate,
+				postBuyDate : data.postBuyDate,
+				postEndDate : data.postEndDate,
+				reduceSaleDate : data.reduceSaleDate,
+				destoryDate : data.destoryDate,
+				realDistributionDate : data.realDistributionDate,
+   				edit : edit,
+				report : report,
+ 				pay : pay,
+				sendReport : sendReport,
+				toCourtDate : data.toCourtDate,
+				toCourtTime : data.toCourtTime,
+				toCourtType : data.toCourtType,
+				toCourtNotice : data.toCourtNotice,
+				executionDate : data.executionDate,
+				executionTime : data.executionTime,
+				debtsCourtYearInfo : data.debtsCourtYearInfo,
+				debtsDate : data.debtsDate,
+				claimsdocQuota : data.claimsdocQuota,
+				claimsDocInterestRate : data.claimsDocInterestRate
 			}
 			
-			printBorrowInfo.push(printData);
-			printBorrowInfoString = JSON.stringify(printBorrowInfo); 
+			printDocInfo.push(printData);
+			printDocInfoString = JSON.stringify(printDocInfo); 
 			
 		});
 		
 		$.ajax({
-				url : "../pages/doc/documents/docAction!printBorrowDocs.action",
+				url : "../pages/doc/documents/docAction!printDocsInfo.action",
 				data : {
-					"printBorrowInfo" : printBorrowInfoString
+					"printDocInfo" : printDocInfoString
 				},
 				type : "POST",
 				dataType : 'json',

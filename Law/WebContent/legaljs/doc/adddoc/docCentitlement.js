@@ -29,7 +29,8 @@ law.addDoc.centitlement = {
 		law.addDoc.centitlement.centitlementRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptcentitlementRelationPerson" + displaynum + "_" + centitlement.centitlementRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptcentitlementRelationPerson" + displaynum + "_" + centitlement.centitlementRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptcentitlementRelationPersonId" + displaynum + "_" + centitlement.centitlementRelaNum[num] + "' style='display:none'></input></td>";
 					
 		$("#iptcentitlementRelationPersonTr" + displaynum ).append(tdString);
 		law.common.selectRelaOption("#iptcentitlementRelationPerson" + displaynum + "_" + centitlement.centitlementRelaNum[num], law.addDoc.rela, undefined, true);
@@ -53,7 +54,7 @@ law.addDoc.centitlement = {
 		law.addDoc.centitlement.centitlementSourceDocNum[num] ++ ;
 		
 		tdString = "<tr>" +
-					"<td><label>原始憑證</label></td>" +
+					"<td><label>原始憑證</label><input id='iptcentitlementSourceDocId" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "' style='display:none'></input></td>" +
 					"<td><select id='iptcentitlementSourceDoc" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "'><option value=''>請選擇</option></select>" +
 					"<select id='iptcentitlementSourceDocCourtYearCourt" + displaynum + "_" + centitlement.centitlementSourceDocNum[num] + "'><option value=''>請選擇</option></select></td>" +
 					"<td><label>年度</label></td>" +
@@ -116,7 +117,8 @@ law.addDoc.centitlement = {
 				"</table>" +
 			"<table>" +
 				"<tr id='iptcentitlementRelationPersonTr" + centitlementsubtabcount + "'>" +
-					"<td><label style='color:red'>*相對人</label></td>" +
+					"<td><label style='color:red'>*相對人</label>" +
+						"<input id='iptcentitlementRelationPersonId" + centitlementsubtabcount + "_0' style='display:none'></input></td>" +
 					"<td><select id='iptcentitlementRelationPerson" + centitlementsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
 					"<td><img src='../images/plus.png' onclick='law.addDoc.centitlement.addcentitlementRelaTd(" + (centitlementsubtabcount + 1) + ")'></td>" +
 				"</tr>" +
@@ -137,7 +139,7 @@ law.addDoc.centitlement = {
 			"</table>" +
 			"<table id='tcentitlementSourceDoc" + centitlementsubtabcount + "'>" +
 				"<tr>" +
-					"<td><label>原始憑證</label></td>" +
+					"<td><label>原始憑證</label><input id='iptcentitlementSourceDocId" + centitlementsubtabcount + "_0' style='display:none'></input></td>" +
 					"<td><select id='iptcentitlementSourceDoc" + centitlementsubtabcount + "_0'><option value=''>請選擇</option></select>" +
 					"<select id='iptcentitlementSourceDocCourtYearCourt" + centitlementsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
 					"<td><label>年度</label></td>" +
@@ -148,6 +150,22 @@ law.addDoc.centitlement = {
 					"<td><input id='iptcentitlementSourceDocCourtYearShare" + centitlementsubtabcount + "_0' style='width : 50px'></input></td>" +
 					"<td><label>案號</label></td>" +
 					"<td><input id='iptcentitlementSourceDocCourtYearCaseId" + centitlementsubtabcount + "_0' style='width : 60px'></input><img src='../images/plus.png' onclick='law.addDoc.centitlement.addcentitlementSourceDocT(" + (centitlementsubtabcount + 1) + ")'></td>" +
+				"</tr>" +
+			"</table>" +
+			"<table>" +
+				"<tr>" +
+					"<td><label>收到裁定日</label></td>" +
+					"<td><input id='iptcentitlementRuledDate" + centitlementsubtabcount + "' ></input></td>" +
+					"<td><label>裁定金額</label></td>" +
+					"<td><input id='iptcentitlementRuledAmount" + centitlementsubtabcount + "' ></input></td>" +
+					"<td><label>聲請確證日</label></td>" +
+					"<td><input id='iptcentitlementApplyConfirmationDate" + centitlementsubtabcount + "' ></input></td>" +
+				"</tr>" +
+				"<tr>" +
+					"<td><label>收確證日</label></td>" +
+					"<td><input id='iptcentitlementReceivedConfirmationDate" + centitlementsubtabcount + "' ></input></td>" +
+					"<td><label>失效日</label></td>" +
+					"<td><input id='iptcentitlementFailureDate" + centitlementsubtabcount + "' ></input></td>" +
 				"</tr>" +
 			"</table>" +
 			"<table>" +
@@ -180,6 +198,10 @@ law.addDoc.centitlement = {
 		//將日期欄位格式化
 	 	law.common.formatInputItemToDate("#iptcentitlementReceivedDate" + centitlementsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcentitlementBankDate" + centitlementsubtabcount, "yy-mm-dd");
+	 	law.common.formatInputItemToDate("#iptcentitlementRuledDate" + centitlementsubtabcount, "yy-mm-dd");
+	 	law.common.formatInputItemToDate("#iptcentitlementApplyConfirmationDate" + centitlementsubtabcount, "yy-mm-dd");
+	 	law.common.formatInputItemToDate("#iptcentitlementReceivedConfirmationDate" + centitlementsubtabcount, "yy-mm-dd");
+	 	law.common.formatInputItemToDate("#iptcentitlementFailureDate" + centitlementsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcentitlementSendDate" + centitlementsubtabcount, "yy-mm-dd");
 	 	law.common.formatInputItemToDate("#iptcentitlementNewSendDate" + centitlementsubtabcount, "yy-mm-dd");
 	   
@@ -291,8 +313,12 @@ law.addDoc.centitlement = {
 		}
 		
 		for( ; i <= law.addDoc.centitlement.centitlementRelaNum[0]; i++){
-			relainfo = { 
-				"ID" : $("#iptcentitlementRelationPerson_" + i).find('option:selected').val(),
+			var rela_ID = $("#iptcentitlementRelationPerson_" + i).find('option:selected').val().split(",");
+			relainfo = {
+				"centitlementRelaId" : ($("#iptcentitlementRelationPersonId_" + i).val() != "" ) ? $("#iptcentitlementRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptcentitlementRelationPerson_" + i).find('option:selected').text()
 				};
 			returncentitlementRelas_0.push(relainfo);
@@ -302,6 +328,7 @@ law.addDoc.centitlement = {
 		i = 0;
 		for( ; i <= law.addDoc.centitlement.centitlementSourceDocNum[0]; i++){
 			relainfo = { 
+				"centitlementSourceDocId" : ($("#iptcentitlementSourceDocId_" + i).val() != "" ) ? $("#iptcentitlementSourceDocId_" + i).val() : null,
 				"centitlementSourceDoc" : ($("#iptcentitlementSourceDoc_" + i).find('option:selected').val() !== "") ? $("#iptcentitlementSourceDoc_" + i).find('option:selected').val() : null,
 				"centitlementSourceDocName" : ($("#iptcentitlementSourceDoc_" + i).find('option:selected').text() !== "") ? $("#iptcentitlementSourceDoc_" + i).find('option:selected').text() : null,
 				"courtYearCourt"	: ($("#iptcentitlementSourceDocCourtYearCourt_" + i).find('option:selected').val() !== "") ? $("#iptcentitlementSourceDocCourtYearCourt_" + i).find('option:selected').val() : null,
@@ -309,7 +336,8 @@ law.addDoc.centitlement = {
 				"courtYearYear"	: ($("#iptcentitlementSourceDocCourtYearYear_" + i).val() !== "") ? $("#iptcentitlementSourceDocCourtYearYear_" + i).val() : null,
 				"courtYearTxt"	: ($("#iptcentitlementSourceDocCourtYearTxt_" + i).val() !== "") ? $("#iptcentitlementSourceDocCourtYearTxt_" + i).val() : null,
 				"courtYearShare"	: ($("#iptcentitlementSourceDocCourtYearShare_" + i).val() !=="") ? $("#iptcentitlementSourceDocCourtYearShare_" + i).val() : null,
-				"courtYearCaseId"	: ($("#iptcentitlementSourceDocCourtYearCaseId_" + i).val() !== "") ? $("#iptcentitlementSourceDocCourtYearCaseId_" + i).val() : null
+				"courtYearCaseId"	: ($("#iptcentitlementSourceDocCourtYearCaseId_" + i).val() !== "") ? $("#iptcentitlementSourceDocCourtYearCaseId_" + i).val() : null,
+				"num" : i
 				};
 			returncentitlementSourceDoc_0.push(relainfo);
 		}
@@ -340,6 +368,11 @@ law.addDoc.centitlement = {
 			'courtYearTxt' : $("#iptcentitlementCourtYearTxt").val(),
 			'courtYearShare' : $("#iptcentitlementCourtYearShare").val(),
 			'courtYearCaseId' : $("#iptcentitlementCourtYearCaseId").val(),
+			'ruledDate' : ($("#iptcentitlementRuledDate").val() !== "") ? $("#iptcentitlementRuledDate").val() : null,
+			'ruledAmount' : ($("#iptcentitlementRuledAmount").val() !== "") ? $("#iptcentitlementRuledAmount").val() : null,
+			'applyConfirmationDate' : ($("#iptcentitlementApplyConfirmationDate").val() !== "") ? $("#iptcentitlementApplyConfirmationDate").val() : null,
+			'receivedConfirmationDate' : ($("#iptcentitlementReceivedConfirmationDate").val() !== "") ? $("#iptcentitlementReceivedConfirmationDate").val() : null,
+			'failureDate' : ($("#iptcentitlementFailureDate").val() !== "") ? $("#iptcentitlementFailureDate").val() : null,
 			'sendDate' : $("#iptcentitlementSendDate").val(),
 			'newSendDate' : ($("#iptcentitlementNewSendDate").val() !== "") ? $("#iptcentitlementNewSendDate").val() : null,
 			'remark' : ($("#iptcentitlementRemark").val() !== "") ? $("#iptcentitlementRemark").val() : null,
@@ -383,8 +416,12 @@ law.addDoc.centitlement = {
 				displayNum = i + 1;
 				j = 0;
 				for( ; j <= law.addDoc.centitlement.centitlementRelaNum[displayNum]; j++){
-					relainfo = { 
-						"ID" : $("#iptcentitlementRelationPerson" + i + "_" + j).find('option:selected').val(),
+					var rela_ID = $("#iptcentitlementRelationPerson" + i + "_" + j).find('option:selected').val().split(",");
+					relainfo = {
+						"centitlementRelaId" : ($("#iptcentitlementRelationPersonId" + i + "_" + j).val() != "" ) ? $("#iptcentitlementRelationPersonId" + i + "_" + j).val() : null,
+						"num" : i,
+						"ID" : rela_ID[0],
+						"P_ID" : rela_ID[1],
 						"name"	: $("#iptcentitlementRelationPerson" + i + "_" + j).find('option:selected').text()
 						};
 					returncentitlementRelas_0.push(relainfo);
@@ -396,6 +433,7 @@ law.addDoc.centitlement = {
 				j = 0;
 				for( ; j <= law.addDoc.centitlement.centitlementSourceDocNum[displayNum]; j++){
 					relainfo = { 
+						"centitlementSourceDocId" : ($("#iptcentitlementSourceDocId" + i + "_" + j).val() != "" ) ? $("#iptcentitlementSourceDocId" + i + "_" + j).val() : null,
 						"centitlementSourceDoc" : ($("#iptcentitlementSourceDoc" + i + "_" + j).find('option:selected').val() !== "") ? $("#iptcentitlementSourceDoc" + i + "_" + j).find('option:selected').val() : null,
 						"centitlementSourceDocName" : ($("#iptcentitlementSourceDoc" + i + "_" + j).find('option:selected').text() !== "") ? $("#iptcentitlementSourceDoc" + i + "_" + j).find('option:selected').text() : null,
 						"courtYearCourt"	: ($("#iptcentitlementSourceDocCourtYearCourt" + i + "_" + j).find('option:selected').val() !== "") ? $("#iptcentitlementSourceDocCourtYearCourt" + i + "_" + j).find('option:selected').val() : null,
@@ -403,7 +441,8 @@ law.addDoc.centitlement = {
 						"courtYearYear"	: ($("#iptcentitlementSourceDocCourtYearYear" + i + "_" + j).val() !== "") ? $("#iptcentitlementSourceDocCourtYearYear" + i + "_" + j).val() : null ,
 						"courtYearTxt"	: ($("#iptcentitlementSourceDocCourtYearTxt" + i + "_" + j).val() !== "") ? $("#iptcentitlementSourceDocCourtYearTxt" + i + "_" + j).val() : null,
 						"courtYearShare"	: ($("#iptcentitlementSourceDocCourtYearShare" + i + "_" + j).val() !== "") ? $("#iptcentitlementSourceDocCourtYearShare" + i + "_" + j).val() : null,
-						"courtYearCaseId"	: ($("#iptcentitlementSourceDocCourtYearCaseId" + i + "_" + j).val() !== "") ? $("#iptcentitlementSourceDocCourtYearCaseId" + i + "_" + j).val() : null
+						"courtYearCaseId"	: ($("#iptcentitlementSourceDocCourtYearCaseId" + i + "_" + j).val() !== "") ? $("#iptcentitlementSourceDocCourtYearCaseId" + i + "_" + j).val() : null,
+						"num" : j
 					};
 					returncentitlementSourceDoc_0.push(relainfo);
 				}
@@ -435,6 +474,11 @@ law.addDoc.centitlement = {
 							'courtYearTxt' : $("#iptcentitlementCourtYearTxt" + i ).val(),
 							'courtYearShare' : $("#iptcentitlementCourtYearShare" + i ).val(),
 							'courtYearCaseId' : $("#iptcentitlementCourtYearCaseId" + i ).val(),
+							'ruledDate' : ($("#iptcentitlementRuledDate" + i).val() !== "")? $("#iptcentitlementRuledDate" + i).val() : null,
+							'ruledAmount' : ($("#iptcentitlementRuledAmount" + i).val() !== "")? $("#iptcentitlementRuledAmount" + i).val() : null,
+							'applyConfirmationDate' : ($("#iptcentitlementApplyConfirmationDate" + i).val() !== "")? $("#iptcentitlementApplyConfirmationDate" + i).val() : null,
+							'receivedConfirmationDate' : ($("#iptcentitlementReceivedConfirmationDate" + i).val() !== "")? $("#iptcentitlementReceivedConfirmationDate" + i).val() : null,
+							'failureDate' : ($("#iptcentitlementFailureDate" + i).val() !== "")? $("#iptcentitlementFailureDate" + i).val() : null,
 							'sendDate' : $("#iptcentitlementSendDate" + i ).val(),
 							'newSendDate' : ($("#iptcentitlementNewSendDate" + i ).val() !== "" ) ? $("#iptcentitlementNewSendDate" + i ).val() : null,
 							'remark' : ($("#iptcentitlementRemark" + i ).val() !== "") ? $("#iptcentitlementRemark" + i ).val() : null,
@@ -692,6 +736,7 @@ law.addDoc.centitlement = {
 	// 從文管系統進入 初始化頁籤
 	initopenCensubtab : function (cenDocInfo){
 		var centitlement = law.addDoc.centitlement;
+		var i = 0;
 		$("#iptcentitlementShareCaseId_0").val(cenDocInfo.shareCaseId0 !== undefined ? cenDocInfo.shareCaseId0 : "");// 共用案號1
 		$("#iptcentitlementShareCaseId_1").val(cenDocInfo.shareCaseId1 !== undefined ? cenDocInfo.shareCaseId1 : "");// 共用案號2
 		$("#iptcentitlementShareCaseId_2").val(cenDocInfo.shareCaseId2 !== undefined ? cenDocInfo.shareCaseId2 : "");// 共用案號3
@@ -748,9 +793,14 @@ law.addDoc.centitlement = {
 			$("#iptcentitlementOldBankName").append(selectNull);
 		}
 		
-		law.common.selectRelaOption("#iptcentitlementRelationPerson_0", law.addDoc.rela, cenDocInfo.relationPerson, true); // 相對人
-		
-		// TODO 要帶出多個
+		for(;i < cenDocInfo.centitlementRelationPerson.length; i++){
+			var selectVal = cenDocInfo.centitlementRelationPerson[i].ID + "," + cenDocInfo.centitlementRelationPerson[i].P_ID;
+			if(i !== 0){
+				law.addDoc.centitlement.addcentitlementRelaTd(0);
+			}
+			law.common.selectRelaOption("#iptcentitlementRelationPerson_" + i, law.addDoc.rela, selectVal, true); // 相對人
+			$("#iptcentitlementRelationPersonId_" + i).val(cenDocInfo.centitlementRelationPerson[i].centitlementRelaId);
+		}
 		
 		law.common.selectOption("#iptcentitlementCourtYearCourt", centitlement.CourtYearCourt, cenDocInfo.courtYearCourt, true); // 法院年字案股 法院
 		$("#iptcentitlementCourtYearYear").val(cenDocInfo.courtYearYear !== undefined ? cenDocInfo.courtYearYear : "");// 法院年字案股 年度
@@ -758,13 +808,25 @@ law.addDoc.centitlement = {
 		$("#iptcentitlementCourtYearShare").val(cenDocInfo.courtYearShare !== undefined ? cenDocInfo.courtYearShare : "");// 法院年字案股 股別
 		$("#iptcentitlementCourtYearCaseId").val(cenDocInfo.courtYearCaseId !== undefined ? cenDocInfo.courtYearCaseId : "");// 法院年字案股 案號
 		
-//		law.common.selectOption("#iptcentitlementSourceDoc_0", centitlement.CourtYearCourt, cenDocInfo.courtYearCourt, true); // 原始憑證
-//		law.common.selectOption("#iptcentitlementCourtYearCourt", centitlement.CourtYearCourt, cenDocInfo.courtYearCourt, true); // 原始法院年字案股 法院
-//		$("#iptcentitlementCourtYearYear").val(cenDocInfo.courtYearYear !== undefined ? cenDocInfo.courtYearYear : "");// 法院年字案股 年度
-//		$("#iptcentitlementCourtYearTxt").val(cenDocInfo.courtYearTxt !== undefined ? cenDocInfo.courtYearTxt : "");// 法院年字案股 字
-//		$("#iptcentitlementCourtYearShare").val(cenDocInfo.courtYearShare !== undefined ? cenDocInfo.courtYearShare : "");// 法院年字案股 股別
-//		$("#iptcentitlementCourtYearCaseId").val(cenDocInfo.courtYearCaseId !== undefined ? cenDocInfo.courtYearCaseId : "");// 法院年字案股 案號
-		// TODO 要帶出多個
+		i = 0;
+		for(;i < cenDocInfo.centitlementSourceDoc.length; i++){
+			if(i !== 0){
+				law.addDoc.centitlement.addcentitlementSourceDocT(0);
+			}
+			$("#iptcentitlementSourceDocId_" + i).val(cenDocInfo.centitlementSourceDoc[i].centitlementSourceDocId);// id
+			$("#iptcentitlementSourceDoc_" + i).val(cenDocInfo.centitlementSourceDoc[i].centitlementSourceDoc);
+			$("#iptcentitlementSourceDocCourtYearCourt_" + i).val(cenDocInfo.centitlementSourceDoc[i].courtYearCourt);
+			$("#iptcentitlementSourceDocCourtYearYear_" + i).val(cenDocInfo.centitlementSourceDoc[i].courtYearYear);
+			$("#iptcentitlementSourceDocCourtYearTxt_" + i).val(cenDocInfo.centitlementSourceDoc[i].courtYearTxt);
+			$("#iptcentitlementSourceDocCourtYearShare_" + i).val(cenDocInfo.centitlementSourceDoc[i].courtYearShare);
+			$("#iptcentitlementSourceDocCourtYearCaseId_" + i).val(cenDocInfo.centitlementSourceDoc[i].courtYearCaseId);
+		}
+		
+		$("#iptcentitlementRuledDate").val(cenDocInfo.ruledDate !== undefined ? cenDocInfo.ruledDate : "");// 收到裁定日
+		$("#iptcentitlementRuledAmount").val(cenDocInfo.ruledAmount !== 0 ? cenDocInfo.ruledAmount : "");// 裁定金額
+		$("#iptcentitlementApplyConfirmationDate").val(cenDocInfo.applyConfirmationDate !== undefined ? cenDocInfo.applyConfirmationDate : "");// 聲請確證日
+		$("#iptcentitlementReceivedConfirmationDate").val(cenDocInfo.receivedConfirmationDate !== undefined ? cenDocInfo.receivedConfirmationDate : "");// 收確證日
+		$("#iptcentitlementFailureDate").val(cenDocInfo.failureDate !== undefined ? cenDocInfo.failureDate : "");// 失效日
 		
 		$("#iptcentitlementSendDate").val(cenDocInfo.sendDate);// 發文日期
 		$("#iptcentitlementNewSendDate").val(cenDocInfo.newSendDate !== undefined ? cenDocInfo.newSendDate : "");// 最近執行日期
@@ -788,6 +850,10 @@ law.addDoc.centitlement = {
 	//將日期欄位格式化
  	law.common.formatInputItemToDate("#iptcentitlementReceivedDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcentitlementBankDate", "yy-mm-dd");
+ 	law.common.formatInputItemToDate("#iptcentitlementRuledDate", "yy-mm-dd");
+ 	law.common.formatInputItemToDate("#iptcentitlementApplyConfirmationDate", "yy-mm-dd");
+ 	law.common.formatInputItemToDate("#iptcentitlementReceivedConfirmationDate", "yy-mm-dd");
+ 	law.common.formatInputItemToDate("#iptcentitlementFailureDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcentitlementSendDate", "yy-mm-dd");
  	law.common.formatInputItemToDate("#iptcentitlementNewSendDate", "yy-mm-dd");
     

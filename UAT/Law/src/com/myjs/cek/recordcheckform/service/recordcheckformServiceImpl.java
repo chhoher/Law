@@ -70,18 +70,23 @@ public class recordcheckformServiceImpl implements recordcheckformService{
 	public List<LCekRecordCheckform> findByProperty(String startDate, String endDate, String applyUserId, String status, VEIPMemdb loginUser, String roleIds) throws Exception{
 		log.debug("LCekRecordCheckform findByProperty start");
 		//判斷登入人的身分是否為主管級，
+		//用角色來判斷 {roleId:8aa2e72a5da58d99015da5dab0fd0001	roleCode:sign03	roleName:簽呈最大權限} 可以查看所有案件
 		//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b80d350000	roleCode:sign01	roleName:簽呈可覆核主管}
 		//用角色來判斷 {roleId:8aa2e72a5c77b459015c77b8e8960002	roleCode:sign02	roleName:簽呈可結案窗口}
-		//若不是主管級的，只能查詢自己的表單
-		if(roleIds.indexOf("8aa2e72a5c77b459015c77b80d350000") < 0){
-			if(roleIds.indexOf("8aa2e72a5c77b459015c77b8e8960002") < 0){
-				return recordcheckformDao.findbyproperties(startDate,	endDate, loginUser.getMemno(), status, null);
+		if(roleIds.indexOf("8aa2e72a5da58d99015da5dab0fd0001") >= 0 || loginUser.getMemno().equals("admin")){
+			return recordcheckformDao.findbyproperties(startDate,	endDate, null, status, null);
+		}else{
+			//若不是主管級的，只能查詢自己的表單
+			if(roleIds.indexOf("8aa2e72a5c77b459015c77b80d350000") < 0){
+				if(roleIds.indexOf("8aa2e72a5c77b459015c77b8e8960002") < 0){
+					return recordcheckformDao.findbyproperties(startDate,	endDate, loginUser.getMemno(), status, null);
+				}else{
+					return recordcheckformDao.findbyproperties(startDate,	endDate, applyUserId, status, loginUser.getMemno());
+				}
 			}else{
+				//查詢時變成查received有他的紀錄
 				return recordcheckformDao.findbyproperties(startDate,	endDate, applyUserId, status, loginUser.getMemno());
 			}
-		}else{
-			//查詢時變成查received有他的紀錄
-			return recordcheckformDao.findbyproperties(startDate,	endDate, applyUserId, status, loginUser.getMemno());
 		}
 	}
 	

@@ -3,6 +3,11 @@ package com.myjs.doc.documents.model;
 import java.util.Date;
 
 public class LDocFiledocs {
+	private String bankId;
+	private String gProdId;
+	private String gProdName;
+	private String debtID;
+	private String debtName;
 	private int filedocsId;
 	private String infoId;
 	private int caseId;
@@ -18,7 +23,43 @@ public class LDocFiledocs {
 	private String createUserId;
 	private String borrowReason;
 	private String borrowInfo;
+	private String tempCount;
 	
+	// add By Jia 2017-08-14 Vo
+	private String disTypeOne;
+	private String disTypeTwo;
+	private String disDocStatus;
+	
+	public LDocFiledocs(){
+		
+	}
+	
+	public LDocFiledocs(String bankId, String gProdId, String gProdName, String debtID, String debtName, int filedocsId,
+			String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus, String typeOne,
+			String typeTwo, String bankName, int nums, String remark, Date createDatetime, String createUserId,
+			String borrowReason, String borrowInfo) {
+		this.bankId = bankId;
+		this.gProdId = gProdId;
+		this.gProdName = gProdName;
+		this.debtID = debtID;
+		this.debtName = debtName;
+		this.filedocsId = filedocsId;
+		this.infoId = infoId;
+		this.caseId = caseId;
+		this.receivedDate = receivedDate;
+		this.bankDate = bankDate;
+		this.docStatus = docStatus;
+		this.typeOne = typeOne;
+		this.typeTwo = typeTwo;
+		this.bankName = bankName;
+		this.nums = nums;
+		this.remark = remark;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
+		this.borrowReason = borrowReason;
+		this.borrowInfo = borrowInfo;
+	}
+
 	public LDocFiledocs(int filedocsId, String infoId, int caseId, Date receivedDate, 
 			Date bankDate, String docStatus, String typeOne, String typeTwo, 
 			String bankName, int nums, String remark, Date createDatetime, String createUserId) {
@@ -155,6 +196,78 @@ public class LDocFiledocs {
 
 	public void setBorrowInfo(String borrowInfo) {
 		this.borrowInfo = borrowInfo;
+	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+
+	public String getgProdId() {
+		return gProdId;
+	}
+
+	public void setgProdId(String gProdId) {
+		this.gProdId = gProdId;
+	}
+
+	public String getgProdName() {
+		return gProdName;
+	}
+
+	public void setgProdName(String gProdName) {
+		this.gProdName = gProdName;
+	}
+
+	public String getDebtID() {
+		return debtID;
+	}
+
+	public void setDebtID(String debtID) {
+		this.debtID = debtID;
+	}
+
+	public String getDebtName() {
+		return debtName;
+	}
+
+	public void setDebtName(String debtName) {
+		this.debtName = debtName;
+	}
+
+	public String getDisTypeOne() {
+		return disTypeOne;
+	}
+
+	public void setDisTypeOne(String disTypeOne) {
+		this.disTypeOne = disTypeOne;
+	}
+
+	public String getDisTypeTwo() {
+		return disTypeTwo;
+	}
+
+	public void setDisTypeTwo(String disTypeTwo) {
+		this.disTypeTwo = disTypeTwo;
+	}
+
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 	
 }

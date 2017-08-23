@@ -30,10 +30,11 @@ law.addDoc.claimsDoc = {
 		law.addDoc.claimsDoc.claimsDocRelaNum[num] ++ ;
 		
 		tdString = "<td><label>相對人</label></td>" +
-				"<td><select id='iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'><option value=''>請選擇</option></select></td>";
+				"<td><select id='iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'><option value=''>請選擇</option></select>" +
+						"<input id='iptclaimsDocRelationPersonId" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num] + "'  style='display:none'></input></td>";
 					
 		$("#iptclaimsDocRelationPersonTr" + displaynum ).append(tdString);
-		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num], law.addDoc.rela);
+		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + displaynum + "_" + claimsDoc.claimsDocRelaNum[num], law.addDoc.rela, undefined, true);
 	},
 	addclaimsDocsubtab : function(){
 		var claimsDoc = law.addDoc.claimsDoc;
@@ -45,29 +46,31 @@ law.addDoc.claimsDoc = {
 		var tabTemplate = "<li id='liclaimsDoctab_" + claimsDocsubtabcount + "'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>"
 		var label = tabTitle , id = tabId, li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 		var subtabContentHtml = "<table>" +
+           	 	"<tr style='display:none'><td><input id='iptclaimsDocDocType" + claimsDocsubtabcount + "'></input><input id='iptclaimsDocDocId" + claimsDocsubtabcount + "'></input></td></tr>" +
            	 	"<tr>" +
 					"<td><label>業主調件日</label></td>" +
 					"<td><input id='iptclaimsDocBankDate" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>收文日期</label></td>" +
+					"<td><label style='color:red'>*收文日期</label></td>" +
 					"<td><input id='iptclaimsDocReceivedDate" + claimsDocsubtabcount + "'></input></td>" +
-					"<td><label>文件狀態</label></td>" +
+					"<td><label style='color:red'>*文件狀態</label></td>" +
 					"<td><select id='iptclaimsDocDocStatus" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 				"<tr>" +
-					"<td><label>文件類別</label></td>" +
+					"<td><label style='color:red'>*文件類別</label></td>" +
 					"<td><select id='iptclaimsDocTypeOne" + claimsDocsubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
-					"<td><label>文件項目</label></td>" +
+					"<td><label style='color:red'>*文件項目</label></td>" +
 					"<td><select id='iptclaimsDocTypeTwo" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
-					"<td><label>債權人</label></td>" +
-					"<td><select id='iptclaimsDocBankName" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
+					"<td><label style='color:red'>*債權人</label></td>" +
+					"<td><select id='iptclaimsDocBankName" + claimsDocsubtabcount + "' disabled><option value=''>請選擇</option></select></td>" +
 					"<td><label>原債權人</label></td>" +
 					"<td><select id='iptclaimsDocOldBankName" + claimsDocsubtabcount + "'><option value=''>請選擇</option></select></td>" +
 				"</tr>" +
 			"</table>" +
 			"<table>" +
 				"<tr id='iptclaimsDocRelationPersonTr" + claimsDocsubtabcount + "'>" +
-					"<td><label>相對人</label></td>" +
-					"<td><select id='iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0'><option value=''>請選擇</option></select></td>" +
+					"<td><label style='color:red'>*相對人</label></td>" +
+					"<td><select id='iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0'><option value=''>請選擇</option></select>" +
+							"<input id='iptclaimsDocRelationPersonId" + claimsDocsubtabcount + "_0'  style='display:none'></input></td>" +
 					"<td><img src='../images/plus.png' onclick='law.addDoc.claimsDoc.addclaimsRelaTd(" + (claimsDocsubtabcount + 1) + ")'></td>" +
 				"</tr>" +
 			"</table>" +
@@ -100,57 +103,56 @@ law.addDoc.claimsDoc = {
  		law.common.formatInputItemToDate("#iptclaimsDocReceivedDate" + claimsDocsubtabcount, "yy-mm-dd");
  		law.common.formatInputItemToDate("#iptclaimsDocBankDate" + claimsDocsubtabcount, "yy-mm-dd");
 	   
-		law.common.selectOption("#iptclaimsDocDocStatus" + claimsDocsubtabcount, claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001");
-		law.common.selectOption("#iptclaimsDocTypeOne" + claimsDocsubtabcount, claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006");
-		law.common.selectOption("#iptclaimsDocTypeTwo" + claimsDocsubtabcount, claimsDoc.TypeTwo);
-		law.common.selectOption("#iptclaimsDocBankName" + claimsDocsubtabcount, claimsDoc.BankName);
-		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0", law.addDoc.rela);
-		//設定收文日期為當日
-		$("#iptclaimsDocReceivedDate" + claimsDocsubtabcount).val(claimsDoc.ReceivedDate);
+		law.common.selectOption("#iptclaimsDocDocStatus" + claimsDocsubtabcount, claimsDoc.DocStatus, "8aa2e72a5c8074d5015c8076cfe50001", true);
+		law.common.selectOption("#iptclaimsDocTypeOne" + claimsDocsubtabcount, claimsDoc.TypeOne, "8aa2e72a5c812434015c812fa6890006", true);
+		law.common.selectOption("#iptclaimsDocTypeTwo" + claimsDocsubtabcount, claimsDoc.TypeTwo, undefined, true);
+		law.common.selectRelaOption("#iptclaimsDocRelationPerson" + claimsDocsubtabcount + "_0", law.addDoc.rela, undefined, true);
+		
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptclaimsDocBankName" + claimsDocsubtabcount).append(BankNameSelectOption);
+		$("#iptclaimsDocBankName" + claimsDocsubtabcount + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');
 		
 		//動態跑出原債權人
-		$("#iptclaimsDocBankName" + claimsDocsubtabcount).change(function(i) {
-			if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B1" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B2" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B3" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B4" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B5" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B6" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B7" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-CD" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-CR"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.TSBOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "FEI_BK"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.FEIOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "SK_BK"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.SKOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "YT_AMC" ||
-					$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "YT_IS"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.YTOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "FI-AMC"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.FIOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-AMC"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.TSAOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TAMCO"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.TAMCOOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.ORIXOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "MT-IS"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.MTOldBankName);
-			}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "UN_IS"){
-				law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.UNOldBankName);
-			}else{
-				var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
-				$("#iptclaimsDocOldBankName" + claimsDocsubtabcount + " option").remove();
-				$("#iptclaimsDocOldBankName" + claimsDocsubtabcount).append(selectNull);
-			}
-		});
+		if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B1" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B2" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B3" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B4" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B5" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B6" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-B7" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-CD" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.TSBOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.FEIOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.SKOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.YTOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.FIOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.TSAOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.TAMCOOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.ORIXOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.MTOldBankName, undefined, true);
+		}else if($("#iptclaimsDocBankName" + claimsDocsubtabcount).find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName" + claimsDocsubtabcount, claimsDoc.UNOldBankName, undefined, true);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptclaimsDocOldBankName" + claimsDocsubtabcount + " option").remove();
+			$("#iptclaimsDocOldBankName" + claimsDocsubtabcount).append(selectNull);
+		}
 		
 		//設定相對人 = 0
 		law.addDoc.claimsDoc.claimsDocRelaNum[(claimsDocsubtabcount+1)] = 0;
 	},
 	// 初始化
-	initclaimsDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo, BankName, 
+	initclaimsDocsubtab : function (ReceivedDate, DocStatus, TypeOne, TypeTwo,
 				TSBOldBankName, FEIOldBankName, SKOldBankName,YTOldBankName, FIOldBankName, 
 				TSAOldBankName, TAMCOOldBankName, ORIXOldBankName, MTOldBankName, UNOldBankName){
 		var initsub = law.addDoc.claimsDoc;
@@ -158,7 +160,6 @@ law.addDoc.claimsDoc = {
 		initsub.DocStatus = DocStatus;
 		initsub.TypeOne = TypeOne;
 		initsub.TypeTwo = TypeTwo;
-		initsub.BankName = BankName;
 		initsub.TSBOldBankName = TSBOldBankName;
 		initsub.FEIOldBankName = FEIOldBankName;
 		initsub.SKOldBankName = SKOldBankName;
@@ -180,27 +181,51 @@ law.addDoc.claimsDoc = {
 			returnClaimsDocRelas_0 = [],
 			relainfo = {};
 			
+		// add By Jia 2017-08-11 空值判斷
+		var emptyReturn = law.addDoc.claimsDoc.claimsDocRegex(undefined);
+		if(emptyReturn.isEmpty){
+			return emptyReturn;
+		}
+		// add By Jia 2017-08-14 格式判斷
+		var isRegexReturn = law.addDoc.claimsDoc.claimsDocRegex(undefined);
+		if(isRegexReturn.isRegexp){
+			return isRegexReturn;
+		}
+			
 		for( ; i <= law.addDoc.claimsDoc.claimsDocRelaNum[0]; i++){
+			var rela_ID = $("#iptclaimsDocRelationPerson_" + i).find('option:selected').val().split(",");
 			relainfo = { 
-				"ID" : $("#iptclaimsDocRelationPerson_" + i).find('option:selected').val(),
+				"claimsdocsRelaId" : ($("#iptclaimsDocRelationPersonId_" + i).val() != "" ) ? $("#iptclaimsDocRelationPersonId_" + i).val() : null,
+				"num" : i,
+				"ID" : rela_ID[0],
+				"P_ID" : rela_ID[1],
 				"name"	: $("#iptclaimsDocRelationPerson_" + i).find('option:selected').text()
 				};
 			returnClaimsDocRelas_0.push(relainfo);
 		}
 			
 		var topItem = {
+			'bankId' : law.addDoc.bankId,
+			'bankName' : law.addDoc.bankName,
+			'gProdId' : law.addDoc.gprodId,
+			'gProdName' : law.addDoc.gprodName,
+			'debtID' : law.addDoc.ID,
+			'debtName' : law.addDoc.debtName,
+			'claimsdocsId' : ($("#iptclaimsDocDocId").val() !== "" ) ? $("#iptclaimsDocDocId").val() : null,
 			'receivedDate' : $("#iptclaimsDocReceivedDate").val(),
-			'bankDate' : $("#iptclaimsDocBankDate").val(),
+			'bankDate' : ($("#iptclaimsDocBankDate").val() !== "")? $("#iptclaimsDocBankDate").val() : null,
 			'docStatus' : $("#iptclaimsDocDocStatus").find('option:selected').val(),
 			'typeOne' : $("#iptclaimsDocTypeOne").find('option:selected').val(),
 			'typeTwo' : $("#iptclaimsDocTypeTwo").find('option:selected').val(),
-			'bankName' : $("#iptclaimsDocBankName").find('option:selected').val(),
-			'oldBankName' : $("#iptclaimsDocOldBankName").find('option:selected').val(),
+			'oldBankName' : ($("#iptclaimsDocOldBankName").find('option:selected').val() !== "")? $("#iptclaimsDocOldBankName").find('option:selected').val() : null,
 			'claimsRelationPerson' : returnClaimsDocRelas_0,
 			'relationPerson' : $("#iptclaimsDocRelationPerson_0").find('option:selected').val(),
-			'quota' : $("#iptclaimsDocQuota").val(),
-			'interestRate' : $("#iptclaimsDocInterestRate").val(),
-			'remark' : $("#iptclaimsDocRemark").val()
+			'quota' : ($("#iptclaimsDocQuota").val() !== "")? $("#iptclaimsDocQuota").val()  : null,
+			'interestRate' : ($("#iptclaimsDocInterestRate").val() !== "")? $("#iptclaimsDocInterestRate").val() : null,
+			'remark' : ($("#iptclaimsDocRemark").val() !== "")? $("#iptclaimsDocRemark").val() : null,
+			'disTypeOne' : $("#iptclaimsDocTypeOne").find('option:selected').text(),
+			'disTypeTwo' : $("#iptclaimsDocTypeTwo").find('option:selected').text(),
+			'disDocStatus' : $("#iptclaimsDocDocStatus").find('option:selected').text()
 		};
 			
 		claimsDoc.subItems = [];
@@ -208,36 +233,195 @@ law.addDoc.claimsDoc = {
 			
 		i = 0;
 		for ( ; i < length; i++ ) {
-			returnClaimsDocRelas_0 = [];
-			displayNum = i + 1;
-			j = 0;
-			for( ; j <= law.addDoc.claimsDoc.claimsDocRelaNum[displayNum]; j++){
-				relainfo = { 
-					"ID" : $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').val(),
-					"name"	: $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').text()
+			if($("#liclaimsDoctab_" + i).size()){
+				
+				// add By Jia 2017-08-11 空值判斷
+				var emptyReturn = law.addDoc.claimsDoc.claimsDocRegex(i);
+				if(emptyReturn.isEmpty){
+					return emptyReturn;
+				}
+				// add By Jia 2017-08-14 格式判斷
+				var isRegexReturn = law.addDoc.claimsDoc.claimsDocRegex(i);
+				if(isRegexReturn.isRegexp){
+					return isRegexReturn;
+				}
+				
+				returnClaimsDocRelas_0 = [];
+				displayNum = i + 1;
+				j = 0;
+				for( ; j <= law.addDoc.claimsDoc.claimsDocRelaNum[displayNum]; j++){
+					var rela_ID = $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').val().split(",");
+					
+					relainfo = { 
+						"claimsdocsRelaId" : ($("#iptclaimsDocRelationPersonId" + i + "_" + j).val() != "" ) ? $("#iptclaimsDocRelationPersonId" + i + "_" + j).val() : null,
+						"num" : j,
+						"ID" : rela_ID[0],
+						"P_ID" : rela_ID[1],
+						"name"	: $("#iptclaimsDocRelationPerson" + i + "_" + j).find('option:selected').text()
+						};
+					returnClaimsDocRelas_0.push(relainfo);
+				}
+				
+						var subItems = {
+							'bankId' : law.addDoc.bankId,
+							'bankName' : law.addDoc.bankName,
+							'gProdId' : law.addDoc.gprodId,
+							'gProdName' : law.addDoc.gprodName,
+							'debtID' : law.addDoc.ID,
+							'debtName' : law.addDoc.debtName,
+							'claimsdocsId' : ($("#iptclaimsDocDocId" + i).val() !== "" ) ? $("#iptclaimsDocDocId" + i).val() : null,
+							'receivedDate' : $("#iptclaimsDocReceivedDate" + i ).val(),
+							'bankDate' : ($("#iptclaimsDocBankDate" + i ).val() !== "")? $("#iptclaimsDocBankDate" + i ).val() : null,
+							'docStatus' : $("#iptclaimsDocDocStatus" + i ).find('option:selected').val(),
+							'typeOne' : $("#iptclaimsDocTypeOne" + i ).find('option:selected').val(),
+							'typeTwo' : $("#iptclaimsDocTypeTwo" + i ).find('option:selected').val(),
+							'oldBankName' : ($("#iptclaimsDocOldBankName" + i ).find('option:selected').val() !== "")? $("#iptclaimsDocOldBankName" + i ).find('option:selected').val() : null,
+							'claimsRelationPerson' : returnClaimsDocRelas_0,
+							'relationPerson' : $("#iptclaimsDocRelationPerson_0").find('option:selected').val(),
+							'quota' : ($("#iptclaimsDocQuota" + i ).val() !== "")? $("#iptclaimsDocQuota" + i ).val() : null,
+							'interestRate' : ($("#iptclaimsDocInterestRate" + i ).val() !== "")? $("#iptclaimsDocInterestRate" + i ).val() : null,
+							'remark' : ($("#iptclaimsDocRemark" + i ).val() !== "")? $("#iptclaimsDocRemark" + i ).val() : null,
+							'disTypeOne' : $("#iptclaimsDocTypeOne" + i).find('option:selected').text(),
+							'disTypeTwo' : $("#iptclaimsDocTypeTwo" + i).find('option:selected').text(),
+							'disDocStatus' : $("#iptclaimsDocDocStatus" + i).find('option:selected').text(),
+							'tempCount' : i
 					};
-				returnClaimsDocRelas_0.push(relainfo);
+					claimsDoc.subItems.push(subItems);
 			}
-			
-				var subItems = {
-					'receivedDate' : $("#iptclaimsDocReceivedDate" + i ).val(),
-					'bankDate' : $("#iptclaimsDocBankDate" + i ).val(),
-					'docStatus' : $("#iptclaimsDocDocStatus" + i ).find('option:selected').val(),
-					'typeOne' : $("#iptclaimsDocTypeOne" + i ).find('option:selected').val(),
-					'typeTwo' : $("#iptclaimsDocTypeTwo" + i ).find('option:selected').val(),
-					'bankName' : $("#iptclaimsDocBankName" + i ).find('option:selected').val(),
-					'oldBankName' : $("#iptclaimsDocOldBankName" + i ).find('option:selected').val(),
-					'claimsRelationPerson' : returnClaimsDocRelas_0,
-					'relationPerson' : $("#iptclaimsDocRelationPerson_0").find('option:selected').val(),
-					'quota' : $("#iptclaimsDocQuota" + i ).val(),
-					'interestRate' : $("#iptclaimsDocInterestRate" + i ).val(),
-					'remark' : $("#iptclaimsDocRemark" + i ).val()
-			};
-			claimsDoc.subItems.push(subItems);
 		}
 
 		returnClaimsDoc = JSON.stringify(claimsDoc.subItems);
 		return returnClaimsDoc;
+	},
+	// add By Jia 2017-08-10 若必選欄位有空則return並提示
+	//index : 第幾頁籤 index = undefined 表示首頁
+	claimsDocRegex : function(index){
+		var isEmpty;
+		var isRegexp;
+		var returnSaveClaimsDoc;
+		var returnClaimsDoc = "";
+		if(index === undefined){
+			isEmpty = law.common.checkIsEmpty("iptclaimsDocReceivedDate", "債權文件[收文日期]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptclaimsDocDocStatus", "債權文件[文件狀態]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptclaimsDocTypeTwo", "債權文件[文件項目]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptclaimsDocRelationPerson_0", "債權文件[相對人]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			if($("#iptclaimsDocQuota").val() !== ""){
+				isRegexp = law.common.checkRegexp("iptclaimsDocQuota", law.regex.numberRegex, "債權文件[額度]須為數字格式");
+				if(isRegexp.isRegexp){
+					returnSaveClaimsDoc = { isRegexp : true, regexString : isRegexp.regexString, returnClaimsDoc : returnClaimsDoc}
+					return returnSaveClaimsDoc;
+				}
+			}
+		}else{
+			isEmpty = law.common.checkIsEmpty("iptclaimsDocReceivedDate" + index, "債權文件[收文日期]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptclaimsDocDocStatus" + index, "債權文件[文件狀態]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptclaimsDocTypeTwo" + index, "債權文件[文件項目]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			isEmpty = law.common.checkSelectIsEmpty("iptclaimsDocRelationPerson" + index + "_0", "債權文件[相對人]");
+			if(isEmpty.isEmpty){
+				returnSaveClaimsDoc = { isEmpty : true, regexString : isEmpty.regexString, returnClaimsDoc : returnClaimsDoc}
+				return returnSaveClaimsDoc;
+			}
+			if($("#iptclaimsDocQuota" + index).val() !== ""){
+				isRegexp = law.common.checkRegexp("iptclaimsDocQuota" + index, law.regex.numberRegex, "債權文件[額度]須為數字格式");
+				if(isRegexp.isRegexp){
+					returnSaveClaimsDoc = { isRegexp : true, regexString : isRegexp.regexString, returnClaimsDoc : returnClaimsDoc}
+					return returnSaveClaimsDoc;
+				}
+			}
+		}
+		// 全部為空驗證通過
+		returnSaveClaimsDoc = { isEmpty : false, isRegexp : false};
+		return returnSaveClaimsDoc;
+	},
+	// 從文管系統進入 初始化頁籤
+	initopenClaimsdocsubtab : function (claimsdocDocInfo){
+		var i = 0;
+		var claimsDoc = law.addDoc.claimsDoc;
+		$("#iptclaimsDocBankDate").val(claimsdocDocInfo.bankDate !== undefined ? claimsdocDocInfo.bankDate : "");// 業主調件日
+		$("#iptclaimsDocReceivedDate").val(claimsdocDocInfo.receivedDate);// 收文日期
+		law.common.selectOption("#iptclaimsDocDocStatus", claimsDoc.DocStatus, claimsdocDocInfo.docStatus, true);// 文件狀態
+		law.common.selectOption("#iptclaimsDocTypeOne", claimsDoc.TypeOne, claimsdocDocInfo.typeOne, true);// 文件類別
+		law.common.selectOption("#iptclaimsDocTypeTwo", claimsDoc.TypeTwo, claimsdocDocInfo.typeTwo, true);// 文件項目
+		var BankNameSelectOption = '<option value="'+law.addDoc.bankId+'">'+law.addDoc.bankName+'</option>'; 
+		$("#iptclaimsDocBankName").append(BankNameSelectOption);
+		$("#iptclaimsDocBankName" + ' option[value=' + law.addDoc.bankId + ']').attr('selected', 'selected');// 債權人
+		
+		//動態跑出原債權人
+		if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B1" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B2" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B3" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B4" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B5" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B6" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-B7" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CD" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-CR"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSBOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FEI_BK"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FEIOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "SK_BK"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.SKOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_AMC" ||
+				$("#iptclaimsDocBankName").find('option:selected').val() ===  "YT_IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.YTOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "FI-AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.FIOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TS-AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TSAOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "TAMCO"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.TAMCOOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "ORIX_AMC"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.ORIXOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "MT-IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.MTOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else if($("#iptclaimsDocBankName").find('option:selected').val() ===  "UN_IS"){
+			law.common.selectOption("#iptclaimsDocOldBankName", claimsDoc.UNOldBankName, claimsdocDocInfo.oldBankName, true);
+		}else{
+			var selectNull = '<option value="'+""+'">'+"請選擇"+'</option>'; 
+			$("#iptclaimsDocOldBankName" + " option").remove();
+			$("#iptclaimsDocOldBankName").append(selectNull);
+		}
+		
+		for(;i < claimsdocDocInfo.claimsRelationPerson.length; i++){
+			var selectVal = claimsdocDocInfo.claimsRelationPerson[i].ID + "," + claimsdocDocInfo.claimsRelationPerson[i].P_ID;
+			if(i !== 0){
+				law.addDoc.claimsDoc.addclaimsRelaTd(0);
+			}
+			law.common.selectRelaOption("#iptclaimsDocRelationPerson_" + i, law.addDoc.rela, selectVal, true); // 相對人
+			$("#iptclaimsDocRelationPersonId_" + i).val(claimsdocDocInfo.claimsRelationPerson[i].claimsdocsRelaId);
+		}
+		
+		$("#iptclaimsDocQuota").val(claimsdocDocInfo.quota !== 0 ? claimsdocDocInfo.quota : "");// 額度
+		$("#iptclaimsDocInterestRate").val(claimsdocDocInfo.interestRate !== 0 ? claimsdocDocInfo.interestRate : "");// 利率
+		$("#iptclaimsDocRemark").val(claimsdocDocInfo.remark !== undefined ? claimsdocDocInfo.remark : "");// 備註
 	}
 }
 	

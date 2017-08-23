@@ -2,6 +2,7 @@ package com.myjs.doc.documents.service;
 
 import java.util.List;
 
+import com.google.gson.JsonObject;
 import com.myjs.cek.recordcheckform.model.LCekSignedCaseInfo;
 import com.myjs.cek.recordcheckform.model.LCekSignedRelaInfo;
 import com.myjs.sys.user.model.VEIPMemdb;
@@ -44,7 +45,7 @@ public interface docService {
 	 * 用案號查詢該案件的文件
 	 * @throws Exception
 	 */
-	public String loadCaseDocsByCaseId(String caseId) throws Exception;
+	public JsonObject loadCaseDocsByCaseId(String caseId) throws Exception;
 	
 	/**
 	 * add By Jia 2017-07-21
@@ -61,7 +62,7 @@ public interface docService {
 	 * @return
 	 * @throws Exception
 	 */
-	public String saveBorrowDocs(String saveBorrowString) throws Exception;
+	public String saveBorrowDocs(String saveBorrowString, VEIPMemdb loginUser, String caseId) throws Exception;
 	
 	/**
 	 * add By Jia 2017-07-24
@@ -85,4 +86,34 @@ public interface docService {
 	 * @throws Exception
 	 */
 	public String findDocSumSelectOption() throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-15
+	 * 修改文件狀態
+	 * @param docId
+	 * @param docStatus
+	 * @return
+	 * @throws Exception
+	 */
+	public String updateDocStatus(String docId, String docStatus) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-16
+	 * 將影像檔複製回來
+	 * @param caseId
+	 * @param fileName
+	 * @return
+	 * @throws Exception
+	 */
+	public String downloadImgFile(String caseId, String fileName, String path) throws Exception;
+	
+	/**
+	 * add By Jia 2017-08-16
+	 * 依照文件的type帶出該類型文件
+	 * @param docType
+	 * @param docId
+	 * @return
+	 * @throws Exception
+	 */
+	public String findDocByTypeAndId(String docType, String docId) throws Exception;
 }

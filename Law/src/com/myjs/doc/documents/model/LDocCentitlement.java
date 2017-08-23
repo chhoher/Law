@@ -33,10 +33,17 @@ public class LDocCentitlement {
 	// add By Jia 2017-07-14 原始憑證
 	private String sourceDoc;
 	private Date sendDate;
+	
+	private Date ruledDate;
+	private int ruledAmount;
+	private Date applyConfirmationDate;
+	private Date receivedConfirmationDate;
+	private Date failureDate; 
 	private Date newSendDate;
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
+	private String createUserName;
 	
 	private String borrowReason;
 	private String borrowInfo;
@@ -47,6 +54,9 @@ public class LDocCentitlement {
 	private String disTypeTwo;
 	private String disCourtYearCourt;
 	private String tempCount;
+	
+	//相對人
+	private List<LDocCentitlementRela> centitlementRelationPerson;
 	
 	// 原始憑證
 	private List<LDocCentitlementSourceDoc> centitlementSourceDoc;
@@ -60,7 +70,8 @@ public class LDocCentitlement {
 			String shareCaseId2, String shareCaseId3, String shadow, Date receivedDate, Date bankDate, String docStatus,
 			String typeOne, String typeTwo, String bankName, String oldBankName, String relationPerson,
 			String courtYearCourt, int courtYearYear, String courtYearTxt, String courtYearShare, int courtYearCaseId,
-			String sourceDoc, Date sendDate, Date newSendDate, String remark, Date createDatetime, String createUserId,
+			String sourceDoc, Date ruledDate,int ruledAmount, Date applyConfirmationDate, 
+			Date receivedConfirmationDate, Date failureDate, Date sendDate, Date newSendDate, String remark, Date createDatetime, String createUserId,
 			String borrowReason, String borrowInfo, List<LDocCentitlementSourceDoc> centitlementSourceDoc) {
 		this.bankId = bankId;
 		this.gProdId = gProdId;
@@ -89,6 +100,11 @@ public class LDocCentitlement {
 		this.courtYearShare = courtYearShare;
 		this.courtYearCaseId = courtYearCaseId;
 		this.sourceDoc = sourceDoc;
+		this.ruledDate = ruledDate;
+		this.ruledAmount = ruledAmount;
+		this.applyConfirmationDate = applyConfirmationDate;
+		this.receivedConfirmationDate = receivedConfirmationDate;
+		this.failureDate = failureDate;
 		this.sendDate = sendDate;
 		this.newSendDate = newSendDate;
 		this.remark = remark;
@@ -314,6 +330,36 @@ public class LDocCentitlement {
 		return sendDate;
 	}
 
+	public Date getRuledDate() {
+		return ruledDate;
+	}
+	public void setRuledDate(Date ruledDate) {
+		this.ruledDate = ruledDate;
+	}
+	public int getRuledAmount() {
+		return ruledAmount;
+	}
+	public void setRuledAmount(int ruledAmount) {
+		this.ruledAmount = ruledAmount;
+	}
+	public Date getApplyConfirmationDate() {
+		return applyConfirmationDate;
+	}
+	public void setApplyConfirmationDate(Date applyConfirmationDate) {
+		this.applyConfirmationDate = applyConfirmationDate;
+	}
+	public Date getReceivedConfirmationDate() {
+		return receivedConfirmationDate;
+	}
+	public void setReceivedConfirmationDate(Date receivedConfirmationDate) {
+		this.receivedConfirmationDate = receivedConfirmationDate;
+	}
+	public Date getFailureDate() {
+		return failureDate;
+	}
+	public void setFailureDate(Date failureDate) {
+		this.failureDate = failureDate;
+	}
 	public void setSendDate(Date sendDate) {
 		this.sendDate = sendDate;
 	}
@@ -452,6 +498,22 @@ public class LDocCentitlement {
 
 	public void setTempCount(String tempCount) {
 		this.tempCount = tempCount;
+	}
+
+	public List<LDocCentitlementRela> getCentitlementRelationPerson() {
+		return centitlementRelationPerson;
+	}
+
+	public void setCentitlementRelationPerson(List<LDocCentitlementRela> centitlementRelationPerson) {
+		this.centitlementRelationPerson = centitlementRelationPerson;
+	}
+
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
 	}
 
 	

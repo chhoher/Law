@@ -20,6 +20,11 @@ public class LSysVariable implements java.io.Serializable {
 
 	}
 
+	public LSysVariable(String variableId, String variableName) {
+		this.variableId = variableId;
+		this.variableName = variableName;
+	}
+	
 	public LSysVariable(String variableId, String variableType, String variableName, Date createDatetime,
 			String createUserId, Date modifyDatetime, String modifyUserId, String isDelete, String variableValue) {
 		this.variableId = variableId;

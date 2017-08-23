@@ -4,7 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 public class LDocClaimsdocs {
-	
+
+	private String bankId;
+	private String gProdId;
+	private String gProdName;
+	private String debtID;
+	private String debtName;
 	private int claimsdocsId;
 	private String infoId;
 	private int caseId;
@@ -17,7 +22,7 @@ public class LDocClaimsdocs {
 	private String oldBankName;
 	private String relationPerson;
 	private int quota;
-	private int interestRate;
+	private String interestRate;
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
@@ -26,14 +31,49 @@ public class LDocClaimsdocs {
 	
 	// add By Jia 2017-06-28 Vo
 	private List<LDocClaimsdocsRela> claimsRelationPerson;
+	private String disTypeOne;
+	private String disTypeTwo;
+	private String disDocStatus;
+	private String tempCount;
 	
 	public LDocClaimsdocs(){
 		
 	}
 	
+	public LDocClaimsdocs(String bankId, String gProdId, String gProdName, String debtID, String debtName,
+			int claimsdocsId, String infoId, int caseId, Date receivedDate, Date bankDate, String docStatus,
+			String typeOne, String typeTwo, String bankName, String oldBankName, String relationPerson, int quota,
+			String interestRate, String remark, Date createDatetime, String createUserId, String borrowReason,
+			String borrowInfo, List<LDocClaimsdocsRela> claimsRelationPerson) {
+		this.bankId = bankId;
+		this.gProdId = gProdId;
+		this.gProdName = gProdName;
+		this.debtID = debtID;
+		this.debtName = debtName;
+		this.claimsdocsId = claimsdocsId;
+		this.infoId = infoId;
+		this.caseId = caseId;
+		this.receivedDate = receivedDate;
+		this.bankDate = bankDate;
+		this.docStatus = docStatus;
+		this.typeOne = typeOne;
+		this.typeTwo = typeTwo;
+		this.bankName = bankName;
+		this.oldBankName = oldBankName;
+		this.relationPerson = relationPerson;
+		this.quota = quota;
+		this.interestRate = interestRate;
+		this.remark = remark;
+		this.createDatetime = createDatetime;
+		this.createUserId = createUserId;
+		this.borrowReason = borrowReason;
+		this.borrowInfo = borrowInfo;
+		this.claimsRelationPerson = claimsRelationPerson;
+	}
+
 	public LDocClaimsdocs(int claimsdocsId, String infoId, int caseId, Date receivedDate, Date bankDate,
 			String docStatus, String typeOne, String typeTwo, String bankName, String oldBankName,
-			String relationPerson, int quota, int interestRate, String remark, Date createDatetime,
+			String relationPerson, int quota, String interestRate, String remark, Date createDatetime,
 			String createUserId) {
 		super();
 		this.claimsdocsId = claimsdocsId;
@@ -150,11 +190,11 @@ public class LDocClaimsdocs {
 		this.quota = quota;
 	}
 
-	public int getInterestRate() {
+	public String getInterestRate() {
 		return interestRate;
 	}
 
-	public void setInterestRate(int interestRate) {
+	public void setInterestRate(String interestRate) {
 		this.interestRate = interestRate;
 	}
 
@@ -204,6 +244,78 @@ public class LDocClaimsdocs {
 
 	public void setBorrowInfo(String borrowInfo) {
 		this.borrowInfo = borrowInfo;
+	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+
+	public String getgProdId() {
+		return gProdId;
+	}
+
+	public void setgProdId(String gProdId) {
+		this.gProdId = gProdId;
+	}
+
+	public String getgProdName() {
+		return gProdName;
+	}
+
+	public void setgProdName(String gProdName) {
+		this.gProdName = gProdName;
+	}
+
+	public String getDebtID() {
+		return debtID;
+	}
+
+	public void setDebtID(String debtID) {
+		this.debtID = debtID;
+	}
+
+	public String getDebtName() {
+		return debtName;
+	}
+
+	public void setDebtName(String debtName) {
+		this.debtName = debtName;
+	}
+
+	public String getDisTypeOne() {
+		return disTypeOne;
+	}
+
+	public void setDisTypeOne(String disTypeOne) {
+		this.disTypeOne = disTypeOne;
+	}
+
+	public String getDisTypeTwo() {
+		return disTypeTwo;
+	}
+
+	public void setDisTypeTwo(String disTypeTwo) {
+		this.disTypeTwo = disTypeTwo;
+	}
+
+	public String getDisDocStatus() {
+		return disDocStatus;
+	}
+
+	public void setDisDocStatus(String disDocStatus) {
+		this.disDocStatus = disDocStatus;
+	}
+
+	public String getTempCount() {
+		return tempCount;
+	}
+
+	public void setTempCount(String tempCount) {
+		this.tempCount = tempCount;
 	}
 
 

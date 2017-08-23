@@ -268,17 +268,185 @@ $(function() {
 										if(json[i].tempCount === undefined){
 											$("#iptcentitlementDocType").val(json[i].docType);
 											$("#iptcentitlementDocId").val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].centitlementRelationPerson.length ; j++){
+												$("#iptcentitlementRelationPersonId_" + j).val(json[i].centitlementRelationPerson[j].centitlementRelaId);
+											}
+											j = 0;
+											for(;j < json[i].centitlementSourceDoc.length ; j++){
+												$("#iptcentitlementSourceDocId_" + j).val(json[i].centitlementSourceDoc[j].centitlementSourceDocId);
+											}
 										}else{
 											$("#iptcentitlementDocType" + json[i].tempCount).val(json[i].docType);
 											$("#iptcentitlementDocId" + json[i].tempCount).val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].centitlementRelationPerson.length ; j++){
+												$("#iptcentitlementRelationPersonId" + json[i].tempCount + "_" + j).val(json[i].centitlementRelationPerson[j].centitlementRelaId);
+											}
+											j = 0;
+											for(;j < json[i].centitlementSourceDoc.length ; j++){
+												$("#iptcentitlementSourceDocId" + json[i].tempCount + "_" + j).val(json[i].centitlementSourceDoc[j].centitlementSourceDocId);
+											}
 										}
 									}else if(json[i].docType === "B"){
 										if(json[i].tempCount === undefined){
 											$("#iptcourtDocDocType").val(json[i].docType);
 											$("#iptcourtDocDocId").val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].courtDocRelationPerson.length ; j++){
+												$("#iptcourtDocRelationPersonId_" + j).val(json[i].courtDocRelationPerson[j].courtDocRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocTranscriptsRelationPersonId_" + j).val(json[i].courtDocTranscriptsRelationPerson[j].courtDocTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocCoOwnedTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocCoOwnedTranscriptsRelationPersonId_" + j).val(json[i].courtDocCoOwnedTranscriptsRelationPerson[j].courtDocCoOwnedTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocMortgageeTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocMortgageeTranscriptsRelationPersonId_" + j).val(json[i].courtDocMortgageeTranscriptsRelationPerson[j].courtDocMortgageeTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocLawTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocLawTranscriptsRelationPersonId_" + j).val(json[i].courtDocLawTranscriptsRelationPerson[j].courtDocLawTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocHeirTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocHeirTranscriptsRelationPersonId_" + j).val(json[i].courtDocHeirTranscriptsRelationPerson[j].courtDocHeirTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDirtTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocDirtTranscriptsRelationPersonId_" + j).val(json[i].courtDocDirtTranscriptsRelationPerson[j].courtDocDirtTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocBuiltTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocBuiltTranscriptsRelationPersonId_" + j).val(json[i].courtDocBuiltTranscriptsRelationPerson[j].courtDocBuiltTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDistributionRelationPerson.length ; j++){
+												$("#iptcourtDocDistributionRelationPersonId_" + j).val(json[i].courtDocDistributionRelationPerson[j].courtDocDistributionRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocThingThirdRelationPerson.length ; j++){
+												$("#iptcourtDocThingThirdRelationPersonId_" + j).val(json[i].courtDocThingThirdRelationPerson[j].courtDocThingThirdRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocThingDebtRelationPerson.length ; j++){
+												$("#iptcourtDocThingDebtRelationPersonId_" + j).val(json[i].courtDocThingDebtRelationPerson[j].courtDocThingDebtRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocCoOwnedRelationPerson.length ; j++){
+												$("#iptcourtDocCoOwnedRelationPersonId_" + j).val(json[i].courtDocCoOwnedRelationPerson[j].courtDocCoOwnedRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDebtDocRelationPerson.length ; j++){
+												$("#iptcourtDocDebtDocRelationPersonId_" + j).val(json[i].courtDocDebtDocRelationPerson[j].courtDocDebtDocRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDetailRelationPerson.length ; j++){
+												$("#iptcourtDocDetailRelationPersonId_" + j).val(json[i].courtDocDetailRelationPerson[j].courtDocDetailRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocFileRelationPerson.length ; j++){
+												$("#iptcourtDocFileRelationPersonId_" + j).val(json[i].courtDocFileRelationPerson[j].courtDocFileRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDebtContinueRelationPerson.length ; j++){
+												$("#iptcourtDocDebtContinueRelationPersonId_" + j).val(json[i].courtDocDebtContinueRelationPerson[j].courtDocDebtContinueRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocCashierCheckRelationPerson.length ; j++){
+												$("#iptcourtDocCashierCheckRelationPersonId_" + j).val(json[i].courtDocCashierCheckRelationPerson[j].courtDocCashierCheckRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocRecoveryRelationPerson.length ; j++){
+												$("#iptcourtDocRecoveryRelationPersonId_" + j).val(json[i].courtDocRecoveryRelationPerson[j].courtDocRecoveryRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocOtherRelationPerson.length ; j++){
+												$("#iptcourtDocOtherRelationPersonId_" + j).val(json[i].courtDocOtherRelationPerson[j].courtDocOtherRelaId);
+											}
 										}else{
 											$("#iptcourtDocDocType" + json[i].tempCount).val(json[i].docType);
 											$("#iptcourtDocDocId" + json[i].tempCount).val(json[i].docId);
+											var j = 0;
+											for(;j < json[i].courtDocRelationPerson.length ; j++){
+												$("#iptcourtDocRelationPersonId" + json[i].tempCount + "_" + j).val(json[i].courtDocRelationPerson[j].courtDocRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocTranscriptsRelationPersonId" + json[i].tempCount + "_" + j).val(json[i].courtDocTranscriptsRelationPerson[j].courtDocTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocCoOwnedTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocCoOwnedTranscriptsRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocCoOwnedTranscriptsRelationPerson[j].courtDocCoOwnedTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocMortgageeTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocMortgageeTranscriptsRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocMortgageeTranscriptsRelationPerson[j].courtDocMortgageeTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocLawTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocLawTranscriptsRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocLawTranscriptsRelationPerson[j].courtDocLawTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocHeirTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocHeirTranscriptsRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocHeirTranscriptsRelationPerson[j].courtDocHeirTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDirtTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocDirtTranscriptsRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocDirtTranscriptsRelationPerson[j].courtDocDirtTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocBuiltTranscriptsRelationPerson.length ; j++){
+												$("#iptcourtDocBuiltTranscriptsRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocBuiltTranscriptsRelationPerson[j].courtDocBuiltTranscriptsRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDistributionRelationPerson.length ; j++){
+												$("#iptcourtDocDistributionRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocDistributionRelationPerson[j].courtDocDistributionRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocThingThirdRelationPerson.length ; j++){
+												$("#iptcourtDocThingThirdRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocThingThirdRelationPerson[j].courtDocThingThirdRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocThingDebtRelationPerson.length ; j++){
+												$("#iptcourtDocThingDebtRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocThingDebtRelationPerson[j].courtDocThingDebtRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocCoOwnedRelationPerson.length ; j++){
+												$("#iptcourtDocCoOwnedRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocCoOwnedRelationPerson[j].courtDocCoOwnedRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDebtDocRelationPerson.length ; j++){
+												$("#iptcourtDocDebtDocRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocDebtDocRelationPerson[j].courtDocDebtDocRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDetailRelationPerson.length ; j++){
+												$("#iptcourtDocDetailRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocDetailRelationPerson[j].courtDocDetailRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocFileRelationPerson.length ; j++){
+												$("#iptcourtDocFileRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocFileRelationPerson[j].courtDocFileRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocDebtContinueRelationPerson.length ; j++){
+												$("#iptcourtDocDebtContinueRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocDebtContinueRelationPerson[j].courtDocDebtContinueRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocCashierCheckRelationPerson.length ; j++){
+												$("#iptcourtDocCashierCheckRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocCashierCheckRelationPerson[j].courtDocCashierCheckRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocRecoveryRelationPerson.length ; j++){
+												$("#iptcourtDocRecoveryRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocRecoveryRelationPerson[j].courtDocRecoveryRelaId);
+											}
+											j = 0;
+											for(;j < json[i].courtDocOtherRelationPerson.length ; j++){
+												$("#iptcourtDocOtherRelationPersonId" +  json[i].tempCount + "_" + j).val(json[i].courtDocOtherRelationPerson[j].courtDocOtherRelaId);
+											}
 										}
 									}else if(json[i].docType === "C"){
 										if(json[i].tempCount === undefined){

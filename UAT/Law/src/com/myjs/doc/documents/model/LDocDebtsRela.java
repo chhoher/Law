@@ -6,14 +6,21 @@ public class LDocDebtsRela {
 	private String ID;
 	private String name;
 	private int debtsId;
+	private int num;
+	private int P_ID;
 	
-	public LDocDebtsRela(String debtsRelaId, String iD, String name, int debtsId) {
+	public LDocDebtsRela(String debtsRelaId, String iD, String name, int debtsId, int num, int P_ID) {
 		this.debtsRelaId = debtsRelaId;
 		ID = iD;
 		this.name = name;
 		this.debtsId = debtsId;
+		this.num = num;
+		this.P_ID = P_ID;
 	}
 	
+	public LDocDebtsRela() {
+	}
+
 	public String getDebtsRelaId() {
 		return debtsRelaId;
 	}
@@ -39,6 +46,22 @@ public class LDocDebtsRela {
 
 	public void setDebtsId(int debtsId) {
 		this.debtsId = debtsId;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public int getP_ID() {
+		return P_ID;
+	}
+
+	public void setP_ID(int p_ID) {
+		P_ID = p_ID;
 	}
 	
 }

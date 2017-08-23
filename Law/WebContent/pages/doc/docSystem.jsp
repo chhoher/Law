@@ -84,18 +84,53 @@
 						datatable.fnAddData(json);
 						law.doc.debtName = json[0].name;
 						law.doc.caseId = json[0].Case_ID;
+						law.doc.PriDebt_amount = json[0].PriDebt_amount;
+						law.doc.ctCase_d = json[0].ctCase_d;
+						law.doc.O_or_C = json[0].O_or_C;
+						law.doc.Prod_Name = json[0].Prod_Name;
 						
 						var docSystemCaseDocsTableopt={
 					    		"oLanguage":{"sUrl":"../i18n/Chinese-traditional.json"},
 					    		"bJQueryUI":true,	
 					            "scrollX":        true,
+					            "scrollY" : true,
 					            "scrollCollapse": true,
 				                "bAutoWidth":false,    
+				                "bPaginate" : false,
 				                "columnDefs": [{
 				                    targets: '_all',
 				                    className: 'MinWidth0 dt-center',
 				                }],
 					    		"aoColumns": [
+					    			 { "data": "imgFiles" ,
+						                	"render": function ( data, type, full, meta ) {
+						                		var imgFilesString = "";
+						                		if(data !== ""){
+						                			var dataArray = data.split(',');
+							                		$.each(dataArray,function(i){
+							                			var imgFileName = dataArray[i];
+							                			imgFilesString += '<a href="javascript:law.doc.openFile(\'' + full.caseId + '\',\'' + imgFileName +'\')">' + (i +1) +'</a>' + " ";
+													});
+						                		}
+						                		return imgFilesString;
+						                	}
+						            },
+						            { "data": "docCode" },
+					                { "data": "typeOne" },
+					                { "data": "typeTwo" },
+					                { "data": "courtYearCourt" },
+					                { "data": "courtYearYear", 
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === 0){
+					                			return "";
+					                		}else{
+					                			return data;
+					                		}
+					                	}
+					                },
+					                { "data": "courtYearTxt" },
+					                { "data": "courtYearShare" },
+					                { "data": "courtYearCaseId" },
 					                { "data": "applyBorrow" , "className" : "borrowWidth" ,
 					                	"render": function ( data, type, full, meta ) {
 					                		var checkBoxString = '<input id="ckbapplyBorrow_' + full.docCode + '" type="checkbox" value=' + full.docCode + ' class="editor-active">';
@@ -130,52 +165,103 @@
 					                },
 					                { "data": "disDocStatus" },
 					                { "data": "progress" },
-					                { "data": "imgFiles" ,
-					                	"render": function ( data, type, full, meta ) {
-					                		var imgFilesString = "";
-					                		if(data !== ""){
-					                			var dataArray = data.split(',');
-						                		$.each(dataArray,function(i){
-						                			var imgFileName = dataArray[i];
-						                			imgFilesString += '<a href="javascript:law.doc.openFile(\'' + full.caseId + '\',\'' + imgFileName +'\')">' + (i +1) +'</a>' + " ";
-												});
-					                		}
-					                		return imgFilesString;
-					                	}
-					                },
 					                { "data": "bankDate" },
 					                { "data": "receivedDate"},
-					                { "data": "docCode" },
 					                { "data": "relaName" },
-					                { "data": "typeOne" },
-					                { "data": "typeTwo" },
-					                { "data": "courtYearCourt" },
-					                { "data": "courtYearYear" },
-					                { "data": "courtYearTxt" },
-					                { "data": "courtYearShare" },
-					                { "data": "courtYearCaseId" },
-					                { "data": "otherFile" },
 					                { "data": "bankName" },
 					                { "data": "oldBankName" },
 					                { "data": "sourceDoc" },
-					                { "data": "sourceDocInfo" },
+					                { "data": "sourceDocInfo",
+					                	"className" : "editWidth "		
+					                },
 					                { "data": "shareCaseId0" },
 					                { "data": "sendDate" },
 					                { "data": "newSendDate" },
-					                { "data": "interestYear" },
-					                { "data": "interestDate" },
+					                { "data": "interestYear",
+					                	"render": function ( data, type, full, meta ) {
+					                		if(full.sourceDoc === "支付命令確定"){//支付命令確定：15年
+					                			return "15年";
+					                		}else if(full.sourceDoc === "本票裁定確定"){//本票裁定確定：3年
+					                			return "3年";
+					                		}else if(full.sourceDoc === "民事判決確定"){//民事判決確定：15年
+					                			return "15年";
+					                		}else if(full.sourceDoc === "判決確定"){//判決確定：15年
+					                			return "15年";
+					                		}else if(full.sourceDoc === "和解筆錄"){//和解筆錄：15年
+					                			return "15年";
+					                		}else if(full.sourceDoc === "調解筆錄"){//調解筆錄：15年
+					                			return "15年";
+					                		}else if(full.sourceDoc === "債權憑證"){//債權憑證：15年
+					                			return "15年";
+					                		}else if(full.sourceDoc === "債權憑證(本裁)"){//債權憑證(本裁)：3年
+					                			return "3年";
+					                		}else{
+					                			return "";
+					                		}
+					                	}
+					                },
+					                { "data": "interestDate" , //最近執行日+下面年
+					                	"render": function ( data, type, full, meta ) {
+					                		var dt = new Date(full.newSendDate);
+					                		if(full.sourceDoc === "支付命令確定"){//支付命令確定：15年
+					                			return (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else if(full.sourceDoc === "本票裁定確定"){//本票裁定確定：3年
+					                			return (dt.getFullYear() + 3) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else if(full.sourceDoc === "民事判決確定"){//民事判決確定：15年
+					                			return (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else if(full.sourceDoc === "判決確定"){//判決確定：15年
+					                			return (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else if(full.sourceDoc === "和解筆錄"){//和解筆錄：15年
+					                			return (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else if(full.sourceDoc === "調解筆錄"){//調解筆錄：15年
+					                			return (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else if(full.sourceDoc === "債權憑證"){//債權憑證：15年
+					                			return (dt.getFullYear() + 15) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else if(full.sourceDoc === "債權憑證(本裁)"){//債權憑證(本裁)：3年
+					                			return (dt.getFullYear() + 3) + '-' + law.common.paddingLeft((dt.getMonth() +1), 2) + '-' + dt.getDate();
+					                		}else{
+					                			return "";
+					                		}
+					                	}
+					                },
 					                { "data": "remark" },
-					                { "data": "shadow" },
+					                { "data": "shadow",
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === "0"){
+					                			return "影本";
+					                		}else if(data === "1"){
+					                			return "業主交付/影本";
+					                		}else{
+					                			return "";
+					                		}
+					                	}
+					                },
 					                { "data": "borrowInfo"},
 					                { "data": "modifyUserName" },
 					                { "data": "ruledDate" },
-					                { "data": "ruledAmount" },
+					                { "data": "ruledAmount" ,
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === 0){
+					                			return "";
+					                		}else{
+					                			return data;
+					                		}
+					                	}
+					                },
 					                { "data": "applyConfirmationDate" },
 					                { "data": "receivedConfirmationDate" },
 					                { "data": "failureDate" },
 					                { "data": "thirdName" },
 					                { "data": "thirdAddress" },
-					                { "data": "distributionAmount" },
+					                { "data": "distributionAmount", 
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === 0){
+					                			return "";
+					                		}else{
+					                			return data;
+					                		}
+					                	}
+					                },
 					                { "data": "approvedDelayDate" },
 					                { "data": "delayEndDate" },
 					                { "data": "sectorDate" },
@@ -192,10 +278,42 @@
 					                { "data": "reduceSaleDate" },
 					                { "data": "destoryDate" },
 					                { "data": "realDistributionDate" },
-					                { "data" :"report"},
-					                { "data": "edit" },
-					                { "data": "pay" },
-					                { "data": "sendReport" },
+					                { "data" :"report",
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === "Y"){
+					                			return "V";
+					                		}else{
+					                			return "";
+					                		}
+					                	}
+					                },
+					                { "data": "edit", 
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === "Y"){
+					                			return "V";
+					                		}else{
+					                			return "";
+					                		}
+					                	}
+					                },
+					                { "data": "pay" ,
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === "Y"){
+					                			return "V";
+					                		}else{
+					                			return "";
+					                		}
+					                	}	
+					                },
+					                { "data": "sendReport" ,
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === "Y"){
+					                			return "V";
+					                		}else{
+					                			return "";
+					                		}
+					                	}
+					                },
 					                { "data": "toCourtDate" },
 					                { "data": "toCourtTime" },
 					                { "data": "toCourtType" },
@@ -203,14 +321,30 @@
 					                { "data": "executionDate" },
 					                { "data": "executionTime" },
 					                { "data": "cashierCheckStartDate" },
-					                { "data": "cashierCheckAmount" },
+					                { "data": "cashierCheckAmount", 
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === 0){
+					                			return "";
+					                		}else{
+					                			return data;
+					                		}
+					                	}
+					                },
 					                { "data": "cashierCheckEndDate" },
 					                { "data": "debtsCourtYearInfo" },
 					                { "data": "debtsDate" },
 					                { "data": "claimsdocQuota" },
 					                { "data": "claimsDocInterestRate" },
 					                { "data": "otherReceiptType" },
-					                { "data": "otherReceiptAmount" },
+					                { "data": "otherReceiptAmount" ,
+					                	"render": function ( data, type, full, meta ) {
+					                		if(data === 0){
+					                			return "";
+					                		}else{
+					                			return data;
+					                		}
+					                	}
+					                },
 					                { "data": "otherCourtDate" }
 					            ]
 					            };
@@ -235,7 +369,7 @@
 									docsdatatable.fnAddData(json);
 								}
 								docsdatatable.fnDraw();
-								
+								docsdatatable = $("#docSystemCaseDocsTable").dataTable();
 								// Add By Jia 2017-07-21 當選項變更時動態改變畫面
 					    		$(docsdatatable.fnGetData()).each(function(i){
 									$( "#applyBorrow_" + this.docCode ).change(function() {
@@ -263,6 +397,7 @@
 									
 									// 勾勾按下去的動作
 									$("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).on( "click", function(){
+										console.log("asdasd");
 										if($("#ckbapplyBorrow_" + docsdatatable.fnGetData(i).docCode).is(':checked')){
 											$( "#applyBorrow_" + docsdatatable.fnGetData(i).docCode)[0].selectedIndex = 4;
 
@@ -281,7 +416,7 @@
 					    		// 若登入角色具文管科權限，將欄位打開
 								if(roleIds.indexOf('8aa2e72a5de4091a015de41369710000') >= 0){
 								    var toHiddenColumnTable = $('#docSystemCaseDocsTable').DataTable();
-								    toHiddenColumnTable.column( 1 ).visible( true );
+								    toHiddenColumnTable.column( 10 ).visible( true );
 								}
 							},
 							error : function(xhr, ajaxOptions, thrownError) {
@@ -377,15 +512,8 @@
 		<table id="docSystemCaseDocsTable"  class="stripe row-border order-column" width="100%" cellspacing="0">
 		    <thead>
             <tr>
-                <th>申請借調</th>
-                <th>修改</th>
-                <th>文件狀態</th>
-                <th>進度</th>
-                <th>影像檔</th>
-                <th>業主調件日</th>
-                <th>日期</th>
+            	<th>影像檔</th>
                 <th>文件編號</th>
-                <th>相對人</th>
                 <th>文件類別</th>
                 <th>文件項目</th>
                 <th>法院</th>
@@ -393,7 +521,13 @@
                 <th>字</th>
                 <th>案號</th>
                 <th>股別</th>
-                <th>附件</th>
+                <th>申請借調</th>
+                <th>修改</th>
+                <th>文件狀態</th>
+                <th>進度</th>
+                <th>業主調件日</th>
+                <th>日期</th>
+                <th>相對人</th>
                 <th>債權人</th>
                 <th>原債權人</th>
                 <th>原始憑證</th>

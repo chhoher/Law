@@ -14,24 +14,38 @@
             </pattern>>
         </PatternLayout>
     </Console>
-    <File name="File-Appender" fileName="c:/LegalLog/Legal.log" >
+    <File name="File-Appender" fileName="c:/LegalLog/Legal.log">
         <PatternLayout>
             <pattern>
                 [%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%c{2}.%M:%L] - %m%n
             </pattern>
         </PatternLayout>
-    </File>        
+    </File>       
+    <RollingFile name="RollingFile-Appender" fileName="c:/LegalLog/Law-rollingFile.log" filePattern="c:/LegalLog/Law-rollingFile-%i.log">
+    	<PatternLayout>
+            <pattern>
+                [%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%c{2}.%M:%L] - %m%n
+            </pattern>
+        </PatternLayout>
+           <Policies>
+		   <SizeBasedTriggeringPolicy size="5 MB"/>
+	  	</Policies>
+	  	<DefaultRolloverStrategy maxFiles="20"/>
+    </RollingFile>
 </Appenders>
  
 <Loggers>
 			<logger name="com.myjs" level="DEBUG" >     
-	            <appender-ref ref="File-Appender" />
+	            <appender-ref ref="File-Appender" level="error"/>
+	            <appender-ref ref="RollingFile-Appender" />
         	</logger>
         	<logger name="org.hibernate.SQL" level="DEBUG" >     
-	            <appender-ref ref="File-Appender" />
+	            <appender-ref ref="File-Appender" level="error"/>
+	            <appender-ref ref="RollingFile-Appender" />
         	</logger>
            <Logger name="guru.springframework.blog.log4j2xml" level="error">
-               <AppenderRef ref="File-Appender" level="error"/>               
+               <AppenderRef ref="File-Appender" level="error"/>             
+	            <appender-ref ref="RollingFile-Appender" />  
            </Logger>
            
         <Root level="error">

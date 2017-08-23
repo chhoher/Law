@@ -222,6 +222,8 @@ public class FilesUploads {
 		//根據路徑名創建一個文件
 		File file = new File(path);
 
+		System.out.println(path);
+		System.out.println(!file.exists());
 		//判斷file是否存在，如果不存在，則自動創建一個
 		if(!file.exists()){
 			file.mkdirs();

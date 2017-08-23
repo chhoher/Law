@@ -35,6 +35,9 @@
 		<property name="createUserId" type="string">
 			<column name="create_user_id" length="50" not-null="true"/>
 		</property>
+		<property name="createUserName" type="string">
+			<column name="create_user_name" length="30" />
+		</property>
 		<property name="receivedDate" type="timestamp">
 			<column name="received_date" length="23" not-null="true"/>
 		</property>

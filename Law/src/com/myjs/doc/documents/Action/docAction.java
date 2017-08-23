@@ -218,13 +218,13 @@ public class docAction extends AbstractAction {
 		try{
 			log.debug("=====saveBorrowDocs start=====");
 			String saveBorrowString = super.getRequest().getParameter("saveBorrowInfo"),
-//					docCode = super.getRequest().getParameter("docCodes"),
+					saveBorrowHistoryInfo = super.getRequest().getParameter("saveBorrowHistoryInfo"),
 					caseId = super.getRequest().getParameter("caseId");
 			
-			log.debug("saveBorrowString = {}, docCode = {}, caseId = {}", saveBorrowString, caseId);
+			log.debug("saveBorrowString = {}, saveBorrowHistoryInfo = {}, caseId = {}", saveBorrowString, saveBorrowHistoryInfo, caseId);
 			
 			VEIPMemdb loginUser = getSessionLoginUser();
-			String response = docService.saveBorrowDocs(saveBorrowString, loginUser, caseId);//申調
+			String response = docService.saveBorrowDocs(saveBorrowString, saveBorrowHistoryInfo, loginUser, caseId);//申調
 			
 			log.debug("response = {}", response);
 			printToResponse(response);
@@ -239,13 +239,13 @@ public class docAction extends AbstractAction {
 	 * Add By Jia 2017-07-24
 	 * 匯出excel申調的資訊
 	 */
-	public String printBorrowDocs(){
+	public String printDocsInfo(){
 		try{
-			log.debug("printBorrowDocs start");
-			String printBorrowString = super.getRequest().getParameter("printBorrowInfo");
+			log.debug("printDocsInfo start");
+			String printDocInfo = super.getRequest().getParameter("printDocInfo");
 			
-			log.debug("printBorrowString = {}", printBorrowString);
-			String response = docService.printBorrowDocs(printBorrowString, getpath());
+			log.debug("printDocInfo = {}", printDocInfo);
+			String response = docService.printDocsInfo(printDocInfo, getpath());
 			
 			log.debug("response = {}", response);
 			printToResponse(response);

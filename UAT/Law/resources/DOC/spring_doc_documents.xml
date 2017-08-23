@@ -30,6 +30,9 @@
 		<property name="docDao">
 			<ref bean="docDao" />
 		</property>
+		<property name="docBorrowDao">
+			<ref bean="docBorrowDao" />
+		</property>
 		<property name="variableDao">
 			<ref bean="variableDao"/>
 		</property>

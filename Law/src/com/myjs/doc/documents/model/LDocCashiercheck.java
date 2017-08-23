@@ -26,6 +26,7 @@ public class LDocCashiercheck {
 	private String remark;
 	private Date createDatetime;
 	private String createUserId;
+	private String createUserName;
 	private String borrowReason;
 	private String borrowInfo;
 	
@@ -326,6 +327,14 @@ public class LDocCashiercheck {
 
 	public void setTempCount(String tempCount) {
 		this.tempCount = tempCount;
+	}
+
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
 	}
 	
 	

@@ -6,12 +6,21 @@ public class LDocCourtDocDistributionRela {
 	private String ID;
 	private String name;
 	private int courtDocId;
+	private int num;
+	private int P_ID;
 	
-	public LDocCourtDocDistributionRela(String courtDocDistributionRelaId, String iD, String name, int courtDocId) {
+	public LDocCourtDocDistributionRela(){
+		
+	}
+	
+	public LDocCourtDocDistributionRela(String courtDocDistributionRelaId, String iD, String name, int courtDocId,
+			int num, int P_ID) {
 		this.courtDocDistributionRelaId = courtDocDistributionRelaId;
 		ID = iD;
 		this.name = name;
 		this.courtDocId = courtDocId;
+		this.num = num;
+		this.P_ID = P_ID;
 	}
 
 	public String getCourtDocDistributionRelaId() {
@@ -44,6 +53,22 @@ public class LDocCourtDocDistributionRela {
 
 	public void setCourtDocId(int courtDocId) {
 		this.courtDocId = courtDocId;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public int getP_ID() {
+		return P_ID;
+	}
+
+	public void setP_ID(int p_ID) {
+		P_ID = p_ID;
 	}
 
 	

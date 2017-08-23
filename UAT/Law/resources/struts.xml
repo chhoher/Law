@@ -24,5 +24,7 @@
         <include file="CEK/struts_cek_recordcheckform.xml" /> <!-- Add By Jia 申請表單Struts -->
         <include file="CEK/struts_cek_contactPerson.xml" /> <!-- Add By Jia 窗口對應業主Struts -->
         <include file="DOC/struts_doc_documents.xml" />
+        <include file="DOC/struts_doc_borrow.xml" /><!-- Add By Jia 申調的Struts -->
+        <include file="HistoryQuery/struts_historyquery_documents.xml" />
     </struts>
     
